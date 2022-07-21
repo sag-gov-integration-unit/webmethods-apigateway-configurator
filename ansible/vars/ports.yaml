@@ -1,0 +1,7 @@
+---
+
+vars_apigw_ports_enabled: "{{ lookup('env', 'apigw_configure_ports') | default('false',true) }}"
+vars_apigw_ports_ignore_errors: "{{ lookup('env', 'apigw_configure_ports_ignore_errors') | default(vars_apigw_default_ignore_errors,true) }}"
+
+## apigateway custom port types
+vars_apigw_ports_list: []

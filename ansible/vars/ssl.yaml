@@ -1,3 +1,4 @@
+---
 
 # enable / disable the config items
 vars_apigw_sslconfigs_enabled: "{{ lookup('env', 'apigw_ssl_configure_sslconfigs') | default('false',true) }}"

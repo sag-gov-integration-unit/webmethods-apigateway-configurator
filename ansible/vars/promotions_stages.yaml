@@ -1,0 +1,14 @@
+---
+
+vars_apigw_promotions_stages_enabled: "{{ lookup('env', 'apigw_configure_promotions_stages') | default('false',true) }}"
+vars_apigw_promotions_stages_ignore_errors: "{{ lookup('env', 'apigw_configure_promotions_stages_ignore_errors') | default(vars_apigw_default_ignore_errors,true) }}"
+
+## api gateway promotion stages
+vars_apigw_promotions_stages: []
+  # - name: "{{ vars_apigw_environment_stage }}"
+  #   description: "{{ vars_apigw_environment_stage }} Stage"
+  #   url: "https://apigateway105-irsrepro.clouddemo.saggov.com"
+  #   username: "{{ webmethods_secrets_promotionsmgt_user }}"
+  #   password: "{{ webmethods_secrets_promotionsmgt_password }}"
+  #   keystoreAlias: "{{ webmethods_apigateway_keystore_name }}"
+  #   keyAlias: "{{ webmethods_apigateway_keystore_keyalias }}"

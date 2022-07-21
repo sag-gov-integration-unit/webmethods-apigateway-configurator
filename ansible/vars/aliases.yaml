@@ -1,0 +1,12 @@
+---
+
+vars_apigw_aliases_enabled: "{{ lookup('env', 'apigw_configure_aliases') | default('false',true) }}"
+vars_apigw_aliases_ignore_errors: "{{ lookup('env', 'apigw_configure_aliases_ignore_errors') | default(vars_apigw_default_ignore_errors,true) }}"
+
+vars_apigw_aliases_simple:
+  - name: "{{ lookup('env', 'env_apigateway_api_alias_1_name') | default('',true) }}"
+    description: "{{ lookup('env', 'env_apigateway_api_alias_1_description') | default('simple',true) }}"
+    type: "{{ lookup('env', 'env_apigateway_api_alias_1_type') | default('simple',true) }}"
+    owner: Administrator
+    value: "{{ lookup('env', 'env_apigateway_api_alias_1_value') | default('',true) }}"
+    stage: "{{ lookup('env', 'env_apigateway_api_alias_1_stage') | default('',true) }}"

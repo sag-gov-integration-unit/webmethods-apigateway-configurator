@@ -1,0 +1,17 @@
+---
+
+vars_apigw_packages_publish_groups_enabled: "{{ lookup('env', 'apigw_configure_packages_publish_groups') | default('false',true) }}"
+vars_apigw_packages_publish_groups_ignore_errors: "{{ lookup('env', 'apigw_configure_packages_publish_groups_ignore_errors') | default(vars_apigw_default_ignore_errors,true) }}"
+
+# Packages to publish
+# each list item will publish a list of Packages to a list of communities using the same portalGatewayId
+vars_apigw_packages_publish_groups:
+  - lookup_portalGatewayId:
+      name: "{{ lookup('env', 'env_apigateway_publish_portal_config_name') | default('',true) }}"
+      version: "{{ lookup('env', 'env_apigateway_publish_portal_config_version') | default('',true) }}"
+      stageName: "{{ lookup('env', 'env_apigateway_publish_portal_config_stage') | default('',true) }}"
+    lookup_communityIds:
+      - name: "{{ lookup('env', 'env_apigateway_publish_portal_community_1_name') | default('',true) }}"
+    lookup_packageIds:
+      - name: "{{ lookup('env', 'env_apigateway_publish_package_1_name') | default('',true) }}"
+        version: "{{ lookup('env', 'env_apigateway_publish_package_1_version') | default('',true) }}"

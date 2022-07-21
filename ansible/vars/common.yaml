@@ -1,8 +1,6 @@
 ---
 
 ## Global vars
-webmethods_version: "10.11"
-webmethods_version_nodot: "{{ webmethods_version |replace('.','') }}"
 vars_apigw_default_ignore_errors: "{{ lookup('env', 'apigw_configure_default_ignore_errors') | default('false',true) }}"
 
 ##################### webmethods specifics
@@ -30,18 +28,3 @@ vars_validation_ports:
 vars_validation_ports_timeout: 900
 
 disable_no_log: true
-
-##################### aws specifics
-aws_cli_exe: "/usr/local/bin/aws"
-
-##################### the defaults S3 values to use if the file descriptor dictionary does not contain an optional variable
-getfroms3_defaults_bucket_name: "softwareaggov-product-artifacts"
-getfroms3_defaults_bucket_prefix: ""
-getfroms3_defaults_local_path_owner_user:
-getfroms3_defaults_local_path_owner_group:
-getfroms3_defaults_local_path_permission: "0644"
-getfroms3_defaults_local_path_create_dir_ifnotexist: true
-getfroms3_defaults_local_path_create_dir_owner_user:
-getfroms3_defaults_local_path_create_dir_owner_group:
-getfroms3_defaults_local_path_create_dir_permission: "0755"
-getfroms3_defaults_force_download: false

@@ -1,0 +1,38 @@
+---
+
+vars_apigw_portalgateway_enabled: "{{ lookup('env', 'apigw_configure_portalgateway') | default('false',true) }}"
+vars_apigw_portalgateway_ignore_errors: "{{ lookup('env', 'apigw_configure_portalgateway_ignore_errors') | default(vars_apigw_default_ignore_errors,true) }}"
+
+## apiportal / devportal registration
+## portal type should be: apiportal or devportal
+vars_apigw_portalgateway_portaltype: "{{ lookup('env', 'apigw_portalgateway_portaltype') | default('',true) }}"
+vars_apigw_portalgateway_apiportal:
+  gatewayName: "{{ lookup('env', 'apigw_portalgateway_name') | default('API_Portal_Gateway',true) }}"
+  gatewayDescription: "{{ lookup('env', 'apigw_portalgateway_description') | default('API_Portal_Gateway',true) }}"
+  gatewayUsername: "{{ lookup('env', 'apigw_portalgateway_gateway_username') | default('',true) }}"
+  gatewayPassword: "{{ lookup('env', 'apigw_portalgateway_gateway_password') | default('',true) }}"
+  gatewayURL: "{{ lookup('env', 'apigw_portalgateway_gateway_url') | default('',true) }}"
+  version: "{{ lookup('env', 'apigw_portalgateway_version') | default('1.0',true) }}"
+  stageName: "{{ lookup('env', 'apigw_portalgateway_stagename') | default('',true) }}"
+  published: true
+  externalPortal:
+    endpointTenant: "{{ lookup('env', 'apigw_portalgateway_apiportal_tenant') | default('default',true) }}"
+    endpointURL: "{{ lookup('env', 'apigw_portalgateway_apiportal_url') | default('',true) }}"
+    endpointUsername: "{{ lookup('env', 'apigw_portalgateway_apiportal_username') | default('',true) }}"
+    endpointPassword: "{{ lookup('env', 'apigw_portalgateway_apiportal_password') | default('',true) }}"
+    type: "apiportal"
+vars_apigw_portalgateway_devportal:
+  gatewayName: "{{ lookup('env', 'apigw_portalgateway_name') | default('API_Portal_Gateway',true) }}"
+  gatewayDescription: "{{ lookup('env', 'apigw_portalgateway_description') | default('API_Portal_Gateway',true) }}"
+  gatewayUsername: "{{ lookup('env', 'apigw_portalgateway_gateway_username') | default('',true) }}"
+  gatewayPassword: "{{ lookup('env', 'apigw_portalgateway_gateway_password') | default('',true) }}"
+  gatewayURL: "{{ lookup('env', 'apigw_portalgateway_gateway_url') | default('',true) }}"
+  version: "{{ lookup('env', 'apigw_portalgateway_version') | default('1.0',true) }}"
+  stageName: "{{ lookup('env', 'apigw_portalgateway_stagename') | default('',true) }}"
+  published: true
+  externalPortal:
+    endpointTenant: "{{ lookup('env', 'apigw_portalgateway_devportal_tenant') | default('default',true) }}"
+    endpointURL: "{{ lookup('env', 'apigw_portalgateway_devportal_url') | default('',true) }}"
+    endpointUsername: "{{ lookup('env', 'apigw_portalgateway_devportal_username') | default('',true) }}"
+    endpointPassword: "{{ lookup('env', 'apigw_portalgateway_devportal_password') | default('',true) }}"
+    type: "apiportal"

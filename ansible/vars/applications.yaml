@@ -1,0 +1,113 @@
+---
+
+vars_apigw_applications_enabled: "{{ lookup('env', 'apigw_configure_applications') | default('false',true) }}"
+vars_apigw_applications_ignore_errors: "{{ lookup('env', 'apigw_configure_applications_ignore_errors') | default(vars_apigw_default_ignore_errors,true) }}"
+
+# applications to add or update
+# the following attributes with "names/version" will be transformed to corresponding attributes of internal ids:
+# - custom_registerAPIsByFilter --> triggers the registration apis call
+vars_apigw_applications:
+  - name: Load-runner Internal Client Application
+    description: The load runner app that perform api calls every few seconds to showcase the api statistics
+    version: "1.0"
+    custom_registerAPIsByFilter:
+      - name: "bookstore"
+        version: "1.0"
+      - name: "uszip"
+        version: "1.0"
+      - name: "covid"
+        version: "1.0"
+    contactEmails: []
+    siteURLs: []
+    identifiers:
+      - value:
+          - "{{ vars_apigw_usermgt_users_loadrunner_username }}"
+        name: Username
+        key: httpBasicAuth
+    consumingAPIs: []
+    isSuspended: false
+    jsOrigins: []
+    authStrategyIds: []
+    restrictViewAsset: false
+    teams: []
+  - name: Sample Bookstore Application
+    description: Sample application needing access to the Bookstore APIs
+    version: "1.0"
+    custom_registerAPIsByFilter:
+      - name: "bookstore"
+        version: "1.0"
+    contactEmails: []
+    siteURLs: []
+    identifiers:
+      - value:
+          - "{{ vars_apigw_usermgt_users_sample1_username }}"
+        name: Username
+        key: httpBasicAuth
+      - value:
+          - "{{ vars_apigw_usermgt_users_sample2_username }}"
+        name: Username
+        key: httpBasicAuth
+      - value:
+          - "{{ vars_apigw_usermgt_users_sample3_username }}"
+        name: Username
+        key: httpBasicAuth
+    consumingAPIs: []
+    isSuspended: false
+    jsOrigins: []
+    authStrategyIds: []
+    restrictViewAsset: false
+    teams: []
+  - name: Sample UsZip Application
+    description: Sample application needing access to the UsZip APIs
+    version: "1.0"
+    custom_registerAPIsByFilter:
+      - name: "uszip"
+        version: "1.0"
+    contactEmails: []
+    siteURLs: []
+    identifiers:
+      - value:
+          - "{{ vars_apigw_usermgt_users_sample1_username }}"
+        name: Username
+        key: httpBasicAuth
+      - value:
+          - "{{ vars_apigw_usermgt_users_sample2_username }}"
+        name: Username
+        key: httpBasicAuth
+      - value:
+          - "{{ vars_apigw_usermgt_users_sample3_username }}"
+        name: Username
+        key: httpBasicAuth
+    consumingAPIs: []
+    isSuspended: false
+    jsOrigins: []
+    authStrategyIds: []
+    restrictViewAsset: false
+    teams: []
+  - name: Sample Covid Report Application
+    description: Sample Covid Report application needing access to the Covid Report APIs
+    version: "1.0"
+    custom_registerAPIsByFilter:
+      - name: "covid"
+        version: "1.0"
+    contactEmails: []
+    siteURLs: []
+    identifiers:
+      - value:
+          - "{{ vars_apigw_usermgt_users_sample1_username }}"
+        name: Username
+        key: httpBasicAuth
+      - value:
+          - "{{ vars_apigw_usermgt_users_sample2_username }}"
+        name: Username
+        key: httpBasicAuth
+      - value:
+          - "{{ vars_apigw_usermgt_users_sample3_username }}"
+        name: Username
+        key: httpBasicAuth
+    consumingAPIs: []
+    isSuspended: false
+    jsOrigins: []
+    authStrategyIds: []
+    restrictViewAsset: false
+    teams: []

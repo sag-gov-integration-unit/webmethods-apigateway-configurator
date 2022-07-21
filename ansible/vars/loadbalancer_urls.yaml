@@ -1,0 +1,22 @@
+---
+
+vars_apigw_loadbalancer_enabled: "{{ lookup('env', 'apigw_configure_lb') | default('false',true) }}"
+vars_apigw_loadbalancer_ignore_errors: "{{ lookup('env', 'apigw_configure_lb_ignore_errors') | default(vars_apigw_default_ignore_errors,true) }}"
+
+## load balancers
+vars_apigw_loadbalancers_http_urls:
+  - "{{ lookup('env', 'apigw_lb_http_url') | default('',true) }}"
+  - "{{ lookup('env', 'apigw_lb_http_url_alt1') | default('',true) }}"
+  - "{{ lookup('env', 'apigw_lb_http_url_alt2') | default('',true) }}"
+  - "{{ lookup('env', 'apigw_lb_http_url_alt3') | default('',true) }}"
+vars_apigw_loadbalancers_https_urls:
+  - "{{ lookup('env', 'apigw_lb_https_url') | default('',true) }}"
+  - "{{ lookup('env', 'apigw_lb_https_url_alt1') | default('',true) }}"
+  - "{{ lookup('env', 'apigw_lb_https_url_alt2') | default('',true) }}"
+  - "{{ lookup('env', 'apigw_lb_https_url_alt3') | default('',true) }}"
+vars_apigw_loadbalancers_websocket_urls:
+  - "{{ lookup('env', 'apigw_lb_websocket_url') | default('',true) }}"
+  - "{{ lookup('env', 'apigw_lb_websocket_url_alt1') | default('',true) }}"
+  - "{{ lookup('env', 'apigw_lb_websocket_url_alt2') | default('',true) }}"
+  - "{{ lookup('env', 'apigw_lb_websocket_url_alt3') | default('',true) }}"
+vars_apigw_loadbalancers_webapp_url: "{{ lookup('env', 'apigw_lb_webapp_url') | default('',true) }}"
