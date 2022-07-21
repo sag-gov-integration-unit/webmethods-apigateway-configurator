@@ -16,29 +16,29 @@ services:
   config_changepassword:
     image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
     environment: 
-      env_apigateway_host: apigateway
-      env_apigateway_port: "5555"
-      env_apigateway_rest_user: Administrator
-      env_apigateway_rest_password: "somethingnew"
-      env_apigateway_rest_password_old: "manage"
+      apigw_host: apigateway
+      apigw_port: "5555"
+      apigw_rest_user: Administrator
+      apigw_rest_password: "somethingnew"
+      apigw_rest_password_old: "manage"
     networks:
       - stack
 
   apigateway_configurator:
     image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
     environment: 
-      env_apigateway_host: apigateway
-      env_apigateway_port: "5555"
-      env_apigateway_rest_user: Administrator
-      env_apigateway_rest_password: "somethingnew"
-      env_apigateway_rest_password_old: "manage"
-      env_apigateway_configure_lb: "true"
-      env_apigateway_lb_http_url: "http://externallb1:80"
-      env_apigateway_lb_https_url: "https://externallb1:443"
-      env_apigateway_lb_websocket_url: "ws://externallb1"
-      env_apigateway_lb_http_url_alt1: "http://externallb2"
-      env_apigateway_lb_https_url_alt1: "https://externallb2"
-      env_apigateway_lb_websocket_url_alt1: "ws://externallb2"
-      env_apigateway_lb_webapp_url: "http://externallb"
+      apigw_host: apigateway
+      apigw_port: "5555"
+      apigw_rest_user: Administrator
+      apigw_rest_password: "somethingnew"
+      apigw_rest_password_old: "manage"
+      apigw_configure_lb: "true"
+      apigw_lb_http_url: "http://externallb1:80"
+      apigw_lb_https_url: "https://externallb1:443"
+      apigw_lb_websocket_url: "ws://externallb1"
+      apigw_lb_http_url_alt1: "http://externallb2"
+      apigw_lb_https_url_alt1: "https://externallb2"
+      apigw_lb_websocket_url_alt1: "ws://externallb2"
+      apigw_lb_webapp_url: "http://externallb"
     networks:
       - stack
