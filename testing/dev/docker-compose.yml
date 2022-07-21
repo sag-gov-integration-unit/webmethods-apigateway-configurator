@@ -1,0 +1,87 @@
+version: "3.2"
+
+networks:
+  stack:
+
+services:
+
+  apigateway:
+    image: ${REG_APIGATEWAY}${IMAGE_APIGATEWAY}:${TAG_APIGATEWAY}
+    ports:
+      - "5555:5555"
+      - "9072:9072"
+    networks:
+      - stack
+
+  apigateway_configurator_dev:
+    image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
+    command: ["-v", "apply_configs.yaml"]
+    # command: ["apply_configs.yaml","--tags","port_check,change_password,configs_plans"]
+    # command: ["-v", "apply_configs.yaml","--tags","port_check,change_password"]
+    volumes:
+      - ${PWD}/resources/ansible/sagdevops-ansible-common-utils:/ansible/roles/sagdevops-ansible-common-1.0.0-3:ro
+      - ${PWD}/resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.0-4:ro  
+    environment: 
+      env_apigateway_host: apigateway
+      env_apigateway_port: "5555"
+      env_apigateway_rest_user: Administrator
+      env_apigateway_rest_password: "somethingnew"
+      env_apigateway_rest_password_old: "manage"
+      env_apigateway_configure_default_ignore_errors: "false"
+      env_apigateway_configure_lb_ignore_errors: "false"
+      env_apigateway_configure_extended_settings_ignore_errors: "false"
+      env_apigateway_configure_packages_ignore_errors: "false"
+      env_apigateway_configure_applications: "false"
+      env_apigateway_configure_plans: "false"
+      env_apigateway_configure_packages: "false"
+      env_apigateway_configure_lb: "false"
+      env_apigateway_configure_extended_settings: "false"
+      env_apigateway_configure_portalgateway: "false"
+      env_apigateway_configure_usermgt: "false"
+      env_apigateway_configure_archives: "false"
+      env_apigateway_configure_aliases: "false"
+      env_apigateway_configure_promotions_stages: "false"
+      env_apigateway_configure_apis_publish_groups: "false"
+      env_apigateway_configure_packages_publish_groups: "false"
+      env_apigateway_lb_http_url: "http://localhost"
+      env_apigateway_lb_https_url: "https://localhost"
+      env_apigateway_lb_websocket_url: "ws://localhost"
+      env_apigateway_lb_http_url_alt1: "http://external_access"
+      env_apigateway_lb_https_url_alt1: "https://external_access"
+      env_apigateway_lb_websocket_url_alt1: "ws://external_access"
+      env_apigateway_lb_webapp_url: "http://external_access"
+      env_apigateway_portalgateway_gateway_url: "http://apigateway:5555"
+      env_apigateway_portalgateway_gateway_username: "Administrator"
+      env_apigateway_portalgateway_gateway_password: "somethingnew"
+      env_apigateway_portalgateway_portaltype: devportal
+      env_apigateway_portalgateway_apiportal_tenant: default
+      env_apigateway_portalgateway_apiportal_url: http://apiportal:18101
+      env_apigateway_portalgateway_apiportal_username: system
+      env_apigateway_portalgateway_apiportal_password: manager
+      env_apigateway_portalgateway_devportal_tenant: default
+      env_apigateway_portalgateway_devportal_url: "http://apiportal:18101/portal"
+      env_apigateway_portalgateway_devportal_username: "Administrator"
+      env_apigateway_portalgateway_devportal_password: "manage"
+      env_apigateway_aliases_covid_endpoint: http://webmethods-sample-apis-covidreports:7071
+      env_apigateway_aliases_bookstore_endpoint: http://webmethods-sample-apis-bookstore:7071
+      env_apigateway_aliases_uszip_endpoint: http://webmethods-sample-apis-uszip:7071
+      env_apigateway_aliases_sagtours_endpoint: http://webmethods-sample-apis-sagtours:5555
+      env_apigateway_ssl_configure_sslconfigs: "true"
+      env_apigateway_ssl_keystore_filepath: /opt/softwareag/SAGKeystore.jks
+      env_apigateway_ssl_keystore_name: "SSLSAGKeystore"
+      env_apigateway_ssl_keystore_description: "My custom keystore for SSL"
+      env_apigateway_ssl_keystore_password: "manage"
+      env_apigateway_ssl_keystore_keyalias: "1"
+      env_apigateway_ssl_keystore_keyalias_password: "manage"
+      env_apigateway_ssl_truststore_filepath: /opt/softwareag/SAGTruststore.jks
+      env_apigateway_ssl_truststore_description: "My custom truststore"
+      env_apigateway_ssl_truststore_password: "manage"
+      env_apigateway_saml_configure_samlconfigs: "true"
+      env_apigateway_saml_keystore_filepath: /opt/softwareag/SAGKeystore.jks
+      env_apigateway_saml_keystore_name: "SAMLSAGKeystore"
+      env_apigateway_saml_keystore_description: "My custom keystore for SAML"
+      env_apigateway_saml_keystore_password: "manage"
+      env_apigateway_saml_keystore_keyalias: "1"
+      env_apigateway_saml_keystore_keyalias_password: "manage"
+    networks:
+      - stack

@@ -1,0 +1,43 @@
+---
+
+################################################################
+## set configs via REST APIs
+################################################################
+
+- name: Reset passwords tasks
+  hosts: local
+  become: true
+  become_user: "{{ webmethods_user }}"
+  run_once: true
+  vars:
+    apigateway_rest_protocol: "{{ vars_apigateway_rest_protocol }}"
+    apigateway_rest_host: "{{ vars_apigateway_rest_host }}"
+    apigateway_rest_port: "{{ vars_apigateway_rest_port }}"
+    apigateway_rest_no_check_certs: "{{ vars_apigateway_rest_no_check_certs }}"
+
+  tasks:
+
+    - name: Self Reset Apigateway REST API User password
+      include_role:
+        name: apigateway-rest-configurator
+        apply:
+          ignore_errors: yes
+      vars:
+        configs_action: update-user-password
+        configs_enabled: "true"
+        apigateway_rest_login_username: "{{ vars_apigateway_rest_login_username }}"
+        apigateway_rest_login_password: "{{ vars_apigateway_rest_login_password_old }}"
+        apigateway_update_user_username: "{{ vars_apigateway_rest_login_username }}"
+        apigateway_update_user_password: "{{ vars_apigateway_rest_login_password }}"
+      
+    ## this is to make sure we regather the facts and vars etc
+    ## So the roles can get the right new user/pass values
+    - setup:
+      tags: always
+
+    ## re-set the user/password for all the REST calls following this
+    - name: Set the REST user/password vars with the new password
+      set_fact:
+        apigateway_rest_login_username: "{{ vars_apigateway_rest_login_username }}"
+        apigateway_rest_login_password: "{{ vars_apigateway_rest_login_password }}"
+      tags: always

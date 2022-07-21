@@ -1,0 +1,39 @@
+version: "3.2"
+
+networks:
+  stack:
+
+services:
+
+  apigateway:
+    image: ${REG_APIGATEWAY}${IMAGE_APIGATEWAY}:${TAG_APIGATEWAY}
+    ports:
+      - "5555:5555"
+      - "9072:9072"
+    networks:
+      - stack
+
+  apigateway_configurator:
+    image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
+    environment: 
+      env_apigateway_host: apigateway
+      env_apigateway_port: "5555"
+      env_apigateway_rest_user: Administrator
+      env_apigateway_rest_password: "somethingnew"
+      env_apigateway_rest_password_old: "manage"
+      env_apigateway_configure_lb: "true"
+      env_apigateway_configure_extended_settings: "true"
+      env_apigateway_configure_portalgateway: "true"
+      env_apigateway_configure_usermgt: "true"
+      env_apigateway_configure_archives: "true"
+      env_apigateway_configure_aliases: "true"
+      env_apigateway_configure_promotions_stages: "true"
+      env_apigateway_lb_http_url: "http://localhost"
+      env_apigateway_lb_https_url: "https://localhost"
+      env_apigateway_lb_websocket_url: "ws://localhost"
+      env_apigateway_lb_http_url_alt1: "http://external_access"
+      env_apigateway_lb_https_url_alt1: "https://external_access"
+      env_apigateway_lb_websocket_url_alt1: "ws://external_access"
+      env_apigateway_lb_webapp_url: "http://external_access"
+    networks:
+      - stack

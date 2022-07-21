@@ -1,0 +1,46 @@
+---
+
+################################################################
+## Load the needed vars
+################################################################
+
+- name: Load vars
+  hosts: local
+  tasks:
+    - name: Include all vars files
+      include_vars:
+        file: "{{ item }}"
+      with_fileglob:
+        - vars/common.yaml
+        - vars/configs.yaml
+        - vars/sslconfigs.yaml
+        - vars/samlconfigs.yaml
+
+################################################################
+## waiting for service running via port checking
+################################################################
+
+- name: Check the ports to ensure valid state
+  hosts: local
+  become: true
+  tasks:
+    - include_role:
+        name: check-remote-ports
+      vars:
+        rvar_validation_host: "{{ vars_validation_host }}"
+        rvar_validation_ports: "{{ vars_validation_ports }}"
+        rvar_validation_ports_timeout: "{{ vars_validation_ports_timeout }}"
+        rvar_async_timeout: "{{ common_async_timeout }}"
+        rvar_async_poll: "{{ common_async_poll }}"
+        rvar_async_retries: "{{ common_async_retries }}"
+        rvar_async_delay: "{{ common_async_delay }}"
+
+- import_playbook: apply_resetpwd.yaml
+
+- import_playbook: apply_systemconfigs.yaml
+
+- import_playbook: apply_sslconfigs.yaml
+
+- import_playbook: apply_samlconfigs.yaml
+
+- import_playbook: apply_sampledata.yaml

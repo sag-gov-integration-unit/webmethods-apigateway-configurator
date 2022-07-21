@@ -1,0 +1,109 @@
+
+# enable / disable the config items
+vars_webmethods_apigateway_sslconfigs_enabled: "{{ lookup('env', 'env_apigateway_ssl_configure_sslconfigs') | default('false',true) }}"
+
+# ignore errors or not for each of the config items (defaults to vars_webmethods_apigateway_default_ignore_errors)
+vars_webmethods_apigateway_sslconfigs_ignore_errors: "{{ lookup('env', 'env_apigateway_ssl_configure_sslconfigs_ignore_errors') | default(vars_webmethods_apigateway_default_ignore_errors,true) }}"
+
+## apigateway keystore / truststore details
+vars_ssl_keystore_filepath: "{{ lookup('env', 'env_apigateway_ssl_keystore_filepath') | default('',true) }}"
+vars_ssl_keystore_filename: "{{ vars_ssl_keystore_filepath | basename }}"
+vars_ssl_keystore_name: "{{ lookup('env', 'env_apigateway_ssl_keystore_name') | default((vars_ssl_keystore_filename | splitext)[0],true) }}"
+vars_ssl_keystore_keyalias_name: "{{ lookup('env', 'env_apigateway_ssl_keystore_keyalias') | default('',true) }}"
+
+vars_ssl_truststore_filepath: "{{ lookup('env', 'env_apigateway_ssl_truststore_filepath') | default('',true) }}"
+vars_ssl_truststore_filename: "{{ vars_ssl_truststore_filepath | basename }}"
+vars_ssl_truststore_name: "{{ lookup('env', 'env_apigateway_ssl_truststore_name') | default((vars_ssl_truststore_filename | splitext)[0],true) }}"
+
+vars_ssl_keystore:
+  filepath: "{{ vars_ssl_keystore_filepath }}"
+  filename: "{{ vars_ssl_keystore_filename }}"
+  name: "{{ vars_ssl_keystore_name }}"
+  type: "{{ lookup('env', 'env_apigateway_ssl_keystore_type') | default('JKS',true) }}"
+  provider: "{{ lookup('env', 'env_apigateway_ssl_keystore_provider') | default('SUN',true) }}"
+  description: "{{ lookup('env', 'env_apigateway_ssl_keystore_description') | default('APIGateway keystore',true) }}"
+  password: "{{ lookup('env', 'env_apigateway_ssl_keystore_password') | default('',true) }}"
+  keyalias:  "{{ vars_ssl_keystore_keyalias_name }}"
+  keyalias_password: "{{ lookup('env', 'env_apigateway_ssl_keystore_keyalias_password') | default('',true) }}"
+
+vars_ssl_truststore:
+  filepath: "{{ vars_ssl_truststore_filepath }}"
+  filename: "{{ vars_ssl_truststore_filename }}"
+  name: "{{ vars_ssl_truststore_name }}"
+  type: "{{ lookup('env', 'env_apigateway_ssl_truststore_type') | default('JKS',true) }}"
+  provider: "{{ lookup('env', 'env_apigateway_ssl_truststore_provider') | default('SUN',true) }}"
+  description: "{{ lookup('env', 'env_apigateway_ssl_truststore_description') | default('APIGateway truststore',true) }}"
+  password: "{{ lookup('env', 'env_apigateway_ssl_truststore_password') | default('',true) }}"
+
+##### the vars for the rest calls
+
+## apigateway truststore details
+vars_rest_webmethods_apigateway_ssl_truststore:
+  keyStoreName: "{{ vars_ssl_truststore.name }}"
+  keyStoreType: "{{ vars_ssl_truststore.type }}"
+  keyStoreProvider: "{{ vars_ssl_truststore.provider }}"
+  keyStorePassword: "{{ vars_ssl_truststore.password | b64encode }}"
+  uploadFileName: "{{ vars_ssl_truststore.filename }}"
+  keyStoreDescription: "{{ vars_ssl_truststore.description }}"
+  fileContent: "@{{ vars_ssl_truststore.filepath }}"
+  isPwdBase64Encoded: "true"
+
+## apigateway keystore details
+## pkAliasesList: Comma separated list of alias names in the uploaded keystore file.
+## pkPasswordsList: Comma separated list of passwords in the same order as the aliases specified in pkAliasesList. If a particular key alias does not have a password, it is denoted by space.
+## nullPKpasswds: Comma separated list of boolean values (true/false) indicating whether the particular alias has a password or not in the same order as the aliases specified in pkAliasesList. For each key alias, true indicates that the key alias does not have a password and false indicates that it does have a password.
+vars_rest_webmethods_apigateway_ssl_keystore:
+  keyStoreName: "{{ vars_ssl_keystore.name }}"
+  keyStoreType: "{{ vars_ssl_keystore.type }}"
+  keyStoreProvider: "{{ vars_ssl_keystore.provider }}"
+  keyStorePassword: "{{ vars_ssl_keystore.password | b64encode }}"
+  uploadFileName: "{{ vars_ssl_keystore.filename }}"
+  keyStoreDescription: "{{ vars_ssl_keystore.description }}"
+  fileContent: "@{{ vars_ssl_keystore.filepath }}"
+  isPwdBase64Encoded: "true"
+
+# this is for the aliases inside the keystore
+vars_rest_webmethods_apigateway_ssl_keystore_keyalias_list:
+  - keyStoreName: "{{ vars_ssl_keystore.name }}"
+    nullPKpasswds: "false"
+    isPwdBase64Encoded: "false"
+    bitarray: "1"
+    pkAliasesList: "{{ vars_ssl_keystore.keyalias }}"
+    pkPasswordsList: "{{ vars_ssl_keystore.keyalias_password }}"
+
+## apigateway keystore/truststore setup for inbound and outbound messages
+vars_rest_webmethods_apigateway_ssl_keytruststore_configuration:
+  keystoreName: "{{ vars_ssl_keystore.name }}"
+  signingAlias: "{{ vars_ssl_keystore.keyalias }}"
+  truststoreName: "{{ vars_ssl_truststore.name }}"
+  outboundKeystoreName: "{{ vars_ssl_keystore.name }}"
+  outboundKeyAlias: "{{ vars_ssl_keystore.keyalias }}"
+  outboundTruststoreName: "{{ vars_ssl_truststore.name }}"
+
+## apigateway ssl ports
+vars_rest_webmethods_apigateway_ssl_ports_list:
+  - port_type: regular_https
+    port_detail:
+      portAlias: SAGSecurePort
+      portDescription: HTTPS port
+      port: '5543'
+      enable: 'yes'
+      threadPool: 'false'
+      minThread: 5
+      maxThread: 20
+      threadPriority: 5
+      maxQueue: 200
+      keepAliveTimeout: 20000
+      clientAuth: none
+      keyStore: "{{ vars_ssl_keystore_name }}"
+      alias: "{{ vars_ssl_keystore_keyalias_name }}"
+      trustStore: "{{ vars_ssl_truststore_name }}"
+    access_mode:
+      accessMode: allow
+      pkg: WmRoot
+      port: ""
+      services: []
+    ip_access_mode:
+      ipAccessType: allow
+      pkg: WmRoot
+      hostsList: []
