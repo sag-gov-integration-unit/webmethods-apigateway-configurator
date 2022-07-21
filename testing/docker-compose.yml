@@ -20,7 +20,8 @@ services:
       apigw_port: "5555"
       apigw_rest_user: Administrator
       apigw_rest_password: "somethingnew"
-      apigw_rest_password_old: "manage"
+      apigw_changepassword_enabled: "true"
+      apigw_changepassword_old: "manage"
     networks:
       - stack
 
