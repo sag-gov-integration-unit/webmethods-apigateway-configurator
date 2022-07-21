@@ -13,18 +13,15 @@
       with_fileglob:
         - vars/common.yaml
         - vars/connection.yaml
-        - vars/resetpwd.yaml
-        - vars/configs.yaml
-        - vars/sslconfigs.yaml
-        - vars/samlconfigs.yaml
 
 ################################################################
 ## waiting for service running via port checking
 ################################################################
 
-- name: Check the ports to ensure valid state
+- name: Check the target ports to ensure valid state
   hosts: local
   become: true
+  become_user: "{{ webmethods_user }}"
   tasks:
     - include_role:
         name: check-remote-ports
@@ -36,13 +33,3 @@
         rvar_async_poll: "{{ common_async_poll }}"
         rvar_async_retries: "{{ common_async_retries }}"
         rvar_async_delay: "{{ common_async_delay }}"
-
-- import_playbook: apply_resetpwd.yaml
-
-- import_playbook: apply_systemconfigs.yaml
-
-- import_playbook: apply_sslconfigs.yaml
-
-- import_playbook: apply_samlconfigs.yaml
-
-- import_playbook: apply_sampledata.yaml
