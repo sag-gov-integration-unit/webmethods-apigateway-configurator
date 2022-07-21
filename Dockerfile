@@ -29,7 +29,7 @@ ENV ANSIBLE_HOST_KEY_CHECKING="False"
 
 # Install Ansible
 RUN set -x \
-    && dnf -y install python39 \
+    && dnf -y install python39 acl \
     && python3 --version \
     && python3 -m venv ${ANSIBLE_VENV} \
     && source ${ANSIBLE_VENV}/bin/activate \
