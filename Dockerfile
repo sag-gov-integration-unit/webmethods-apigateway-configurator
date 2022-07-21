@@ -81,8 +81,6 @@ RUN set -x \
 
 WORKDIR ${ANSIBLE_PLAYBOOKS_BASEPATH}
 
-ENTRYPOINT ["ansible-playbook"]
-
 # 2. Add the needed ansible roles
 ######################################################################################################
 
@@ -133,7 +131,12 @@ LABEL org.opencontainers.image.authors="fabien.sanglier@softwareaggov.com" \
       org.opencontainers.image.version="10.11"
 
 # add the ansible scripts
-COPY ./ansible/ /ansible/playbooks/
+COPY ./ansible/ ./
 
-# the default command args to pass to the entrypoint
-CMD ["apply.yaml"]
+# add entrypoint and related files
+COPY scripts/entrypoint.sh ./
+COPY scripts/common.sh ./
+
+RUN chmod a+x ./entrypoint.sh
+
+ENTRYPOINT ./entrypoint.sh
