@@ -1,5 +1,5 @@
 ---
 
-vars_apigateway_changepassword_enabled: "{{ lookup('env', 'apigw_changepassword_enabled') | default('false',true) }}"
-vars_apigateway_changepassword_ignore_errors: "{{ lookup('env', 'apigw_changepassword_ignore_errors') | default(vars_apigw_default_ignore_errors,true) }}"
+vars_apigw_changepassword_enabled: "{{ lookup('env', 'apigw_changepassword_enabled') | default('false',true) }}"
+vars_apigw_changepassword_ignore_errors: "{{ lookup('env', 'apigw_changepassword_ignore_errors') | default(vars_apigw_default_ignore_errors,true) }}"
 vars_apigw_rest_login_password_old: "{{ lookup('env', 'apigw_changepassword_old') }}"

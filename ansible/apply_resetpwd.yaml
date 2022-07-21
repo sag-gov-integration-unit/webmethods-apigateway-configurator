@@ -42,4 +42,4 @@
             apigateway_rest_login_password: "{{ vars_apigw_rest_login_password }}"
           tags: always
 
-      when: vars_apigateway_changepassword_enabled
+      when: vars_apigw_changepassword_enabled

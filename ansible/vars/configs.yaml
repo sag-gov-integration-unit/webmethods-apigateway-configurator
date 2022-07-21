@@ -78,7 +78,7 @@ vars_apigw_apis_publish_groups_ignore_errors: "{{ lookup('env', 'apigw_configure
 vars_apigw_packages_publish_groups_ignore_errors: "{{ lookup('env', 'apigw_configure_packages_publish_groups_ignore_errors') | default(vars_apigw_default_ignore_errors,true) }}"
 
 # the env stage (ie. dev, test, staging, prod)
-vars_apigateway_environment_stage: "{{ lookup('env', 'apigw_stage') | default('dev',true) }}"
+vars_apigw_environment_stage: "{{ lookup('env', 'apigw_stage') | default('dev',true) }}"
 
 ## api packages to import into gateway
 vars_apigw_archive_imports_from_s3:
