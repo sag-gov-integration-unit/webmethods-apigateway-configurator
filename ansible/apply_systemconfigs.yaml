@@ -10,116 +10,116 @@
   become_user: "{{ webmethods_user }}"
   run_once: true
   vars:
-    apigateway_rest_protocol: "{{ vars_apigateway_rest_protocol }}"
-    apigateway_rest_host: "{{ vars_apigateway_rest_host }}"
-    apigateway_rest_port: "{{ vars_apigateway_rest_port }}"
-    apigateway_rest_no_check_certs: "{{ vars_apigateway_rest_no_check_certs }}"
-    apigateway_rest_login_username: "{{ vars_apigateway_rest_login_username }}"
-    apigateway_rest_login_password: "{{ vars_apigateway_rest_login_password }}"
+    apigateway_rest_protocol: "{{ vars_apigw_rest_protocol }}"
+    apigateway_rest_host: "{{ vars_apigw_rest_host }}"
+    apigateway_rest_port: "{{ vars_apigw_rest_port }}"
+    apigateway_rest_no_check_certs: "{{ vars_apigw_rest_no_check_certs }}"
+    apigateway_rest_login_username: "{{ vars_apigw_rest_login_username }}"
+    apigateway_rest_login_password: "{{ vars_apigw_rest_login_password }}"
 
   tasks:
 
     ## printing the vars that enable/disable the roles
     - block:
-        - debug: var=vars_webmethods_apigateway_portalgateway_enabled verbosity=3
-        - debug: var=vars_webmethods_apigateway_ports_enabled verbosity=3
-        - debug: var=vars_webmethods_apigateway_ldap_enabled verbosity=3
-        - debug: var=vars_webmethods_apigateway_saml_enabled verbosity=3
-        - debug: var=vars_webmethods_apigateway_loadbalancer_enabled verbosity=3
-        - debug: var=vars_webmethods_apigateway_extended_settings_enabled verbosity=3
+        - debug: var=vars_apigw_portalgateway_enabled verbosity=3
+        - debug: var=vars_apigw_ports_enabled verbosity=3
+        - debug: var=vars_apigw_ldap_enabled verbosity=3
+        - debug: var=vars_apigw_saml_enabled verbosity=3
+        - debug: var=vars_apigw_loadbalancer_enabled verbosity=3
+        - debug: var=vars_apigw_extended_settings_enabled verbosity=3
       tags: always
 
     - name: transform watt string of key-value pairs into a dict
       set_fact:
-        vars_webmethods_apigateway_settings_watts_dict: "{{ dict(_keys|zip(_vals)) }}"
+        vars_apigw_settings_watts_dict: "{{ dict(_keys|zip(_vals)) }}"
       vars:
-        _arr: "{{ vars_webmethods_apigateway_settings_watts.split()|map('trim')|select()|list }}"
+        _arr: "{{ vars_apigw_settings_watts.split()|map('trim')|select()|list }}"
         _keys: "{{ _arr|map('split', '=')|map('first')|map('trim')|list }}"
         _vals: "{{ _arr|map('split', '=')|map('last')|map('trim')|list }}"
-      when: (vars_webmethods_apigateway_extended_settings_enabled | default()) and vars_webmethods_apigateway_settings_watts is defined and (vars_webmethods_apigateway_settings_watts | trim) != ""
+      when: (vars_apigw_extended_settings_enabled | default()) and vars_apigw_settings_watts is defined and (vars_apigw_settings_watts | trim) != ""
 
     - name: transform extended_settings string of key-value pairs into a dict
       set_fact:
-        vars_webmethods_apigateway_settings_extended_dict: "{{ dict(_keys|zip(_vals)) }}"
+        vars_apigw_settings_extended_dict: "{{ dict(_keys|zip(_vals)) }}"
       vars:
-        _arr: "{{ vars_webmethods_apigateway_settings_extended.split()|map('trim')|select()|list }}"
+        _arr: "{{ vars_apigw_settings_extended.split()|map('trim')|select()|list }}"
         _keys: "{{ _arr|map('split', '=')|map('first')|map('trim')|list }}"
         _vals: "{{ _arr|map('split', '=')|map('last')|map('trim')|list }}"
-      when: (vars_webmethods_apigateway_extended_settings_enabled | default()) and vars_webmethods_apigateway_settings_extended is defined and (vars_webmethods_apigateway_settings_extended | trim) != ""
+      when: (vars_apigw_extended_settings_enabled | default()) and vars_apigw_settings_extended is defined and (vars_apigw_settings_extended | trim) != ""
 
     - include_role:
         name: apigateway-rest-configurator
         apply:
-          ignore_errors: "{{ vars_webmethods_apigateway_extended_settings_ignore_errors }}"
+          ignore_errors: "{{ vars_apigw_extended_settings_ignore_errors }}"
       vars:
         configs_action: set-extended-settings
-        configs_enabled: "{{ vars_webmethods_apigateway_extended_settings_enabled }}"
-        rvar_apigateway_settings_watts_dict: "{{ vars_webmethods_apigateway_settings_watts_dict }}"
-        rvar_apigateway_settings_extended_dict: "{{ vars_webmethods_apigateway_settings_extended_dict }}"
+        configs_enabled: "{{ vars_apigw_extended_settings_enabled }}"
+        rvar_apigateway_settings_watts_dict: "{{ vars_apigw_settings_watts_dict }}"
+        rvar_apigateway_settings_extended_dict: "{{ vars_apigw_settings_extended_dict }}"
       tags:
         - configs_extended_settings
 
     - include_role:
         name: apigateway-rest-configurator
         apply:
-          ignore_errors: "{{ vars_webmethods_apigateway_ldap_ignore_errors }}"
+          ignore_errors: "{{ vars_apigw_ldap_ignore_errors }}"
       vars:
         configs_action: set-ldap-settings
-        configs_enabled: "{{ vars_webmethods_apigateway_ldap_enabled }}"
-        webmethods_apigateway_ldap_settings: "{{ vars_webmethods_apigateway_ldap_settings }}"
+        configs_enabled: "{{ vars_apigw_ldap_enabled }}"
+        webmethods_apigateway_ldap_settings: "{{ vars_apigw_ldap_settings }}"
       tags:
         - configs_ldap_settings
 
     - include_role:
         name: apigateway-rest-configurator
         apply:
-          ignore_errors: "{{ vars_webmethods_apigateway_loadbalancer_ignore_errors }}"
+          ignore_errors: "{{ vars_apigw_loadbalancer_ignore_errors }}"
       vars:
         configs_action: set-loadbalancer-urls
-        configs_enabled: "{{ vars_webmethods_apigateway_loadbalancer_enabled }}"
-        webmethods_apigateway_loadbalancers_http_urls: "{{ vars_webmethods_apigateway_loadbalancers_http_urls }}"
-        webmethods_apigateway_loadbalancers_https_urls: "{{ vars_webmethods_apigateway_loadbalancers_https_urls }}"
-        webmethods_apigateway_loadbalancers_websocket_urls: "{{ vars_webmethods_apigateway_loadbalancers_websocket_urls }}"
-        webmethods_apigateway_loadbalancers_webapp_url: "{{ vars_webmethods_apigateway_loadbalancers_webapp_url }}"
+        configs_enabled: "{{ vars_apigw_loadbalancer_enabled }}"
+        webmethods_apigateway_loadbalancers_http_urls: "{{ vars_apigw_loadbalancers_http_urls }}"
+        webmethods_apigateway_loadbalancers_https_urls: "{{ vars_apigw_loadbalancers_https_urls }}"
+        webmethods_apigateway_loadbalancers_websocket_urls: "{{ vars_apigw_loadbalancers_websocket_urls }}"
+        webmethods_apigateway_loadbalancers_webapp_url: "{{ vars_apigw_loadbalancers_webapp_url }}"
       tags:
         - configs_loadbalancer_urls
 
     ## in this apigateway to apiportal config section, we load the role based on the portaltype
     - debug:
-        msg: "WARN - value for vars_webmethods_apigateway_portalgateway_portaltype is not defined or empty...will not configure the apiportal connection!"
-      when: vars_webmethods_apigateway_portalgateway_portaltype is not defined or vars_webmethods_apigateway_portalgateway_portaltype == ""
+        msg: "WARN - value for vars_apigw_portalgateway_portaltype is not defined or empty...will not configure the apiportal connection!"
+      when: vars_apigw_portalgateway_portaltype is not defined or vars_apigw_portalgateway_portaltype == ""
 
     - include_role:
         name: apigateway-rest-configurator
         apply:
-          ignore_errors: "{{ vars_webmethods_apigateway_portalgateway_ignore_errors }}"
+          ignore_errors: "{{ vars_apigw_portalgateway_ignore_errors }}"
       vars:
         configs_action: set-apiportal-connect
-        configs_enabled: "{{ vars_webmethods_apigateway_portalgateway_enabled }}"
-        webmethods_apigateway_portalgateway: "{{ vars_webmethods_apigateway_portalgateway_apiportal }}"
-      when: (vars_webmethods_apigateway_portalgateway_portaltype | lower) == "apiportal"
+        configs_enabled: "{{ vars_apigw_portalgateway_enabled }}"
+        webmethods_apigateway_portalgateway: "{{ vars_apigw_portalgateway_apiportal }}"
+      when: (vars_apigw_portalgateway_portaltype | lower) == "apiportal"
       tags:
         - configs_apiportal_connect
 
     - include_role:
         name: apigateway-rest-configurator
         apply:
-          ignore_errors: "{{ vars_webmethods_apigateway_portalgateway_ignore_errors }}"
+          ignore_errors: "{{ vars_apigw_portalgateway_ignore_errors }}"
       vars:
         configs_action: set-apiportal-connect
-        configs_enabled: "{{ vars_webmethods_apigateway_portalgateway_enabled }}"
-        webmethods_apigateway_portalgateway: "{{ vars_webmethods_apigateway_portalgateway_devportal }}"
-      when: (vars_webmethods_apigateway_portalgateway_portaltype | lower) == "devportal"
+        configs_enabled: "{{ vars_apigw_portalgateway_enabled }}"
+        webmethods_apigateway_portalgateway: "{{ vars_apigw_portalgateway_devportal }}"
+      when: (vars_apigw_portalgateway_portaltype | lower) == "devportal"
       tags:
         - configs_apiportal_connect
 
     - include_role:
         name: apigateway-rest-configurator
         apply:
-          ignore_errors: "{{ vars_webmethods_apigateway_promotions_stages_ignore_errors }}"
+          ignore_errors: "{{ vars_apigw_promotions_stages_ignore_errors }}"
       vars:
         configs_action: set-promotion-stages
-        configs_enabled: "{{ vars_webmethods_apigateway_promotions_stages_enabled }}"
-        webmethods_apigateway_promotions_stages: "{{ vars_webmethods_apigateway_promotions_stages }}"
+        configs_enabled: "{{ vars_apigw_promotions_stages_enabled }}"
+        webmethods_apigateway_promotions_stages: "{{ vars_apigw_promotions_stages }}"
       tags:
         - configs_promotion_stages

@@ -109,4 +109,4 @@ LABEL org.opencontainers.image.authors="fabien.sanglier@softwareaggov.com" \
 COPY ./ansible/ /ansible/playbooks/
 
 # the default command args to pass to the entrypoint
-CMD ["apply_configs.yaml"]
+CMD ["apply.yaml"]

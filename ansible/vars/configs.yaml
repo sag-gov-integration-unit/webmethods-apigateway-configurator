@@ -1,87 +1,87 @@
 ---
 ## Environment variables supported:
-# env_apigateway_protocol
-# env_apigateway_host
-# env_apigateway_port
-# env_apigateway_rest_user
-# env_apigateway_rest_password
-# env_apigateway_rest_password_old
-# env_apigateway_lb_http_url
-# env_apigateway_lb_http_url_alt1
-# env_apigateway_lb_http_url_alt2
-# env_apigateway_lb_http_url_alt3
-# env_apigateway_lb_https_url
-# env_apigateway_lb_https_url_alt1
-# env_apigateway_lb_https_url_alt2
-# env_apigateway_lb_https_url_alt3
-# env_apigateway_lb_websocket_url
-# env_apigateway_lb_websocket_url_alt1
-# env_apigateway_lb_websocket_url_alt2
-# env_apigateway_lb_websocket_url_alt3
-# env_apigateway_lb_webapp_url
-# env_apigateway_stage
-# env_apigateway_portalgateway_gateway_url
-# env_apigateway_portalgateway_gateway_username
-# env_apigateway_portalgateway_gateway_password
-# env_apigateway_portalgateway_portaltype
-# env_apigateway_portalgateway_apiportal_url
-# env_apigateway_portalgateway_apiportal_tenant
-# env_apigateway_portalgateway_apiportal_username
-# env_apigateway_portalgateway_apiportal_password
-# env_apigateway_portalgateway_devportal_url
-# env_apigateway_portalgateway_devportal_tenant
-# env_apigateway_portalgateway_devportal_username
-# env_apigateway_portalgateway_devportal_password
-# env_apigateway_configure_usermgt
-# env_apigateway_configure_portalgateway
-# env_apigateway_configure_archives
-# env_apigateway_configure_aliases
-# env_apigateway_configure_ports
-# env_apigateway_configure_ldap
-# env_apigateway_configure_saml
-# env_apigateway_configure_lb
-# env_apigateway_configure_promotions_stages
-# env_apigateway_configure_extended_settings
+# apigw_protocol
+# apigw_host
+# apigw_port
+# apigw_rest_user
+# apigw_rest_password
+# apigw_rest_password_old
+# apigw_lb_http_url
+# apigw_lb_http_url_alt1
+# apigw_lb_http_url_alt2
+# apigw_lb_http_url_alt3
+# apigw_lb_https_url
+# apigw_lb_https_url_alt1
+# apigw_lb_https_url_alt2
+# apigw_lb_https_url_alt3
+# apigw_lb_websocket_url
+# apigw_lb_websocket_url_alt1
+# apigw_lb_websocket_url_alt2
+# apigw_lb_websocket_url_alt3
+# apigw_lb_webapp_url
+# apigw_stage
+# apigw_portalgateway_gateway_url
+# apigw_portalgateway_gateway_username
+# apigw_portalgateway_gateway_password
+# apigw_portalgateway_portaltype
+# apigw_portalgateway_apiportal_url
+# apigw_portalgateway_apiportal_tenant
+# apigw_portalgateway_apiportal_username
+# apigw_portalgateway_apiportal_password
+# apigw_portalgateway_devportal_url
+# apigw_portalgateway_devportal_tenant
+# apigw_portalgateway_devportal_username
+# apigw_portalgateway_devportal_password
+# apigw_configure_usermgt
+# apigw_configure_portalgateway
+# apigw_configure_archives
+# apigw_configure_aliases
+# apigw_configure_ports
+# apigw_configure_ldap
+# apigw_configure_saml
+# apigw_configure_lb
+# apigw_configure_promotions_stages
+# apigw_configure_extended_settings
 
 # enable / disable the config items
-vars_webmethods_apigateway_usermgt_enabled: "{{ lookup('env', 'env_apigateway_configure_usermgt') | default('false',true) }}"
-vars_webmethods_apigateway_portalgateway_enabled: "{{ lookup('env', 'env_apigateway_configure_portalgateway') | default('false',true) }}"
-vars_webmethods_apigateway_archive_imports_enabled: "{{ lookup('env', 'env_apigateway_configure_archives') | default('false',true) }}"
-vars_webmethods_apigateway_aliases_enabled: "{{ lookup('env', 'env_apigateway_configure_aliases') | default('false',true) }}"
-vars_webmethods_apigateway_ports_enabled: "{{ lookup('env', 'env_apigateway_configure_ports') | default('false',true) }}"
-vars_webmethods_apigateway_ldap_enabled: "{{ lookup('env', 'env_apigateway_configure_ldap') | default('false',true) }}"
-vars_webmethods_apigateway_saml_enabled: "{{ lookup('env', 'env_apigateway_configure_saml') | default('false',true) }}"
-vars_webmethods_apigateway_loadbalancer_enabled: "{{ lookup('env', 'env_apigateway_configure_lb') | default('false',true) }}"
-vars_webmethods_apigateway_promotions_stages_enabled: "{{ lookup('env', 'env_apigateway_configure_promotions_stages') | default('false',true) }}"
-vars_webmethods_apigateway_extended_settings_enabled: "{{ lookup('env', 'env_apigateway_configure_extended_settings') | default('false',true) }}"
-vars_webmethods_apigateway_plans_enabled: "{{ lookup('env', 'env_apigateway_configure_plans') | default('false',true) }}"
-vars_webmethods_apigateway_packages_enabled: "{{ lookup('env', 'env_apigateway_configure_packages') | default('false',true) }}"
-vars_webmethods_apigateway_applications_enabled: "{{ lookup('env', 'env_apigateway_configure_applications') | default('false',true) }}"
-vars_webmethods_apigateway_apis_publish_groups_enabled: "{{ lookup('env', 'env_apigateway_configure_apis_publish_groups') | default('false',true) }}"
-vars_webmethods_apigateway_packages_publish_groups_enabled: "{{ lookup('env', 'env_apigateway_configure_packages_publish_groups') | default('false',true) }}"
+vars_apigw_usermgt_enabled: "{{ lookup('env', 'apigw_configure_usermgt') | default('false',true) }}"
+vars_apigw_portalgateway_enabled: "{{ lookup('env', 'apigw_configure_portalgateway') | default('false',true) }}"
+vars_apigw_archive_imports_enabled: "{{ lookup('env', 'apigw_configure_archives') | default('false',true) }}"
+vars_apigw_aliases_enabled: "{{ lookup('env', 'apigw_configure_aliases') | default('false',true) }}"
+vars_apigw_ports_enabled: "{{ lookup('env', 'apigw_configure_ports') | default('false',true) }}"
+vars_apigw_ldap_enabled: "{{ lookup('env', 'apigw_configure_ldap') | default('false',true) }}"
+vars_apigw_saml_enabled: "{{ lookup('env', 'apigw_configure_saml') | default('false',true) }}"
+vars_apigw_loadbalancer_enabled: "{{ lookup('env', 'apigw_configure_lb') | default('false',true) }}"
+vars_apigw_promotions_stages_enabled: "{{ lookup('env', 'apigw_configure_promotions_stages') | default('false',true) }}"
+vars_apigw_extended_settings_enabled: "{{ lookup('env', 'apigw_configure_extended_settings') | default('false',true) }}"
+vars_apigw_plans_enabled: "{{ lookup('env', 'apigw_configure_plans') | default('false',true) }}"
+vars_apigw_packages_enabled: "{{ lookup('env', 'apigw_configure_packages') | default('false',true) }}"
+vars_apigw_applications_enabled: "{{ lookup('env', 'apigw_configure_applications') | default('false',true) }}"
+vars_apigw_apis_publish_groups_enabled: "{{ lookup('env', 'apigw_configure_apis_publish_groups') | default('false',true) }}"
+vars_apigw_packages_publish_groups_enabled: "{{ lookup('env', 'apigw_configure_packages_publish_groups') | default('false',true) }}"
 
-# ignore errors or not for each of the config items (defaults to vars_webmethods_apigateway_default_ignore_errors)
-vars_webmethods_apigateway_usermgt_ignore_errors: "{{ lookup('env', 'env_apigateway_configure_usermgt_ignore_errors') | default(vars_webmethods_apigateway_default_ignore_errors,true) }}"
-vars_webmethods_apigateway_portalgateway_ignore_errors: "{{ lookup('env', 'env_apigateway_configure_portalgateway_ignore_errors') | default(vars_webmethods_apigateway_default_ignore_errors,true) }}"
-vars_webmethods_apigateway_archive_imports_ignore_errors: "{{ lookup('env', 'env_apigateway_configure_archives_ignore_errors') | default(vars_webmethods_apigateway_default_ignore_errors,true) }}"
-vars_webmethods_apigateway_aliases_ignore_errors: "{{ lookup('env', 'env_apigateway_configure_aliases_ignore_errors') | default(vars_webmethods_apigateway_default_ignore_errors,true) }}"
-vars_webmethods_apigateway_ports_ignore_errors: "{{ lookup('env', 'env_apigateway_configure_ports_ignore_errors') | default(vars_webmethods_apigateway_default_ignore_errors,true) }}"
-vars_webmethods_apigateway_ldap_ignore_errors: "{{ lookup('env', 'env_apigateway_configure_ldap_ignore_errors') | default(vars_webmethods_apigateway_default_ignore_errors,true) }}"
-vars_webmethods_apigateway_saml_ignore_errors: "{{ lookup('env', 'env_apigateway_configure_saml_ignore_errors') | default(vars_webmethods_apigateway_default_ignore_errors,true) }}"
-vars_webmethods_apigateway_loadbalancer_ignore_errors: "{{ lookup('env', 'env_apigateway_configure_lb_ignore_errors') | default(vars_webmethods_apigateway_default_ignore_errors,true) }}"
-vars_webmethods_apigateway_promotions_stages_ignore_errors: "{{ lookup('env', 'env_apigateway_configure_promotions_stages_ignore_errors') | default(vars_webmethods_apigateway_default_ignore_errors,true) }}"
-vars_webmethods_apigateway_extended_settings_ignore_errors: "{{ lookup('env', 'env_apigateway_configure_extended_settings_ignore_errors') | default(vars_webmethods_apigateway_default_ignore_errors,true) }}"
-vars_webmethods_apigateway_plans_ignore_errors: "{{ lookup('env', 'env_apigateway_configure_plans_ignore_errors') | default(vars_webmethods_apigateway_default_ignore_errors,true) }}"
-vars_webmethods_apigateway_packages_ignore_errors: "{{ lookup('env', 'env_apigateway_configure_packages_ignore_errors') | default(vars_webmethods_apigateway_default_ignore_errors,true) }}"
-vars_webmethods_apigateway_applications_ignore_errors: "{{ lookup('env', 'env_apigateway_configure_applications_ignore_errors') | default(vars_webmethods_apigateway_default_ignore_errors,true) }}"
-vars_webmethods_apigateway_apis_publish_groups_ignore_errors: "{{ lookup('env', 'env_apigateway_configure_apis_publish_groups_ignore_errors') | default(vars_webmethods_apigateway_default_ignore_errors,true) }}"
-vars_webmethods_apigateway_packages_publish_groups_ignore_errors: "{{ lookup('env', 'env_apigateway_configure_packages_publish_groups_ignore_errors') | default(vars_webmethods_apigateway_default_ignore_errors,true) }}"
+# ignore errors or not for each of the config items (defaults to vars_apigw_default_ignore_errors)
+vars_apigw_usermgt_ignore_errors: "{{ lookup('env', 'apigw_configure_usermgt_ignore_errors') | default(vars_apigw_default_ignore_errors,true) }}"
+vars_apigw_portalgateway_ignore_errors: "{{ lookup('env', 'apigw_configure_portalgateway_ignore_errors') | default(vars_apigw_default_ignore_errors,true) }}"
+vars_apigw_archive_imports_ignore_errors: "{{ lookup('env', 'apigw_configure_archives_ignore_errors') | default(vars_apigw_default_ignore_errors,true) }}"
+vars_apigw_aliases_ignore_errors: "{{ lookup('env', 'apigw_configure_aliases_ignore_errors') | default(vars_apigw_default_ignore_errors,true) }}"
+vars_apigw_ports_ignore_errors: "{{ lookup('env', 'apigw_configure_ports_ignore_errors') | default(vars_apigw_default_ignore_errors,true) }}"
+vars_apigw_ldap_ignore_errors: "{{ lookup('env', 'apigw_configure_ldap_ignore_errors') | default(vars_apigw_default_ignore_errors,true) }}"
+vars_apigw_saml_ignore_errors: "{{ lookup('env', 'apigw_configure_saml_ignore_errors') | default(vars_apigw_default_ignore_errors,true) }}"
+vars_apigw_loadbalancer_ignore_errors: "{{ lookup('env', 'apigw_configure_lb_ignore_errors') | default(vars_apigw_default_ignore_errors,true) }}"
+vars_apigw_promotions_stages_ignore_errors: "{{ lookup('env', 'apigw_configure_promotions_stages_ignore_errors') | default(vars_apigw_default_ignore_errors,true) }}"
+vars_apigw_extended_settings_ignore_errors: "{{ lookup('env', 'apigw_configure_extended_settings_ignore_errors') | default(vars_apigw_default_ignore_errors,true) }}"
+vars_apigw_plans_ignore_errors: "{{ lookup('env', 'apigw_configure_plans_ignore_errors') | default(vars_apigw_default_ignore_errors,true) }}"
+vars_apigw_packages_ignore_errors: "{{ lookup('env', 'apigw_configure_packages_ignore_errors') | default(vars_apigw_default_ignore_errors,true) }}"
+vars_apigw_applications_ignore_errors: "{{ lookup('env', 'apigw_configure_applications_ignore_errors') | default(vars_apigw_default_ignore_errors,true) }}"
+vars_apigw_apis_publish_groups_ignore_errors: "{{ lookup('env', 'apigw_configure_apis_publish_groups_ignore_errors') | default(vars_apigw_default_ignore_errors,true) }}"
+vars_apigw_packages_publish_groups_ignore_errors: "{{ lookup('env', 'apigw_configure_packages_publish_groups_ignore_errors') | default(vars_apigw_default_ignore_errors,true) }}"
 
 # the env stage (ie. dev, test, staging, prod)
-vars_apigateway_environment_stage: "{{ lookup('env', 'env_apigateway_stage') | default('dev',true) }}"
+vars_apigateway_environment_stage: "{{ lookup('env', 'apigw_stage') | default('dev',true) }}"
 
 ## api packages to import into gateway
-vars_webmethods_apigateway_archive_imports_from_s3:
+vars_apigw_archive_imports_from_s3:
   - bucket_path: "demo_repo/apigateway_archives/{{ webmethods_version }}/apigw{{ webmethods_version_nodot }}-archive-uszip-1.0.zip"
     local_path: "{{ webmethods_install_dir }}/install_artifacts/apigw{{ webmethods_version_nodot }}-archive-uszip-1.0.zip"
     overwrite: "apis,policies,policyactions"
@@ -123,104 +123,104 @@ vars_webmethods_apigateway_archive_imports_from_s3:
     fixingMissingVersions: "true"
     preserveAssetState: "true"
 
-vars_webmethods_apigateway_aliases:
+vars_apigw_aliases:
   - name: covid_endpoint
     description: covid endpoint alias
     type: simple
     owner: Administrator
-    value: "{{ lookup('env', 'env_apigateway_aliases_covid_endpoint') | default('',true) }}"
+    value: "{{ lookup('env', 'apigw_aliases_covid_endpoint') | default('',true) }}"
     stage: ""
   - name: bookstore_endpoint
     description: bookstore endpoint alias
     type: simple
     owner: Administrator
-    value: "{{ lookup('env', 'env_apigateway_aliases_bookstore_endpoint') | default('',true) }}"
+    value: "{{ lookup('env', 'apigw_aliases_bookstore_endpoint') | default('',true) }}"
     stage: ""
   - name: uszip_endpoint
     description: uszip endpoint alias
     type: simple
     owner: Administrator
-    value: "{{ lookup('env', 'env_apigateway_aliases_uszip_endpoint') | default('',true) }}"
+    value: "{{ lookup('env', 'apigw_aliases_uszip_endpoint') | default('',true) }}"
     stage: ""
   - name: SAGTours_endpoint
     description: SAGTours API endpoint alias
     type: simple
     owner: Administrator
-    value: "{{ lookup('env', 'env_apigateway_aliases_sagtours_endpoint') | default('',true) }}"
+    value: "{{ lookup('env', 'apigw_aliases_sagtours_endpoint') | default('',true) }}"
     stage: ""
 
 ## local users
-vars_webmethods_apigateway_usermgt_users_loadrunner_username: "{{ lookup('env', 'env_apigateway_users_loadrunner_username') | default('loadrunner',true) }}"
-vars_webmethods_apigateway_usermgt_users_loadrunner_password: "{{ lookup('env', 'env_apigateway_users_loadrunner_password') | default('changeme',true) }}"
+vars_apigw_usermgt_users_loadrunner_username: "{{ lookup('env', 'apigw_users_loadrunner_username') | default('loadrunner',true) }}"
+vars_apigw_usermgt_users_loadrunner_password: "{{ lookup('env', 'apigw_users_loadrunner_password') | default('changeme',true) }}"
 
-vars_webmethods_apigateway_usermgt_users_sample1_username: "sampleuser1.apiadmin"
-vars_webmethods_apigateway_usermgt_users_sample1_password: "{{ lookup('env', 'env_apigateway_users_sample1_password') | default('changeme',true) }}"
+vars_apigw_usermgt_users_sample1_username: "sampleuser1.apiadmin"
+vars_apigw_usermgt_users_sample1_password: "{{ lookup('env', 'apigw_users_sample1_password') | default('changeme',true) }}"
 
-vars_webmethods_apigateway_usermgt_users_sample2_username: "sampleuser2.apiprovider"
-vars_webmethods_apigateway_usermgt_users_sample2_password: "{{ lookup('env', 'env_apigateway_users_sample2_password') | default('changeme',true) }}"
+vars_apigw_usermgt_users_sample2_username: "sampleuser2.apiprovider"
+vars_apigw_usermgt_users_sample2_password: "{{ lookup('env', 'apigw_users_sample2_password') | default('changeme',true) }}"
 
-vars_webmethods_apigateway_usermgt_users_sample3_username: "sampleuser3.apiuser"
-vars_webmethods_apigateway_usermgt_users_sample3_password: "{{ lookup('env', 'env_apigateway_users_sample3_password') | default('changeme',true) }}"
+vars_apigw_usermgt_users_sample3_username: "sampleuser3.apiuser"
+vars_apigw_usermgt_users_sample3_password: "{{ lookup('env', 'apigw_users_sample3_password') | default('changeme',true) }}"
 
-vars_webmethods_apigateway_usermgt_users:
-  - loginId: "{{ vars_webmethods_apigateway_usermgt_users_loadrunner_username }}"
+vars_apigw_usermgt_users:
+  - loginId: "{{ vars_apigw_usermgt_users_loadrunner_username }}"
     firstName: Load runner
     lastName: Load runner
-    password: "{{ vars_webmethods_apigateway_usermgt_users_loadrunner_password }}"
+    password: "{{ vars_apigw_usermgt_users_loadrunner_password }}"
     emailAddresses:
-      - "{{ vars_webmethods_apigateway_usermgt_users_loadrunner_username }}@local.com"
+      - "{{ vars_apigw_usermgt_users_loadrunner_username }}@local.com"
     allowDigestAuth: false
     active: true
     language: en
-  - loginId: "{{ vars_webmethods_apigateway_usermgt_users_sample1_username }}"
+  - loginId: "{{ vars_apigw_usermgt_users_sample1_username }}"
     firstName: Sample User1
     lastName: Api Admin
-    password: "{{ vars_webmethods_apigateway_usermgt_users_sample1_password }}"
+    password: "{{ vars_apigw_usermgt_users_sample1_password }}"
     emailAddresses:
-      - "{{ vars_webmethods_apigateway_usermgt_users_sample1_username }}@sample.com"
+      - "{{ vars_apigw_usermgt_users_sample1_username }}@sample.com"
     allowDigestAuth: false
     active: true
     language: en
-  - loginId: "{{ vars_webmethods_apigateway_usermgt_users_sample2_username }}"
+  - loginId: "{{ vars_apigw_usermgt_users_sample2_username }}"
     firstName: Sample User2
     lastName: Api Provider
-    password: "{{ vars_webmethods_apigateway_usermgt_users_sample2_password }}"
+    password: "{{ vars_apigw_usermgt_users_sample2_password }}"
     emailAddresses:
-      - "{{ vars_webmethods_apigateway_usermgt_users_sample2_username }}@sample.com"
+      - "{{ vars_apigw_usermgt_users_sample2_username }}@sample.com"
     allowDigestAuth: false
     active: true
     language: en
-  - loginId: "{{ vars_webmethods_apigateway_usermgt_users_sample3_username }}"
+  - loginId: "{{ vars_apigw_usermgt_users_sample3_username }}"
     firstName: Sample User3
     lastName: Api User
-    password: "{{ vars_webmethods_apigateway_usermgt_users_sample3_password }}"
+    password: "{{ vars_apigw_usermgt_users_sample3_password }}"
     emailAddresses:
-      - "{{ vars_webmethods_apigateway_usermgt_users_sample3_username }}@sample.com"
+      - "{{ vars_apigw_usermgt_users_sample3_username }}@sample.com"
     allowDigestAuth: false
     active: true
     language: en
 
 ## local user groups
-vars_webmethods_apigateway_usermgt_groups:
+vars_apigw_usermgt_groups:
   - name: sample-apigateway-admins
     description: apigateway-admins
     empty_user_ids: false
     user_loginids_add:
-      - "{{ vars_webmethods_apigateway_usermgt_users_sample1_username }}"
+      - "{{ vars_apigw_usermgt_users_sample1_username }}"
   - name: sample-apigateway-providers
     description: apigateway-providers
     empty_user_ids: false
     user_loginids_add:
-      - "{{ vars_webmethods_apigateway_usermgt_users_sample2_username }}"
+      - "{{ vars_apigw_usermgt_users_sample2_username }}"
   - name: sample-apigateway-users
     description: apigateway-users
     empty_user_ids: false
     user_loginids_add:
-      - "{{ vars_webmethods_apigateway_usermgt_users_sample3_username }}"
-      - "{{ vars_webmethods_apigateway_usermgt_users_loadrunner_username }}"
+      - "{{ vars_apigw_usermgt_users_sample3_username }}"
+      - "{{ vars_apigw_usermgt_users_loadrunner_username }}"
 
 ## access profiles (note: the group names / user names will get replaced by their IDs in the real REST request, and merged with the userIds/groupIds fields)
-vars_webmethods_apigateway_usermgt_accessprofiles:
+vars_apigw_usermgt_accessprofiles:
   - name: sample-apigateway-users-team
     description: apigateway-users-team description
     privilege: "10010010010100000001010001"
@@ -250,68 +250,68 @@ vars_webmethods_apigateway_usermgt_accessprofiles:
       groupnames: []
 
 ## apigateway custom port types
-vars_webmethods_apigateway_ports_list: []
+vars_apigw_ports_list: []
 
 ## load balancers
-vars_webmethods_apigateway_loadbalancers_http_urls:
-  - "{{ lookup('env', 'env_apigateway_lb_http_url') | default('',true) }}"
-  - "{{ lookup('env', 'env_apigateway_lb_http_url_alt1') | default('',true) }}"
-  - "{{ lookup('env', 'env_apigateway_lb_http_url_alt2') | default('',true) }}"
-  - "{{ lookup('env', 'env_apigateway_lb_http_url_alt3') | default('',true) }}"
-vars_webmethods_apigateway_loadbalancers_https_urls:
-  - "{{ lookup('env', 'env_apigateway_lb_https_url') | default('',true) }}"
-  - "{{ lookup('env', 'env_apigateway_lb_https_url_alt1') | default('',true) }}"
-  - "{{ lookup('env', 'env_apigateway_lb_https_url_alt2') | default('',true) }}"
-  - "{{ lookup('env', 'env_apigateway_lb_https_url_alt3') | default('',true) }}"
-vars_webmethods_apigateway_loadbalancers_websocket_urls:
-  - "{{ lookup('env', 'env_apigateway_lb_websocket_url') | default('',true) }}"
-  - "{{ lookup('env', 'env_apigateway_lb_websocket_url_alt1') | default('',true) }}"
-  - "{{ lookup('env', 'env_apigateway_lb_websocket_url_alt2') | default('',true) }}"
-  - "{{ lookup('env', 'env_apigateway_lb_websocket_url_alt3') | default('',true) }}"
-vars_webmethods_apigateway_loadbalancers_webapp_url: "{{ lookup('env', 'env_apigateway_lb_webapp_url') | default('',true) }}"
+vars_apigw_loadbalancers_http_urls:
+  - "{{ lookup('env', 'apigw_lb_http_url') | default('',true) }}"
+  - "{{ lookup('env', 'apigw_lb_http_url_alt1') | default('',true) }}"
+  - "{{ lookup('env', 'apigw_lb_http_url_alt2') | default('',true) }}"
+  - "{{ lookup('env', 'apigw_lb_http_url_alt3') | default('',true) }}"
+vars_apigw_loadbalancers_https_urls:
+  - "{{ lookup('env', 'apigw_lb_https_url') | default('',true) }}"
+  - "{{ lookup('env', 'apigw_lb_https_url_alt1') | default('',true) }}"
+  - "{{ lookup('env', 'apigw_lb_https_url_alt2') | default('',true) }}"
+  - "{{ lookup('env', 'apigw_lb_https_url_alt3') | default('',true) }}"
+vars_apigw_loadbalancers_websocket_urls:
+  - "{{ lookup('env', 'apigw_lb_websocket_url') | default('',true) }}"
+  - "{{ lookup('env', 'apigw_lb_websocket_url_alt1') | default('',true) }}"
+  - "{{ lookup('env', 'apigw_lb_websocket_url_alt2') | default('',true) }}"
+  - "{{ lookup('env', 'apigw_lb_websocket_url_alt3') | default('',true) }}"
+vars_apigw_loadbalancers_webapp_url: "{{ lookup('env', 'apigw_lb_webapp_url') | default('',true) }}"
 
 ## extended settings - apigateway settings (note: this are replicated in the cluster)
-vars_webmethods_apigateway_settings_extended: "{{ lookup('env', 'env_apigateway_settings_extended') | default('',true) }}"
-vars_webmethods_apigateway_settings_watts: "{{ lookup('env', 'env_apigateway_settings_watts') | default('',true) }}"
+vars_apigw_settings_extended: "{{ lookup('env', 'apigw_settings_extended') | default('',true) }}"
+vars_apigw_settings_watts: "{{ lookup('env', 'apigw_settings_watts') | default('',true) }}"
 
 ## apiportal / devportal registration
 ## portal type should be: apiportal or devportal
-vars_webmethods_apigateway_portalgateway_portaltype: "{{ lookup('env', 'env_apigateway_portalgateway_portaltype') | default('',true) }}"
-vars_webmethods_apigateway_portalgateway_apiportal:
-  gatewayName: "API_Gateway_{{ vars_apigateway_environment_stage }}"
-  gatewayDescription: "API Gateway in {{ vars_apigateway_environment_stage }} environment"
-  gatewayUsername: "{{ lookup('env', 'env_apigateway_portalgateway_gateway_username') | default('',true) }}"
-  gatewayPassword: "{{ lookup('env', 'env_apigateway_portalgateway_gateway_password') | default('',true) }}"
-  gatewayURL: "{{ lookup('env', 'env_apigateway_portalgateway_gateway_url') | default('',true) }}"
+vars_apigw_portalgateway_portaltype: "{{ lookup('env', 'apigw_portalgateway_portaltype') | default('',true) }}"
+vars_apigw_portalgateway_apiportal:
+  gatewayName: "API_Gateway_{{ vars_apigw_environment_stage }}"
+  gatewayDescription: "API Gateway in {{ vars_apigw_environment_stage }} environment"
+  gatewayUsername: "{{ lookup('env', 'apigw_portalgateway_gateway_username') | default('',true) }}"
+  gatewayPassword: "{{ lookup('env', 'apigw_portalgateway_gateway_password') | default('',true) }}"
+  gatewayURL: "{{ lookup('env', 'apigw_portalgateway_gateway_url') | default('',true) }}"
   version: "1.0"
-  stageName: "{{ vars_apigateway_environment_stage }}"
+  stageName: "{{ vars_apigw_environment_stage }}"
   published: true
   externalPortal:
-    endpointTenant: "{{ lookup('env', 'env_apigateway_portalgateway_apiportal_tenant') | default('default',true) }}"
-    endpointURL: "{{ lookup('env', 'env_apigateway_portalgateway_apiportal_url') | default('',true) }}"
-    endpointUsername: "{{ lookup('env', 'env_apigateway_portalgateway_apiportal_username') | default('',true) }}"
-    endpointPassword: "{{ lookup('env', 'env_apigateway_portalgateway_apiportal_password') | default('',true) }}"
+    endpointTenant: "{{ lookup('env', 'apigw_portalgateway_apiportal_tenant') | default('default',true) }}"
+    endpointURL: "{{ lookup('env', 'apigw_portalgateway_apiportal_url') | default('',true) }}"
+    endpointUsername: "{{ lookup('env', 'apigw_portalgateway_apiportal_username') | default('',true) }}"
+    endpointPassword: "{{ lookup('env', 'apigw_portalgateway_apiportal_password') | default('',true) }}"
     type: "apiportal"
-vars_webmethods_apigateway_portalgateway_devportal:
-  gatewayName: "API_Gateway_{{ vars_apigateway_environment_stage }}"
-  gatewayDescription: "API Gateway in {{ vars_apigateway_environment_stage }} environment"
-  gatewayUsername: "{{ lookup('env', 'env_apigateway_portalgateway_gateway_username') | default('',true) }}"
-  gatewayPassword: "{{ lookup('env', 'env_apigateway_portalgateway_gateway_password') | default('',true) }}"
-  gatewayURL: "{{ lookup('env', 'env_apigateway_portalgateway_gateway_url') | default('',true) }}"
+vars_apigw_portalgateway_devportal:
+  gatewayName: "API_Gateway_{{ vars_apigw_environment_stage }}"
+  gatewayDescription: "API Gateway in {{ vars_apigw_environment_stage }} environment"
+  gatewayUsername: "{{ lookup('env', 'apigw_portalgateway_gateway_username') | default('',true) }}"
+  gatewayPassword: "{{ lookup('env', 'apigw_portalgateway_gateway_password') | default('',true) }}"
+  gatewayURL: "{{ lookup('env', 'apigw_portalgateway_gateway_url') | default('',true) }}"
   version: "1.0"
-  stageName: "{{ vars_apigateway_environment_stage }}"
+  stageName: "{{ vars_apigw_environment_stage }}"
   published: true
   externalPortal:
-    endpointTenant: "{{ lookup('env', 'env_apigateway_portalgateway_devportal_tenant') | default('default',true) }}"
-    endpointURL: "{{ lookup('env', 'env_apigateway_portalgateway_devportal_url') | default('',true) }}"
-    endpointUsername: "{{ lookup('env', 'env_apigateway_portalgateway_devportal_username') | default('',true) }}"
-    endpointPassword: "{{ lookup('env', 'env_apigateway_portalgateway_devportal_password') | default('',true) }}"
+    endpointTenant: "{{ lookup('env', 'apigw_portalgateway_devportal_tenant') | default('default',true) }}"
+    endpointURL: "{{ lookup('env', 'apigw_portalgateway_devportal_url') | default('',true) }}"
+    endpointUsername: "{{ lookup('env', 'apigw_portalgateway_devportal_username') | default('',true) }}"
+    endpointPassword: "{{ lookup('env', 'apigw_portalgateway_devportal_password') | default('',true) }}"
     type: "apiportal"
 
 ## api gateway promotion stages
-vars_webmethods_apigateway_promotions_stages:
-  # - name: "{{ vars_apigateway_environment_stage }}"
-  #   description: "{{ vars_apigateway_environment_stage }} Stage"
+vars_apigw_promotions_stages:
+  # - name: "{{ vars_apigw_environment_stage }}"
+  #   description: "{{ vars_apigw_environment_stage }} Stage"
   #   url: "https://apigateway105-irsrepro.clouddemo.saggov.com"
   #   username: "{{ webmethods_secrets_promotionsmgt_user }}"
   #   password: "{{ webmethods_secrets_promotionsmgt_password }}"
@@ -319,17 +319,17 @@ vars_webmethods_apigateway_promotions_stages:
   #   keyAlias: "{{ webmethods_apigateway_keystore_keyalias }}"
 
 ## api gateway connectivity to ldap
-vars_webmethods_apigateway_ldap_settings: {}
+vars_apigw_ldap_settings: {}
 
 ## api gateway saml settings
-vars_webmethods_apigateway_saml_settings: {}
+vars_apigw_saml_settings: {}
 
 # api packages to add or update
 # the following attributes with "custom_" will be transformed to corresponding attributes of internal ids:
 # - custom_apiIdsByFilter --> apiIds
 # - custom_planIdsByFilter --> planIds
 # - custom_policyIdsByFilter --> policyIds
-vars_webmethods_apigateway_packages:
+vars_apigw_packages:
   - name: Swag Pack Complete
     version: "1.0"
     deprecated: false
@@ -401,7 +401,7 @@ vars_webmethods_apigateway_packages:
     custom_policyIdsByFilter: []
     active: true
 
-vars_webmethods_apigateway_packages_update_final_status:
+vars_apigw_packages_update_final_status:
   - name: Swag Pack Complete
     version: "1.0"
     active: false
@@ -416,7 +416,7 @@ vars_webmethods_apigateway_packages_update_final_status:
     active: false
 
 # api plans to add or update
-vars_webmethods_apigateway_plans:
+vars_apigw_plans:
   - name: gold
     version: "1.0"
     deprecated: false
@@ -457,7 +457,7 @@ vars_webmethods_apigateway_plans:
 # applications to add or update
 # the following attributes with "names/version" will be transformed to corresponding attributes of internal ids:
 # - custom_registerAPIsByFilter --> triggers the registration apis call
-vars_webmethods_apigateway_applications:
+vars_apigw_applications:
   - name: Load-runner Internal Client Application
     description: The load runner app that perform api calls every few seconds to showcase the api statistics
     version: "1.0"
@@ -472,7 +472,7 @@ vars_webmethods_apigateway_applications:
     siteURLs: []
     identifiers:
       - value:
-          - "{{ vars_webmethods_apigateway_usermgt_users_loadrunner_username }}"
+          - "{{ vars_apigw_usermgt_users_loadrunner_username }}"
         name: Username
         key: httpBasicAuth
     consumingAPIs: []
@@ -491,15 +491,15 @@ vars_webmethods_apigateway_applications:
     siteURLs: []
     identifiers:
       - value:
-          - "{{ vars_webmethods_apigateway_usermgt_users_sample1_username }}"
+          - "{{ vars_apigw_usermgt_users_sample1_username }}"
         name: Username
         key: httpBasicAuth
       - value:
-          - "{{ vars_webmethods_apigateway_usermgt_users_sample2_username }}"
+          - "{{ vars_apigw_usermgt_users_sample2_username }}"
         name: Username
         key: httpBasicAuth
       - value:
-          - "{{ vars_webmethods_apigateway_usermgt_users_sample3_username }}"
+          - "{{ vars_apigw_usermgt_users_sample3_username }}"
         name: Username
         key: httpBasicAuth
     consumingAPIs: []
@@ -518,15 +518,15 @@ vars_webmethods_apigateway_applications:
     siteURLs: []
     identifiers:
       - value:
-          - "{{ vars_webmethods_apigateway_usermgt_users_sample1_username }}"
+          - "{{ vars_apigw_usermgt_users_sample1_username }}"
         name: Username
         key: httpBasicAuth
       - value:
-          - "{{ vars_webmethods_apigateway_usermgt_users_sample2_username }}"
+          - "{{ vars_apigw_usermgt_users_sample2_username }}"
         name: Username
         key: httpBasicAuth
       - value:
-          - "{{ vars_webmethods_apigateway_usermgt_users_sample3_username }}"
+          - "{{ vars_apigw_usermgt_users_sample3_username }}"
         name: Username
         key: httpBasicAuth
     consumingAPIs: []
@@ -545,15 +545,15 @@ vars_webmethods_apigateway_applications:
     siteURLs: []
     identifiers:
       - value:
-          - "{{ vars_webmethods_apigateway_usermgt_users_sample1_username }}"
+          - "{{ vars_apigw_usermgt_users_sample1_username }}"
         name: Username
         key: httpBasicAuth
       - value:
-          - "{{ vars_webmethods_apigateway_usermgt_users_sample2_username }}"
+          - "{{ vars_apigw_usermgt_users_sample2_username }}"
         name: Username
         key: httpBasicAuth
       - value:
-          - "{{ vars_webmethods_apigateway_usermgt_users_sample3_username }}"
+          - "{{ vars_apigw_usermgt_users_sample3_username }}"
         name: Username
         key: httpBasicAuth
     consumingAPIs: []
@@ -565,11 +565,11 @@ vars_webmethods_apigateway_applications:
 
 # APIs to publish
 # each list item will publish a list of APIs to a list of communities using the same portalGatewayId
-vars_webmethods_apigateway_apis_publish_groups:
+vars_apigw_apis_publish_groups:
   - lookup_portalGatewayId:
-      name: "API_Gateway_{{ vars_apigateway_environment_stage }}"
+      name: "API_Gateway_{{ vars_apigw_environment_stage }}"
       version: "1.0"
-      stageName: "{{ vars_apigateway_environment_stage }}"
+      stageName: "{{ vars_apigw_environment_stage }}"
     lookup_communityIds:
       - name: "Public Community"
     lookup_apiIds:
@@ -584,11 +584,11 @@ vars_webmethods_apigateway_apis_publish_groups:
 
 # API Packages to publish
 # each list item will publish a list of Packages to a list of communities using the same portalGatewayId
-vars_webmethods_apigateway_packages_publish_groups:
+vars_apigw_packages_publish_groups:
   - lookup_portalGatewayId:
-      name: "API_Gateway_{{ vars_apigateway_environment_stage }}"
+      name: "API_Gateway_{{ vars_apigw_environment_stage }}"
       version: "1.0"
-      stageName: "{{ vars_apigateway_environment_stage }}"
+      stageName: "{{ vars_apigw_environment_stage }}"
     lookup_communityIds:
       - name: "Public Community"
     lookup_packageIds:

@@ -10,56 +10,56 @@
   become_user: "{{ webmethods_user }}"
   run_once: true
   vars:
-    apigateway_rest_protocol: "{{ vars_apigateway_rest_protocol }}"
-    apigateway_rest_host: "{{ vars_apigateway_rest_host }}"
-    apigateway_rest_port: "{{ vars_apigateway_rest_port }}"
-    apigateway_rest_no_check_certs: "{{ vars_apigateway_rest_no_check_certs }}"
-    apigateway_rest_login_username: "{{ vars_apigateway_rest_login_username }}"
-    apigateway_rest_login_password: "{{ vars_apigateway_rest_login_password }}"
+    apigateway_rest_protocol: "{{ vars_apigw_rest_protocol }}"
+    apigateway_rest_host: "{{ vars_apigw_rest_host }}"
+    apigateway_rest_port: "{{ vars_apigw_rest_port }}"
+    apigateway_rest_no_check_certs: "{{ vars_apigw_rest_no_check_certs }}"
+    apigateway_rest_login_username: "{{ vars_apigw_rest_login_username }}"
+    apigateway_rest_login_password: "{{ vars_apigw_rest_login_password }}"
 
   tasks:
 
     - include_role:
         name:  apigateway-rest-configurator
         apply:
-          ignore_errors: "{{ vars_webmethods_apigateway_sslconfigs_ignore_errors }}"
+          ignore_errors: "{{ vars_apigw_sslconfigs_ignore_errors }}"
       vars:
         configs_action: upload-truststore
-        configs_enabled: "{{ vars_webmethods_apigateway_sslconfigs_enabled }}"
-        rvar_apigateway_truststore: "{{ vars_rest_webmethods_apigateway_ssl_truststore }}"
+        configs_enabled: "{{ vars_apigw_sslconfigs_enabled }}"
+        rvar_apigateway_truststore: "{{ vars_apigw_rest_ssl_truststore }}"
       tags:
         - configs_ssl_truststore
 
     - include_role:
         name:  apigateway-rest-configurator
         apply:
-          ignore_errors: "{{ vars_webmethods_apigateway_sslconfigs_ignore_errors }}"
+          ignore_errors: "{{ vars_apigw_sslconfigs_ignore_errors }}"
       vars:
         configs_action: upload-keystore
-        configs_enabled: "{{ vars_webmethods_apigateway_sslconfigs_enabled }}"
-        rvar_apigateway_keystore: "{{ vars_rest_webmethods_apigateway_ssl_keystore }}"
-        rvar_apigateway_keystore_keyalias_list: "{{ vars_rest_webmethods_apigateway_ssl_keystore_keyalias_list }}"
+        configs_enabled: "{{ vars_apigw_sslconfigs_enabled }}"
+        rvar_apigateway_keystore: "{{ vars_apigw_rest_ssl_keystore }}"
+        rvar_apigateway_keystore_keyalias_list: "{{ vars_apigw_rest_ssl_keystore_keyalias_list }}"
       tags:
         - configs_ssl_keystore
 
     - include_role:
         name:  apigateway-rest-configurator
         apply:
-          ignore_errors: "{{ vars_webmethods_apigateway_sslconfigs_ignore_errors }}"
+          ignore_errors: "{{ vars_apigw_sslconfigs_ignore_errors }}"
       vars:
         configs_action: set-keytruststore-for-connections
-        configs_enabled: "{{ vars_webmethods_apigateway_sslconfigs_enabled }}"
-        rvar_apigateway_keytruststore_configuration: "{{ vars_rest_webmethods_apigateway_ssl_keytruststore_configuration }}"
+        configs_enabled: "{{ vars_apigw_sslconfigs_enabled }}"
+        rvar_apigateway_keytruststore_configuration: "{{ vars_apigw_rest_ssl_keytruststore_configuration }}"
       tags:
         - configs_ssl_connections
     
     - include_role:
         name:  apigateway-rest-configurator
         apply:
-          ignore_errors: "{{ vars_webmethods_apigateway_sslconfigs_ignore_errors }}"
+          ignore_errors: "{{ vars_apigw_sslconfigs_ignore_errors }}"
       vars:
         configs_action: set-ports
-        configs_enabled: "{{ vars_webmethods_apigateway_sslconfigs_enabled }}"
-        rvar_apigateway_ports_list: "{{ vars_rest_webmethods_apigateway_ssl_ports_list }}"
+        configs_enabled: "{{ vars_apigw_sslconfigs_enabled }}"
+        rvar_apigateway_ports_list: "{{ vars_apigw_rest_ssl_ports_list }}"
       tags:
         - configs_ssl_ports

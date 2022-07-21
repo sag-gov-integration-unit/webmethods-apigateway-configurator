@@ -3,7 +3,7 @@
 ## Global vars
 webmethods_version: "10.11"
 webmethods_version_nodot: "{{ webmethods_version |replace('.','') }}"
-vars_webmethods_apigateway_default_ignore_errors: "{{ lookup('env', 'env_apigateway_configure_default_ignore_errors') | default('false',true) }}"
+vars_apigw_default_ignore_errors: "{{ lookup('env', 'apigw_configure_default_ignore_errors') | default('false',true) }}"
 
 ##################### webmethods specifics
 webmethods_user: "{{ lookup('env', 'SAG_USER') | default('saguser',true) }}"
@@ -18,23 +18,12 @@ common_async_delay: 10
 common_async_timeout: 2400
 common_async_poll: 0
 
-##################### apigateway common
-vars_apigateway_rest_protocol: "{{ lookup('env', 'env_apigateway_protocol') | default('http',true) }}"
-vars_apigateway_rest_host: "{{ lookup('env', 'env_apigateway_host') | default('localhost',true) }}"
-vars_apigateway_rest_port: "{{ lookup('env', 'env_apigateway_port') | default('5555',true) }}"
-vars_apigateway_rest_no_check_certs: "{{ lookup('env', 'env_apigateway_no_check_certs') | default('false',true) }}"
-
-## rest login info
-vars_apigateway_rest_login_username: "{{ lookup('env', 'env_apigateway_rest_user') }}"
-vars_apigateway_rest_login_password: "{{ lookup('env', 'env_apigateway_rest_password') }}"
-vars_apigateway_rest_login_password_old: "{{ lookup('env', 'env_apigateway_rest_password_old') }}"
-
 # the host to use for the port validation
-vars_validation_host: "{{ vars_apigateway_rest_host }}"
+vars_validation_host: "{{ vars_apigw_rest_host }}"
 
 # the ports to check before doing anything
 vars_validation_ports:
-  - "{{ vars_apigateway_rest_port }}"
+  - "{{ vars_apigw_rest_port }}"
 
 # special longer timeout because it can take a while for gateway to come up
 # especially for a new tenant provisioning (just to make sure we don't fail too early)
