@@ -23,7 +23,9 @@ ENV SAG_GROUPID ${SAG_GROUPID}
 
 # Create saguser a process owner and group
 RUN groupadd -g ${SAG_GROUPID} ${SAG_GROUP} && \
-    useradd -s /bin/bash -u ${SAG_USERID} -m -g ${SAG_GROUPID} -d ${SAG_HOME} -c "${SAG_USER_DESC}" ${SAG_USER}
+    useradd -s /bin/bash -u ${SAG_USERID} -m -g ${SAG_GROUPID} -d ${SAG_HOME} -c "${SAG_USER_DESC}" ${SAG_USER} && \
+    mkdir -p ${SAG_HOME}/.ansible/tmp && \
+    chown -R ${SAG_USER}:${SAG_GROUP} ${SAG_HOME}/.ansible
 
 # 2. start by creating an ansible base image
 ######################################################################################################
