@@ -1,8 +1,8 @@
 #!/bin/sh
 
 ## common
-if [ -f common.sh ]; then
-    . common.sh
+if [ -f ./common.sh ]; then
+    . ./common.sh
 fi
 
 logger $LOGGER_INFO "Starting APIGateway Configurator..."
