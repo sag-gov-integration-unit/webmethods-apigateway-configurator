@@ -7,6 +7,7 @@
 - name: Reset passwords tasks
   hosts: local
   become: true
+  become_user: "{{ webmethods_user }}"
   run_once: true
   vars:
     apigateway_rest_protocol: "{{ vars_apigw_rest_protocol }}"

@@ -1,9 +1,34 @@
-# 1. start by creating an ansible base image
+
+# 1. start by creating a base image
 ######################################################################################################
 
 ARG BASE_IMAGE
 
-FROM $BASE_IMAGE as base_ansible
+FROM $BASE_IMAGE as base
+
+## USER and HOME
+ARG SAG_HOME=/opt/softwareag
+ARG SAG_USER=saguser
+ARG SAG_USERID=1724
+ARG SAG_USER_DESC="Software AG User"
+ARG SAG_GROUP=saguser
+ARG SAG_GROUPID=1724
+
+ENV SAG_HOME ${SAG_HOME}
+ENV SAG_USER ${SAG_USER}
+ENV SAG_USERID ${SAG_USERID}
+ENV SAG_USER_DESC ${SAG_USER_DESC}
+ENV SAG_GROUP ${SAG_GROUP}
+ENV SAG_GROUPID ${SAG_GROUPID}
+
+# Create saguser a process owner and group
+RUN groupadd -g ${SAG_GROUPID} ${SAG_GROUP} && \
+    useradd -s /bin/bash -u ${SAG_USERID} -m -g ${SAG_GROUPID} -d ${SAG_HOME} -c "${SAG_USER_DESC}" ${SAG_USER}
+
+# 2. start by creating an ansible base image
+######################################################################################################
+
+FROM base as base_ansible
 
 ARG ANSIBLE_RELEASE=v2.11.1
 
