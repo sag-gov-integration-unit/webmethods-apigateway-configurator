@@ -5,11 +5,10 @@ ARG BASE_IMAGE
 
 FROM $BASE_IMAGE as base_ansible
 
-ARG ANSIBLE_RELEASE
+ARG ANSIBLE_RELEASE=v2.11.1
 
 ## common vars
 ENV ANSIBLE_PATH="/ansible"
-ENV ANSIBLE_VAULT_PASS=
 ENV ANSIBLE_PLAYBOOKS_BASEPATH="${ANSIBLE_PATH}/playbooks"
 ENV ANSIBLE_ROLES_BASEPATH="${ANSIBLE_PATH}/roles"
 ENV ANSIBLE_VENV="${ANSIBLE_PATH}/venv"
@@ -17,8 +16,6 @@ ENV ANSIBLE_VERBOSITY="0"
 ENV ANSIBLE_ROLES_PATH="~/.ansible/roles:/usr/share/ansible/roles:/etc/ansible/roles"
 
 ## ansible-specific config env vars
-### The vault password file to use. Equivalent to –vault-password-file or –vault-id
-ENV ANSIBLE_VAULT_PASSWORD_FILE="${ANSIBLE_PATH}/vault_pass.sh"
 
 ### Privilege escalation method to use when become is enabled.
 ENV ANSIBLE_BECOME_METHOD="su"
