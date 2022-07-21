@@ -5,6 +5,8 @@ if [ -f common.sh ]; then
     . common.sh
 fi
 
+logger $LOGGER_INFO "Starting APIGateway Configurator..."
+
 ## change password
 if [ "${apigw_changepassword_enabled}" == "true" ]; then
     logger $LOGGER_INFO "Running change password playbook"
