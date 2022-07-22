@@ -93,7 +93,7 @@ services:
       apigw_settings_portalgateway_gateway_password: "somethingnew"
       apigw_settings_portalgateway_portaltype: devportal
       apigw_settings_portalgateway_devportal_tenant: default
-      apigw_settings_portalgateway_devportal_url: "http://devportal:18101/portal"
+      apigw_settings_portalgateway_devportal_url: "http://devportal:8083/portal"
       apigw_settings_portalgateway_devportal_username: "Administrator"
       apigw_settings_portalgateway_devportal_password: "manage"
     networks:
