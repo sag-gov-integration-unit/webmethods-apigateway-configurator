@@ -19,9 +19,9 @@ vars_apigw_rest_ssl_inbound_outbound_configuration:
 vars_apigw_rest_ssl_ports_list:
   - port_type: regular_https
     port_detail:
-      portAlias: "{{ lookup('env', 'apigw_settings_ssl_runtimeport_alias') | default('',true) }}"
+      port: "{{ lookup('env', 'apigw_settings_ssl_runtimeport_port') | default('',true) }}"
+      # portAlias: "{{ lookup('env', 'apigw_settings_ssl_runtimeport_alias') | default('',true) }}"
       # portDescription: "{{ lookup('env', 'apigw_settings_ssl_runtimeport_description') | default('HTTPS port',true) }}"
-      # port: "{{ lookup('env', 'apigw_settings_ssl_runtimeport_port') | default('5543',true) }}"
       # enable: "{{ lookup('env', 'apigw_settings_ssl_runtimeport_enable') | default('yes',true) }}"
       # threadPool: "{{ lookup('env', 'apigw_settings_ssl_runtimeport_threadPool') | default('false',true) }}"
       # minThread: "{{ lookup('env', 'apigw_settings_ssl_runtimeport_threadPool_minthread') | default('5',true) }}"
