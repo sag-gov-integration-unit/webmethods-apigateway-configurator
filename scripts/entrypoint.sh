@@ -51,3 +51,4 @@ if [ "${apigw_settings_portalgateway_configure}" == "true" ]; then
 fi
 
 logger_with_headers $LOGGER_INFO "APIGateway Configurator Done !!"
+exit 0
