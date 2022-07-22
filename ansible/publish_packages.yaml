@@ -36,8 +36,8 @@
     - include_role:
         name: apigateway-rest-configurator
         apply:
-          ignore_errors: "{{ vars_webmethods_apigateway_packages_publish_groups_ignore_errors }}"
+          ignore_errors: "{{ vars_apigw_packages_publish_groups_ignore_errors }}"
       vars:
         configs_action: publish-packages-groups
-        configs_enabled: "{{ vars_webmethods_apigateway_packages_publish_groups_enabled }}"
-        rvar_apigateway_packages_publish_groups: "{{ vars_webmethods_apigateway_packages_publish_groups }}"
+        configs_enabled: "{{ vars_apigw_packages_publish_groups_enabled }}"
+        rvar_apigateway_packages_publish_groups: "{{ vars_apigw_packages_publish_groups }}"

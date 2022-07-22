@@ -35,7 +35,7 @@
 
     - name: set internal archive list
       set_fact:
-        _apigateway_archives: "{{ vars_webmethods_apigateway_archives }}"
+        _apigateway_archives: "{{ vars_apigw_archives }}"
  
     - block:
 
@@ -48,26 +48,26 @@
             path: "{{ _import_single_tozip.path }}/*"
             dest: "/tmp/{{ _import_single_tozip.path | basename }}.zip"
             format: zip
-          with_items: "{{ vars_webmethods_apigateway_archives }}"
+          with_items: "{{ vars_apigw_archives }}"
           loop_control:
             loop_var: _import_single_tozip
 
         - name: update dict with new zip paths
           set_fact:
             _apigateway_archives: "{{ _apigateway_archives | default([]) + [ { 'path': ('/tmp/' + _import_single.path | basename + '.zip'), 'overwrite': _import_single.overwrite, 'fixingMissingVersions': _import_single.fixingMissingVersions, 'preserveAssetState': _import_single.preserveAssetState } ] }}"
-          loop: "{{ vars_webmethods_apigateway_archives }}"
+          loop: "{{ vars_apigw_archives }}"
           loop_control:
             loop_var: _import_single
       
-      when: vars_webmethods_apigateway_archive_imports_autozip_enabled | default() | bool
+      when: vars_apigw_archive_imports_autozip_enabled | default() | bool
     
     - debug: var=_apigateway_archives
 
     - include_role:
         name: apigateway-rest-configurator
         apply:
-          ignore_errors: "{{ vars_webmethods_apigateway_archive_imports_ignore_errors }}"
+          ignore_errors: "{{ vars_apigw_archive_imports_ignore_errors }}"
       vars:
         configs_action: import-archives
-        configs_enabled: "{{ vars_webmethods_apigateway_archive_imports_enabled }}"
+        configs_enabled: "{{ vars_apigw_archive_imports_enabled }}"
         rvar_apigateway_archive_imports: "{{ _apigateway_archives }}"

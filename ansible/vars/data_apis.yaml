@@ -5,7 +5,7 @@ vars_apigw_apis_publish_groups_ignore_errors: "{{ lookup('env', 'apigw_configure
 
 # APIs to publish
 # each list item will publish a list of APIs to a list of communities using the same portalGatewayId
-vars_webmethods_apigateway_apis_publish_groups:
+vars_apigw_apis_publish_groups:
   - lookup_portalGatewayId:
       name: "{{ lookup('env', 'env_apigateway_publish_portal_config_name') | default('',true) }}"
       version: "{{ lookup('env', 'env_apigateway_publish_portal_config_version') | default('',true) }}"

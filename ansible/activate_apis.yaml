@@ -37,8 +37,8 @@
       include_role:
         name: apigateway-rest-configurator
         apply:
-          ignore_errors: "{{ vars_webmethods_apigateway_apis_ignore_errors }}"
+          ignore_errors: "{{ vars_apigw_apis_ignore_errors }}"
       vars:
         configs_action: activate-apis
-        configs_enabled: "{{ vars_webmethods_apigateway_apis_enabled }}"
+        configs_enabled: "{{ vars_apigw_apis_enabled }}"
         rvar_apigateway_packages: "{{ vars_apigw_apis_update_status }}"

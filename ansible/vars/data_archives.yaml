@@ -8,7 +8,7 @@ vars_apigw_archive_imports_enabled: "{{ lookup('env', 'apigw_configure_archives'
 vars_apigw_archive_imports_ignore_errors: "{{ lookup('env', 'apigw_configure_archives_ignore_errors') | default(vars_apigw_default_ignore_errors,true) }}"
 
 ## archives to import into gateway
-vars_webmethods_apigateway_archives:
+vars_apigw_archives:
   - path: "{{ lookup('env', 'env_apigateway_archives_import_1_path') | default('',true) }}"
     overwrite: "{{ lookup('env', 'env_apigateway_archives_import_1_overwrite') | default('',true) }}"
     fixingMissingVersions: "{{ lookup('env', 'env_apigateway_archives_import_1_fixingMissingVersions') | default('true',true) }}"
