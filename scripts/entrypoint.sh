@@ -13,16 +13,16 @@ if [ -f ./common.sh ]; then
     . ./common.sh
 fi
 
-logger $LOGGER_INFO "Starting APIGateway Configurator..."
+logger_with_headers $LOGGER_INFO "Starting APIGateway Configurator..."
 
-## wait for apigateway connect
+## wait for apigateway connect - always first!
 if [ "${apigw_wait_connect}" == "true" ]; then
     exec_ansible_playbook wait_connect.yaml
 fi
 
-## reset_password
+## update_password
 if [ "${apigw_changepassword_enabled}" == "true" ]; then
-    exec_ansible_playbook reset_password.yaml
+    exec_ansible_playbook update_password.yaml
 fi
 
 ## config_system_settings
@@ -50,4 +50,4 @@ if [ "${apigw_settings_portalgateway_configure}" == "true" ]; then
     exec_ansible_playbook config_portalgateway.yaml
 fi
 
-logger $LOGGER_INFO "APIGateway Configurator Done !!"
+logger_with_headers $LOGGER_INFO "APIGateway Configurator Done !!"

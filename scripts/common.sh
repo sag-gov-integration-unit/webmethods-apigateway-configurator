@@ -19,13 +19,16 @@ function logger() {
     fi
 }
 
+logger_with_headers() {
+    local level=$1;
+    logger $level "##########################################################"
+    logger "$@"
+    logger $level "##########################################################"
+}
+
 exec_ansible_playbook() {
     local playbook=$1
-
-    logger $LOGGER_INFO "##########################################################"
-    logger $LOGGER_INFO "Running $playbook ..."
-    logger $LOGGER_INFO "##########################################################"
-    
+    logger_with_headers $LOGGER_INFO "Running $playbook ..."
     ansible-playbook $playbook
 }
 
