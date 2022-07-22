@@ -3,9 +3,6 @@
 vars_apigw_ssl_inbound_outbound_enabled: "{{ lookup('env', 'apigw_settings_ssl_inbound_outbound_configure') | default('false',true) }}"
 vars_apigw_ssl_inbound_outbound_ignore_errors: "{{ lookup('env', 'apigw_settings_ssl_inbound_outbound_configure_ignore_errors') | default(vars_apigw_default_ignore_errors,true) }}"
 
-vars_apigw_ssl_runtimeport_enabled: "{{ lookup('env', 'apigw_settings_ssl_runtimeport_configure') | default('false',true) }}"
-vars_apigw_ssl_runtimeport_ignore_errors: "{{ lookup('env', 'apigw_settings_ssl_runtimeport_configure_ignore_errors') | default(vars_apigw_default_ignore_errors,true) }}"
-
 ## apigateway keystore/truststore setup for inbound and outbound messages
 vars_apigw_rest_ssl_inbound_outbound_configuration:
   keystoreName: "{{ lookup('env', 'apigw_settings_ssl_inbound_keystore_name') | default('',true) }}"
@@ -14,31 +11,3 @@ vars_apigw_rest_ssl_inbound_outbound_configuration:
   outboundKeystoreName: "{{ lookup('env', 'apigw_settings_ssl_outbound_keystore_name') | default('',true) }}"
   outboundKeyAlias: "{{ lookup('env', 'apigw_settings_ssl_outbound_keystore_keyalias') | default('',true) }}"
   outboundTruststoreName: "{{ lookup('env', 'apigw_settings_ssl_outbound_truststore_name') | default('',true) }}"
-
-## apigateway ssl ports
-vars_apigw_rest_ssl_ports_list:
-  - port_type: regular_https
-    port_detail:
-      port: "{{ lookup('env', 'apigw_settings_ssl_runtimeport_port') | default('',true) }}"
-      # portAlias: "{{ lookup('env', 'apigw_settings_ssl_runtimeport_alias') | default('',true) }}"
-      # portDescription: "{{ lookup('env', 'apigw_settings_ssl_runtimeport_description') | default('HTTPS port',true) }}"
-      # enable: "{{ lookup('env', 'apigw_settings_ssl_runtimeport_enable') | default('yes',true) }}"
-      # threadPool: "{{ lookup('env', 'apigw_settings_ssl_runtimeport_threadPool') | default('false',true) }}"
-      # minThread: "{{ lookup('env', 'apigw_settings_ssl_runtimeport_threadPool_minthread') | default('5',true) }}"
-      # maxThread: "{{ lookup('env', 'apigw_settings_ssl_runtimeport_threadPool_maxthread') | default('20',true) }}"
-      # threadPriority: "{{ lookup('env', 'apigw_settings_ssl_runtimeport_threadpool_threadpriority') | default('5',true) }}"
-      # maxQueue: "{{ lookup('env', 'apigw_settings_ssl_runtimeport_maxqueue') | default('65534',true) }}"
-      # keepAliveTimeout: "{{ lookup('env', 'apigw_settings_ssl_runtimeport_keepalivetimeout') | default('20000',true) }}"
-      # clientAuth: "{{ lookup('env', 'apigw_settings_ssl_runtimeport_clientauth') | default('none',true) }}"
-      keyStore: "{{ lookup('env', 'apigw_settings_ssl_runtimeport_keystore_name') | default('',true) }}"
-      alias: "{{ lookup('env', 'apigw_settings_ssl_runtimeport_keystore_keyalias') | default('',true) }}"
-      trustStore: "{{ lookup('env', 'apigw_settings_ssl_runtimeport_truststore_name') | default('',true) }}"
-    # access_mode:
-    #   accessMode: allow
-    #   pkg: WmRoot
-    #   port: ""
-    #   services: []
-    # ip_access_mode:
-    #   ipAccessType: allow
-    #   pkg: WmRoot
-    #   hostsList: []
