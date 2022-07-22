@@ -25,7 +25,7 @@ services:
     networks:
       - stack
 
-  apigateway_configurator:
+  config_loadbalancerurls:
     image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
     environment: 
       apigw_connect_host: apigateway
