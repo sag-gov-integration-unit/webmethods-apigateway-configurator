@@ -19,6 +19,16 @@ function logger() {
     fi
 }
 
+exec_ansible_playbook() {
+    local playbook=$1
+
+    logger $LOGGER_INFO "##########################################################"
+    logger $LOGGER_INFO "Running $playbook ..."
+    logger $LOGGER_INFO "##########################################################"
+    
+    ansible-playbook $playbook
+}
+
 exit_on_error() {
     exit_code=$1
     last_command=${@:2}

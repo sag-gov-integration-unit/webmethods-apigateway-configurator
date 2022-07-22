@@ -1,4 +1,12 @@
-#!/bin/sh
+#!/bin/bash
+
+exit_trap () {
+  local lc="$BASH_COMMAND" rc=$?
+  echo "Command [$lc] exited with code [$rc]"
+}
+
+trap exit_trap EXIT
+set -e
 
 ## common
 if [ -f ./common.sh ]; then
@@ -9,37 +17,37 @@ logger $LOGGER_INFO "Starting APIGateway Configurator..."
 
 ## wait for apigateway connect
 if [ "${apigw_wait_connect}" == "true" ]; then
-    logger $LOGGER_INFO "Running wait_connect playbook"
-    ansible-playbook wait_connect.yaml
-    exit_on_error "$?" "wait_connect"
+    exec_ansible_playbook wait_connect.yaml
 fi
 
 ## reset_password
 if [ "${apigw_changepassword_enabled}" == "true" ]; then
-    logger $LOGGER_INFO "Running reset_password playbook"
-    ansible-playbook reset_password.yaml
-    exit_on_error "$?" "reset_password"
+    exec_ansible_playbook reset_password.yaml
 fi
 
 ## config_system_settings
 if [ "${apigw_settings_core_configure}" == "true" ]; then
-    logger $LOGGER_INFO "Running config_settings playbook"
-    ansible-playbook config_settings.yaml
-    exit_on_error "$?" "config_settings"
+    exec_ansible_playbook config_settings.yaml
+fi
+
+## config_system_settings
+if [ "${apigw_settings_lburls_configure}" == "true" ]; then
+    exec_ansible_playbook config_lburls.yaml
 fi
 
 ## config_ssl
 if [ "${apigw_settings_ssl_configure}" == "true" ]; then
-    logger $LOGGER_INFO "Running config_ssl playbook"
-    ansible-playbook config_ssl.yaml
-    exit_on_error "$?" "config_ssl"
+    exec_ansible_playbook config_ssl.yaml
 fi
 
 ## config_saml
 if [ "${apigw_settings_saml_configure}" == "true" ]; then
-    logger $LOGGER_INFO "Running config_saml playbook"
-    ansible-playbook config_saml.yaml
-    exit_on_error "$?" "config_saml"
+    exec_ansible_playbook config_saml.yaml
 fi
 
-logger $LOGGER_INFO "Done!!"
+## config_system_settings
+if [ "${apigw_settings_portalgateway_configure}" == "true" ]; then
+    exec_ansible_playbook config_portalgateway.yaml
+fi
+
+logger $LOGGER_INFO "APIGateway Configurator Done !!"
