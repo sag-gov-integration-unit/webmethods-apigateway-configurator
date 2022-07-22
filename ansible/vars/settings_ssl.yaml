@@ -19,26 +19,26 @@ vars_apigw_rest_ssl_inbound_outbound_configuration:
 vars_apigw_rest_ssl_ports_list:
   - port_type: regular_https
     port_detail:
-      portAlias: "{{ lookup('env', 'apigw_settings_ssl_runtimeport_alias') | default('SAGSecurePort',true) }}"
-      portDescription: "{{ lookup('env', 'apigw_settings_ssl_runtimeport_description') | default('HTTPS port',true) }}"
-      port: "{{ lookup('env', 'apigw_settings_ssl_runtimeport_port') | default('5543',true) }}"
-      enable: "{{ lookup('env', 'apigw_settings_ssl_runtimeport_enable') | default('yes',true) }}"
-      threadPool: "{{ lookup('env', 'apigw_settings_ssl_runtimeport_threadPool') | default('false',true) }}"
-      minThread: "{{ lookup('env', 'apigw_settings_ssl_runtimeport_threadPool_minthread') | default('5',true) }}"
-      maxThread: "{{ lookup('env', 'apigw_settings_ssl_runtimeport_threadPool_maxthread') | default('20',true) }}"
-      threadPriority: "{{ lookup('env', 'apigw_settings_ssl_runtimeport_threadpool_threadpriority') | default('5',true) }}"
-      maxQueue: "{{ lookup('env', 'apigw_settings_ssl_runtimeport_maxqueue') | default('65534',true) }}"
-      keepAliveTimeout: "{{ lookup('env', 'apigw_settings_ssl_runtimeport_keepalivetimeout') | default('20000',true) }}"
-      clientAuth: "{{ lookup('env', 'apigw_settings_ssl_runtimeport_clientauth') | default('none',true) }}"
+      portAlias: "{{ lookup('env', 'apigw_settings_ssl_runtimeport_alias') | default('',true) }}"
+      # portDescription: "{{ lookup('env', 'apigw_settings_ssl_runtimeport_description') | default('HTTPS port',true) }}"
+      # port: "{{ lookup('env', 'apigw_settings_ssl_runtimeport_port') | default('5543',true) }}"
+      # enable: "{{ lookup('env', 'apigw_settings_ssl_runtimeport_enable') | default('yes',true) }}"
+      # threadPool: "{{ lookup('env', 'apigw_settings_ssl_runtimeport_threadPool') | default('false',true) }}"
+      # minThread: "{{ lookup('env', 'apigw_settings_ssl_runtimeport_threadPool_minthread') | default('5',true) }}"
+      # maxThread: "{{ lookup('env', 'apigw_settings_ssl_runtimeport_threadPool_maxthread') | default('20',true) }}"
+      # threadPriority: "{{ lookup('env', 'apigw_settings_ssl_runtimeport_threadpool_threadpriority') | default('5',true) }}"
+      # maxQueue: "{{ lookup('env', 'apigw_settings_ssl_runtimeport_maxqueue') | default('65534',true) }}"
+      # keepAliveTimeout: "{{ lookup('env', 'apigw_settings_ssl_runtimeport_keepalivetimeout') | default('20000',true) }}"
+      # clientAuth: "{{ lookup('env', 'apigw_settings_ssl_runtimeport_clientauth') | default('none',true) }}"
       keyStore: "{{ lookup('env', 'apigw_settings_ssl_runtimeport_keystore_name') | default('',true) }}"
       alias: "{{ lookup('env', 'apigw_settings_ssl_runtimeport_keystore_keyalias') | default('',true) }}"
       trustStore: "{{ lookup('env', 'apigw_settings_ssl_runtimeport_truststore_name') | default('',true) }}"
-    access_mode:
-      accessMode: allow
-      pkg: WmRoot
-      port: ""
-      services: []
-    ip_access_mode:
-      ipAccessType: allow
-      pkg: WmRoot
-      hostsList: []
+    # access_mode:
+    #   accessMode: allow
+    #   pkg: WmRoot
+    #   port: ""
+    #   services: []
+    # ip_access_mode:
+    #   ipAccessType: allow
+    #   pkg: WmRoot
+    #   hostsList: []
