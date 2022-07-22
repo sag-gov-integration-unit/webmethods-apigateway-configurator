@@ -30,14 +30,9 @@ if [ "${apigw_settings_core_configure}" == "true" ]; then
     exec_ansible_playbook config_settings.yaml
 fi
 
-## config_system_settings
+## config_lb urls
 if [ "${apigw_settings_lburls_configure}" == "true" ]; then
     exec_ansible_playbook config_lburls.yaml
-fi
-
-## import archives
-if [ "${apigw_data_archives_import}" == "true" ]; then
-    exec_ansible_playbook import_archives.yaml
 fi
 
 ## config_keystores / truststore
@@ -50,8 +45,12 @@ if [ "${apigw_settings_truststore_configure}" == "true" ]; then
 fi
 
 ## config_ssl
-if [ "${apigw_settings_ssl_configure}" == "true" ]; then
-    exec_ansible_playbook config_ssl.yaml
+if [ "${apigw_settings_ssl_inbound_outbound_configure}" == "true" ]; then
+    exec_ansible_playbook config_ssl_inout_connections.yaml
+fi
+
+if [ "${apigw_settings_ssl_runtimeport_configure}" == "true" ]; then
+    exec_ansible_playbook config_ssl_port.yaml
 fi
 
 ## config_saml
@@ -59,9 +58,14 @@ if [ "${apigw_settings_saml_configure}" == "true" ]; then
     exec_ansible_playbook config_saml.yaml
 fi
 
-## config_system_settings
+## config portal gateways
 if [ "${apigw_settings_portalgateway_configure}" == "true" ]; then
     exec_ansible_playbook config_portalgateway.yaml
+fi
+
+## import archives
+if [ "${apigw_data_archives_import}" == "true" ]; then
+    exec_ansible_playbook import_archives.yaml
 fi
 
 logger_with_headers $LOGGER_INFO "APIGateway Configurator Done !!"

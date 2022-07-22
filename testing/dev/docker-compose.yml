@@ -171,18 +171,41 @@ services:
     networks:
       - stack
 
-  config_ssl:
+  config_ssl_inbound_outbound_connections:
     image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
     volumes:
       - ../resources/ansible/sagdevops-ansible-common:/ansible/roles/sagdevops-ansible-common-1.0.0-3:ro
       - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.0-4:ro 
-      - ../resources/certs:/certs:ro
     environment: 
       apigw_connect_host: apigateway
       apigw_connect_port: "5555"
       apigw_connect_user: Administrator
       apigw_connect_password: "somethingnew"
-      apigw_data_archives_import: "true"
+      apigw_settings_ssl_inbound_outbound_configure: "true"
+      apigw_settings_ssl_inbound_keystore_name: "Custom_SSL_Keystore"
+      apigw_settings_ssl_inbound_keystore_keyalias: "certificate"
+      apigw_settings_ssl_inbound_truststore_name: "Custom_SSL_Truststore"
+      apigw_settings_ssl_outbound_keystore_name: "Custom_SSL_Keystore"
+      apigw_settings_ssl_outbound_keystore_keyalias: "certificate"
+      apigw_settings_ssl_outbound_truststore_name: "Custom_SSL_Truststore"
+    networks:
+      - stack
+
+  config_ssl_port:
+    image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
+    volumes:
+      - ../resources/ansible/sagdevops-ansible-common:/ansible/roles/sagdevops-ansible-common-1.0.0-3:ro
+      - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.0-4:ro 
+    environment: 
+      apigw_connect_host: apigateway
+      apigw_connect_port: "5555"
+      apigw_connect_user: Administrator
+      apigw_connect_password: "somethingnew"
+      apigw_settings_ssl_runtimeport_configure: "true"
+      apigw_settings_ssl_runtimeport_alias: SAGSecurePort
+      apigw_settings_ssl_runtimeport_keystore_name: "Custom_SSL_Keystore"
+      apigw_settings_ssl_runtimeport_keystore_keyalias: "certificate"
+      apigw_settings_ssl_runtimeport_truststore_name: "Custom_SSL_Truststore"
     networks:
       - stack
 
