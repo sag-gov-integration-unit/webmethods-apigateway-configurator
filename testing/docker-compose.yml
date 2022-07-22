@@ -98,3 +98,21 @@ services:
       apigw_settings_portalgateway_devportal_password: "manage"
     networks:
       - stack
+
+  config_import_archives:
+    image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
+    volumes:
+      - resources/sampleapis_archives:/imports:ro
+    environment: 
+      apigw_connect_host: apigateway
+      apigw_connect_port: "5555"
+      apigw_connect_user: Administrator
+      apigw_connect_password: "somethingnew"
+      apigw_data_archives_import: "true"
+      apigw_data_archives_import_1_path: "/imports/apigw-archive-api-bookstore-1.0.zip"
+      apigw_data_archives_import_1_autozip_enabled: "false"
+      apigw_data_archives_import_1_overwrite: "apis,policies,policyactions"
+      apigw_data_archives_import_1_fixingMissingVersions: "true"
+      apigw_data_archives_import_1_preserveAssetState: "true"
+    networks:
+      - stack
