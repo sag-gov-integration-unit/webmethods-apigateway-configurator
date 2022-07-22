@@ -12,76 +12,211 @@ services:
       - "9072:9072"
     networks:
       - stack
+  
+  devportal:
+    image: ${REG_DEVPORTAL}${IMAGE_DEVPORTAL}:${TAG_DEVPORTAL}
+    ports:
+      - "8083:8083"
+    environment: 
+      SPRING_ELASTICSEARCH_REST_URIS: "http://elasticsearch:9200"
+    networks:
+      - stack
 
-  apigateway_configurator_dev:
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:$TAG_ELASTIC_VERSION
+    environment:
+      - bootstrap.memory_lock=true
+      - discovery.type=single-node
+      - http.port=9200
+      - transport.port=9300
+    networks:
+      - stack
+
+  config_changepassword:
     image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
-    command: ["-v", "apply_configs.yaml"]
-    # command: ["apply_configs.yaml","--tags","port_check,change_password,configs_plans"]
-    # command: ["-v", "apply_configs.yaml","--tags","port_check,change_password"]
     volumes:
       - ${PWD}/resources/ansible/sagdevops-ansible-common-utils:/ansible/roles/sagdevops-ansible-common-1.0.0-3:ro
-      - ${PWD}/resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.0-4:ro  
+      - ${PWD}/resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.0-4:ro 
     environment: 
-      apigw_host: apigateway
-      apigw_port: "5555"
-      apigw_rest_user: Administrator
-      apigw_rest_password: "somethingnew"
-      apigw_rest_password_old: "manage"
-      apigw_configure_default_ignore_errors: "false"
-      apigw_configure_lb_ignore_errors: "false"
-      apigw_configure_extended_settings_ignore_errors: "false"
-      apigw_configure_packages_ignore_errors: "false"
-      apigw_configure_applications: "false"
-      apigw_configure_plans: "false"
-      apigw_configure_packages: "false"
-      apigw_configure_lb: "false"
-      apigw_configure_extended_settings: "false"
-      apigw_configure_portalgateway: "false"
-      apigw_configure_usermgt: "false"
-      apigw_configure_archives: "false"
-      apigw_configure_aliases: "false"
-      apigw_configure_promotions_stages: "false"
-      apigw_configure_apis_publish_groups: "false"
-      apigw_configure_packages_publish_groups: "false"
-      apigw_lb_http_url: "http://localhost"
-      apigw_lb_https_url: "https://localhost"
-      apigw_lb_websocket_url: "ws://localhost"
-      apigw_lb_http_url_alt1: "http://external_access"
-      apigw_lb_https_url_alt1: "https://external_access"
-      apigw_lb_websocket_url_alt1: "ws://external_access"
-      apigw_lb_webapp_url: "http://external_access"
-      apigw_portalgateway_gateway_url: "http://apigateway:5555"
-      apigw_portalgateway_gateway_username: "Administrator"
-      apigw_portalgateway_gateway_password: "somethingnew"
-      apigw_portalgateway_portaltype: devportal
-      apigw_portalgateway_apiportal_tenant: default
-      apigw_portalgateway_apiportal_url: http://apiportal:18101
-      apigw_portalgateway_apiportal_username: system
-      apigw_portalgateway_apiportal_password: manager
-      apigw_portalgateway_devportal_tenant: default
-      apigw_portalgateway_devportal_url: "http://apiportal:18101/portal"
-      apigw_portalgateway_devportal_username: "Administrator"
-      apigw_portalgateway_devportal_password: "manage"
-      apigw_aliases_covid_endpoint: http://webmethods-sample-apis-covidreports:7071
-      apigw_aliases_bookstore_endpoint: http://webmethods-sample-apis-bookstore:7071
-      apigw_aliases_uszip_endpoint: http://webmethods-sample-apis-uszip:7071
-      apigw_aliases_sagtours_endpoint: http://webmethods-sample-apis-sagtours:5555
-      apigw_ssl_configure_sslconfigs: "true"
-      apigw_ssl_keystore_filepath: /opt/softwareag/SAGKeystore.jks
-      apigw_ssl_keystore_name: "SSLSAGKeystore"
-      apigw_ssl_keystore_description: "My custom keystore for SSL"
-      apigw_ssl_keystore_password: "manage"
-      apigw_ssl_keystore_keyalias: "1"
-      apigw_ssl_keystore_keyalias_password: "manage"
-      apigw_ssl_truststore_filepath: /opt/softwareag/SAGTruststore.jks
-      apigw_ssl_truststore_description: "My custom truststore"
-      apigw_ssl_truststore_password: "manage"
-      apigw_saml_configure_samlconfigs: "true"
-      apigw_saml_keystore_filepath: /opt/softwareag/SAGKeystore.jks
-      apigw_saml_keystore_name: "SAMLSAGKeystore"
-      apigw_saml_keystore_description: "My custom keystore for SAML"
-      apigw_saml_keystore_password: "manage"
-      apigw_saml_keystore_keyalias: "1"
-      apigw_saml_keystore_keyalias_password: "manage"
+      apigw_connect_host: apigateway
+      apigw_connect_port: "5555"
+      apigw_connect_user: Administrator
+      apigw_connect_password: "somethingnew"
+      apigw_changepassword_enabled: "true"
+      apigw_changepassword_old: "manage"
+    networks:
+      - stack
+
+  config_loadbalancerurls:
+    image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
+    volumes:
+      - ${PWD}/resources/ansible/sagdevops-ansible-common-utils:/ansible/roles/sagdevops-ansible-common-1.0.0-3:ro
+      - ${PWD}/resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.0-4:ro 
+    environment: 
+      apigw_connect_host: apigateway
+      apigw_connect_port: "5555"
+      apigw_connect_user: Administrator
+      apigw_connect_password: "somethingnew"
+      apigw_settings_lburls_configure: "true"
+      apigw_settings_lburls_http_url: "http://externallb1:80"
+      apigw_settings_lburls_https_url: "https://externallb1:443"
+      apigw_settings_lburls_websocket_url: "ws://externallb1"
+      apigw_settings_lburls_http_url_alt1: "http://externallb2"
+      apigw_settings_lburls_https_url_alt1: "https://externallb2"
+      apigw_settings_lburls_websocket_url_alt1: "ws://externallb2"
+      apigw_settings_lburls_webapp_url: "http://externallb"
+    networks:
+      - stack
+
+  config_coresettings:
+    image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
+    volumes:
+      - ${PWD}/resources/ansible/sagdevops-ansible-common-utils:/ansible/roles/sagdevops-ansible-common-1.0.0-3:ro
+      - ${PWD}/resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.0-4:ro 
+    environment: 
+      apigw_connect_host: apigateway
+      apigw_connect_port: "5555"
+      apigw_connect_user: Administrator
+      apigw_connect_password: "somethingnew"
+      apigw_settings_core_configure: "true"
+      apigw_settings_core_watts: watt.server.cachemanager.connectTimeout=300000 watt.net.timeout=600 watt.net.clientKeepaliveUsageLimit=10000000 watt.server.threadPoolMin=50 watt.server.threadPool=1000 watt.server.control.serverThreadThreshold=50 watt.security.ssl.cacheClientSessions=true watt.net.maxClientKeepaliveConns=500 watt.security.ssl.resumeClientSessions=true
+      apigw_settings_core_extended: "events.reportingQueue.size=5000 events.collectionPool.minThreads=2 events.collectionPool.maxThreads=32 events.reportingPool.minThreads=4 events.reportingPool.maxThreads=16 eventsRefreshInterval=60s events.collectionQueue.size=10000000"
+    networks:
+      - stack
+
+  config_portalgateway:
+    image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
+    volumes:
+      - ${PWD}/resources/ansible/sagdevops-ansible-common-utils:/ansible/roles/sagdevops-ansible-common-1.0.0-3:ro
+      - ${PWD}/resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.0-4:ro 
+    environment: 
+      apigw_connect_host: apigateway
+      apigw_connect_port: "5555"
+      apigw_connect_user: Administrator
+      apigw_connect_password: "somethingnew"
+      apigw_settings_portalgateway_configure: "true"
+      apigw_settings_portalgateway_configure_ignore_errors: "true"
+      apigw_settings_portalgateway_name: API PortalGateway Config
+      apigw_settings_portalgateway_description: API PortalGateway Configuration
+      apigw_settings_portalgateway_version: "1.0"
+      apigw_settings_portalgateway_stagename: "DEV"
+      apigw_settings_portalgateway_gateway_url: "http://apigateway:5555"
+      apigw_settings_portalgateway_gateway_username: "Administrator"
+      apigw_settings_portalgateway_gateway_password: "somethingnew"
+      apigw_settings_portalgateway_portaltype: devportal
+      apigw_settings_portalgateway_devportal_tenant: default
+      apigw_settings_portalgateway_devportal_url: "http://devportal:8083/portal"
+      apigw_settings_portalgateway_devportal_username: "Administrator"
+      apigw_settings_portalgateway_devportal_password: "manage"
+    networks:
+      - stack
+
+  config_import_archives:
+    image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
+    volumes:
+      - ${PWD}/resources/ansible/sagdevops-ansible-common-utils:/ansible/roles/sagdevops-ansible-common-1.0.0-3:ro
+      - ${PWD}/resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.0-4:ro 
+      - ./resources/sampleapis_archives:/imports:ro
+    environment: 
+      apigw_connect_host: apigateway
+      apigw_connect_port: "5555"
+      apigw_connect_user: Administrator
+      apigw_connect_password: "somethingnew"
+      apigw_data_archives_import: "true"
+      apigw_data_archives_import_1_path: "/imports/apigw-archive-api-bookstore-1.0.zip"
+      apigw_data_archives_import_1_autozip_enabled: "false"
+      apigw_data_archives_import_1_overwrite: "apis,policies,policyactions"
+      apigw_data_archives_import_1_fixingMissingVersions: "true"
+      apigw_data_archives_import_1_preserveAssetState: "true"
+    networks:
+      - stack
+  
+  config_keystore:
+    image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
+    volumes:
+      - ${PWD}/resources/ansible/sagdevops-ansible-common-utils:/ansible/roles/sagdevops-ansible-common-1.0.0-3:ro
+      - ${PWD}/resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.0-4:ro 
+      - ./resources/certs:/certs:ro
+    environment: 
+      apigw_connect_host: apigateway
+      apigw_connect_port: "5555"
+      apigw_connect_user: Administrator
+      apigw_connect_password: "somethingnew"
+      apigw_settings_keystore_configure: "true"
+      apigw_settings_keystore_filepath: /certs/apigateway-p12.jks
+      # apigw_settings_keystore_name: "Custom_SSL_Keystore"
+      apigw_settings_keystore_description: "My custom keystore for SSL"
+      apigw_settings_keystore_password: "manage"
+      apigw_settings_keystore_keyalias: "certificate"
+      apigw_settings_keystore_keyalias_password: "manage"
+    networks:
+      - stack
+  
+  config_truststore:
+    image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
+    volumes:
+      - ${PWD}/resources/ansible/sagdevops-ansible-common-utils:/ansible/roles/sagdevops-ansible-common-1.0.0-3:ro
+      - ${PWD}/resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.0-4:ro 
+      - ./resources/certs:/certs:ro
+    environment: 
+      apigw_connect_host: apigateway
+      apigw_connect_port: "5555"
+      apigw_connect_user: Administrator
+      apigw_connect_password: "somethingnew"
+      apigw_settings_truststore_configure: "true"
+      apigw_settings_truststore_filepath: /certs/apigateway-truststore.jks
+      # apigw_settings_truststore_name: "Custom_SSL_Truststore"
+      apigw_settings_truststore_description: "My custom truststore"
+      apigw_settings_truststore_password: "manage"
+    networks:
+      - stack
+
+  config_ssl:
+    image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
+    volumes:
+      - ${PWD}/resources/ansible/sagdevops-ansible-common-utils:/ansible/roles/sagdevops-ansible-common-1.0.0-3:ro
+      - ${PWD}/resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.0-4:ro 
+      - ./resources/certs:/certs:ro
+    environment: 
+      apigw_connect_host: apigateway
+      apigw_connect_port: "5555"
+      apigw_connect_user: Administrator
+      apigw_connect_password: "somethingnew"
+      apigw_data_archives_import: "true"
+    networks:
+      - stack
+
+  config_saml:
+    image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
+    volumes:
+      - ${PWD}/resources/ansible/sagdevops-ansible-common-utils:/ansible/roles/sagdevops-ansible-common-1.0.0-3:ro
+      - ${PWD}/resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.0-4:ro 
+      - ./resources/certs:/certs:ro
+    environment: 
+      apigw_connect_host: apigateway
+      apigw_connect_port: "5555"
+      apigw_connect_user: Administrator
+      apigw_connect_password: "somethingnew"
+      apigw_data_archives_import: "true"
+      apigw_settings_ssl_configure: "true"
+      env_apigateway_saml_configure_samlconfigs: "true"
+      env_apigateway_saml_sp_id: "webmethods-apigateway-saml-client"
+      env_apigateway_saml_keystore_filepath: /certs/samlsp_p12.jks
+      env_apigateway_saml_keystore_name: "SAMLSelfSignedKeystore"
+      env_apigateway_saml_keystore_description: "My custom keystore for SAML"
+      env_apigateway_saml_keystore_type: JKS
+      env_apigateway_saml_keystore_password: "manage"
+      env_apigateway_saml_keystore_keyalias: "saml2"
+      env_apigateway_saml_keystore_keyalias_password: "manage"
+      env_apigateway_saml_redirect_host: "http://172.28.4.80:9072"
+      env_apigateway_saml_usebydefault: "false"
+      env_apigateway_saml_idpmetadata_localfilepath: ""
+      env_apigateway_saml_idpmetadata_content_b64encoded: ""
+      env_apigateway_saml_idpmetadata_url: http://172.28.4.80:8080/auth/realms/tenant1/protocol/saml/descriptor
+      env_apigateway_saml_userprofilemapping_firstname: firstName
+      env_apigateway_saml_userprofilemapping_lastname: lastName
+      env_apigateway_saml_userprofilemapping_email: email
+      env_apigateway_saml_group_attributes: roles;Role
+      env_apigateway_saml_groups_to_apigateway_groups: apigateway-admin=API-Gateway-Administrators;apigateway-apiprovider=API-Gateway-Providers;apigateway-user=Everybody
     networks:
       - stack
