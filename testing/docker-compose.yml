@@ -126,7 +126,6 @@ services:
       apigw_connect_port: "5555"
       apigw_connect_user: Administrator
       apigw_connect_password: "somethingnew"
-      apigw_data_archives_import: "true"
       apigw_settings_keystore_configure: "true"
       apigw_settings_keystore_filepath: /certs/apigateway-p12.jks
       apigw_settings_keystore_name: "SSLSAGKeystore"
