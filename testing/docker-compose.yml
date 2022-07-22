@@ -128,7 +128,7 @@ services:
       apigw_connect_password: "somethingnew"
       apigw_settings_keystore_configure: "true"
       apigw_settings_keystore_filepath: /certs/apigateway-p12.jks
-      # apigw_settings_keystore_name: "Custom_SSL_Keystore"
+      apigw_settings_keystore_name: "Custom_SSL_Keystore"
       apigw_settings_keystore_description: "My custom keystore for SSL"
       apigw_settings_keystore_password: "manage"
       apigw_settings_keystore_keyalias: "certificate"
@@ -153,16 +153,20 @@ services:
     networks:
       - stack
 
-  config_ssl:
+  config_ssl_inbound_outbound_connections:
     image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
-    volumes:
-      - ../resources/certs:/certs:ro
     environment: 
       apigw_connect_host: apigateway
       apigw_connect_port: "5555"
       apigw_connect_user: Administrator
       apigw_connect_password: "somethingnew"
-      apigw_data_archives_import: "true"
+      apigw_settings_ssl_inbound_outbound_configure: "true"
+      apigw_settings_ssl_inbound_keystore_name: "Custom_SSL_Keystore"
+      apigw_settings_ssl_inbound_keystore_keyalias: "certificate"
+      apigw_settings_ssl_inbound_truststore_name: "Custom_SSL_Truststore"
+      apigw_settings_ssl_outbound_keystore_name: "Custom_SSL_Keystore"
+      apigw_settings_ssl_outbound_keystore_keyalias: "certificate"
+      apigw_settings_ssl_outbound_truststore_name: "Custom_SSL_Truststore"
     networks:
       - stack
 
@@ -170,31 +174,33 @@ services:
     image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
     volumes:
       - ../resources/certs:/certs:ro
+      - ../resources/saml/idpmetadata.xml:/configs/idpmetadata.xml:ro
     environment: 
       apigw_connect_host: apigateway
       apigw_connect_port: "5555"
       apigw_connect_user: Administrator
       apigw_connect_password: "somethingnew"
-      apigw_data_archives_import: "true"
-      apigw_settings_ssl_configure: "true"
-      env_apigateway_saml_configure_samlconfigs: "true"
-      env_apigateway_saml_sp_id: "webmethods-apigateway-saml-client"
-      env_apigateway_saml_keystore_filepath: /certs/samlsp_p12.jks
-      env_apigateway_saml_keystore_name: "SAMLSelfSignedKeystore"
-      env_apigateway_saml_keystore_description: "My custom keystore for SAML"
-      env_apigateway_saml_keystore_type: JKS
-      env_apigateway_saml_keystore_password: "manage"
-      env_apigateway_saml_keystore_keyalias: "saml2"
-      env_apigateway_saml_keystore_keyalias_password: "manage"
-      env_apigateway_saml_redirect_host: "http://172.28.4.80:9072"
-      env_apigateway_saml_usebydefault: "false"
-      env_apigateway_saml_idpmetadata_localfilepath: ""
-      env_apigateway_saml_idpmetadata_content_b64encoded: ""
-      env_apigateway_saml_idpmetadata_url: http://172.28.4.80:8080/auth/realms/tenant1/protocol/saml/descriptor
-      env_apigateway_saml_userprofilemapping_firstname: firstName
-      env_apigateway_saml_userprofilemapping_lastname: lastName
-      env_apigateway_saml_userprofilemapping_email: email
-      env_apigateway_saml_group_attributes: roles;Role
-      env_apigateway_saml_groups_to_apigateway_groups: apigateway-admin=API-Gateway-Administrators;apigateway-apiprovider=API-Gateway-Providers;apigateway-user=Everybody
+      apigw_settings_keystore_configure: "true"
+      apigw_settings_keystore_filepath: /certs/saml-p12.jks
+      apigw_settings_keystore_name: "SAMLSelfSignedKeystore"
+      apigw_settings_keystore_description: "My custom keystore for SAML"
+      apigw_settings_keystore_password: "manage"
+      apigw_settings_keystore_keyalias: "certificate"
+      apigw_settings_keystore_keyalias_password: "manage"
+      apigw_settings_saml_configure: "true"
+      apigw_settings_saml_sp_id: "webmethods-apigateway-saml-client"
+      apigw_settings_saml_keystore_alias: "SAMLSelfSignedKeystore"
+      apigw_settings_saml_keystore_default_key_alias: certificate
+      apigw_settings_saml_redirect_host: "http://mygateway:9072"
+      apigw_settings_saml_usebydefault: "false"
+      apigw_settings_saml_idpmetadata_localfilepath: "/configs/idpmetadata.xml"
+      apigw_settings_saml_idpmetadata_content_b64encoded: ""
+      # Fetching the IDP metadata rom url is preferred but we don't have an IDP here...refer to another full SAML test!
+      # apigw_settings_saml_idpmetadata_url: http://myidp/saml/descriptor
+      apigw_settings_saml_userprofilemapping_firstname: firstName
+      apigw_settings_saml_userprofilemapping_lastname: lastName
+      apigw_settings_saml_userprofilemapping_email: email
+      apigw_settings_saml_group_attributes: roles;Role
+      apigw_settings_saml_groups_to_apigateway_groups: apigateway-admin=API-Gateway-Administrators;apigateway-apiprovider=API-Gateway-Providers;apigateway-user=Everybody
     networks:
       - stack
