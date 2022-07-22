@@ -16,10 +16,10 @@ services:
   config_changepassword:
     image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
     environment: 
-      apigw_host: apigateway
-      apigw_port: "5555"
-      apigw_rest_user: Administrator
-      apigw_rest_password: "somethingnew"
+      apigw_connect_host: apigateway
+      apigw_connect_port: "5555"
+      apigw_connect_user: Administrator
+      apigw_connect_password: "somethingnew"
       apigw_changepassword_enabled: "true"
       apigw_changepassword_old: "manage"
     networks:
@@ -28,18 +28,17 @@ services:
   apigateway_configurator:
     image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
     environment: 
-      apigw_host: apigateway
-      apigw_port: "5555"
-      apigw_rest_user: Administrator
-      apigw_rest_password: "somethingnew"
-      apigw_rest_password_old: "manage"
-      apigw_configure_lb: "true"
-      apigw_lb_http_url: "http://externallb1:80"
-      apigw_lb_https_url: "https://externallb1:443"
-      apigw_lb_websocket_url: "ws://externallb1"
-      apigw_lb_http_url_alt1: "http://externallb2"
-      apigw_lb_https_url_alt1: "https://externallb2"
-      apigw_lb_websocket_url_alt1: "ws://externallb2"
-      apigw_lb_webapp_url: "http://externallb"
+      apigw_connect_host: apigateway
+      apigw_connect_port: "5555"
+      apigw_connect_user: Administrator
+      apigw_connect_password: "somethingnew"
+      apigw_settings_lburls_configure: "true"
+      apigw_settings_lburls_http_url: "http://externallb1:80"
+      apigw_settings_lburls_https_url: "https://externallb1:443"
+      apigw_settings_lburls_websocket_url: "ws://externallb1"
+      apigw_settings_lburls_http_url_alt1: "http://externallb2"
+      apigw_settings_lburls_https_url_alt1: "https://externallb2"
+      apigw_settings_lburls_websocket_url_alt1: "ws://externallb2"
+      apigw_settings_lburls_webapp_url: "http://externallb"
     networks:
       - stack
