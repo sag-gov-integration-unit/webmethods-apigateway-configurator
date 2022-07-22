@@ -102,7 +102,7 @@ services:
   config_import_archives:
     image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
     volumes:
-      - ./resources/sampleapis_archives:/imports:ro
+      - ../resources/sampleapis_archives:/imports:ro
     environment: 
       apigw_connect_host: apigateway
       apigw_connect_port: "5555"
@@ -120,7 +120,7 @@ services:
   config_keystore:
     image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
     volumes:
-      - ./resources/certs:/certs:ro
+      - ../resources/certs:/certs:ro
     environment: 
       apigw_connect_host: apigateway
       apigw_connect_port: "5555"
@@ -139,7 +139,7 @@ services:
   config_truststore:
     image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
     volumes:
-      - ./resources/certs:/certs:ro
+      - ../resources/certs:/certs:ro
     environment: 
       apigw_connect_host: apigateway
       apigw_connect_port: "5555"
@@ -156,7 +156,7 @@ services:
   config_ssl:
     image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
     volumes:
-      - ./resources/certs:/certs:ro
+      - ../resources/certs:/certs:ro
     environment: 
       apigw_connect_host: apigateway
       apigw_connect_port: "5555"
@@ -169,7 +169,7 @@ services:
   config_saml:
     image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
     volumes:
-      - ./resources/certs:/certs:ro
+      - ../resources/certs:/certs:ro
     environment: 
       apigw_connect_host: apigateway
       apigw_connect_port: "5555"
