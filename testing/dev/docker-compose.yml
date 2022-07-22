@@ -237,6 +237,7 @@ services:
       - ../resources/ansible/sagdevops-ansible-common:/ansible/roles/sagdevops-ansible-common-1.0.0-3:ro
       - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.0-4:ro 
       - ../resources/certs:/certs:ro
+      - ../resources/saml/idpmetadata.xml:/configs/idpmetadata.xml:ro
     environment: 
       apigw_connect_host: apigateway
       apigw_connect_port: "5555"
@@ -255,9 +256,9 @@ services:
       apigw_settings_saml_keystore_default_key_alias: certificate
       apigw_settings_saml_redirect_host: "http://mygateway:9072"
       apigw_settings_saml_usebydefault: "false"
-      apigw_settings_saml_idpmetadata_localfilepath: ""
+      apigw_settings_saml_idpmetadata_localfilepath: "/configs/idpmetadata.xml"
       apigw_settings_saml_idpmetadata_content_b64encoded: ""
-      apigw_settings_saml_idpmetadata_url: http://myidp/saml/descriptor
+      # apigw_settings_saml_idpmetadata_url: http://myidp/saml/descriptor
       apigw_settings_saml_userprofilemapping_firstname: firstName
       apigw_settings_saml_userprofilemapping_lastname: lastName
       apigw_settings_saml_userprofilemapping_email: email

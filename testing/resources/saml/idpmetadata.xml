@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EntitiesDescriptor Name="urn:idp"
+    xmlns="urn:oasis:names:tc:SAML:2.0:metadata"
+    xmlns:dsig="http://www.w3.org/2000/09/xmldsig#">
+    NOT VALID...just for configurator testing...
+</EntitiesDescriptor>
