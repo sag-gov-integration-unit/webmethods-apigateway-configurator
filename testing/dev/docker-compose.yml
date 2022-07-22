@@ -203,7 +203,7 @@ services:
       apigw_connect_user: Administrator
       apigw_connect_password: "somethingnew"
       apigw_settings_ssl_runtimeport_configure: "true"
-      apigw_settings_ssl_runtimeport_alias: SAGSecurePort
+      apigw_settings_ssl_runtimeport_port: "5543"
       apigw_settings_ssl_runtimeport_keystore_name: "Custom_SSL_Keystore"
       apigw_settings_ssl_runtimeport_keystore_keyalias: "certificate"
       apigw_settings_ssl_runtimeport_truststore_name: "Custom_SSL_Truststore"
