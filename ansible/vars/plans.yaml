@@ -1,0 +1,19 @@
+---
+
+vars_apigw_plans_enabled: "{{ lookup('env', 'apigw_configure_plans') | default('false',true) }}"
+vars_apigw_plans_ignore_errors: "{{ lookup('env', 'apigw_configure_plans_ignore_errors') | default(vars_apigw_default_ignore_errors,true) }}"
+
+# api plans to add or update
+vars_apigw_plans:
+  - name: gold
+    version: "1.0"
+    deprecated: false
+    isProtected: false
+    policiesNames: []
+    cost:
+      currency:
+      value:
+      duration:
+    quota:
+      enforcementPolicyName: ""
+    protected: false

@@ -15,3 +15,8 @@ vars_webmethods_apigateway_apis_publish_groups:
     lookup_apiIds:
       - name: "{{ lookup('env', 'env_apigateway_publish_api_1_name') | default('',true) }}"
         version: "{{ lookup('env', 'env_apigateway_publish_api_1_version') | default('',true) }}"
+
+vars_apigw_apis_update_status:
+  - name: api name
+    version: "1.0"
+    active: true

@@ -1,0 +1,43 @@
+---
+
+################################################################
+## Load the needed vars
+################################################################
+
+- name: Load vars
+  hosts: local
+  tasks:
+    - name: Include all vars files
+      include_vars:
+        file: "{{ item }}"
+      with_fileglob:
+        - vars/common.yaml
+        - vars/connection.yaml
+        - vars/applications.yaml
+
+################################################################
+## set configs via REST APIs
+################################################################
+
+- hosts: local
+  become: true
+  become_user: "{{ webmethods_user }}"
+  run_once: true
+  vars:
+    apigateway_rest_protocol: "{{ vars_apigw_rest_protocol }}"
+    apigateway_rest_host: "{{ vars_apigw_rest_host }}"
+    apigateway_rest_port: "{{ vars_apigw_rest_port }}"
+    apigateway_rest_no_check_certs: "{{ vars_apigw_rest_no_check_certs }}"
+    apigateway_rest_login_username: "{{ vars_apigw_rest_login_username }}"
+    apigateway_rest_login_password: "{{ vars_apigw_rest_login_password }}"
+
+  tasks:
+
+    - include_role:
+        name: apigateway-rest-configurator
+        apply:
+          ignore_errors: "{{ vars_webmethods_apigateway_applications_ignore_errors }}"
+      vars:
+        configs_action: set-applications
+        configs_enabled: "{{ vars_webmethods_apigateway_applications_enabled }}"
+        rvar_apigateway_applications: "{{ vars_webmethods_apigateway_applications }}"

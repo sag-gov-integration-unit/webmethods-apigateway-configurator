@@ -1,0 +1,73 @@
+---
+
+################################################################
+## Load the needed vars
+################################################################
+
+- name: Load vars
+  hosts: local
+  tasks:
+    - name: Include all vars files
+      include_vars:
+        file: "{{ item }}"
+      with_fileglob:
+        - vars/common.yaml
+        - vars/connection.yaml
+        - vars/archives.yaml
+
+################################################################
+## set configs via REST APIs
+################################################################
+
+- hosts: local
+  become: true
+  become_user: "{{ webmethods_user }}"
+  run_once: true
+  vars:
+    apigateway_rest_protocol: "{{ vars_apigw_rest_protocol }}"
+    apigateway_rest_host: "{{ vars_apigw_rest_host }}"
+    apigateway_rest_port: "{{ vars_apigw_rest_port }}"
+    apigateway_rest_no_check_certs: "{{ vars_apigw_rest_no_check_certs }}"
+    apigateway_rest_login_username: "{{ vars_apigw_rest_login_username }}"
+    apigateway_rest_login_password: "{{ vars_apigw_rest_login_password }}"
+
+  tasks:
+
+    - name: set internal archive list
+      set_fact:
+        _apigateway_archives: "{{ vars_webmethods_apigateway_archives }}"
+ 
+    - block:
+
+        - name: auto-zip requested...reset internal archive list
+          set_fact:
+            _apigateway_archives: []
+ 
+        - name: Zip archives first
+          community.general.archive:
+            path: "{{ _import_single_tozip.path }}/*"
+            dest: "/tmp/{{ _import_single_tozip.path | basename }}.zip"
+            format: zip
+          with_items: "{{ vars_webmethods_apigateway_archives }}"
+          loop_control:
+            loop_var: _import_single_tozip
+
+        - name: update dict with new zip paths
+          set_fact:
+            _apigateway_archives: "{{ _apigateway_archives | default([]) + [ { 'path': ('/tmp/' + _import_single.path | basename + '.zip'), 'overwrite': _import_single.overwrite, 'fixingMissingVersions': _import_single.fixingMissingVersions, 'preserveAssetState': _import_single.preserveAssetState } ] }}"
+          loop: "{{ vars_webmethods_apigateway_archives }}"
+          loop_control:
+            loop_var: _import_single
+      
+      when: vars_webmethods_apigateway_archive_imports_autozip_enabled | default() | bool
+    
+    - debug: var=_apigateway_archives
+
+    - include_role:
+        name: apigateway-rest-configurator
+        apply:
+          ignore_errors: "{{ vars_webmethods_apigateway_archive_imports_ignore_errors }}"
+      vars:
+        configs_action: import-archives
+        configs_enabled: "{{ vars_webmethods_apigateway_archive_imports_enabled }}"
+        rvar_apigateway_archive_imports: "{{ _apigateway_archives }}"

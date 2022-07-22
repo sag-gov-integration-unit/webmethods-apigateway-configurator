@@ -1,7 +1,44 @@
 ---
 
+vars_apigw_packages_enabled: "{{ lookup('env', 'apigw_configure_packages') | default('false',true) }}"
+vars_apigw_packages_ignore_errors: "{{ lookup('env', 'apigw_configure_packages_ignore_errors') | default(vars_apigw_default_ignore_errors,true) }}"
+
 vars_apigw_packages_publish_groups_enabled: "{{ lookup('env', 'apigw_configure_packages_publish_groups') | default('false',true) }}"
 vars_apigw_packages_publish_groups_ignore_errors: "{{ lookup('env', 'apigw_configure_packages_publish_groups_ignore_errors') | default(vars_apigw_default_ignore_errors,true) }}"
+
+# api packages to add or update
+# the following attributes with "custom_" will be transformed to corresponding attributes of internal ids:
+# - custom_apiIdsByFilter --> apiIds
+# - custom_planIdsByFilter --> planIds
+# - custom_policyIdsByFilter --> policyIds
+vars_apigw_packages:
+  - name: Swag Pack Complete
+    version: "1.0"
+    deprecated: false
+    active: true
+    custom_apiIdsByFilter:
+      - name: "bookstore"
+        version: "1.0"
+      - name: "uszip"
+        version: "1.0"
+      - name: "covid"
+        version: "1.0"
+      - name: "SAGTours"
+        version: "1.0"
+    custom_planIdsByFilter:
+      - name: "gold"
+        version: "1.0"
+      - name: "silver"
+        version: "1.0"
+      - name: "bronze"
+        version: "1.0"
+    custom_policyIdsByFilter: []
+    publishedPortals: []
+
+vars_apigw_packages_update_status:
+  - name: Swag Pack Complete
+    version: "1.0"
+    active: true
 
 # Packages to publish
 # each list item will publish a list of Packages to a list of communities using the same portalGatewayId

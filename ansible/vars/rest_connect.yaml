@@ -9,3 +9,8 @@ vars_apigw_rest_no_check_certs: "{{ lookup('env', 'apigw_no_check_certs') | defa
 ## rest login info
 vars_apigw_rest_login_username: "{{ lookup('env', 'apigw_rest_user') }}"
 vars_apigw_rest_login_password: "{{ lookup('env', 'apigw_rest_password') }}"
+
+## update password
+vars_apigw_changepassword_enabled: "{{ lookup('env', 'apigw_changepassword_enabled') | default('false',true) }}"
+vars_apigw_changepassword_ignore_errors: "{{ lookup('env', 'apigw_changepassword_ignore_errors') | default(vars_apigw_default_ignore_errors,true) }}"
+vars_apigw_rest_login_password_old: "{{ lookup('env', 'apigw_changepassword_old') }}"
