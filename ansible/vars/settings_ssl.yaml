@@ -1,9 +1,6 @@
 ---
 
-# enable / disable the config items
 vars_apigw_sslconfigs_enabled: "{{ lookup('env', 'apigw_settings_ssl_configure') | default('false',true) }}"
-
-# ignore errors or not for each of the config items (defaults to vars_apigw_default_ignore_errors)
 vars_apigw_sslconfigs_ignore_errors: "{{ lookup('env', 'apigw_settings_ssl_configure_ignore_errors') | default(vars_apigw_default_ignore_errors,true) }}"
 
 ## apigateway keystore / truststore details
@@ -85,17 +82,17 @@ vars_apigw_rest_ssl_keytruststore_configuration:
 vars_apigw_rest_ssl_ports_list:
   - port_type: regular_https
     port_detail:
-      portAlias: SAGSecurePort
-      portDescription: HTTPS port
-      port: '5543'
-      enable: 'yes'
-      threadPool: 'false'
-      minThread: 5
-      maxThread: 20
-      threadPriority: 5
-      maxQueue: 200
-      keepAliveTimeout: 20000
-      clientAuth: none
+      portAlias: "{{ lookup('env', 'apigw_settings_ssl_httpsport_alias') | default('SAGSecurePort',true) }}"
+      portDescription: "{{ lookup('env', 'apigw_settings_ssl_httpsport_description') | default('HTTPS port',true) }}"
+      port: "{{ lookup('env', 'apigw_settings_ssl_httpsport_port') | default('5543',true) }}"
+      enable: "{{ lookup('env', 'apigw_settings_ssl_httpsport_enable') | default('yes',true) }}"
+      threadPool: "{{ lookup('env', 'apigw_settings_ssl_httpsport_threadPool') | default('false',true) }}"
+      minThread: "{{ lookup('env', 'apigw_settings_ssl_httpsport_threadPool_minthread') | default('5',true) }}"
+      maxThread: "{{ lookup('env', 'apigw_settings_ssl_httpsport_threadPool_maxthread') | default('20',true) }}"
+      threadPriority: "{{ lookup('env', 'apigw_settings_ssl_httpsport_threadpool_threadpriority') | default('5',true) }}"
+      maxQueue: "{{ lookup('env', 'apigw_settings_ssl_httpsport_maxqueue') | default('65534',true) }}"
+      keepAliveTimeout: "{{ lookup('env', 'apigw_settings_ssl_httpsport_keepalivetimeout') | default('20000',true) }}"
+      clientAuth: "{{ lookup('env', 'apigw_settings_ssl_httpsport_clientauth') | default('none',true) }}"
       keyStore: "{{ vars_ssl_keystore_name }}"
       alias: "{{ vars_ssl_keystore_keyalias_name }}"
       trustStore: "{{ vars_ssl_truststore_name }}"

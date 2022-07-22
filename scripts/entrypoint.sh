@@ -40,6 +40,11 @@ if [ "${apigw_data_archives_import}" == "true" ]; then
     exec_ansible_playbook import_archives.yaml
 fi
 
+## config_keystores / truststore
+if [[ "${apigw_settings_keystore_configure}" == "true" || "${apigw_settings_truststore_configure}" == "true" ]]; then
+    exec_ansible_playbook config_keystores.yaml
+fi
+
 ## config_ssl
 if [ "${apigw_settings_ssl_configure}" == "true" ]; then
     exec_ansible_playbook config_ssl.yaml

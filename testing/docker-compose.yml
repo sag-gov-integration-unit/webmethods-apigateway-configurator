@@ -116,3 +116,83 @@ services:
       apigw_data_archives_import_1_preserveAssetState: "true"
     networks:
       - stack
+  
+  config_keystores:
+    image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
+    volumes:
+      - ./resources/certs:/certs:ro
+    environment: 
+      apigw_connect_host: apigateway
+      apigw_connect_port: "5555"
+      apigw_connect_user: Administrator
+      apigw_connect_password: "somethingnew"
+      apigw_data_archives_import: "true"
+      apigw_settings_keystore_configure: "true"
+      apigw_settings_keystore_filepath: /certs/apigateway-p12.jks
+      apigw_settings_keystore_name: "SSLSAGKeystore"
+      apigw_settings_keystore_description: "My customkeystore for SSL"
+      apigw_settings_keystore_password: "manage"
+      apigw_settings_keystore_keyalias: "certificate"
+      apigw_settings_keystore_keyalias_password: "manage"
+      apigw_settings_truststore_configure: "false"
+      apigw_settings_truststore_filepath: /certs/truststore.jks
+      apigw_settings_truststore_description: "My custom truststore"
+      apigw_settings_truststore_password: "manage"
+    networks:
+      - stack
+
+  config_ssl:
+    image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
+    volumes:
+      - ./resources/certs:/certs:ro
+    environment: 
+      apigw_connect_host: apigateway
+      apigw_connect_port: "5555"
+      apigw_connect_user: Administrator
+      apigw_connect_password: "somethingnew"
+      apigw_data_archives_import: "true"
+      apigw_settings_ssl_configure: "true"
+      apigw_settings_keystore_filepath: /opt/softwareag/SAGKeystore.jks
+      apigw_settings_keystore_name: "SSLSAGKeystore"
+      apigw_settings_keystore_description: "My customkeystore for SSL"
+      apigw_settings_keystore_password: "manage"
+      apigw_settings_keystore_keyalias: "1"
+      apigw_settings_keystore_keyalias_password: "manage"
+      apigw_settings_truststore_filepath: /opt/softwareag/SAGTruststore.jks
+      apigw_settings_truststore_description: "My custom truststore"
+      apigw_settings_truststore_password: "manage"
+    networks:
+      - stack
+
+  config_saml:
+    image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
+    volumes:
+      - ./resources/certs:/certs:ro
+    environment: 
+      apigw_connect_host: apigateway
+      apigw_connect_port: "5555"
+      apigw_connect_user: Administrator
+      apigw_connect_password: "somethingnew"
+      apigw_data_archives_import: "true"
+      apigw_settings_ssl_configure: "true"
+      env_apigateway_saml_configure_samlconfigs: "true"
+      env_apigateway_saml_sp_id: "webmethods-apigateway-saml-client"
+      env_apigateway_saml_keystore_filepath: /certs/samlsp_p12.jks
+      env_apigateway_saml_keystore_name: "SAMLSelfSignedKeystore"
+      env_apigateway_saml_keystore_description: "My custom keystore for SAML"
+      env_apigateway_saml_keystore_type: JKS
+      env_apigateway_saml_keystore_password: "manage"
+      env_apigateway_saml_keystore_keyalias: "saml2"
+      env_apigateway_saml_keystore_keyalias_password: "manage"
+      env_apigateway_saml_redirect_host: "http://172.28.4.80:9072"
+      env_apigateway_saml_usebydefault: "false"
+      env_apigateway_saml_idpmetadata_localfilepath: ""
+      env_apigateway_saml_idpmetadata_content_b64encoded: ""
+      env_apigateway_saml_idpmetadata_url: http://172.28.4.80:8080/auth/realms/tenant1/protocol/saml/descriptor
+      env_apigateway_saml_userprofilemapping_firstname: firstName
+      env_apigateway_saml_userprofilemapping_lastname: lastName
+      env_apigateway_saml_userprofilemapping_email: email
+      env_apigateway_saml_group_attributes: roles;Role
+      env_apigateway_saml_groups_to_apigateway_groups: apigateway-admin=API-Gateway-Administrators;apigateway-apiprovider=API-Gateway-Providers;apigateway-user=Everybody
+    networks:
+      - stack
