@@ -1,20 +1,23 @@
 ---
 
-vars_apigw_apis_publish_groups_enabled: "{{ lookup('env', 'apigw_configure_apis_publish_groups') | default('false',true) }}"
-vars_apigw_apis_publish_groups_ignore_errors: "{{ lookup('env', 'apigw_configure_apis_publish_groups_ignore_errors') | default(vars_apigw_default_ignore_errors,true) }}"
+vars_apigw_apis_enabled: "{{ lookup('env', 'apigw_data_apis_configure') | default('false',true) }}"
+vars_apigw_apis_ignore_errors: "{{ lookup('env', 'apigw_data_apis_configure_ignore_errors') | default(vars_apigw_default_ignore_errors,true) }}"
+
+vars_apigw_apis_publish_groups_enabled: "{{ lookup('env', 'apigw_data_apis_publish') | default('false',true) }}"
+vars_apigw_apis_publish_groups_ignore_errors: "{{ lookup('env', 'apigw_data_apis_publish_ignore_errors') | default(vars_apigw_default_ignore_errors,true) }}"
 
 # APIs to publish
 # each list item will publish a list of APIs to a list of communities using the same portalGatewayId
 vars_apigw_apis_publish_groups:
   - lookup_portalGatewayId:
-      name: "{{ lookup('env', 'env_apigateway_publish_portal_config_name') | default('',true) }}"
-      version: "{{ lookup('env', 'env_apigateway_publish_portal_config_version') | default('',true) }}"
-      stageName: "{{ lookup('env', 'env_apigateway_publish_portal_config_stage') | default('',true) }}"
+      name: "{{ lookup('env', 'apigw_data_apis_publish_portal_config_name') | default('',true) }}"
+      version: "{{ lookup('env', 'apigw_data_apis_publish_portal_config_version') | default('',true) }}"
+      stageName: "{{ lookup('env', 'apigw_data_apis_publish_portal_config_stage') | default('',true) }}"
     lookup_communityIds:
-      - name: "{{ lookup('env', 'env_apigateway_publish_portal_community_1_name') | default('',true) }}"
+      - name: "{{ lookup('env', 'apigw_data_apis_publish_portal_community_1_name') | default('',true) }}"
     lookup_apiIds:
-      - name: "{{ lookup('env', 'env_apigateway_publish_api_1_name') | default('',true) }}"
-        version: "{{ lookup('env', 'env_apigateway_publish_api_1_version') | default('',true) }}"
+      - name: "{{ lookup('env', 'apigw_data_apis_publish_api_1_name') | default('',true) }}"
+        version: "{{ lookup('env', 'apigw_data_apis_publish_api_1_version') | default('',true) }}"
 
 vars_apigw_apis_update_status:
   - name: api name

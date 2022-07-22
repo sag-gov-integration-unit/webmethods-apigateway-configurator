@@ -1,20 +1,20 @@
 ---
 
-vars_apigw_usermgt_enabled: "{{ lookup('env', 'apigw_configure_usermgt') | default('false',true) }}"
-vars_apigw_usermgt_ignore_errors: "{{ lookup('env', 'apigw_configure_usermgt_ignore_errors') | default(vars_apigw_default_ignore_errors,true) }}"
+vars_apigw_usermgt_enabled: "{{ lookup('env', 'apigw_usermgt_configure') | default('false',true) }}"
+vars_apigw_usermgt_ignore_errors: "{{ lookup('env', 'apigw_usermgt_configure_ignore_errors') | default(vars_apigw_default_ignore_errors,true) }}"
 
 ## local users
-vars_apigw_usermgt_users_loadrunner_username: "{{ lookup('env', 'apigw_users_loadrunner_username') | default('loadrunner',true) }}"
-vars_apigw_usermgt_users_loadrunner_password: "{{ lookup('env', 'apigw_users_loadrunner_password') | default('changeme',true) }}"
+vars_apigw_usermgt_users_loadrunner_username: "{{ lookup('env', 'apigw_usermgt_loadrunner_username') | default('loadrunner',true) }}"
+vars_apigw_usermgt_users_loadrunner_password: "{{ lookup('env', 'apigw_usermgt_loadrunner_password') | default('changeme',true) }}"
 
 vars_apigw_usermgt_users_sample1_username: "sampleuser1.apiadmin"
-vars_apigw_usermgt_users_sample1_password: "{{ lookup('env', 'apigw_users_sample1_password') | default('changeme',true) }}"
+vars_apigw_usermgt_users_sample1_password: "{{ lookup('env', 'apigw_usermgt_sample1_password') | default('changeme',true) }}"
 
 vars_apigw_usermgt_users_sample2_username: "sampleuser2.apiprovider"
-vars_apigw_usermgt_users_sample2_password: "{{ lookup('env', 'apigw_users_sample2_password') | default('changeme',true) }}"
+vars_apigw_usermgt_users_sample2_password: "{{ lookup('env', 'apigw_usermgt_sample2_password') | default('changeme',true) }}"
 
 vars_apigw_usermgt_users_sample3_username: "sampleuser3.apiuser"
-vars_apigw_usermgt_users_sample3_password: "{{ lookup('env', 'apigw_users_sample3_password') | default('changeme',true) }}"
+vars_apigw_usermgt_users_sample3_password: "{{ lookup('env', 'apigw_usermgt_sample3_password') | default('changeme',true) }}"
 
 vars_apigw_usermgt_users:
   - loginId: "{{ vars_apigw_usermgt_users_loadrunner_username }}"

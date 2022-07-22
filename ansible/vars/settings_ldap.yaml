@@ -1,7 +1,7 @@
 ---
 
-vars_apigw_ldap_enabled: "{{ lookup('env', 'apigw_configure_ldap') | default('false',true) }}"
-vars_apigw_ldap_ignore_errors: "{{ lookup('env', 'apigw_configure_ldap_ignore_errors') | default(vars_apigw_default_ignore_errors,true) }}"
+vars_apigw_ldap_enabled: "{{ lookup('env', 'apigw_settings_ldap_configure') | default('false',true) }}"
+vars_apigw_ldap_ignore_errors: "{{ lookup('env', 'apigw_settings_ldap_configure_ignore_errors') | default(vars_apigw_default_ignore_errors,true) }}"
 
 ## api gateway connectivity to ldap
 vars_apigw_ldap_settings: {}

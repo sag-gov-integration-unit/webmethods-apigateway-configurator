@@ -1,14 +1,14 @@
 ---
 
 ##################### apigateway common
-vars_apigw_rest_protocol: "{{ lookup('env', 'apigw_protocol') | default('http',true) }}"
-vars_apigw_rest_host: "{{ lookup('env', 'apigw_host') | default('localhost',true) }}"
-vars_apigw_rest_port: "{{ lookup('env', 'apigw_port') | default('5555',true) }}"
-vars_apigw_rest_no_check_certs: "{{ lookup('env', 'apigw_no_check_certs') | default('false',true) }}"
+vars_apigw_rest_protocol: "{{ lookup('env', 'apigw_connect_protocol') | default('http',true) }}"
+vars_apigw_rest_host: "{{ lookup('env', 'apigw_connect_host') | default('localhost',true) }}"
+vars_apigw_rest_port: "{{ lookup('env', 'apigw_connect_port') | default('5555',true) }}"
+vars_apigw_rest_no_check_certs: "{{ lookup('env', 'apigw_connect_no_check_certs') | default('false',true) }}"
 
 ## rest login info
-vars_apigw_rest_login_username: "{{ lookup('env', 'apigw_rest_user') }}"
-vars_apigw_rest_login_password: "{{ lookup('env', 'apigw_rest_password') }}"
+vars_apigw_rest_login_username: "{{ lookup('env', 'apigw_connect_user') }}"
+vars_apigw_rest_login_password: "{{ lookup('env', 'apigw_connect_password') }}"
 
 ## update password
 vars_apigw_changepassword_enabled: "{{ lookup('env', 'apigw_changepassword_enabled') | default('false',true) }}"

@@ -1,7 +1,7 @@
 ---
 
 ## Global vars
-vars_apigw_default_ignore_errors: "{{ lookup('env', 'apigw_configure_default_ignore_errors') | default('false',true) }}"
+vars_apigw_default_ignore_errors: "{{ lookup('env', 'apigw_default_ignore_errors') | default('false',true) }}"
 
 ##################### webmethods specifics
 webmethods_user: "{{ lookup('env', 'SAG_USER') | default('saguser',true) }}"

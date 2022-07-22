@@ -1,7 +1,7 @@
 ---
 
-vars_apigw_promotions_stages_enabled: "{{ lookup('env', 'apigw_configure_promotions_stages') | default('false',true) }}"
-vars_apigw_promotions_stages_ignore_errors: "{{ lookup('env', 'apigw_configure_promotions_stages_ignore_errors') | default(vars_apigw_default_ignore_errors,true) }}"
+vars_apigw_promotions_stages_enabled: "{{ lookup('env', 'apigw_data_promotions_stages_configure') | default('false',true) }}"
+vars_apigw_promotions_stages_ignore_errors: "{{ lookup('env', 'apigw_data_promotions_stages_configure_ignore_errors') | default(vars_apigw_default_ignore_errors,true) }}"
 
 ## api gateway promotion stages
 vars_apigw_promotions_stages: []

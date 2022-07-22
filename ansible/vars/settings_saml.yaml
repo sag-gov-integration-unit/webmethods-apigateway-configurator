@@ -1,29 +1,29 @@
 ---
 
 # enable / disable the config items
-vars_apigw_samlconfigs_enabled: "{{ lookup('env', 'apigw_saml_configure_samlconfigs') | default('false',true) }}"
+vars_apigw_samlconfigs_enabled: "{{ lookup('env', 'apigw_settings_saml_configure') | default('false',true) }}"
 
 # ignore errors or not for each of the config items (defaults to vars_apigw_default_ignore_errors)
-vars_apigw_samlconfigs_ignore_errors: "{{ lookup('env', 'apigw_saml_configure_samlconfigs_ignore_errors') | default(vars_apigw_default_ignore_errors,true) }}"
+vars_apigw_samlconfigs_ignore_errors: "{{ lookup('env', 'apigw_settings_saml_configure_ignore_errors') | default(vars_apigw_default_ignore_errors,true) }}"
 
 ######################################################################
 ## the saml certs for encryption / signing
 ######################################################################
-vars_saml_keystore_filepath: "{{ lookup('env', 'apigw_saml_keystore_filepath') | default('',true) }}"
+vars_saml_keystore_filepath: "{{ lookup('env', 'apigw_settings_saml_keystore_filepath') | default('',true) }}"
 vars_saml_keystore_filename: "{{ vars_saml_keystore_filepath | basename }}"
-vars_saml_keystore_name: "{{ lookup('env', 'apigw_saml_keystore_name') | default((vars_saml_keystore_filename | splitext)[0],true) }}"
-vars_saml_keystore_keyalias_name: "{{ lookup('env', 'apigw_saml_keystore_keyalias') | default('',true) }}"
+vars_saml_keystore_name: "{{ lookup('env', 'apigw_settings_saml_keystore_name') | default((vars_saml_keystore_filename | splitext)[0],true) }}"
+vars_saml_keystore_keyalias_name: "{{ lookup('env', 'apigw_settings_saml_keystore_keyalias') | default('',true) }}"
 
 vars_saml_keystore:
   filepath: "{{ vars_saml_keystore_filepath }}"
   filename: "{{ vars_saml_keystore_filename }}"
   name: "{{ vars_saml_keystore_name }}"
-  type: "{{ lookup('env', 'apigw_saml_keystore_type') | default('JKS',true) }}"
-  provider: "{{ lookup('env', 'apigw_saml_keystore_provider') | default('SUN',true) }}"
-  description: "{{ lookup('env', 'apigw_saml_keystore_description') | default('APIGateway keystore',true) }}"
-  password: "{{ lookup('env', 'apigw_saml_keystore_password') | default('',true) }}"
+  type: "{{ lookup('env', 'apigw_settings_saml_keystore_type') | default('JKS',true) }}"
+  provider: "{{ lookup('env', 'apigw_settings_saml_keystore_provider') | default('SUN',true) }}"
+  description: "{{ lookup('env', 'apigw_settings_saml_keystore_description') | default('APIGateway keystore',true) }}"
+  password: "{{ lookup('env', 'apigw_settings_saml_keystore_password') | default('',true) }}"
   keyalias: "{{ vars_saml_keystore_keyalias_name }}"
-  keyalias_password: "{{ lookup('env', 'apigw_saml_keystore_keyalias_password') | default('',true) }}"
+  keyalias_password: "{{ lookup('env', 'apigw_settings_saml_keystore_keyalias_password') | default('',true) }}"
 
 ## apigateway keystore details
 vars_apigw_rest_saml_keystore:
@@ -53,33 +53,33 @@ vars_apigw_rest_saml_keystore_keyalias_list:
 ######################################################################
 
 # if set, it will automatically put the content of the file into the idpMetadataContent field
-vars_saml_idpmetadata_localfilepath: "{{ lookup('env', 'apigw_saml_idpmetadata_localfilepath') | default('',true) }}"
+vars_saml_idpmetadata_localfilepath: "{{ lookup('env', 'apigw_settings_saml_idpmetadata_localfilepath') | default('',true) }}"
 
 # space separated values to create content into groupMapping.groupAttributes
-vars_saml_group_attributes: "{{ lookup('env', 'apigw_saml_group_attributes') | default('',true) }}"
+vars_saml_group_attributes: "{{ lookup('env', 'apigw_settings_saml_group_attributes') | default('',true) }}"
 
 # space separated key/value pairs to create content into groupMapping.attributeToGroupMap
-vars_saml_groups_to_apigateway_groups: "{{ lookup('env', 'apigw_saml_groups_to_apigateway_groups') | default('',true) }}"
+vars_saml_groups_to_apigateway_groups: "{{ lookup('env', 'apigw_settings_saml_groups_to_apigateway_groups') | default('',true) }}"
 
 # rest call payload
 vars_apigw_rest_saml_settings:
   saml_enabled: "true"
-  saml_sp_id: "{{ lookup('env', 'apigw_saml_sp_id') | default('webmethods-apigateway',true) }}"
-  saml_redirect: "{{ lookup('env', 'apigw_saml_redirect_host') }}/apigatewayui/saml/SSO"
-  saml_authreq_signed:  "{{ lookup('env', 'apigw_saml_authreq_signed') | default('true',true) }}"
-  saml_assertion_signed: "{{ lookup('env', 'apigw_saml_assertion_signed') | default('true',true) }}"
+  saml_sp_id: "{{ lookup('env', 'apigw_settings_saml_sp_id') | default('webmethods-apigateway',true) }}"
+  saml_redirect: "{{ lookup('env', 'apigw_settings_saml_redirect_host') }}/apigatewayui/saml/SSO"
+  saml_authreq_signed:  "{{ lookup('env', 'apigw_settings_saml_authreq_signed') | default('true',true) }}"
+  saml_assertion_signed: "{{ lookup('env', 'apigw_settings_saml_assertion_signed') | default('true',true) }}"
   keystoreAlias: "{{ vars_saml_keystore_name }}"
   saml_defaultkey_alias: "{{ vars_saml_keystore_keyalias_name }}"
   saml_encrypkey_alias: "{{ vars_saml_keystore_keyalias_name }}"
   saml_signkey_alias: "{{ vars_saml_keystore_keyalias_name }}"
-  useSSOLoginByDefault: "{{ lookup('env', 'apigw_saml_usebydefault') | default('false',true) }}"
-  idpMetadataContent: "{{ lookup('env', 'apigw_saml_idpmetadata_content_b64encoded') | default('',true) }}"
-  idpFilename: "{{ lookup('env', 'apigw_saml_idpmetadata_filename') | default('',true) }}"
-  idpUrl: "{{ lookup('env', 'apigw_saml_idpmetadata_url') | default('',true) }}"
+  useSSOLoginByDefault: "{{ lookup('env', 'apigw_settings_saml_usebydefault') | default('false',true) }}"
+  idpMetadataContent: "{{ lookup('env', 'apigw_settings_saml_idpmetadata_content_b64encoded') | default('',true) }}"
+  idpFilename: "{{ lookup('env', 'apigw_settings_saml_idpmetadata_filename') | default('',true) }}"
+  idpUrl: "{{ lookup('env', 'apigw_settings_saml_idpmetadata_url') | default('',true) }}"
   userProfileMapping:
-    firstName: "{{ lookup('env', 'apigw_saml_userprofilemapping_firstname') | default('firstName',true) }}"
-    lastName: "{{ lookup('env', 'apigw_saml_userprofilemapping_lastname') | default('lastName',true) }}"
-    emailAddresses: "{{ lookup('env', 'apigw_saml_userprofilemapping_email') | default('email',true) }}"
+    firstName: "{{ lookup('env', 'apigw_settings_saml_userprofilemapping_firstname') | default('firstName',true) }}"
+    lastName: "{{ lookup('env', 'apigw_settings_saml_userprofilemapping_lastname') | default('lastName',true) }}"
+    emailAddresses: "{{ lookup('env', 'apigw_settings_saml_userprofilemapping_email') | default('email',true) }}"
   # this section is created automatically from the string variables above
   # groupMapping:
   #   groupAttributes:

@@ -1,40 +1,40 @@
 ---
 
 # enable / disable the config items
-vars_apigw_sslconfigs_enabled: "{{ lookup('env', 'apigw_ssl_configure_sslconfigs') | default('false',true) }}"
+vars_apigw_sslconfigs_enabled: "{{ lookup('env', 'apigw_settings_ssl_configure') | default('false',true) }}"
 
 # ignore errors or not for each of the config items (defaults to vars_apigw_default_ignore_errors)
-vars_apigw_sslconfigs_ignore_errors: "{{ lookup('env', 'apigw_ssl_configure_sslconfigs_ignore_errors') | default(vars_apigw_default_ignore_errors,true) }}"
+vars_apigw_sslconfigs_ignore_errors: "{{ lookup('env', 'apigw_settings_ssl_configure_ignore_errors') | default(vars_apigw_default_ignore_errors,true) }}"
 
 ## apigateway keystore / truststore details
-vars_ssl_keystore_filepath: "{{ lookup('env', 'apigw_ssl_keystore_filepath') | default('',true) }}"
+vars_ssl_keystore_filepath: "{{ lookup('env', 'apigw_settings_ssl_keystore_filepath') | default('',true) }}"
 vars_ssl_keystore_filename: "{{ vars_ssl_keystore_filepath | basename }}"
-vars_ssl_keystore_name: "{{ lookup('env', 'apigw_ssl_keystore_name') | default((vars_ssl_keystore_filename | splitext)[0],true) }}"
-vars_ssl_keystore_keyalias_name: "{{ lookup('env', 'apigw_ssl_keystore_keyalias') | default('',true) }}"
+vars_ssl_keystore_name: "{{ lookup('env', 'apigw_settings_ssl_keystore_name') | default((vars_ssl_keystore_filename | splitext)[0],true) }}"
+vars_ssl_keystore_keyalias_name: "{{ lookup('env', 'apigw_settings_ssl_keystore_keyalias') | default('',true) }}"
 
-vars_ssl_truststore_filepath: "{{ lookup('env', 'apigw_ssl_truststore_filepath') | default('',true) }}"
+vars_ssl_truststore_filepath: "{{ lookup('env', 'apigw_settings_ssl_truststore_filepath') | default('',true) }}"
 vars_ssl_truststore_filename: "{{ vars_ssl_truststore_filepath | basename }}"
-vars_ssl_truststore_name: "{{ lookup('env', 'apigw_ssl_truststore_name') | default((vars_ssl_truststore_filename | splitext)[0],true) }}"
+vars_ssl_truststore_name: "{{ lookup('env', 'apigw_settings_ssl_truststore_name') | default((vars_ssl_truststore_filename | splitext)[0],true) }}"
 
 vars_ssl_keystore:
   filepath: "{{ vars_ssl_keystore_filepath }}"
   filename: "{{ vars_ssl_keystore_filename }}"
   name: "{{ vars_ssl_keystore_name }}"
-  type: "{{ lookup('env', 'apigw_ssl_keystore_type') | default('JKS',true) }}"
-  provider: "{{ lookup('env', 'apigw_ssl_keystore_provider') | default('SUN',true) }}"
-  description: "{{ lookup('env', 'apigw_ssl_keystore_description') | default('APIGateway keystore',true) }}"
-  password: "{{ lookup('env', 'apigw_ssl_keystore_password') | default('',true) }}"
+  type: "{{ lookup('env', 'apigw_settings_ssl_keystore_type') | default('JKS',true) }}"
+  provider: "{{ lookup('env', 'apigw_settings_ssl_keystore_provider') | default('SUN',true) }}"
+  description: "{{ lookup('env', 'apigw_settings_ssl_keystore_description') | default('APIGateway keystore',true) }}"
+  password: "{{ lookup('env', 'apigw_settings_ssl_keystore_password') | default('',true) }}"
   keyalias:  "{{ vars_ssl_keystore_keyalias_name }}"
-  keyalias_password: "{{ lookup('env', 'apigw_ssl_keystore_keyalias_password') | default('',true) }}"
+  keyalias_password: "{{ lookup('env', 'apigw_settings_ssl_keystore_keyalias_password') | default('',true) }}"
 
 vars_ssl_truststore:
   filepath: "{{ vars_ssl_truststore_filepath }}"
   filename: "{{ vars_ssl_truststore_filename }}"
   name: "{{ vars_ssl_truststore_name }}"
-  type: "{{ lookup('env', 'apigw_ssl_truststore_type') | default('JKS',true) }}"
-  provider: "{{ lookup('env', 'apigw_ssl_truststore_provider') | default('SUN',true) }}"
-  description: "{{ lookup('env', 'apigw_ssl_truststore_description') | default('APIGateway truststore',true) }}"
-  password: "{{ lookup('env', 'apigw_ssl_truststore_password') | default('',true) }}"
+  type: "{{ lookup('env', 'apigw_settings_ssl_truststore_type') | default('JKS',true) }}"
+  provider: "{{ lookup('env', 'apigw_settings_ssl_truststore_provider') | default('SUN',true) }}"
+  description: "{{ lookup('env', 'apigw_settings_ssl_truststore_description') | default('APIGateway truststore',true) }}"
+  password: "{{ lookup('env', 'apigw_settings_ssl_truststore_password') | default('',true) }}"
 
 ##### the vars for the rest calls
 

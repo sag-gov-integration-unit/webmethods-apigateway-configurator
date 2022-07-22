@@ -1,7 +1,7 @@
 ---
 
-vars_apigw_applications_enabled: "{{ lookup('env', 'apigw_configure_applications') | default('false',true) }}"
-vars_apigw_applications_ignore_errors: "{{ lookup('env', 'apigw_configure_applications_ignore_errors') | default(vars_apigw_default_ignore_errors,true) }}"
+vars_apigw_applications_enabled: "{{ lookup('env', 'apigw_data_applications_configure') | default('false',true) }}"
+vars_apigw_applications_ignore_errors: "{{ lookup('env', 'apigw_data_applications_configure_ignore_errors') | default(vars_apigw_default_ignore_errors,true) }}"
 
 # applications to add or update
 # the following attributes with "names/version" will be transformed to corresponding attributes of internal ids:
