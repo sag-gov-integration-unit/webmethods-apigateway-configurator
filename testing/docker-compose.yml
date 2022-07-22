@@ -16,7 +16,7 @@ services:
   devportal:
     image: ${REG_DEVPORTAL}${IMAGE_DEVPORTAL}:${TAG_DEVPORTAL}
     ports:
-      - "18101:18101"
+      - "8083:8083"
     environment: 
       SPRING_ELASTICSEARCH_REST_URIS: "http://elasticsearch:9200"
     networks:
