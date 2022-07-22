@@ -258,6 +258,7 @@ services:
       apigw_settings_saml_usebydefault: "false"
       apigw_settings_saml_idpmetadata_localfilepath: "/configs/idpmetadata.xml"
       apigw_settings_saml_idpmetadata_content_b64encoded: ""
+      # Fetching the IDP metadata rom url is preferred but we don't have an IDP here...refer to another full SAML test!
       # apigw_settings_saml_idpmetadata_url: http://myidp/saml/descriptor
       apigw_settings_saml_userprofilemapping_firstname: firstName
       apigw_settings_saml_userprofilemapping_lastname: lastName
