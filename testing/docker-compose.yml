@@ -133,7 +133,7 @@ services:
       apigw_settings_keystore_password: "manage"
       apigw_settings_keystore_keyalias: "certificate"
       apigw_settings_keystore_keyalias_password: "manage"
-      apigw_settings_truststore_configure: "false"
+      apigw_settings_truststore_configure: "true"
       apigw_settings_truststore_filepath: /certs/truststore.jks
       apigw_settings_truststore_description: "My custom truststore"
       apigw_settings_truststore_password: "manage"
