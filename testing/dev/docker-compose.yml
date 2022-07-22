@@ -116,7 +116,7 @@ services:
     volumes:
       - ../resources/ansible/sagdevops-ansible-common:/ansible/roles/sagdevops-ansible-common-1.0.0-3:ro
       - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.0-4:ro 
-      - ./resources/sampleapis_archives:/imports:ro
+      - ../resources/sampleapis_archives:/imports:ro
     environment: 
       apigw_connect_host: apigateway
       apigw_connect_port: "5555"
@@ -136,7 +136,7 @@ services:
     volumes:
       - ../resources/ansible/sagdevops-ansible-common:/ansible/roles/sagdevops-ansible-common-1.0.0-3:ro
       - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.0-4:ro 
-      - ./resources/certs:/certs:ro
+      - ../resources/certs:/certs:ro
     environment: 
       apigw_configurator_debug: "true"
       apigw_connect_host: apigateway
@@ -158,7 +158,7 @@ services:
     volumes:
       - ../resources/ansible/sagdevops-ansible-common:/ansible/roles/sagdevops-ansible-common-1.0.0-3:ro
       - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.0-4:ro 
-      - ./resources/certs:/certs:ro
+      - ../resources/certs:/certs:ro
     environment: 
       apigw_connect_host: apigateway
       apigw_connect_port: "5555"
@@ -177,7 +177,7 @@ services:
     volumes:
       - ../resources/ansible/sagdevops-ansible-common:/ansible/roles/sagdevops-ansible-common-1.0.0-3:ro
       - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.0-4:ro 
-      - ./resources/certs:/certs:ro
+      - ../resources/certs:/certs:ro
     environment: 
       apigw_connect_host: apigateway
       apigw_connect_port: "5555"
@@ -192,7 +192,7 @@ services:
     volumes:
       - ../resources/ansible/sagdevops-ansible-common:/ansible/roles/sagdevops-ansible-common-1.0.0-3:ro
       - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.0-4:ro 
-      - ./resources/certs:/certs:ro
+      - ../resources/certs:/certs:ro
     environment: 
       apigw_connect_host: apigateway
       apigw_connect_port: "5555"
