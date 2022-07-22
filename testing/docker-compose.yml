@@ -42,3 +42,16 @@ services:
       apigw_settings_lburls_webapp_url: "http://externallb"
     networks:
       - stack
+
+  config_coresettings:
+    image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
+    environment: 
+      apigw_connect_host: apigateway
+      apigw_connect_port: "5555"
+      apigw_connect_user: Administrator
+      apigw_connect_password: "somethingnew"
+      apigw_settings_core_configure: "true"
+      apigw_settings_core_watts: watt.server.cachemanager.connectTimeout=300000 watt.net.timeout=600 watt.net.clientKeepaliveUsageLimit=10000000 watt.server.threadPoolMin=50 watt.server.threadPool=1000 watt.server.control.serverThreadThreshold=50 watt.security.ssl.cacheClientSessions=true watt.net.maxClientKeepaliveConns=500 watt.security.ssl.resumeClientSessions=true
+      apigw_settings_core_extended: "events.reportingQueue.size=5000 events.collectionPool.minThreads=2 events.collectionPool.maxThreads=32 events.reportingPool.minThreads=4 events.reportingPool.maxThreads=16 eventsRefreshInterval=60s events.collectionQueue.size=10000000"
+    networks:
+      - stack
