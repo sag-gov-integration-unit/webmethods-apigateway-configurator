@@ -12,8 +12,8 @@
         file: "{{ item }}"
       with_fileglob:
         - vars/common.yaml
-        - vars/connection.yaml
-        - vars/api_publish.yaml
+        - vars/rest_connect.yaml
+        - vars/data_apis.yaml
 
 ################################################################
 ## set configs via REST APIs

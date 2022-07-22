@@ -12,7 +12,6 @@
         file: "{{ item }}"
       with_fileglob:
         - vars/common.yaml
-        - vars/connection.yaml
 
 ################################################################
 ## waiting for service running via port checking
