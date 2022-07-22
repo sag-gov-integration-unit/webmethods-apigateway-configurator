@@ -1,52 +1,7 @@
 ---
 
-# enable / disable the config items
 vars_apigw_samlconfigs_enabled: "{{ lookup('env', 'apigw_settings_saml_configure') | default('false',true) }}"
-
-# ignore errors or not for each of the config items (defaults to vars_apigw_default_ignore_errors)
 vars_apigw_samlconfigs_ignore_errors: "{{ lookup('env', 'apigw_settings_saml_configure_ignore_errors') | default(vars_apigw_default_ignore_errors,true) }}"
-
-######################################################################
-## the saml certs for encryption / signing
-######################################################################
-vars_saml_keystore_filepath: "{{ lookup('env', 'apigw_settings_saml_keystore_filepath') | default('',true) }}"
-vars_saml_keystore_filename: "{{ vars_saml_keystore_filepath | basename }}"
-vars_saml_keystore_name: "{{ lookup('env', 'apigw_settings_saml_keystore_name') | default((vars_saml_keystore_filename | splitext)[0],true) }}"
-vars_saml_keystore_keyalias_name: "{{ lookup('env', 'apigw_settings_saml_keystore_keyalias') | default('',true) }}"
-
-vars_saml_keystore:
-  filepath: "{{ vars_saml_keystore_filepath }}"
-  filename: "{{ vars_saml_keystore_filename }}"
-  name: "{{ vars_saml_keystore_name }}"
-  type: "{{ lookup('env', 'apigw_settings_saml_keystore_type') | default('JKS',true) }}"
-  provider: "{{ lookup('env', 'apigw_settings_saml_keystore_provider') | default('SUN',true) }}"
-  description: "{{ lookup('env', 'apigw_settings_saml_keystore_description') | default('APIGateway keystore',true) }}"
-  password: "{{ lookup('env', 'apigw_settings_saml_keystore_password') | default('',true) }}"
-  keyalias: "{{ vars_saml_keystore_keyalias_name }}"
-  keyalias_password: "{{ lookup('env', 'apigw_settings_saml_keystore_keyalias_password') | default('',true) }}"
-
-## apigateway keystore details
-vars_apigw_rest_saml_keystore:
-  keyStoreName: "{{ vars_saml_keystore.name }}"
-  keyStoreType: "{{ vars_saml_keystore.type }}"
-  keyStoreProvider: "{{ vars_saml_keystore.provider }}"
-  keyStorePassword: "{{ vars_saml_keystore.password | b64encode }}"
-  uploadFileName: "{{ vars_saml_keystore.filename }}"
-  keyStoreDescription: "{{ vars_saml_keystore.description }}"
-  fileContent: "@{{ vars_saml_keystore.filepath }}"
-  isPwdBase64Encoded: "true"
-
-# this is for the aliases inside the keystore
-## pkAliasesList: Comma separated list of alias names in the uploaded keystore file.
-## pkPasswordsList: Comma separated list of passwords in the same order as the aliases specified in pkAliasesList. If a particular key alias does not have a password, it is denoted by space.
-## nullPKpasswds: Comma separated list of boolean values (true/false) indicating whether the particular alias has a password or not in the same order as the aliases specified in pkAliasesList. For each key alias, true indicates that the key alias does not have a password and false indicates that it does have a password.
-vars_apigw_rest_saml_keystore_keyalias_list:
-  - keyStoreName: "{{ vars_saml_keystore.name }}"
-    nullPKpasswds: "false"
-    isPwdBase64Encoded: "false"
-    bitarray: "1"
-    pkAliasesList: "{{ vars_saml_keystore.keyalias }}"
-    pkPasswordsList: "{{ vars_saml_keystore.keyalias_password }}"
 
 ######################################################################
 ## the saml settings
@@ -68,10 +23,10 @@ vars_apigw_rest_saml_settings:
   saml_redirect: "{{ lookup('env', 'apigw_settings_saml_redirect_host') }}/apigatewayui/saml/SSO"
   saml_authreq_signed:  "{{ lookup('env', 'apigw_settings_saml_authreq_signed') | default('true',true) }}"
   saml_assertion_signed: "{{ lookup('env', 'apigw_settings_saml_assertion_signed') | default('true',true) }}"
-  keystoreAlias: "{{ vars_saml_keystore_name }}"
-  saml_defaultkey_alias: "{{ vars_saml_keystore_keyalias_name }}"
-  saml_encrypkey_alias: "{{ vars_saml_keystore_keyalias_name }}"
-  saml_signkey_alias: "{{ vars_saml_keystore_keyalias_name }}"
+  keystoreAlias: "{{ lookup('env', 'apigw_settings_saml_keystore_alias') | default('',true) }}"
+  saml_defaultkey_alias: "{{ lookup('env', 'apigw_settings_saml_keystore_default_key_alias') | default('',true) }}"
+  saml_encrypkey_alias: "{{ lookup('env', 'apigw_settings_saml_keystore_encrypt_key_alias') | default('',true) }}"
+  saml_signkey_alias: "{{ lookup('env', 'apigw_settings_saml_keystore_sign_key_alias') | default('',true) }}"
   useSSOLoginByDefault: "{{ lookup('env', 'apigw_settings_saml_usebydefault') | default('false',true) }}"
   idpMetadataContent: "{{ lookup('env', 'apigw_settings_saml_idpmetadata_content_b64encoded') | default('',true) }}"
   idpFilename: "{{ lookup('env', 'apigw_settings_saml_idpmetadata_filename') | default('',true) }}"
