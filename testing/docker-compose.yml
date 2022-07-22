@@ -117,7 +117,7 @@ services:
     networks:
       - stack
   
-  config_keystores:
+  config_keystore:
     image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
     volumes:
       - ./resources/certs:/certs:ro
@@ -133,8 +133,20 @@ services:
       apigw_settings_keystore_password: "manage"
       apigw_settings_keystore_keyalias: "certificate"
       apigw_settings_keystore_keyalias_password: "manage"
+    networks:
+      - stack
+  
+  config_truststore:
+    image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
+    volumes:
+      - ./resources/certs:/certs:ro
+    environment: 
+      apigw_connect_host: apigateway
+      apigw_connect_port: "5555"
+      apigw_connect_user: Administrator
+      apigw_connect_password: "somethingnew"
       apigw_settings_truststore_configure: "true"
-      apigw_settings_truststore_filepath: /certs/truststore.jks
+      apigw_settings_truststore_filepath: /certs/apigateway-truststore.jks
       apigw_settings_truststore_description: "My custom truststore"
       apigw_settings_truststore_password: "manage"
     networks:
