@@ -28,8 +28,18 @@ logger_with_headers() {
 
 exec_ansible_playbook() {
     local playbook=$1
+    local args=""
     logger_with_headers $LOGGER_INFO "Running $playbook ..."
-    ansible-playbook $playbook
+    
+    if [ "${apigw_configurator_debug}" == "true" ]; then
+        args="${args} -vvv"
+    fi
+    
+    if [ "x${apigw_configurator_ansible_args}" != "x" ]; then
+        args="${args} ${apigw_configurator_ansible_args}"
+    fi
+    
+    ansible-playbook $args $playbook
 }
 
 exit_on_error() {
