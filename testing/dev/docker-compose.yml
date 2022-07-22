@@ -253,11 +253,11 @@ services:
       apigw_settings_saml_sp_id: "webmethods-apigateway-saml-client"
       apigw_settings_saml_keystore_alias: "SAMLSelfSignedKeystore"
       apigw_settings_saml_keystore_default_key_alias: certificate
-      apigw_settings_saml_redirect_host: "http://172.28.4.80:9072"
+      apigw_settings_saml_redirect_host: "http://mygateway:9072"
       apigw_settings_saml_usebydefault: "false"
       apigw_settings_saml_idpmetadata_localfilepath: ""
       apigw_settings_saml_idpmetadata_content_b64encoded: ""
-      apigw_settings_saml_idpmetadata_url: http://172.28.4.80:8080/auth/realms/tenant1/protocol/saml/descriptor
+      apigw_settings_saml_idpmetadata_url: http://myidp/saml/descriptor
       apigw_settings_saml_userprofilemapping_firstname: firstName
       apigw_settings_saml_userprofilemapping_lastname: lastName
       apigw_settings_saml_userprofilemapping_email: email

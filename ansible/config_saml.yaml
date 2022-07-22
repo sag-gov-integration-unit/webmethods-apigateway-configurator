@@ -24,7 +24,6 @@
   become: true
   become_user: "{{ webmethods_user }}"
   run_once: true
-  any_errors_fatal: true
   vars:
     apigateway_rest_protocol: "{{ vars_apigw_rest_protocol }}"
     apigateway_rest_host: "{{ vars_apigw_rest_host }}"
@@ -34,21 +33,7 @@
     apigateway_rest_login_password: "{{ vars_apigw_rest_login_password }}"
 
   tasks:
-    - debug: var=vars_apigw_rest_saml_keystore verbosity=1
-    - debug: var=vars_apigw_rest_saml_keystore_keyalias_list verbosity=1
-   
-    - include_role:
-        name:  apigateway-rest-configurator
-        apply:
-          ignore_errors: "{{ vars_apigw_samlconfigs_ignore_errors }}"
-      vars:
-        configs_action: upload-keystore
-        configs_enabled: "{{ vars_apigw_samlconfigs_enabled }}"
-        rvar_apigateway_keystore: "{{ vars_apigw_rest_saml_keystore }}"
-        rvar_apigateway_keystore_keyalias_list: "{{ vars_apigw_rest_saml_keystore_keyalias_list }}"
-      tags:
-        - configs_saml_keystore
-
+    
     - block:
 
         - name: Get the content of the idp file if filepath set
@@ -107,5 +92,3 @@
         configs_action: set-saml-settings
         configs_enabled: "{{ vars_apigw_samlconfigs_enabled }}"
         rvar_apigateway_saml_settings: "{{ vars_apigw_rest_saml_settings }}"
-      tags:
-        - configs_saml_settings
