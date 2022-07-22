@@ -128,7 +128,7 @@ services:
       apigw_connect_password: "somethingnew"
       apigw_settings_keystore_configure: "true"
       apigw_settings_keystore_filepath: /certs/apigateway-p12.jks
-      apigw_settings_keystore_name: "Custom_SSL_Keystore"
+      # apigw_settings_keystore_name: "Custom_SSL_Keystore"
       apigw_settings_keystore_description: "My custom keystore for SSL"
       apigw_settings_keystore_password: "manage"
       apigw_settings_keystore_keyalias: "certificate"
@@ -147,7 +147,7 @@ services:
       apigw_connect_password: "somethingnew"
       apigw_settings_truststore_configure: "true"
       apigw_settings_truststore_filepath: /certs/apigateway-truststore.jks
-      apigw_settings_truststore_name: "Custom_SSL_Truststore"
+      # apigw_settings_truststore_name: "Custom_SSL_Truststore"
       apigw_settings_truststore_description: "My custom truststore"
       apigw_settings_truststore_password: "manage"
     networks:
@@ -163,16 +163,6 @@ services:
       apigw_connect_user: Administrator
       apigw_connect_password: "somethingnew"
       apigw_data_archives_import: "true"
-      apigw_settings_ssl_configure: "true"
-      apigw_settings_keystore_filepath: /opt/softwareag/SAGKeystore.jks
-      apigw_settings_keystore_name: "SSLSAGKeystore"
-      apigw_settings_keystore_description: "My customkeystore for SSL"
-      apigw_settings_keystore_password: "manage"
-      apigw_settings_keystore_keyalias: "1"
-      apigw_settings_keystore_keyalias_password: "manage"
-      apigw_settings_truststore_filepath: /opt/softwareag/SAGTruststore.jks
-      apigw_settings_truststore_description: "My custom truststore"
-      apigw_settings_truststore_password: "manage"
     networks:
       - stack
 
