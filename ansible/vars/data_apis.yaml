@@ -14,10 +14,10 @@ vars_apigw_apis_publish_groups:
       version: "{{ lookup('env', 'apigw_data_apis_publish_portal_config_version') | default('',true) }}"
       stageName: "{{ lookup('env', 'apigw_data_apis_publish_portal_config_stage') | default('',true) }}"
     lookup_communityIds:
-      - name: "{{ lookup('env', 'apigw_data_apis_publish_portal_community_1_name') | default('',true) }}"
+      - name: "{{ lookup('env', 'apigw_data_apis_publish_portal_community_name') | default('',true) }}"
     lookup_apiIds:
-      - name: "{{ lookup('env', 'apigw_data_apis_publish_api_1_name') | default('',true) }}"
-        version: "{{ lookup('env', 'apigw_data_apis_publish_api_1_version') | default('',true) }}"
+      - name: "{{ lookup('env', 'apigw_data_apis_publish_api_name') | default('',true) }}"
+        version: "{{ lookup('env', 'apigw_data_apis_publish_api_version') | default('',true) }}"
 
 vars_apigw_apis_update_status:
   - name: api name

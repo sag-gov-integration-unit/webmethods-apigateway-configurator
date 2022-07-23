@@ -111,26 +111,6 @@ services:
     networks:
       - stack
 
-  config_import_archives:
-    image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
-    volumes:
-      - ../resources/ansible/sagdevops-ansible-common:/ansible/roles/sagdevops-ansible-common-1.0.0-3:ro
-      - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.0-4:ro 
-      - ../resources/sampleapis_archives:/imports:ro
-    environment: 
-      apigw_connect_host: apigateway
-      apigw_connect_port: "5555"
-      apigw_connect_user: Administrator
-      apigw_connect_password: "somethingnew"
-      apigw_data_archives_import: "true"
-      apigw_data_archives_import_1_path: "/imports/apigw-archive-api-bookstore-1.0.zip"
-      apigw_data_archives_import_1_autozip_enabled: "false"
-      apigw_data_archives_import_1_overwrite: "apis,policies,policyactions"
-      apigw_data_archives_import_1_fixingMissingVersions: "true"
-      apigw_data_archives_import_1_preserveAssetState: "true"
-    networks:
-      - stack
-  
   config_keystore:
     image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
     volumes:
@@ -267,3 +247,58 @@ services:
       apigw_settings_saml_groups_to_apigateway_groups: apigateway-admin=API-Gateway-Administrators;apigateway-apiprovider=API-Gateway-Providers;apigateway-user=Everybody
     networks:
       - stack
+
+  config_import_archives1:
+    image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
+    volumes:
+      - ../resources/ansible/sagdevops-ansible-common:/ansible/roles/sagdevops-ansible-common-1.0.0-3:ro
+      - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.0-4:ro 
+      - ../resources/sampleapis_archives:/imports:ro
+    environment: 
+      apigw_connect_host: apigateway
+      apigw_connect_port: "5555"
+      apigw_connect_user: Administrator
+      apigw_connect_password: "somethingnew"
+      apigw_data_archives_import: "true"
+      apigw_data_archives_import_path: "/imports/apigw-archive-api-bookstore-1.0.zip"
+      apigw_data_archives_import_autozip_enabled: "false"
+      apigw_data_archives_import_overwrite: "apis,policies,policyactions"
+      apigw_data_archives_import_fixingMissingVersions: "true"
+      apigw_data_archives_import_preserveAssetState: "true"
+    networks:
+      - stack
+
+  config_import_archives2:
+    image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
+    volumes:
+      - ../resources/ansible/sagdevops-ansible-common:/ansible/roles/sagdevops-ansible-common-1.0.0-3:ro
+      - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.0-4:ro 
+      - ../resources/sampleapis_archives:/imports:ro
+    environment: 
+      apigw_connect_host: apigateway
+      apigw_connect_port: "5555"
+      apigw_connect_user: Administrator
+      apigw_connect_password: "somethingnew"
+      apigw_data_archives_import: "true"
+      apigw_data_archives_import_path: "/imports/apigw-archive-api-uszip-1.0.zip"
+      apigw_data_archives_import_autozip_enabled: "false"
+      apigw_data_archives_import_overwrite: "apis,policies,policyactions"
+      apigw_data_archives_import_fixingMissingVersions: "true"
+      apigw_data_archives_import_preserveAssetState: "true"
+    networks:
+      - stack
+
+  config_alias:
+    image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
+    volumes:
+      - ../resources/ansible/sagdevops-ansible-common:/ansible/roles/sagdevops-ansible-common-1.0.0-3:ro
+      - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.0-4:ro 
+    environment: 
+      apigw_connect_host: apigateway
+      apigw_connect_port: "5555"
+      apigw_connect_user: Administrator
+      apigw_connect_password: "somethingnew"
+      apigw_data_aliases_configure: "true"
+    networks:
+      - stack
+  

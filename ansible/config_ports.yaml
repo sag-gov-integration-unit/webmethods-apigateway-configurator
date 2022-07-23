@@ -13,14 +13,13 @@
       with_fileglob:
         - vars/common.yaml
         - vars/rest_connect.yaml
-        - vars/settings_ssl.yaml
+        - vars/settings_ports.yaml
 
 ################################################################
 ## set configs via REST APIs
 ################################################################
 
-- name: SSL config tasks
-  hosts: local
+- hosts: local
   become: true
   become_user: "{{ webmethods_user }}"
   run_once: true
@@ -37,8 +36,8 @@
     - include_role:
         name:  apigateway-rest-configurator
         apply:
-          ignore_errors: "{{ vars_apigw_ssl_runtimeport_ignore_errors }}"
+          ignore_errors: "{{ vars_apigw_ports_ignore_errors }}"
       vars:
         configs_action: set-ports
-        configs_enabled: "{{ vars_apigw_ssl_runtimeport_enabled }}"
-        rvar_apigateway_ports_list: "{{ vars_apigw_rest_ssl_ports_list }}"
+        configs_enabled: "{{ vars_apigw_ports_enabled }}"
+        rvar_apigateway_ports_list: "{{ vars_apigw_ports_list }}"

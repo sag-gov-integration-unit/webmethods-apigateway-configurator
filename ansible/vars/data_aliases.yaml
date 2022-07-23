@@ -3,10 +3,12 @@
 vars_apigw_aliases_enabled: "{{ lookup('env', 'apigw_data_aliases_configure') | default('false',true) }}"
 vars_apigw_aliases_ignore_errors: "{{ lookup('env', 'apigw_data_aliases_configure_ignore_errors') | default(vars_apigw_default_ignore_errors,true) }}"
 
+vars_apigw_aliases_type: "simple"
+
 vars_apigw_aliases_simple:
-  - name: "{{ lookup('env', 'apigw_data_aliases_1_name') | default('',true) }}"
-    description: "{{ lookup('env', 'apigw_data_aliases_1_description') | default('simple',true) }}"
-    type: "{{ lookup('env', 'apigw_data_aliases_1_type') | default('simple',true) }}"
+  - name: "{{ lookup('env', 'apigw_data_aliases_name') | default('',true) }}"
+    description: "{{ lookup('env', 'apigw_data_aliases_description') | default('simple',true) }}"
+    type: "{{ lookup('env', 'apigw_data_aliases_type') | default('simple',true) }}"
     owner: Administrator
-    value: "{{ lookup('env', 'apigw_data_aliases_1_value') | default('',true) }}"
-    stage: "{{ lookup('env', 'apigw_data_aliases_1_stage') | default('',true) }}"
+    value: "{{ lookup('env', 'apigw_data_aliases_value') | default('',true) }}"
+    stage: "{{ lookup('env', 'apigw_data_aliases_stage') | default('',true) }}"
