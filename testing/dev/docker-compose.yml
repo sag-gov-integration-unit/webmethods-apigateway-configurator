@@ -319,7 +319,6 @@ services:
       apigw_connect_user: Administrator
       apigw_connect_password: "somethingnew"
       apigw_data_aliases_configure: "true"
-      apigw_data_aliases_count: 3
       apigw_data_aliases_0_name: name1
       apigw_data_aliases_0_description: desc1
       apigw_data_aliases_0_type: simple
@@ -335,5 +334,19 @@ services:
       apigw_data_aliases_2_type: endpoint
       apigw_data_aliases_2_stage: stag2
       apigw_data_aliases_2_endPointURI: http://test.local
+    networks:
+      - stack
+
+  config_alias_list_nothing:
+    image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
+    volumes:
+      - ../resources/ansible/sagdevops-ansible-common:/ansible/roles/sagdevops-ansible-common-1.0.0-3:ro
+      - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.0-4:ro 
+    environment: 
+      apigw_connect_host: apigateway
+      apigw_connect_port: "5555"
+      apigw_connect_user: Administrator
+      apigw_connect_password: "somethingnew"
+      apigw_data_aliases_configure: "true"
     networks:
       - stack
