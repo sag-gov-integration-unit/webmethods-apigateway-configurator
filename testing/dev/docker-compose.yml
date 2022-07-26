@@ -330,5 +330,10 @@ services:
       apigw_data_aliases_1_type: simple
       apigw_data_aliases_1_value: val2
       apigw_data_aliases_1_stage: stag2
+      apigw_data_aliases_2_name: endpointname3
+      apigw_data_aliases_2_description: endpoint alias
+      apigw_data_aliases_2_type: endpoint
+      apigw_data_aliases_2_stage: stag2
+      apigw_data_aliases_2_endPointURI: http://test.local
     networks:
       - stack

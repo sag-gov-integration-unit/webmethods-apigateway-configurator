@@ -7,8 +7,21 @@ vars_apigw_aliases_count: "{{ lookup('env', 'apigw_data_aliases_count') | defaul
 
 _apigw_aliases_template_simple_alias:
   name: "{{ lookup('env', 'apigw_data_aliases_%d_name' | format(alias_index)) | default('',true) }}"
-  description: "{{ lookup('env', 'apigw_data_aliases_%d_description' | format(alias_index)) | default('simple',true) }}"
-  type: "{{ lookup('env', 'apigw_data_aliases_%d_type' | format(alias_index)) | default('simple',true) }}"
-  owner: "{{ lookup('env', 'apigw_data_aliases_%d_owner' | format(alias_index)) | default('Administrator',true) }}"
+  description: "{{ lookup('env', 'apigw_data_aliases_%d_description' | format(alias_index)) | default('',true) }}"
+  type: "simple"
+  owner: "{{ lookup('env', 'apigw_data_aliases_%d_owner' | format(alias_index)) | default('',true) }}"
   value: "{{ lookup('env', 'apigw_data_aliases_%d_value' | format(alias_index)) | default('',true) }}"
   stage: "{{ lookup('env', 'apigw_data_aliases_%d_stage' | format(alias_index)) | default('',true) }}"
+
+_apigw_aliases_template_endpoint_alias:
+  name: "{{ lookup('env', 'apigw_data_aliases_%d_name' | format(alias_index)) | default('',true) }}"
+  description: "{{ lookup('env', 'apigw_data_aliases_%d_description' | format(alias_index)) | default('',true) }}"
+  type: endpoint
+  stage: "{{ lookup('env', 'apigw_data_aliases_%d_stage' | format(alias_index)) | default('',true) }}"
+  endPointURI: "{{ lookup('env', 'apigw_data_aliases_%d_endPointURI' | format(alias_index)) | default('',true) }}"
+  connectionTimeout: "{{ lookup('env', 'apigw_data_aliases_%d_connectionTimeout' | format(alias_index)) | default('',true) }}"
+  optimizationTechnique: "{{ lookup('env', 'apigw_data_aliases_%d_optimizationTechnique' | format(alias_index)) | default('None',true) }}"
+  readTimeout: "{{ lookup('env', 'apigw_data_aliases_%d_readTimeout' | format(alias_index)) | default('',true) }}"
+  passSecurityHeaders: "{{ lookup('env', 'apigw_data_aliases_%d_passSecurityHeaders' | format(alias_index)) | default('false',true) }}"
+  keystoreAlias: "{{ lookup('env', 'apigw_data_aliases_%d_keystoreAlias' | format(alias_index)) | default('',true) }}"
+  keyAlias: "{{ lookup('env', 'apigw_data_aliases_%d_keyAlias' | format(alias_index)) | default('',true) }}"
