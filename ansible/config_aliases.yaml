@@ -33,10 +33,6 @@
 
   tasks:
 
-    - name: init the list
-      set_fact:
-        vars_apigw_aliases_list: []
-
     - ansible.builtin.debug:
         msg: "{{ item }}"
       # range is exclusive of the end point
@@ -44,7 +40,7 @@
 
     - name: append item
       set_fact:
-        vars_apigw_aliases_list: "{{ vars_apigw_aliases_list }} + [ vars_apigw_aliases_simple_item ]"
+        vars_apigw_aliases_list: "{{ vars_apigw_aliases_list |default([]) + [ vars_apigw_aliases_simple_item ] }}"
       loop: "{{ range(0, vars_apigw_aliases_count | int, 1)|list }}"
 
     - ansible.builtin.debug:
