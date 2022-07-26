@@ -33,12 +33,7 @@
 
   tasks:
 
-    - ansible.builtin.debug:
-        msg: "{{ item }}"
-      # range is exclusive of the end point
-      loop: "{{ range(0, vars_apigw_aliases_count | int, 1)|list }}"
-
-    - name: append item
+    - name: append each item to list
       set_fact:
         vars_apigw_aliases_list: "{{ vars_apigw_aliases_list |default([]) + [ vars_apigw_aliases_simple_item ] }}"
       loop: "{{ range(0, vars_apigw_aliases_count | int, 1)|list }}"
@@ -46,11 +41,11 @@
     - ansible.builtin.debug:
         var: vars_apigw_aliases_list
 
-    # - include_role:
-    #     name: apigateway-rest-configurator
-    #     apply:
-    #       ignore_errors: "{{ vars_apigw_aliases_ignore_errors }}"
-    #   vars:
-    #     configs_action: set-aliases
-    #     configs_enabled: "{{ vars_apigw_aliases_enabled }}"
-    #     rvar_apigateway_aliases: "{{ vars_apigw_aliases }}"
+    - include_role:
+        name: apigateway-rest-configurator
+        apply:
+          ignore_errors: "{{ vars_apigw_aliases_ignore_errors }}"
+      vars:
+        configs_action: set-aliases
+        configs_enabled: "{{ vars_apigw_aliases_enabled }}"
+        rvar_apigateway_aliases: "{{ vars_apigw_aliases_list }}"

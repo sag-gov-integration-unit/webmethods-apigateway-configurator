@@ -320,15 +320,15 @@ services:
       apigw_connect_password: "somethingnew"
       apigw_data_aliases_configure: "true"
       apigw_data_aliases_count: 2
-      apigw_data_aliases_1_name: name1
-      apigw_data_aliases_1_description: desc1
+      apigw_data_aliases_0_name: name1
+      apigw_data_aliases_0_description: desc1
+      apigw_data_aliases_0_type: simple
+      apigw_data_aliases_0_value: val1
+      apigw_data_aliases_0_stage: stag1
+      apigw_data_aliases_1_name: name2
+      apigw_data_aliases_1_description: desc2
       apigw_data_aliases_1_type: simple
-      apigw_data_aliases_1_value: val1
-      apigw_data_aliases_1_stage: stag1
-      apigw_data_aliases_2_name: name2
-      apigw_data_aliases_2_description: desc2
-      apigw_data_aliases_2_type: simple
-      apigw_data_aliases_2_value: val2
-      apigw_data_aliases_2_stage: stag2
+      apigw_data_aliases_1_value: val2
+      apigw_data_aliases_1_stage: stag2
     networks:
       - stack
