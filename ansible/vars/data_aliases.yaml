@@ -15,9 +15,9 @@ vars_apigw_aliases_simple:
     stage: "{{ lookup('env', 'apigw_data_aliases_stage') | default('',true) }}"
 
 vars_apigw_aliases_simple_item:
-  name: "{{ lookup('env', 'apigw_data_aliases_' + item + '_name') | default('',true) }}"
-  description: "{{ lookup('env', 'apigw_data_aliases_' + item + '_description') | default('simple',true) }}"
-  type: "{{ lookup('env', 'apigw_data_aliases_' + item + '_type') | default('simple',true) }}"
-  owner: "{{ lookup('env', 'apigw_data_aliases_' + item + '_owner') | default('Administrator',true) }}"
-  value: "{{ lookup('env', 'apigw_data_aliases_' + item + '_value') | default('',true) }}"
-  stage: "{{ lookup('env', 'apigw_data_aliases_' + item + '_stage') | default('',true) }}"
+  name: "{{ lookup('env', 'apigw_data_aliases_' + ( item | string ) + '_name') | default('',true) }}"
+  description: "{{ lookup('env', 'apigw_data_aliases_' + ( item | string ) + '_description') | default('simple',true) }}"
+  type: "{{ lookup('env', 'apigw_data_aliases_' + ( item | string ) + '_type') | default('simple',true) }}"
+  owner: "{{ lookup('env', 'apigw_data_aliases_' + ( item | string ) + '_owner') | default('Administrator',true) }}"
+  value: "{{ lookup('env', 'apigw_data_aliases_' + ( item | string ) + '_value') | default('',true) }}"
+  stage: "{{ lookup('env', 'apigw_data_aliases_' + ( item | string ) + '_stage') | default('',true) }}"
