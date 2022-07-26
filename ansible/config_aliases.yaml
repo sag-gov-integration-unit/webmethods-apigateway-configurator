@@ -42,8 +42,6 @@
 
     - name: append each item to list
       include_tasks: "append_alias_each.yaml"
-      vars:
-        _aliases_list: []
       loop: "{{ range(0, _item_count | int, 1)|list }}"
       loop_control:
         loop_var: alias_index
