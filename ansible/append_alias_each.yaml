@@ -1,9 +1,5 @@
 ---
 
-- name: start by default list if not defined
-  set_fact:
-    _aliases_list: "{{ _aliases_list | default([]) }}"
-
 - name: get the current alias type
   set_fact:
     _item_type: "{{ lookup('env', 'apigw_data_aliases_%d_type' | format(alias_index)) | default('') | lower }}"

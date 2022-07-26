@@ -56,4 +56,4 @@
       vars:
         configs_action: set-aliases
         configs_enabled: "{{ vars_apigw_aliases_enabled }}"
-        rvar_apigateway_aliases: "{{ _aliases_list }}"
+        rvar_apigateway_aliases: "{{ _aliases_list | default([]) }}"
