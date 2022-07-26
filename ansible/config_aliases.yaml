@@ -40,12 +40,12 @@
     - ansible.builtin.debug:
         msg: "{{ item }}"
       # range is exclusive of the end point
-      loop: "{{ range(1, vars_apigw_aliases_count | int, 1)|list }}"
+      loop: "{{ range(0, vars_apigw_aliases_count | int, 1)|list }}"
 
     - name: append item
       set_fact:
         vars_apigw_aliases_list: "{{ vars_apigw_aliases_list }} + [ vars_apigw_aliases_simple_item ]"
-      loop: "{{ range(1, vars_apigw_aliases_count | int, 1)|list }}"
+      loop: "{{ range(0, vars_apigw_aliases_count | int, 1)|list }}"
 
     - ansible.builtin.debug:
         var: vars_apigw_aliases_list
