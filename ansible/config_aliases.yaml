@@ -32,10 +32,17 @@
     apigateway_rest_login_password: "{{ vars_apigw_rest_login_password }}"
 
   tasks:
+    
+    - name: get the count of items from the env vars
+      set_fact:
+        _item_count: "{{ ansible_env.keys() | map('regex_search','^apigw_data_aliases_\\d+_type$') | select('string') | list | unique | length  }}"
+
+    - ansible.builtin.debug:
+        var: _item_count
 
     - name: append each item to list
       include_tasks: "append_alias_each.yaml"
-      loop: "{{ range(0, vars_apigw_aliases_count | int, 1)|list }}"
+      loop: "{{ range(0, _item_count | int, 1)|list }}"
       loop_control:
         loop_var: alias_index
 
