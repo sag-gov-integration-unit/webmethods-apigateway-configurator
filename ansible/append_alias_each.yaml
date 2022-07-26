@@ -21,5 +21,5 @@
 
 - name: append each alias item to list
   set_fact:
-    vars_apigw_aliases_list: "{{ vars_apigw_aliases_list | default([]) + [ _item ] }}"
+    _aliases_list: "{{ _aliases_list | default([]) + [ _item ] }}"
   when: _item is defined

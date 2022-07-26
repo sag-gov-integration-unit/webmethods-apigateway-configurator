@@ -42,12 +42,14 @@
 
     - name: append each item to list
       include_tasks: "append_alias_each.yaml"
+      vars:
+        _aliases_list: []
       loop: "{{ range(0, _item_count | int, 1)|list }}"
       loop_control:
         loop_var: alias_index
 
     - ansible.builtin.debug:
-        var: vars_apigw_aliases_list
+        var: _aliases_list
 
     - include_role:
         name: apigateway-rest-configurator
@@ -56,4 +58,4 @@
       vars:
         configs_action: set-aliases
         configs_enabled: "{{ vars_apigw_aliases_enabled }}"
-        rvar_apigateway_aliases: "{{ vars_apigw_aliases_list }}"
+        rvar_apigateway_aliases: "{{ _aliases_list }}"
