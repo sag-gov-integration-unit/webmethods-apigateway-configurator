@@ -34,9 +34,10 @@
   tasks:
 
     - name: append each item to list
-      set_fact:
-        vars_apigw_aliases_list: "{{ vars_apigw_aliases_list | default([]) + [ vars_apigw_aliases_simple_item ] }}"
+      include_tasks: "append_alias_each.yml"
       loop: "{{ range(0, vars_apigw_aliases_count | int, 1)|list }}"
+      loop_control:
+        loop_var: alias_index
 
     - ansible.builtin.debug:
         var: vars_apigw_aliases_list

@@ -1,0 +1,20 @@
+---
+
+- name: get the current alias type
+  set_fact:
+    _item_type: "{{ lookup('env', 'apigw_data_aliases_%d_type' | format(alias_index)) }}"
+
+- name: fail if group_operation does not have expected value
+  fail: 
+    msg: "A mandatory param was not defined, cannot do anything."
+  when: _item_type is not defined or _item_type == ""
+
+- name: select the right item template based on type
+  set_fact:
+    _item: "{{ _apigw_aliases_template_simple_alias }}"
+  when: _item_type == 'simple'
+
+- name: append each alias item to list
+  set_fact:
+    vars_apigw_aliases_list: "{{ vars_apigw_aliases_list | default([]) + [ _item ] }}"
+  when: _item is defined

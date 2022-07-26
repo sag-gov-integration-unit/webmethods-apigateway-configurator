@@ -4,20 +4,11 @@ vars_apigw_aliases_enabled: "{{ lookup('env', 'apigw_data_aliases_configure') | 
 vars_apigw_aliases_ignore_errors: "{{ lookup('env', 'apigw_data_aliases_configure_ignore_errors') | default(vars_apigw_default_ignore_errors,true) }}"
 
 vars_apigw_aliases_count: "{{ lookup('env', 'apigw_data_aliases_count') | default('1',true) }}"
-vars_apigw_aliases_type: "simple"
 
-vars_apigw_aliases_simple:
-  - name: "{{ lookup('env', 'apigw_data_aliases_name') | default('',true) }}"
-    description: "{{ lookup('env', 'apigw_data_aliases_description') | default('',true) }}"
-    type: "simple"
-    owner: "{{ lookup('env', 'apigw_data_aliases_owner') | default('Administrator',true) }}"
-    value: "{{ lookup('env', 'apigw_data_aliases_value') | default('',true) }}"
-    stage: "{{ lookup('env', 'apigw_data_aliases_stage') | default('',true) }}"
-
-vars_apigw_aliases_simple_item:
-  name: "{{ lookup('env', 'apigw_data_aliases_%d_name' | format(item)) | default('',true) }}"
-  description: "{{ lookup('env', 'apigw_data_aliases_%d_description' | format(item)) | default('simple',true) }}"
-  type: "{{ lookup('env', 'apigw_data_aliases_%d_type' | format(item)) | default('simple',true) }}"
-  owner: "{{ lookup('env', 'apigw_data_aliases_%d_owner' | format(item)) | default('Administrator',true) }}"
-  value: "{{ lookup('env', 'apigw_data_aliases_%d_value' | format(item)) | default('',true) }}"
-  stage: "{{ lookup('env', 'apigw_data_aliases_%d_stage' | format(item)) | default('',true) }}"
+_apigw_aliases_template_simple_alias:
+  name: "{{ lookup('env', 'apigw_data_aliases_%d_name' | format(alias_index)) | default('',true) }}"
+  description: "{{ lookup('env', 'apigw_data_aliases_%d_description' | format(alias_index)) | default('simple',true) }}"
+  type: "{{ lookup('env', 'apigw_data_aliases_%d_type' | format(alias_index)) | default('simple',true) }}"
+  owner: "{{ lookup('env', 'apigw_data_aliases_%d_owner' | format(alias_index)) | default('Administrator',true) }}"
+  value: "{{ lookup('env', 'apigw_data_aliases_%d_value' | format(alias_index)) | default('',true) }}"
+  stage: "{{ lookup('env', 'apigw_data_aliases_%d_stage' | format(alias_index)) | default('',true) }}"
