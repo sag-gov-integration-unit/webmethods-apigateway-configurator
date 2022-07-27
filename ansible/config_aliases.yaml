@@ -35,7 +35,7 @@
     
     - name: get the count of items from the env vars
       set_fact:
-        _index_items: "{{ ansible_env.keys() | map('regex_search','^apigw_data_aliases_(.+)_type$', '\\1') | select('string') }}"
+        _index_items: "{{ ansible_env.keys() | map('regex_search','^apigw_data_aliases_(.+)_type$', '\\1') | flatten | select('string') }}"
         # _index_items: "{{ ansible_env.keys() | map('regex_search','^apigw_data_aliases_(.+)_type$', '\\1') | select('string') | list | unique  }}"
 #|list|flatten|unique
     - ansible.builtin.debug:
