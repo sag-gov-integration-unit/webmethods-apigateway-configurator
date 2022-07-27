@@ -4,10 +4,10 @@ vars_apigw_plans_enabled: "{{ lookup('env', 'apigw_data_plans_configure') | defa
 vars_apigw_plans_ignore_errors: "{{ lookup('env', 'apigw_data_plans_configure_ignore_errors') | default(vars_apigw_default_ignore_errors,true) }}"
 
 _apigw_plans_template:
-  name: "{{ lookup('env', 'apigw_data_plans_%d_name' | format(index_item)) | default('',true) }}"
-  version: "{{ lookup('env', 'apigw_data_plans_%d_version' | format(index_item)) | default('',true) }}"
-  deprecated: "{{ lookup('env', 'apigw_data_plans_%d_deprecated' | format(index_item)) | default('',true) }}"
-  protected: "{{ lookup('env', 'apigw_data_plans_%d_protected' | format(index_item)) | default('',true) }}"
+  name: "{{ lookup('env', 'apigw_data_plans_%s_name' | format(index_item)) | default('',true) }}"
+  version: "{{ lookup('env', 'apigw_data_plans_%s_version' | format(index_item)) | default('',true) }}"
+  deprecated: "{{ lookup('env', 'apigw_data_plans_%s_deprecated' | format(index_item)) | default('',true) }}"
+  protected: "{{ lookup('env', 'apigw_data_plans_%s_protected' | format(index_item)) | default('',true) }}"
   policiesNames: []
   cost:
     currency:

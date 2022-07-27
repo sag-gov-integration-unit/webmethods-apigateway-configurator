@@ -36,8 +36,6 @@
     - name: get the count of items from the env vars
       set_fact:
         _index_items: "{{ ansible_env.keys() | map('regex_search','^apigw_data_aliases_(.+)_type$', '\\1') | flatten | select('string') | unique | sort }}"
-        # _index_items: "{{ ansible_env.keys() | map('regex_search','^apigw_data_aliases_(.+)_type$', '\\1') | select('string') | list | unique  }}"
-#|list|flatten|unique
     - ansible.builtin.debug:
         var: _index_items
 
@@ -47,14 +45,14 @@
     #   loop_control:
     #     loop_var: index
 
-    # - name: append each item to list
-    #   include_tasks: "config_aliases_append_each.yaml"
-    #   loop: "{{ _index_items }}"
-    #   loop_control:
-    #     loop_var: index_item
+    - name: append each item to list
+      include_tasks: "config_aliases_append_each.yaml"
+      loop: "{{ _index_items }}"
+      loop_control:
+        loop_var: index_item
 
-    # - ansible.builtin.debug:
-    #     var: _aliases_list
+    - ansible.builtin.debug:
+        var: _aliases_list
 
     # - include_role:
     #     name: apigateway-rest-configurator
