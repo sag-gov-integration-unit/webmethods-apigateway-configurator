@@ -3,6 +3,11 @@
 vars_apigw_aliases_enabled: "{{ lookup('env', 'apigw_data_aliases_configure') | default('false',true) }}"
 vars_apigw_aliases_ignore_errors: "{{ lookup('env', 'apigw_data_aliases_configure_ignore_errors') | default(vars_apigw_default_ignore_errors,true) }}"
 
+
+_apigw_aliases_indices_finder_prefix: "apigw_data_aliases_"
+_apigw_aliases_indices_finder_suffix: "_type"
+_apigw_aliases_item_type: "{{ lookup('env', 'apigw_data_aliases_%s_type' | format(index_item)) | default('') }}"
+
 _apigw_aliases_template_simple_alias:
   name: "{{ lookup('env', 'apigw_data_aliases_%s_name' | format(index_item)) | default('',true) }}"
   description: "{{ lookup('env', 'apigw_data_aliases_%s_description' | format(index_item)) | default('',true) }}"
