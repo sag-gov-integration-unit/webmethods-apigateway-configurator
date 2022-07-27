@@ -329,7 +329,7 @@ services:
     networks:
       - stack
 
-  config_plans_list:
+  config_plans:
     image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
     volumes:
       - ../resources/ansible/sagdevops-ansible-common:/ansible/roles/sagdevops-ansible-common-1.0.0-3:ro
