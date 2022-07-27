@@ -39,12 +39,6 @@
     - ansible.builtin.debug:
         var: _index_items
 
-    # - name: append each item to list
-    #   include_tasks: "config_aliases_append_each.yaml"
-    #   loop: "{{ range(0, _item_count | int, 1)|list }}"
-    #   loop_control:
-    #     loop_var: index
-
     - name: append each item to list
       include_tasks: "config_aliases_append_each.yaml"
       loop: "{{ _index_items }}"
@@ -54,11 +48,11 @@
     - ansible.builtin.debug:
         var: _aliases_list
 
-    # - include_role:
-    #     name: apigateway-rest-configurator
-    #     apply:
-    #       ignore_errors: "{{ vars_apigw_aliases_ignore_errors }}"
-    #   vars:
-    #     configs_action: set-aliases
-    #     configs_enabled: "{{ vars_apigw_aliases_enabled }}"
-    #     rvar_apigateway_aliases: "{{ _aliases_list | default([]) }}"
+    - include_role:
+        name: apigateway-rest-configurator
+        apply:
+          ignore_errors: "{{ vars_apigw_aliases_ignore_errors }}"
+      vars:
+        configs_action: set-aliases
+        configs_enabled: "{{ vars_apigw_aliases_enabled }}"
+        rvar_apigateway_aliases: "{{ _aliases_list | default([]) }}"
