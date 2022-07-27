@@ -259,7 +259,7 @@ services:
       apigw_connect_port: "5555"
       apigw_connect_user: Administrator
       apigw_connect_password: "somethingnew"
-      apigw_data_archives_: "true"
+      apigw_data_archives_import: "true"
       apigw_data_archives_1_path: "/imports/apigw-archive-api-bookstore-1.0.zip"
       apigw_data_archives_1_overwrite: "apis,policies,policyactions"
       apigw_data_archives_1_fixingMissingVersions: "true"
