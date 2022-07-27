@@ -1,9 +1,9 @@
 
 ---
 
-vars_apigw_archive_imports_enabled: "{{ lookup('env', 'apigw_data_archives') | default('false',true) }}"
-vars_apigw_archive_imports_ignore_errors: "{{ lookup('env', 'apigw_data_archives_ignore_errors') | default(vars_apigw_default_ignore_errors,true) }}"
-vars_apigw_archive_imports_autozip_enabled: "{{ lookup('env', 'apigw_data_archives_autozip_enabled') | default('false',true) }}"
+vars_apigw_archive_imports_enabled: "{{ lookup('env', 'apigw_data_archives_import') | default('false',true) }}"
+vars_apigw_archive_imports_ignore_errors: "{{ lookup('env', 'apigw_data_archives_import_ignore_errors') | default(vars_apigw_default_ignore_errors,true) }}"
+vars_apigw_archive_imports_autozip_enabled: "{{ lookup('env', 'apigw_data_archives_import_autozip_enabled') | default('false',true) }}"
 
 _apigw_archives_indices_finder_prefix: "apigw_data_archives_"
 _apigw_archives_indices_finder_suffix: "_path"
