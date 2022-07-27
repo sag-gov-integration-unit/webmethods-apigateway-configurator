@@ -3,6 +3,9 @@
 vars_apigw_plans_enabled: "{{ lookup('env', 'apigw_data_plans_configure') | default('false',true) }}"
 vars_apigw_plans_ignore_errors: "{{ lookup('env', 'apigw_data_plans_configure_ignore_errors') | default(vars_apigw_default_ignore_errors,true) }}"
 
+
+_apigw_plans_indices_finder_prefix: "apigw_data_plans_"
+_apigw_plans_indices_finder_suffix: "_name"
 _apigw_plans_template:
   name: "{{ lookup('env', 'apigw_data_plans_%s_name' | format(index_item)) | default('',true) }}"
   version: "{{ lookup('env', 'apigw_data_plans_%s_version' | format(index_item)) | default('',true) }}"

@@ -33,10 +33,11 @@
 
   tasks:
 
+
     - name: get the count of items from the env vars
       set_fact:
-        _index_items: "{{ ansible_env.keys() | map('regex_search','^apigw_data_plans_(.+)_name$', '\\1') | select('string') | list | unique  }}"
-
+        _index_items: "{{ ansible_env.keys() | map('regex_search','^' + _apigw_aliases_indices_finder_prefix + '(.+)' + _apigw_aliases_indices_finder_suffix + '$', '\\1') | flatten | select('string') | unique | sort }}"
+    
     - ansible.builtin.debug:
         var: _index_items
 
@@ -57,4 +58,4 @@
       vars:
         configs_action: set-plans
         configs_enabled: "{{ vars_apigw_plans_enabled }}"
-        rvar_apigateway_plans: "{{ _plans_list }}"
+        rvar_apigateway_plans: "{{ _plans_list | default([]) }}"
