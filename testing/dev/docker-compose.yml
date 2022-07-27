@@ -282,7 +282,7 @@ services:
       apigw_connect_port: "5555"
       apigw_connect_user: Administrator
       apigw_connect_password: "somethingnew"
-      apigw_data_archives_: "true"
+      apigw_data_archives_import: "true"
     networks:
       - stack
 
