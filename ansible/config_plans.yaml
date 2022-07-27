@@ -39,10 +39,14 @@
     
     - ansible.builtin.debug:
         var: _index_items
+    
+    - name: set initial list so it's not undefined
+      set_fact:
+         _plans_list: []
 
     - name: append each item template to list
       set_fact:
-        _plans_list: "{{ _plans_list | default([]) + [ _apigw_plans_template ] }}"
+        _plans_list: "{{ _plans_list + [ _apigw_plans_template ] }}"
       loop: "{{ _index_items }}"
       loop_control:
         loop_var: index_item
