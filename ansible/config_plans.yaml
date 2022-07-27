@@ -61,4 +61,4 @@
       vars:
         configs_action: set-plans
         configs_enabled: "{{ vars_apigw_plans_enabled }}"
-        rvar_apigateway_plans: "{{ _plans_list | default([]) }}"
+        rvar_apigateway_plans: "{{ _plans_list }}"
