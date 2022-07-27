@@ -33,6 +33,23 @@
 
   tasks:
 
+    - name: get the count of items from the env vars
+      set_fact:
+        _index_items: "{{ ansible_env.keys() | map('regex_search','^apigw_data_plans_(.+)_name$', '\\1') | select('string') | list | unique  }}"
+
+    - ansible.builtin.debug:
+        var: _index_items
+
+    - name: append each item template to list
+      set_fact:
+        _plans_list: "{{ _plans_list | default([]) + [ _apigw_plans_template ] }}"
+      loop: "{{ _index_items }}"
+      loop_control:
+        loop_var: index_item
+
+    - ansible.builtin.debug:
+        var: _plans_list
+
     - include_role:
         name: apigateway-rest-configurator
         apply:
@@ -40,4 +57,4 @@
       vars:
         configs_action: set-plans
         configs_enabled: "{{ vars_apigw_plans_enabled }}"
-        rvar_apigateway_aliases: "{{ vars_apigw_plans }}"
+        rvar_apigateway_plans: "{{ _plans_list }}"

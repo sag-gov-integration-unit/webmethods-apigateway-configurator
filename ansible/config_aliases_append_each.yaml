@@ -2,7 +2,7 @@
 
 - name: get the current alias type
   set_fact:
-    _item_type: "{{ lookup('env', 'apigw_data_aliases_%d_type' | format(alias_index)) | default('') | lower }}"
+    _item_type: "{{ lookup('env', 'apigw_data_aliases_%d_type' | format(index_item)) | default('') | lower }}"
 
 - name: fail if _item_type is not specified
   fail: 

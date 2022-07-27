@@ -35,16 +35,22 @@
     
     - name: get the count of items from the env vars
       set_fact:
-        _item_count: "{{ ansible_env.keys() | map('regex_search','^apigw_data_aliases_\\d+_type$') | select('string') | list | unique | length  }}"
+        _index_items: "{{ ansible_env.keys() | map('regex_search','^apigw_data_aliases_(.+)_type$', '\\1') | select('string') | list | unique  }}"
 
     - ansible.builtin.debug:
-        var: _item_count
+        var: _index_items
+
+    # - name: append each item to list
+    #   include_tasks: "config_aliases_append_each.yaml"
+    #   loop: "{{ range(0, _item_count | int, 1)|list }}"
+    #   loop_control:
+    #     loop_var: index
 
     - name: append each item to list
       include_tasks: "config_aliases_append_each.yaml"
-      loop: "{{ range(0, _item_count | int, 1)|list }}"
+      loop: "{{ _index_items }}"
       loop_control:
-        loop_var: alias_index
+        loop_var: index_item
 
     - ansible.builtin.debug:
         var: _aliases_list
