@@ -1,12 +1,16 @@
 
 ---
 
-vars_apigw_archive_imports_enabled: "{{ lookup('env', 'apigw_data_archives_import') | default('false',true) }}"
-vars_apigw_archive_imports_ignore_errors: "{{ lookup('env', 'apigw_data_archives_import_ignore_errors') | default(vars_apigw_default_ignore_errors,true) }}"
+vars_apigw_archive_imports_enabled: "{{ lookup('env', 'apigw_data_archives') | default('false',true) }}"
+vars_apigw_archive_imports_ignore_errors: "{{ lookup('env', 'apigw_data_archives_ignore_errors') | default(vars_apigw_default_ignore_errors,true) }}"
+vars_apigw_archive_imports_autozip_enabled: "{{ lookup('env', 'apigw_data_archives_autozip_enabled') | default('false',true) }}"
+
+_apigw_archives_indices_finder_prefix: "apigw_data_archives_"
+_apigw_archives_indices_finder_suffix: "_path"
 
 ## archives to import into gateway
-vars_apigw_archives:
-  - path: "{{ lookup('env', 'apigw_data_archives_import_path') | default('',true) }}"
-    overwrite: "{{ lookup('env', 'apigw_data_archives_import_overwrite') | default('',true) }}"
-    fixingMissingVersions: "{{ lookup('env', 'apigw_data_archives_import_fixingMissingVersions') | default('true',true) }}"
-    preserveAssetState: "{{ lookup('env', 'apigw_data_archives_import_preserveAssetState') | default('true',true) }}"
+_apigw_archives_template:
+  path: "{{ lookup('env', 'apigw_data_archives_%s_path'| format(index_item)) | default('',true) }}"
+  overwrite: "{{ lookup('env', 'apigw_data_archives_%s_overwrite'| format(index_item)) | default('',true) }}"
+  fixingMissingVersions: "{{ lookup('env', 'apigw_data_archives_%s_fixingMissingVersions'| format(index_item)) | default('',true) }}"
+  preserveAssetState: "{{ lookup('env', 'apigw_data_archives_%s_preserveAssetState'| format(index_item)) | default('',true) }}"

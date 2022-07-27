@@ -248,7 +248,7 @@ services:
     networks:
       - stack
 
-  config_import_archives1:
+  config_import_archives:
     image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
     volumes:
       - ../resources/ansible/sagdevops-ansible-common:/ansible/roles/sagdevops-ansible-common-1.0.0-3:ro
@@ -259,16 +259,19 @@ services:
       apigw_connect_port: "5555"
       apigw_connect_user: Administrator
       apigw_connect_password: "somethingnew"
-      apigw_data_archives_import: "true"
-      apigw_data_archives_import_path: "/imports/apigw-archive-api-bookstore-1.0.zip"
-      apigw_data_archives_import_autozip_enabled: "false"
-      apigw_data_archives_import_overwrite: "apis,policies,policyactions"
-      apigw_data_archives_import_fixingMissingVersions: "true"
-      apigw_data_archives_import_preserveAssetState: "true"
+      apigw_data_archives_: "true"
+      apigw_data_archives_1_path: "/imports/apigw-archive-api-bookstore-1.0.zip"
+      apigw_data_archives_1_overwrite: "apis,policies,policyactions"
+      apigw_data_archives_1_fixingMissingVersions: "true"
+      apigw_data_archives_1_preserveAssetState: "true"
+      apigw_data_archives_2_path: "/imports/apigw-archive-api-uszip-1.0.zip"
+      apigw_data_archives_2_overwrite: "apis,policies,policyactions"
+      apigw_data_archives_2_fixingMissingVersions: "true"
+      apigw_data_archives_2_preserveAssetState: "true"
     networks:
       - stack
 
-  config_import_archives2:
+  config_import_archives_nothing:
     image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
     volumes:
       - ../resources/ansible/sagdevops-ansible-common:/ansible/roles/sagdevops-ansible-common-1.0.0-3:ro
@@ -279,12 +282,7 @@ services:
       apigw_connect_port: "5555"
       apigw_connect_user: Administrator
       apigw_connect_password: "somethingnew"
-      apigw_data_archives_import: "true"
-      apigw_data_archives_import_path: "/imports/apigw-archive-api-uszip-1.0.zip"
-      apigw_data_archives_import_autozip_enabled: "false"
-      apigw_data_archives_import_overwrite: "apis,policies,policyactions"
-      apigw_data_archives_import_fixingMissingVersions: "true"
-      apigw_data_archives_import_preserveAssetState: "true"
+      apigw_data_archives_: "true"
     networks:
       - stack
 

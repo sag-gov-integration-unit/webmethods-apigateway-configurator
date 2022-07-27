@@ -33,7 +33,6 @@
 
   tasks:
 
-
     - name: get the count of items from the env vars
       set_fact:
         _index_items: "{{ ansible_env.keys() | map('regex_search','^' + _apigw_plans_indices_finder_prefix + '(.+)' + _apigw_plans_indices_finder_suffix + '$', '\\1') | flatten | select('string') | unique | sort }}"

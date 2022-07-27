@@ -33,35 +33,53 @@
 
   tasks:
 
-    - name: set internal archive list
+    - name: get the count of items from the env vars
       set_fact:
-        _apigateway_archives: "{{ vars_apigw_archives }}"
+        _index_items: "{{ ansible_env.keys() | map('regex_search','^' + _apigw_archives_indices_finder_prefix + '(.+)' + _apigw_archives_indices_finder_suffix + '$', '\\1') | flatten | select('string') | unique | sort }}"
+    
+    - ansible.builtin.debug:
+        var: _index_items
+
+    - name: append each item template to list
+      set_fact:
+        _archives_list: "{{ _archives_list | default([]) + [ _apigw_archives_template ] }}"
+      loop: "{{ _index_items }}"
+      loop_control:
+        loop_var: index_item
+
+    - ansible.builtin.debug:
+        var: _archives_list
+
+    - name: set the final list just in case autozip is enabled
+      set_fact:
+        _archives_list_final: "{{ _archives_list }}"
  
-    - block:
+    - name: autozip the path in the archives if autozip_enabled
+      block:
 
         - name: auto-zip requested...reset internal archive list
           set_fact:
-            _apigateway_archives: []
+            _archives_list_final: []
  
         - name: Zip archives first
           community.general.archive:
             path: "{{ _import_single_tozip.path }}/*"
             dest: "/tmp/{{ _import_single_tozip.path | basename }}.zip"
             format: zip
-          with_items: "{{ vars_apigw_archives }}"
+          with_items: "{{ _archives_list }}"
           loop_control:
             loop_var: _import_single_tozip
 
         - name: update dict with new zip paths
           set_fact:
-            _apigateway_archives: "{{ _apigateway_archives | default([]) + [ { 'path': ('/tmp/' + _import_single.path | basename + '.zip'), 'overwrite': _import_single.overwrite, 'fixingMissingVersions': _import_single.fixingMissingVersions, 'preserveAssetState': _import_single.preserveAssetState } ] }}"
-          loop: "{{ vars_apigw_archives }}"
+            _archives_list_final: "{{ _archives_list_final | default([]) + [ { 'path': ('/tmp/' + _import_single.path | basename + '.zip'), 'overwrite': _import_single.overwrite, 'fixingMissingVersions': _import_single.fixingMissingVersions, 'preserveAssetState': _import_single.preserveAssetState } ] }}"
+          loop: "{{ _archives_list }}"
           loop_control:
             loop_var: _import_single
       
-      when: vars_apigw_archive_imports_autozip_enabled | default() | bool
+      when: vars_apigw_archive_imports_autozip_enabled | default() | bool and _archives_list | length > 0
     
-    - debug: var=_apigateway_archives
+    - debug: var=_archives_list_final
 
     - include_role:
         name: apigateway-rest-configurator
@@ -70,4 +88,4 @@
       vars:
         configs_action: import-archives
         configs_enabled: "{{ vars_apigw_archive_imports_enabled }}"
-        rvar_apigateway_archive_imports: "{{ _apigateway_archives }}"
+        rvar_apigateway_archive_imports: "{{ _archives_list_final }}"
