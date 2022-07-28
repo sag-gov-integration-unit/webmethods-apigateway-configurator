@@ -479,7 +479,9 @@ services:
       apigw_connect_user: Administrator
       apigw_connect_password: "somethingnew"
       apigw_data_apis_publish: "true"
-      apigw_data_apis_0_lookup_portalgateways: "API PortalGateway Config:1.0:DEV"
+      apigw_data_apis_0_portalgateway_name: API PortalGateway Config
+      apigw_data_apis_0_portalgateway_version: "1.0"
+      apigw_data_apis_0_portalgateway_stageName: DEV
       apigw_data_apis_0_lookup_communities: "Public Community"
       apigw_data_apis_0_lookup_apis: "bookstore:1.0 ; uszip:1.0"
     networks:
