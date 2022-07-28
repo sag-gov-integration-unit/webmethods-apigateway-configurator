@@ -31,6 +31,10 @@
     apigateway_rest_login_username: "{{ vars_apigw_rest_login_username }}"
     apigateway_rest_login_password: "{{ vars_apigw_rest_login_password }}"
     teststring: "API PortalGateway Config:1.0:DEV"
+    teststring_array: 
+      - "{{ teststring }}"
+      - "somethingelse2:1.0:DEV3"
+      - "somethingelse3:1.0:DEV4"
     _attr_regex: "^([^:]+):([^:]+):([^:]+)$"
 
   tasks:
@@ -47,6 +51,20 @@
         var: test2
     - ansible.builtin.debug:
         var: test3
+
+    - name: set initial list so it's not undefined
+      set_fact:
+        _names: "{{ teststring_array|map('regex_search', _attr_regex, '\\1')|map('trim')|list }}"
+        _versions: "{{ teststring_array|map('regex_search', _attr_regex, '\\2')|map('trim')|list }}"
+        _stages: "{{ teststring_array|map('regex_search', _attr_regex, '\\3')|map('trim')|list }}"
+
+    - ansible.builtin.debug:
+        var: _names
+    - ansible.builtin.debug:
+        var: _versions
+    - ansible.builtin.debug:
+        var: _stages
+
     # - name: get the count of items from the env vars
     #   set_fact:
     #     _index_items: "{{ ansible_env.keys() | map('regex_search','^' + _apigw_apis_indices_finder_prefix + '(.+)' + _apigw_apis_indices_finder_suffix + '$', '\\1') | flatten | select('string') | unique | sort }}"
