@@ -17,6 +17,16 @@
     _stages: "{{ _arr|map('split', ':')|map('regex_search', _attr_regex, '\\3')|map('trim')|list }}"
 
 - debug:
+    var: _attr_regex
+  vars:
+    _attr_regex: "^([^:]+):([^:]+):([^:]+)$"
+    _arr: "{{ _apigw_apis_publish_lookup_portalgateways.split(';')|map('trim')|select()|list }}"
+    _names: "{{ _arr|map('split', ':')|map('regex_search', _attr_regex, '\\1')|map('trim')|list }}"
+    _versions: "{{ _arr|map('split', ':')|map('regex_search', _attr_regex, '\\2')|map('trim')|list }}"
+    _stages: "{{ _arr|map('split', ':')|map('regex_search', _attr_regex, '\\3')|map('trim')|list }}"
+
+
+- debug:
     var: _names
   vars:
     _attr_regex: "^([^:]+):([^:]+):([^:]+)$"
