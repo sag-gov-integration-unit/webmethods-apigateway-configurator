@@ -54,9 +54,9 @@
 
     - name: set initial list so it's not undefined
       set_fact:
-        _names: "{{ teststring_array|map('regex_search', _attr_regex, '\\1')|map('trim')|list }}"
-        _versions: "{{ teststring_array|map('regex_search', _attr_regex, '\\2')|map('trim')|list }}"
-        _stages: "{{ teststring_array|map('regex_search', _attr_regex, '\\3')|map('trim')|list }}"
+        _names: "{{ teststring_array|map('regex_search', _attr_regex, '\\1')|trim|list }}"
+        _versions: "{{ teststring_array|map('regex_search', _attr_regex, '\\2')|trim|list }}"
+        _stages: "{{ teststring_array|map('regex_search', _attr_regex, '\\3')|trim|list }}"
 
     - ansible.builtin.debug:
         var: _names
