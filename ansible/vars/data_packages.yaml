@@ -6,6 +6,22 @@ vars_apigw_packages_ignore_errors: "{{ lookup('env', 'apigw_data_packages_config
 vars_apigw_packages_publish_groups_enabled: "{{ lookup('env', 'apigw_data_packages_publish') | default('false',true) }}"
 vars_apigw_packages_publish_groups_ignore_errors: "{{ lookup('env', 'apigw_data_packages_publish_ignore_errors') | default(vars_apigw_default_ignore_errors,true) }}"
 
+
+_apigw_packages_indices_finder_prefix: "apigw_data_packages_"
+_apigw_packages_indices_finder_suffix: "_name"
+_apigw_packages_template:
+  name: "{{ lookup('env', 'apigw_data_packages_%s_name' | format(index_item)) | default('',true) }}"
+  version: "{{ lookup('env', 'apigw_data_packages_%s_version' | format(index_item)) | default('',true) }}"
+  deprecated: "{{ lookup('env', 'apigw_data_packages_%s_deprecated' | format(index_item)) | default('',true) }}"
+  active: "{{ lookup('env', 'apigw_data_packages_%s_active' | format(index_item)) | default('',true) }}"
+
+# these will be added dynamically to the object
+# format is [ name1:version1;name2:version2;name3:version3 ]
+_apigw_packages_registered_apis: "{{ lookup('env', 'apigw_data_packages_%s_lookup_apis' | format(index_item)) | default('',true) }}"
+_apigw_packages_registered_plans: "{{ lookup('env', 'apigw_data_packages_%s_lookup_plans' | format(index_item)) | default('',true) }}"
+_apigw_packages_registered_policies: "{{ lookup('env', 'apigw_data_packages_%s_lookup_policies' | format(index_item)) | default('',true) }}"
+
+
 # api packages to add or update
 # the following attributes with "custom_" will be transformed to corresponding attributes of internal ids:
 # - custom_apiIdsByFilter --> apiIds
@@ -34,6 +50,8 @@ vars_apigw_packages:
         version: "1.0"
     custom_policyIdsByFilter: []
     publishedPortals: []
+
+
 
 vars_apigw_packages_update_status:
   - name: Swag Pack Complete

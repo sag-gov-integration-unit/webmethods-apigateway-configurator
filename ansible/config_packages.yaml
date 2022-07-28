@@ -33,6 +33,26 @@
 
   tasks:
 
+    - name: get the count of items from the env vars
+      set_fact:
+        _index_items: "{{ ansible_env.keys() | map('regex_search','^' + _apigw_packages_indices_finder_prefix + '(.+)' + _apigw_packages_indices_finder_suffix + '$', '\\1') | flatten | select('string') | unique | sort }}"
+    
+    - ansible.builtin.debug:
+        var: _index_items
+
+    - name: set initial list so it's not undefined
+      set_fact:
+         _packages_list: []
+
+    - name: append each item to list
+      include_tasks: "config_packages_append_each.yaml"
+      loop: "{{ _index_items }}"
+      loop_control:
+        loop_var: index_item
+
+    - ansible.builtin.debug:
+        var: _packages_list
+
     - include_role:
         name: apigateway-rest-configurator
         apply:
@@ -40,4 +60,4 @@
       vars:
         configs_action: set-packages
         configs_enabled: "{{ vars_apigw_packages_enabled }}"
-        rvar_apigateway_aliases: "{{ vars_apigw_packages }}"
+        rvar_apigateway_packages: "{{ _packages_list }}"

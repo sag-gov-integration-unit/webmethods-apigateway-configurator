@@ -1,0 +1,55 @@
+---
+
+- name: set intial item
+  set_fact:
+    _item: "{{ _apigw_packages_template }}"
+
+- name: transform registered_apis string into array
+  set_fact:
+    _registered_apis_patch: 
+      custom_apiIdsByFilter: "{{ dict(_keys|zip(_vals)) }}"
+  vars:
+    _arr: "{{ _apigw_packages_registered_apis.split(';')|map('trim')|select()|list }}"
+    _keys: "{{ _arr|map('split', ':')|map('first')|map('trim')|list }}"
+    _vals: "{{ _arr|map('split', ':')|map('last')|map('trim')|list }}"
+  when: _apigw_packages_registered_apis is defined and (_apigw_packages_registered_apis | trim) != ""
+
+- name: Assign the api patch
+  set_fact:
+    _item: "{{ _item | combine( _registered_apis_patch,recursive=True ) }}"
+  when: _registered_apis_patch.custom_apiIdsByFilter.keys() | length > 0
+
+- name: transform registered_plans string into array
+  set_fact:
+    _registered_plans_patch: 
+      custom_planIdsByFilter: "{{ dict(_keys|zip(_vals)) }}"
+  vars:
+    _arr: "{{ _apigw_packages_registered_plans.split(';')|map('trim')|select()|list }}"
+    _keys: "{{ _arr|map('split', ':')|map('first')|map('trim')|list }}"
+    _vals: "{{ _arr|map('split', ':')|map('last')|map('trim')|list }}"
+  when: _apigw_packages_registered_plans is defined and (_apigw_packages_registered_plans | trim) != ""
+
+- name: Assign the plan patch
+  set_fact:
+    _item: "{{ _item | combine( _registered_plans_patch,recursive=True ) }}"
+  when: _registered_plans_patch.custom_planIdsByFilter.keys() | length > 0
+
+- name: transform registered_apis string into array
+  set_fact:
+    _registered_policies_patch: 
+      custom_policyIdsByFilter: "{{ dict(_keys|zip(_vals)) }}"
+  vars:
+    _arr: "{{ _apigw_packages_registered_policies.split(';')|map('trim')|select()|list }}"
+    _keys: "{{ _arr|map('split', ':')|map('first')|map('trim')|list }}"
+    _vals: "{{ _arr|map('split', ':')|map('last')|map('trim')|list }}"
+  when: _apigw_packages_registered_policies is defined and (_apigw_packages_registered_policies | trim) != ""
+
+- name: Assign the policies patch
+  set_fact:
+    _item: "{{ _item | combine( _registered_policies_patch,recursive=True ) }}"
+  when: _registered_policies_patch._registered_policies_patch.keys() | length > 0
+
+- name: append item to list
+  set_fact:
+    _packages_list: "{{ _packages_list | default([]) + [ _item ] }}"
+  when: _item is defined
