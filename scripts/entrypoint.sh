@@ -103,6 +103,10 @@ if [ "${apigw_data_applications_configure}" == "true" ]; then
     exec_ansible_playbook config_applications.yaml
 fi
 
+if [ "${apigw_data_applications_status_update}" == "true" ]; then
+    exec_ansible_playbook activate_applications.yaml
+fi
+
 ## activate/deactivate packages
 if [ "${apigw_data_packages_changestate}" == "true" ]; then
     exec_ansible_playbook activate_packages.yaml

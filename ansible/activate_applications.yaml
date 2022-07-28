@@ -39,13 +39,14 @@
     
     - ansible.builtin.debug:
         var: _index_items
-
+    
     - name: set initial list so it's not undefined
       set_fact:
          _applications_list: []
 
-    - name: append each item to list
-      include_tasks: "config_applications_append_each.yaml"
+    - name: append each item template to list
+      set_fact:
+        _applications_list: "{{ _applications_list + [ _apigw_applications_activate_template ] }}"
       loop: "{{ _index_items }}"
       loop_control:
         loop_var: index_item
@@ -53,11 +54,12 @@
     - ansible.builtin.debug:
         var: _applications_list
 
-    - include_role:
+    - name: activate/deactivate applications
+      include_role:
         name: apigateway-rest-configurator
         apply:
-          ignore_errors: "{{ vars_apigw_applications_ignore_errors }}"
+          ignore_errors: "{{ vars_apigw_applications_status_update_ignore_errors }}"
       vars:
         configs_action: set-applications
-        configs_enabled: "{{ vars_apigw_applications_enabled }}"
+        configs_enabled: "{{ vars_apigw_applications_status_update_enabled }}"
         rvar_apigateway_applications: "{{ _applications_list }}"

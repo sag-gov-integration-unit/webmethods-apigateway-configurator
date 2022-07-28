@@ -3,30 +3,64 @@
 vars_apigw_applications_enabled: "{{ lookup('env', 'apigw_data_applications_configure') | default('false',true) }}"
 vars_apigw_applications_ignore_errors: "{{ lookup('env', 'apigw_data_applications_configure_ignore_errors') | default(vars_apigw_default_ignore_errors,true) }}"
 
-# applications to add or update
-# the following attributes with "names/version" will be transformed to corresponding attributes of internal ids:
-# - custom_registerAPIsByFilter --> triggers the registration apis call
-vars_apigw_applications:
-  - name: Load-runner Internal Client Application
-    description: The load runner app that perform api calls every few seconds to showcase the api statistics
-    version: "1.0"
-    custom_registerAPIsByFilter:
-      - name: "bookstore"
-        version: "1.0"
-      - name: "uszip"
-        version: "1.0"
-      - name: "covid"
-        version: "1.0"
-    contactEmails: []
-    siteURLs: []
-    identifiers:
-      - value:
-          - "{{ vars_apigw_usermgt_users_loadrunner_username }}"
-        name: Username
-        key: httpBasicAuth
-    consumingAPIs: []
-    isSuspended: false
-    jsOrigins: []
-    authStrategyIds: []
-    restrictViewAsset: false
-    teams: []
+vars_apigw_applications_status_update_enabled: "{{ lookup('env', 'apigw_data_applications_status_update') | default('false',true) }}"
+vars_apigw_applications_status_update_ignore_errors: "{{ lookup('env', 'apigw_data_applications_status_update_ignore_errors') | default(vars_apigw_default_ignore_errors,true) }}"
+
+_apigw_applications_indices_finder_prefix: "apigw_data_applications_"
+_apigw_applications_indices_finder_suffix: "_name"
+_apigw_applications_template:
+  name: "{{ lookup('env', 'apigw_data_applications_%s_name' | format(index_item)) | default('',true) }}"
+  version: "{{ lookup('env', 'apigw_data_applications_%s_version' | format(index_item)) | default('',true) }}"
+  description: "{{ lookup('env', 'apigw_data_applications_%s_description' | format(index_item)) | default('',true) }}"
+  isSuspended: "{{ lookup('env', 'apigw_data_applications_%s_isSuspended' | format(index_item)) | default('',true) }}"
+  restrictViewAsset: "{{ lookup('env', 'apigw_data_applications_%s_restrictViewAsset' | format(index_item)) | default('',true) }}"
+
+# lookups will be added dynamically to the object
+# lookups input format is [ name1:version1;name2:version2;name3:version3 ]
+# lookups output format is:
+      # - name: "name1"
+      #   version: "version1"
+      # - name: "name2"
+      #   version: "version2"
+      # - name: "name3"
+      #   version: "version3"
+
+## map to field custom_registerAPIsByFilter
+_apigw_applications_registered_apis: "{{ lookup('env', 'apigw_data_applications_%s_lookup_apis' | format(index_item)) | default('',true) }}"
+
+## lots of other lookups should be added
+    # contactEmails: []
+    # siteURLs: []
+    # identifiers:
+    #   - value:
+    #       - "{{ vars_webmethods_apigateway_usermgt_users_loadrunner_username }}"
+    #     name: Username
+    #     key: httpBasicAuth
+    # consumingAPIs: []
+    # isSuspended: false
+    # jsOrigins: []
+    # authStrategyIds: []
+    # restrictViewAsset: false
+    # teams: []
+
+# think how to creatre the identifiers
+    # identifiers:
+    #   - value:
+    #       - "{{ vars_webmethods_apigateway_usermgt_users_sample1_username }}"
+    #     name: Username
+    #     key: httpBasicAuth
+    #   - value:
+    #       - "{{ vars_webmethods_apigateway_usermgt_users_sample2_username }}"
+    #     name: Username
+    #     key: httpBasicAuth
+    #   - value:
+    #       - "{{ vars_webmethods_apigateway_usermgt_users_sample3_username }}"
+    #     name: Username
+    #     key: httpBasicAuth
+
+
+## activate applications (or not)
+_apigw_applications_activate_template:
+  name: "{{ lookup('env', 'apigw_data_applications_%s_name' | format(index_item)) | default('',true) }}"
+  version: "{{ lookup('env', 'apigw_data_applications_%s_version' | format(index_item)) | default('',true) }}"
+  isSuspended: "{{ lookup('env', 'apigw_data_applications_%s_isSuspended' | format(index_item)) | default('',true) }}"

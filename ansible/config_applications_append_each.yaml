@@ -1,0 +1,31 @@
+---
+
+- name: set intial item
+  set_fact:
+    _item: "{{ _apigw_applications_template }}"
+    _registered_apis: []
+
+############ registered_apis
+- name: transform registered_apis string into array
+  set_fact:
+    _registered_apis: "{{ _registered_apis + [ { 'name': item.0, 'version': item.1 } ] }}"
+  vars:
+    _arr: "{{ _apigw_applications_registered_apis.split(';')|map('trim')|select()|list }}"
+    _keys: "{{ _arr|map('split', ':')|map('first')|map('trim')|list }}"
+    _vals: "{{ _arr|map('split', ':')|map('last')|map('trim')|list }}"
+  loop: "{{ _keys|zip(_vals)|list }}"
+
+- name: create patch
+  set_fact:
+    _registered_apis_patch: 
+      custom_registerAPIsByFilter: "{{ _registered_apis }}"
+
+- name: Assign the api patch
+  set_fact:
+    _item: "{{ _item | combine( _registered_apis_patch,recursive=True ) }}"
+
+############ final add to list
+- name: append item to list
+  set_fact:
+    _applications_list: "{{ _applications_list | default([]) + [ _item ] }}"
+  when: _item is defined
