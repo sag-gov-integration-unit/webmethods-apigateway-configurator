@@ -6,27 +6,6 @@
     _lookup_communities: []
     _lookup_apis: []
 
-# ############ _lookup_portalgateways
-# - name: transform lookup_apis string into array
-#   set_fact:
-#     _lookup_portalgateways: "{{ _lookup_portalgateways + [ { 'name': item.0, 'version': item.1, 'stageName': item.2 } ] }}"
-#   vars:
-#     _attr_regex: "^([^:]+):([^:]+):([^:]+)$"
-#     _arr: "{{ _apigw_apis_publish_lookup_portalgateways.split(';')|map('trim')|select()|list }}"
-#     _names: "{{ _arr|map('regex_search', _attr_regex, '\\1') | flatten | map('trim') }}"
-#     _versions: "{{ _arr|map('regex_search', _attr_regex, '\\2') | flatten | map('trim') }}"
-#     _stages: "{{ _arr|map('regex_search', _attr_regex, '\\3') | flatten | map('trim') }}"
-#   loop: "{{ _names|zip(_versions,_stages) }}"
-
-# - name: create patch
-#   set_fact:
-#     _lookup_portalgateways_patch: 
-#       lookup_portalGatewayId: "{{ _lookup_portalgateways }}"
-
-# - name: Assign the patch
-#   set_fact:
-#     _item: "{{ _item | combine( _lookup_portalgateways_patch,recursive=True ) }}"
-
 ############ _lookup_communities
 - name: transform _lookup_communities string into array
   set_fact:
