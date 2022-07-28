@@ -7,66 +7,83 @@
     _lookup_communities: []
     _lookup_apis: []
 
-
-############ _lookup_portalgateways
-- name: transform lookup_apis string into array
-  set_fact:
-    _lookup_portalgateways: "{{ _lookup_portalgateways + [ { 'name': item.0, 'version': item.1, 'stageName': item.2 } ] }}"
+- debug:
+    var: _arr
   vars:
     _attr_regex: "^([^:]+):([^:]+):([^:]+)$"
     _arr: "{{ _apigw_apis_publish_lookup_portalgateways.split(';')|map('trim')|select()|list }}"
     _names: "{{ _arr|map('split', ':')|map('regex_search', _attr_regex, '\\1')|map('trim')|list }}"
     _versions: "{{ _arr|map('split', ':')|map('regex_search', _attr_regex, '\\2')|map('trim')|list }}"
     _stages: "{{ _arr|map('split', ':')|map('regex_search', _attr_regex, '\\3')|map('trim')|list }}"
-  loop: "{{ _names|zip(_versions)|zip(_stages)|list }}"
 
-- name: create patch
-  set_fact:
-    _lookup_portalgateways_patch: 
-      lookup_portalGatewayId: "{{ _lookup_portalgateways }}"
-
-- name: Assign the patch
-  set_fact:
-    _item: "{{ _item | combine( _lookup_portalgateways_patch,recursive=True ) }}"
-
-############ _lookup_communities
-- name: transform _lookup_communities string into array
-  set_fact:
-    _lookup_communities: "{{ _lookup_communities + [ { 'name': item } ] }}"
+- debug:
+    var: _names
   vars:
-    _arr: "{{ _apigw_apis_publish_lookup_communities.split(';')|map('trim')|select()|list }}"
-  loop: "{{ _arr }}"
+    _attr_regex: "^([^:]+):([^:]+):([^:]+)$"
+    _arr: "{{ _apigw_apis_publish_lookup_portalgateways.split(';')|map('trim')|select()|list }}"
+    _names: "{{ _arr|map('split', ':')|map('regex_search', _attr_regex, '\\1')|map('trim')|list }}"
+    _versions: "{{ _arr|map('split', ':')|map('regex_search', _attr_regex, '\\2')|map('trim')|list }}"
+    _stages: "{{ _arr|map('split', ':')|map('regex_search', _attr_regex, '\\3')|map('trim')|list }}"
 
-- name: create patch
-  set_fact:
-    _lookup_communities_patch: 
-      lookup_communityIds: "{{ _lookup_communities }}"
+# ############ _lookup_portalgateways
+# - name: transform lookup_apis string into array
+#   set_fact:
+#     _lookup_portalgateways: "{{ _lookup_portalgateways + [ { 'name': item.0, 'version': item.1, 'stageName': item.2 } ] }}"
+#   vars:
+#     _attr_regex: "^([^:]+):([^:]+):([^:]+)$"
+#     _arr: "{{ _apigw_apis_publish_lookup_portalgateways.split(';')|map('trim')|select()|list }}"
+#     _names: "{{ _arr|map('split', ':')|map('regex_search', _attr_regex, '\\1')|map('trim')|list }}"
+#     _versions: "{{ _arr|map('split', ':')|map('regex_search', _attr_regex, '\\2')|map('trim')|list }}"
+#     _stages: "{{ _arr|map('split', ':')|map('regex_search', _attr_regex, '\\3')|map('trim')|list }}"
+#   loop: "{{ _names|zip(_versions)|zip(_stages)|list }}"
 
-- name: Assign the patch
-  set_fact:
-    _item: "{{ _item | combine( _lookup_communities_patch,recursive=True ) }}"
+# - name: create patch
+#   set_fact:
+#     _lookup_portalgateways_patch: 
+#       lookup_portalGatewayId: "{{ _lookup_portalgateways }}"
 
-############ lookup_apis
-- name: transform lookup_apis string into array
-  set_fact:
-    _lookup_apis: "{{ _lookup_apis + [ { 'name': item.0, 'version': item.1 } ] }}"
-  vars:
-    _arr: "{{ _apigw_apis_publish_lookup_apis.split(';')|map('trim')|select()|list }}"
-    _keys: "{{ _arr|map('split', ':')|map('first')|map('trim')|list }}"
-    _vals: "{{ _arr|map('split', ':')|map('last')|map('trim')|list }}"
-  loop: "{{ _keys|zip(_vals)|list }}"
+# - name: Assign the patch
+#   set_fact:
+#     _item: "{{ _item | combine( _lookup_portalgateways_patch,recursive=True ) }}"
 
-- name: create patch
-  set_fact:
-    _lookup_apis_patch: 
-      lookup_apiIds: "{{ _lookup_apis }}"
+# ############ _lookup_communities
+# - name: transform _lookup_communities string into array
+#   set_fact:
+#     _lookup_communities: "{{ _lookup_communities + [ { 'name': item } ] }}"
+#   vars:
+#     _arr: "{{ _apigw_apis_publish_lookup_communities.split(';')|map('trim')|select()|list }}"
+#   loop: "{{ _arr }}"
 
-- name: Assign the patch
-  set_fact:
-    _item: "{{ _item | combine( _lookup_apis_patch,recursive=True ) }}"
+# - name: create patch
+#   set_fact:
+#     _lookup_communities_patch: 
+#       lookup_communityIds: "{{ _lookup_communities }}"
 
-############ final add to list
-- name: append item to list
-  set_fact:
-    _publish_apis_list: "{{ _publish_apis_list | default([]) + [ _item ] }}"
-  when: _item is defined
+# - name: Assign the patch
+#   set_fact:
+#     _item: "{{ _item | combine( _lookup_communities_patch,recursive=True ) }}"
+
+# ############ lookup_apis
+# - name: transform lookup_apis string into array
+#   set_fact:
+#     _lookup_apis: "{{ _lookup_apis + [ { 'name': item.0, 'version': item.1 } ] }}"
+#   vars:
+#     _arr: "{{ _apigw_apis_publish_lookup_apis.split(';')|map('trim')|select()|list }}"
+#     _keys: "{{ _arr|map('split', ':')|map('first')|map('trim')|list }}"
+#     _vals: "{{ _arr|map('split', ':')|map('last')|map('trim')|list }}"
+#   loop: "{{ _keys|zip(_vals)|list }}"
+
+# - name: create patch
+#   set_fact:
+#     _lookup_apis_patch: 
+#       lookup_apiIds: "{{ _lookup_apis }}"
+
+# - name: Assign the patch
+#   set_fact:
+#     _item: "{{ _item | combine( _lookup_apis_patch,recursive=True ) }}"
+
+# ############ final add to list
+# - name: append item to list
+#   set_fact:
+#     _publish_apis_list: "{{ _publish_apis_list | default([]) + [ _item ] }}"
+#   when: _item is defined
