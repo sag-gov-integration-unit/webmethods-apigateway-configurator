@@ -1,0 +1,33 @@
+---
+
+- name: set initial items
+  set_fact:
+    _item: "{{ _apigw_apis_publish_template }}"
+    _lookup_portalgateways: []
+    _lookup_communities: []
+    _lookup_apis: []
+
+############ lookup_apis
+- name: transform lookup_apis string into array
+  set_fact:
+    _lookup_apis: "{{ _lookup_apis + [ { 'name': item.0, 'version': item.1 } ] }}"
+  vars:
+    _arr: "{{ _apigw_apis_lookup_apis.split(';')|map('trim')|select()|list }}"
+    _keys: "{{ _arr|map('split', ':')|map('first')|map('trim')|list }}"
+    _vals: "{{ _arr|map('split', ':')|map('last')|map('trim')|list }}"
+  loop: "{{ _keys|zip(_vals)|list }}"
+
+- name: create patch
+  set_fact:
+    _lookup_apis_patch: 
+      lookup_apiIds: "{{ _lookup_apis }}"
+
+- name: Assign the api patch
+  set_fact:
+    _item: "{{ _item | combine( _lookup_apis_patch,recursive=True ) }}"
+
+############ final add to list
+- name: append item to list
+  set_fact:
+    _publish_apis_list: "{{ _publish_apis_list | default([]) + [ _item ] }}"
+  when: _item is defined
