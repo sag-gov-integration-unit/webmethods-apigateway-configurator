@@ -39,67 +39,62 @@
 
   tasks:
 
-    - name: set initial list so it's not undefined
-      set_fact:
-        test1: "{{ teststring | regex_search( _attr_regex, '\\1') }}"
-        test2: "{{ teststring | regex_search( _attr_regex, '\\2') }}"
-        test3: "{{ teststring | regex_search( _attr_regex, '\\3') }}"
-   
-    - ansible.builtin.debug:
-        var: test1
-    - ansible.builtin.debug:
-        var: test2
-    - ansible.builtin.debug:
-        var: test3
-
-    - set_fact:
-        _names: "{{ teststring_array|map('regex_search', _attr_regex, '\\1') | flatten | map('trim') }}"
-        _versions: "{{ teststring_array|map('regex_search', _attr_regex, '\\2') | flatten | map('trim') }}"
-        _stages: "{{ teststring_array|map('regex_search', _attr_regex, '\\3') | flatten | map('trim') }}"
-    
-    - set_fact:
-        _arr: "{{ _names|zip(_versions,_stages)|list }}"
-
-    - ansible.builtin.debug:
-        var: _arr
-
-    - ansible.builtin.debug:
-        var: _names
-    - ansible.builtin.debug:
-        var: _versions
-    - ansible.builtin.debug:
-        var: _stages
-
-    # - name: transform lookup_apis string into array
-    #   ansible.builtin.debug:
-    #     msg: "{{ item.0 }} {{ item.1 }} {{ item.2 }}"
-    #   loop: "{{ _names|zip(_versions)|zip(_stages)|list }}"
-
-    # - name: get the count of items from the env vars
-    #   set_fact:
-    #     _index_items: "{{ ansible_env.keys() | map('regex_search','^' + _apigw_apis_indices_finder_prefix + '(.+)' + _apigw_apis_indices_finder_suffix + '$', '\\1') | flatten | select('string') | unique | sort }}"
-    
-    # - ansible.builtin.debug:
-    #     var: _index_items
-
     # - name: set initial list so it's not undefined
     #   set_fact:
-    #      _publish_apis_list: []
+    #     test1: "{{ teststring | regex_search( _attr_regex, '\\1') }}"
+    #     test2: "{{ teststring | regex_search( _attr_regex, '\\2') }}"
+    #     test3: "{{ teststring | regex_search( _attr_regex, '\\3') }}"
+   
+    # - ansible.builtin.debug:
+    #     var: test1
+    # - ansible.builtin.debug:
+    #     var: test2
+    # - ansible.builtin.debug:
+    #     var: test3
 
-    # - name: append each item to list
-    #   include_tasks: "publish_apis_append_each.yaml"
-    #   loop: "{{ _index_items }}"
-    #   loop_control:
-    #     loop_var: index_item
+    # - set_fact:
+    #     _names: "{{ teststring_array|map('regex_search', _attr_regex, '\\1') | flatten | map('trim') }}"
+    #     _versions: "{{ teststring_array|map('regex_search', _attr_regex, '\\2') | flatten | map('trim') }}"
+    #     _stages: "{{ teststring_array|map('regex_search', _attr_regex, '\\3') | flatten | map('trim') }}"
+    
+    # - set_fact:
+    #     _arr: "{{ _names|zip(_versions,_stages)|list }}"
 
     # - ansible.builtin.debug:
-    #     var: _publish_apis_list
+    #     var: _arr
 
-    # - include_role:
-    #     name: apigateway-rest-configurator
-    #     apply:
-    #       ignore_errors: "{{ vars_apigw_apis_publish_groups_ignore_errors }}"
-    #   vars:
-    #     configs_action: publish-apis-groups
-    #     configs_enabled: "{{ vars_apigw_apis_publish_groups_enabled }}"
-    #     rvar_apigateway_apis_publish_groups: "{{ _publish_apis_list }}"
+    # - ansible.builtin.debug:
+    #     var: _names
+    # - ansible.builtin.debug:
+    #     var: _versions
+    # - ansible.builtin.debug:
+    #     var: _stages
+
+    - name: get the count of items from the env vars
+      set_fact:
+        _index_items: "{{ ansible_env.keys() | map('regex_search','^' + _apigw_apis_indices_finder_prefix + '(.+)' + _apigw_apis_indices_finder_suffix + '$', '\\1') | flatten | select('string') | unique | sort }}"
+    
+    - ansible.builtin.debug:
+        var: _index_items
+
+    - name: set initial list so it's not undefined
+      set_fact:
+         _publish_apis_list: []
+
+    - name: append each item to list
+      include_tasks: "publish_apis_append_each.yaml"
+      loop: "{{ _index_items }}"
+      loop_control:
+        loop_var: index_item
+
+    - ansible.builtin.debug:
+        var: _publish_apis_list
+
+    - include_role:
+        name: apigateway-rest-configurator
+        apply:
+          ignore_errors: "{{ vars_apigw_apis_publish_groups_ignore_errors }}"
+      vars:
+        configs_action: publish-apis-groups
+        configs_enabled: "{{ vars_apigw_apis_publish_groups_enabled }}"
+        rvar_apigateway_apis_publish_groups: "{{ _publish_apis_list }}"
