@@ -1,5 +1,4 @@
 ---
-
 vars_apigw_apis_enabled: "{{ lookup('env', 'apigw_data_apis_configure') | default('false',true) }}"
 vars_apigw_apis_ignore_errors: "{{ lookup('env', 'apigw_data_apis_configure_ignore_errors') | default(vars_apigw_default_ignore_errors,true) }}"
 
@@ -10,35 +9,30 @@ _apigw_apis_indices_finder_prefix: "apigw_data_apis_"
 _apigw_apis_indices_finder_suffix: "_lookup_portalgateways"
 
 # APIs to publish
-_apigw_apis_publish_template: {}
+_apigw_apis_publish_template:
+      lookup_portalGatewayId:
+            name: "{{ lookup('env', 'apigw_data_apis_%s_portalgateway_name' | format(index_item)) | default('',true) }}"
+            version: "{{ lookup('env', 'apigw_data_apis_%s_portalgateway_version' | format(index_item)) | default('',true) }}"
+            stageName: "{{ lookup('env', 'apigw_data_apis_%s_portalgateway_stageName' | format(index_item)) | default('',true) }}"
 
 # these will be added dynamically to the object
 
-## map to field lookup_portalGatewayId
-# input format is [ name1:version1:stagename;name2:version2:stagename;name3:version3:stagename ]
-# output format is:
-      # - name: "name1"
-      #   version: "version1"
-      #   stageName: "stagename"
-_apigw_apis_publish_lookup_portalgateways: "{{ lookup('env', 'apigw_data_apis_%s_lookup_portalgateways' | format(index_item)) | default('',true) }}"
-
 ## map to field lookup_communityIds
 # input format is [ community1;community2;community3 ]
-# output format is:
-      # - name: "community1"
-      # - name: "community2"
-      # - name: "community3"
+# output format is a list:
+# - name: "community1"
+# - name: "community2"
+# - name: "community3"
 _apigw_apis_publish_lookup_communities: "{{ lookup('env', 'apigw_data_apis_%s_lookup_communities' | format(index_item)) | default('',true) }}"
 
 ## map to field lookup_apiIds
 # input format is [ name1:version1;name2:version2 ]
-# output format is:
-      # - name: "name1"
-      #   version: "version1"
-      # - name: "name2"
-      #   version: "version2"
+# output format is list:
+# - name: "name1"
+#   version: "version1"
+# - name: "name2"
+#   version: "version2"
 _apigw_apis_publish_lookup_apis: "{{ lookup('env', 'apigw_data_apis_%s_lookup_apis' | format(index_item)) | default('',true) }}"
-
 
 # each list item will publish a list of APIs to a list of communities using the same portalGatewayId
 # vars_apigw_apis_publish_groups:
@@ -54,6 +48,6 @@ _apigw_apis_publish_lookup_apis: "{{ lookup('env', 'apigw_data_apis_%s_lookup_ap
 
 ## activate apis (or not)
 _apigw_apis_activate_template:
-  name: "{{ lookup('env', 'apigw_data_apis_%s_name' | format(index_item)) | default('',true) }}"
-  version: "{{ lookup('env', 'apigw_data_apis_%s_version' | format(index_item)) | default('',true) }}"
-  active: "{{ lookup('env', 'apigw_data_apis_%s_active' | format(index_item)) | default('',true) }}"
+      name: "{{ lookup('env', 'apigw_data_apis_%s_name' | format(index_item)) | default('',true) }}"
+      version: "{{ lookup('env', 'apigw_data_apis_%s_version' | format(index_item)) | default('',true) }}"
+      active: "{{ lookup('env', 'apigw_data_apis_%s_active' | format(index_item)) | default('',true) }}"
