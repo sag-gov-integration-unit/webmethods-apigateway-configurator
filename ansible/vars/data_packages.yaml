@@ -16,41 +16,21 @@ _apigw_packages_template:
   active: "{{ lookup('env', 'apigw_data_packages_%s_active' | format(index_item)) | default('',true) }}"
 
 # these will be added dynamically to the object
-# format is [ name1:version1;name2:version2;name3:version3 ]
+# input format is [ name1:version1;name2:version2;name3:version3 ]
+# output format is:
+      # - name: "name1"
+      #   version: "version1"
+      # - name: "name2"
+      #   version: "version2"
+      # - name: "name3"
+      #   version: "version3"
+
+## map to field custom_apiIdsByFilter
 _apigw_packages_registered_apis: "{{ lookup('env', 'apigw_data_packages_%s_lookup_apis' | format(index_item)) | default('',true) }}"
+## map to field custom_planIdsByFilter
 _apigw_packages_registered_plans: "{{ lookup('env', 'apigw_data_packages_%s_lookup_plans' | format(index_item)) | default('',true) }}"
+## map to field custom_policyIdsByFilter
 _apigw_packages_registered_policies: "{{ lookup('env', 'apigw_data_packages_%s_lookup_policies' | format(index_item)) | default('',true) }}"
-
-
-# api packages to add or update
-# the following attributes with "custom_" will be transformed to corresponding attributes of internal ids:
-# - custom_apiIdsByFilter --> apiIds
-# - custom_planIdsByFilter --> planIds
-# - custom_policyIdsByFilter --> policyIds
-vars_apigw_packages:
-  - name: Swag Pack Complete
-    version: "1.0"
-    deprecated: false
-    active: true
-    custom_apiIdsByFilter:
-      - name: "bookstore"
-        version: "1.0"
-      - name: "uszip"
-        version: "1.0"
-      - name: "covid"
-        version: "1.0"
-      - name: "SAGTours"
-        version: "1.0"
-    custom_planIdsByFilter:
-      - name: "gold"
-        version: "1.0"
-      - name: "silver"
-        version: "1.0"
-      - name: "bronze"
-        version: "1.0"
-    custom_policyIdsByFilter: []
-    publishedPortals: []
-
 
 
 vars_apigw_packages_update_status:
