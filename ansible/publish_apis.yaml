@@ -33,8 +33,8 @@
     teststring: "API PortalGateway Config:1.0:DEV"
     teststring_array: 
       - "{{ teststring }}"
-      - "somethingelse2:1.0:DEV3"
-      - "somethingelse3:1.0:DEV4"
+      - "somethingelse2  :  1.0  :  DEV3"
+      - "somethingelse3:1.0  :DEV4"
     _attr_regex: "^([^:]+):([^:]+):([^:]+)$"
 
   tasks:
