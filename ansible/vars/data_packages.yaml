@@ -3,9 +3,11 @@
 vars_apigw_packages_enabled: "{{ lookup('env', 'apigw_data_packages_configure') | default('false',true) }}"
 vars_apigw_packages_ignore_errors: "{{ lookup('env', 'apigw_data_packages_configure_ignore_errors') | default(vars_apigw_default_ignore_errors,true) }}"
 
+vars_apigw_packages_status_update_enabled: "{{ lookup('env', 'apigw_data_packages_status_update') | default('false',true) }}"
+vars_apigw_packages_status_update_ignore_errors: "{{ lookup('env', 'apigw_data_packages_status_update_ignore_errors') | default(vars_apigw_default_ignore_errors,true) }}"
+
 vars_apigw_packages_publish_groups_enabled: "{{ lookup('env', 'apigw_data_packages_publish') | default('false',true) }}"
 vars_apigw_packages_publish_groups_ignore_errors: "{{ lookup('env', 'apigw_data_packages_publish_ignore_errors') | default(vars_apigw_default_ignore_errors,true) }}"
-
 
 _apigw_packages_indices_finder_prefix: "apigw_data_packages_"
 _apigw_packages_indices_finder_suffix: "_name"
@@ -32,11 +34,11 @@ _apigw_packages_registered_plans: "{{ lookup('env', 'apigw_data_packages_%s_look
 ## map to field custom_policyIdsByFilter
 _apigw_packages_registered_policies: "{{ lookup('env', 'apigw_data_packages_%s_lookup_policies' | format(index_item)) | default('',true) }}"
 
-
-vars_apigw_packages_update_status:
-  - name: Swag Pack Complete
-    version: "1.0"
-    active: true
+## activate packages (or not)
+_apigw_packages_activate_template:
+  name: "{{ lookup('env', 'apigw_data_packages_%s_name' | format(index_item)) | default('',true) }}"
+  version: "{{ lookup('env', 'apigw_data_packages_%s_version' | format(index_item)) | default('',true) }}"
+  active: "{{ lookup('env', 'apigw_data_packages_%s_active' | format(index_item)) | default('',true) }}"
 
 # Packages to publish
 # each list item will publish a list of Packages to a list of communities using the same portalGatewayId
