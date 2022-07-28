@@ -37,11 +37,16 @@
 
     - name: set initial list so it's not undefined
       set_fact:
-        test: "{{ teststring | regex_search( _attr_regex, '\\1') }}"
+        test1: "{{ teststring | regex_search( _attr_regex, '\\1') }}"
+        test2: "{{ teststring | regex_search( _attr_regex, '\\2') }}"
+        test3: "{{ teststring | regex_search( _attr_regex, '\\3') }}"
    
     - ansible.builtin.debug:
-        var: test
-
+        var: test1
+    - ansible.builtin.debug:
+        var: test2
+    - ansible.builtin.debug:
+        var: test3
     # - name: get the count of items from the env vars
     #   set_fact:
     #     _index_items: "{{ ansible_env.keys() | map('regex_search','^' + _apigw_apis_indices_finder_prefix + '(.+)' + _apigw_apis_indices_finder_suffix + '$', '\\1') | flatten | select('string') | unique | sort }}"
