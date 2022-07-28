@@ -6,7 +6,7 @@ vars_apigw_apis_publish_groups_enabled: "{{ lookup('env', 'apigw_data_apis_publi
 vars_apigw_apis_publish_groups_ignore_errors: "{{ lookup('env', 'apigw_data_apis_publish_ignore_errors') | default(vars_apigw_default_ignore_errors,true) }}"
 
 _apigw_apis_indices_finder_prefix: "apigw_data_apis_"
-_apigw_apis_indices_finder_suffix: "_lookup_portalgateways"
+_apigw_apis_indices_finder_suffix: "_portalgateway_name"
 
 # APIs to publish
 _apigw_apis_publish_template:
