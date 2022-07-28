@@ -58,7 +58,7 @@
         _stages: "{{ teststring_array|map('regex_search', _attr_regex, '\\3') | flatten | map('trim') }}"
     
     - set_fact:
-        _arr: "{{ _names|zip(_versions)|zip(_stages)|list }}"
+        _arr: "{{ _names|zip(_versions|zip(_stages))|list }}"
 
     - ansible.builtin.debug:
         var: _arr
