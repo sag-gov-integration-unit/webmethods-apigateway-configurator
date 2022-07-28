@@ -65,6 +65,11 @@
     - ansible.builtin.debug:
         var: _stages
 
+    - name: transform lookup_apis string into array
+      ansible.builtin.debug:
+        msg: "{{ item.0 }} {{ item.1 }} {{ item.2 }}"
+      loop: "{{ _names|zip(_versions)|zip(_stages)|list }}"
+
     # - name: get the count of items from the env vars
     #   set_fact:
     #     _index_items: "{{ ansible_env.keys() | map('regex_search','^' + _apigw_apis_indices_finder_prefix + '(.+)' + _apigw_apis_indices_finder_suffix + '$', '\\1') | flatten | select('string') | unique | sort }}"
