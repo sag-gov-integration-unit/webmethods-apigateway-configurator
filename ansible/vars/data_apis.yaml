@@ -9,6 +9,7 @@ _apigw_apis_indices_finder_prefix: "apigw_data_apis_"
 _apigw_apis_indices_finder_suffix: "_portalgateway_name"
 
 # APIs to publish
+
 _apigw_apis_publish_template:
       lookup_portalGatewayId:
             name: "{{ lookup('env', 'apigw_data_apis_%s_portalgateway_name' | format(index_item)) | default('',true) }}"
@@ -34,17 +35,20 @@ _apigw_apis_publish_lookup_communities: "{{ lookup('env', 'apigw_data_apis_%s_lo
 #   version: "version2"
 _apigw_apis_publish_lookup_apis: "{{ lookup('env', 'apigw_data_apis_%s_lookup_apis' | format(index_item)) | default('',true) }}"
 
-# each list item will publish a list of APIs to a list of communities using the same portalGatewayId
-# vars_apigw_apis_publish_groups:
+# FYI sample payload expected by the publish role
+# _publish_apis_list:
 #   - lookup_portalGatewayId:
-#       name: "{{ lookup('env', 'apigw_data_apis_publish_portal_config_name') | default('',true) }}"
-#       version: "{{ lookup('env', 'apigw_data_apis_publish_portal_config_version') | default('',true) }}"
-#       stageName: "{{ lookup('env', 'apigw_data_apis_publish_portal_config_stage') | default('',true) }}"
+#       name: API PortalGateway Config
+#       stageName: DEV
+#       version: "1.0"
 #     lookup_communityIds:
-#       - name: "{{ lookup('env', 'apigw_data_apis_publish_portal_community_name') | default('',true) }}"
+#       - name: Public Community
 #     lookup_apiIds:
-#       - name: "{{ lookup('env', 'apigw_data_apis_publish_api_name') | default('',true) }}"
-#         version: "{{ lookup('env', 'apigw_data_apis_publish_api_version') | default('',true) }}"
+#       - name: bookstore
+#         version: "1.0"
+#       - name: uszip
+#         version: "1.0"
+
 
 ## activate apis (or not)
 _apigw_apis_activate_template:
