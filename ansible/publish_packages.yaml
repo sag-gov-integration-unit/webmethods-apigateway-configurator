@@ -60,4 +60,4 @@
       vars:
         configs_action: publish-packages-groups
         configs_enabled: "{{ vars_apigw_packages_publish_groups_enabled }}"
-        rvar_apigateway_packages_publish_groups: "{{ vars_apigw_packages_publish_groups }}"
+        rvar_apigateway_packages_publish_groups: "{{ _publish_packages_list }}"
