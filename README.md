@@ -8,6 +8,7 @@ As a high level description of how it works, this container essentially uses RES
 
 The following configuration items / actions are currently supported (new functions added as needed)
 
+- apigateway availability checker (wait for apigateway to be available on target port -- NOTE: this checker is enable on all actions by default)
 - update admin password
 - set/update  extended settings
 - set/update  external loadbalancer urls
