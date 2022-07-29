@@ -1,4 +1,11 @@
-# webmethods-apigateway-configurator -- testing
+# Using/Testing the webmethods-apigateway-configurator
+
+I have prepared most actions into a simple docker-compose file to:
+ - Demonstrate how to use
+ - Verify behavior
+ - Act as a rudimental (but accurate) documentation
+
+The images used in this testing are the official SoftwareAG images for [Software AG API Gateway](https://hub.docker.com/r/softwareag/apigateway-trial) and [Developper Portal](https://hub.docker.com/r/softwareag/devportal) so this should be a breeze to try.
 
 ## start base components
 
