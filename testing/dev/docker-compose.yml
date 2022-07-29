@@ -533,6 +533,99 @@ services:
     networks:
       - stack
 
+  config_allinone_data:
+    image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
+    volumes:
+      - ../resources/ansible/sagdevops-ansible-common:/ansible/roles/sagdevops-ansible-common-1.0.0-3:ro
+      - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.0-4:ro 
+      - ../resources/sampleapis_archives:/imports:ro
+    environment: 
+      apigw_connect_host: apigateway
+      apigw_connect_port: "5555"
+      apigw_connect_user: Administrator
+      apigw_connect_password: "somethingnew"
+      apigw_data_archives_import: "true"
+      apigw_data_archives_1_path: "/imports/apigw-archive-api-bookstore-1.0.zip"
+      apigw_data_archives_1_overwrite: "apis,policies,policyactions"
+      apigw_data_archives_1_fixingMissingVersions: "true"
+      apigw_data_archives_1_preserveAssetState: "true"
+      apigw_data_archives_2_path: "/imports/apigw-archive-api-uszip-1.0.zip"
+      apigw_data_archives_2_overwrite: "apis,policies,policyactions"
+      apigw_data_archives_2_fixingMissingVersions: "true"
+      apigw_data_archives_2_preserveAssetState: "true"
+      apigw_data_aliases_configure: "true"
+      apigw_data_aliases_0_name: name1
+      apigw_data_aliases_0_description: desc1
+      apigw_data_aliases_0_type: simple
+      apigw_data_aliases_0_value: val1
+      apigw_data_aliases_0_stage: stag1
+      apigw_data_aliases_1_name: name2
+      apigw_data_aliases_1_description: desc2
+      apigw_data_aliases_1_type: simple
+      apigw_data_aliases_1_value: val2
+      apigw_data_aliases_1_stage: stag2
+      apigw_data_aliases_2_name: endpointname3
+      apigw_data_aliases_2_description: endpoint alias
+      apigw_data_aliases_2_type: endpoint
+      apigw_data_aliases_2_stage: stag2
+      apigw_data_aliases_2_endPointURI: http://test.local
+      apigw_data_plans_configure: "true"
+      apigw_data_plans_0_name: "plan1"
+      apigw_data_plans_0_version: "1.0"
+      apigw_data_plans_1_name: "plan2"
+      apigw_data_plans_1_version: "1.0"
+      apigw_data_plans_2_name: "plan3"
+      apigw_data_plans_2_version: "1.0"
+      apigw_data_packages_configure: "true"
+      apigw_data_packages_0_name: "package1"
+      apigw_data_packages_0_version: "1.0"
+      apigw_data_packages_0_deprecated: "false"
+      apigw_data_packages_0_active: "true"
+      apigw_data_packages_0_lookup_apis: "bookstore:1.0 ; uszip:1.0"
+      apigw_data_packages_0_lookup_plans: "plan1:1.0 ; plan2:1.0"
+      apigw_data_packages_0_lookup_policies: ""
+      apigw_data_packages_1_name: "package2"
+      apigw_data_packages_1_version: "1.0"
+      apigw_data_packages_1_deprecated: "false"
+      apigw_data_packages_1_active: "true"
+      apigw_data_packages_1_lookup_apis: "bookstore:1.0"
+      apigw_data_packages_1_lookup_plans: "plan2:1.0 ; plan3:1.0"
+      apigw_data_packages_1_lookup_policies: ""
+      apigw_data_applications_configure: "true"
+      apigw_data_applications_0_name: app1
+      apigw_data_applications_0_version: "0.1"
+      apigw_data_applications_0_description: app1 description
+      apigw_data_applications_0_isSuspended: "false"
+      apigw_data_applications_0_restrictViewAsset: "false"
+      apigw_data_applications_0_lookup_apis: "bookstore:1.0 ; uszip:1.0"
+      apigw_data_applications_1_name: app2
+      apigw_data_applications_1_version: "0.2"
+      apigw_data_applications_1_description: app2 description
+      apigw_data_applications_1_isSuspended: "false"
+      apigw_data_applications_1_restrictViewAsset: "false"
+      apigw_data_applications_1_lookup_apis: "bookstore:1.0"
+      apigw_data_applications_2_name: app3
+      apigw_data_applications_2_version: "0.3"
+      apigw_data_applications_2_description: app3 description
+      apigw_data_applications_2_isSuspended: "false"
+      apigw_data_applications_2_restrictViewAsset: "false"
+      apigw_data_applications_2_lookup_apis: ""
+      apigw_data_apis_publish: "true"
+      apigw_data_apis_0_portalgateway_name: API PortalGateway Config
+      apigw_data_apis_0_portalgateway_version: "1.0"
+      apigw_data_apis_0_portalgateway_stageName: DEV
+      apigw_data_apis_0_lookup_communities: "Public Community"
+      apigw_data_apis_0_lookup_apis: "bookstore:1.0 ; uszip:1.0"
+      apigw_data_packages_publish: "true"
+      apigw_data_packages_0_portalgateway_name: API PortalGateway Config
+      apigw_data_packages_0_portalgateway_version: "1.0"
+      apigw_data_packages_0_portalgateway_stageName: DEV
+      apigw_data_packages_0_lookup_communities: "Public Community"
+      apigw_data_packages_0_lookup_packages: "package1:1.0 ; package2:1.0"
+    networks:
+      - stack
+
+
   config_allinone_system_settings:
     image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
     volumes:
