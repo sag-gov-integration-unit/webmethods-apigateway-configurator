@@ -35,11 +35,6 @@ if [ "${apigw_settings_lburls_configure}" == "true" ]; then
     exec_ansible_playbook config_lburls.yaml
 fi
 
-## promotion_stages
-if [ "${apigw_data_promotions_stages_configure}" == "true" ]; then
-    exec_ansible_playbook config_promotion_stages.yaml
-fi
-
 ## config_keystores / truststores
 if [ "${apigw_settings_keystore_configure}" == "true" ]; then
     exec_ansible_playbook config_keystores.yaml
@@ -52,6 +47,11 @@ fi
 ## config_ssl inbound / outbound messages
 if [ "${apigw_settings_ssl_inbound_outbound_configure}" == "true" ]; then
     exec_ansible_playbook config_ssl_inout_connections.yaml
+fi
+
+## promotion_stages
+if [ "${apigw_data_promotions_stages_configure}" == "true" ]; then
+    exec_ansible_playbook config_promotion_stages.yaml
 fi
 
 ## config portal gateways
@@ -107,15 +107,10 @@ if [ "${apigw_data_applications_status_update}" == "true" ]; then
     exec_ansible_playbook activate_applications.yaml
 fi
 
-## activate/deactivate packages
-if [ "${apigw_data_packages_changestate}" == "true" ]; then
-    exec_ansible_playbook activate_packages.yaml
-fi
-
-## activate/deactivate apis
-if [ "${apigw_data_apis_changestate}" == "true" ]; then
-    exec_ansible_playbook activate_apis.yaml
-fi
+## activate/deactivate apis --> TODO
+# if [ "${apigw_data_apis_status_update}" == "true" ]; then
+#     exec_ansible_playbook activate_apis.yaml
+# fi
 
 ## publish packages
 if [ "${apigw_data_packages_publish}" == "true" ]; then
