@@ -1,0 +1,19 @@
+
+- hosts: local
+  become: true
+  become_user: "{{ webmethods_user }}"
+  vars:
+    teststring: "watt.server.cachemanager.connectTimeout=300000 watt.net.timeout=600 watt.net.clientKeepaliveUsageLimit=10000000 watt.server.threadPoolMin=50 watt.server.threadPool=1000 watt.server.control.serverThreadThreshold=50 watt.security.ssl.cacheClientSessions=true watt.net.maxClientKeepaliveConns=500 watt.security.ssl.resumeClientSessions=true"
+
+  tasks:
+
+    - name: transform extended_settings string of key-value pairs into a dict
+      set_fact:
+        _output_dict: "{{ dict(_keys|zip(_vals)) }}"
+      vars:
+        _arr: "{{ teststring.split()|map('trim')|select()|list }}"
+        _keys: "{{ _arr|map('split', '=')|map('first')|map('trim')|list }}"
+        _vals: "{{ _arr|map('split', '=')|map('last')|map('trim')|list }}"
+
+    - ansible.builtin.debug:
+        var: _output_dict
