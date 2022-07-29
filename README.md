@@ -2,7 +2,7 @@
 
 A container that can easily configure various functions of webmethods-apigateway from environment variable values passed in.
 
-Docs in progress...
+As a high level description of how it works, this container essentially uses REST calls to the SoftwareAG APIGateway Admin APIs to perform all its functions.
 
 ### Supported Configs / Actions
 
@@ -37,6 +37,13 @@ Head over to [How to use](./testing/README.md) for a simple tutorial on how to u
 ## Build the image manually
 
 docker build -t softwareag-government-solutions/webmethods-apigateway-configurator:10.11-latest --build-arg BASE_IMAGE=redhat/ubi8 .
+
+## How it's made
+
+To build on the ansible roles already created for APIGateway, this container also uses Ansible to operate the various actions strictly via REST calls (here, no concept of remoting into the APIGateway container to update files etc...)
+
+For the various REST calls, this project makes use of the existing Ansible roles [sagdevops-ansible-apigateway](https://github.com/SoftwareAG/sagdevops-ansible-apigateway.git) to perform all the needed REST calls to APIGateway.
+
 
 Authors
 --------------------------------------------
