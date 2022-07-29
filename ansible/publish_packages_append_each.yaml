@@ -1,0 +1,49 @@
+---
+
+- name: set initial items
+  set_fact:
+    _item: "{{ _apigw_packages_publish_template }}"
+    _lookup_communities: []
+    _lookup_packages: []
+
+############ _lookup_communities
+- name: transform _lookup_communities string into array
+  set_fact:
+    _lookup_communities: "{{ _lookup_communities + [ { 'name': item } ] }}"
+  vars:
+    _arr: "{{ _apigw_packages_publish_lookup_communities.split(';')|map('trim')|select()|list }}"
+  loop: "{{ _arr }}"
+
+- name: create patch
+  set_fact:
+    _lookup_communities_patch: 
+      lookup_communityIds: "{{ _lookup_communities }}"
+
+- name: Assign the patch
+  set_fact:
+    _item: "{{ _item | combine( _lookup_communities_patch,recursive=True ) }}"
+
+############ lookup_apis
+- name: transform lookup_apis string into array
+  set_fact:
+    _lookup_packages: "{{ _lookup_packages + [ { 'name': item.0, 'version': item.1 } ] }}"
+  vars:
+    _arr: "{{ _apigw_packages_publish_lookup_packages.split(';')|map('trim')|select()|list }}"
+    _keys: "{{ _arr|map('split', ':')|map('first')|map('trim')|list }}"
+    _vals: "{{ _arr|map('split', ':')|map('last')|map('trim')|list }}"
+  loop: "{{ _keys|zip(_vals)|list }}"
+
+- name: create patch
+  set_fact:
+    _lookup_packages_patch: 
+      lookup_packageIds: "{{ _lookup_packages }}"
+
+- name: Assign the patch
+  set_fact:
+    _item: "{{ _item | combine( _lookup_packages_patch,recursive=True ) }}"
+
+############ final add to list
+- name: append item to list
+  set_fact:
+    _publish_packages_list: "{{ _publish_packages_list | default([]) + [ _item ] }}"
+  when: _item is defined

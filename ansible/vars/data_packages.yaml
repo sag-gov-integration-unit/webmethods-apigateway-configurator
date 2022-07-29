@@ -1,5 +1,4 @@
 ---
-
 vars_apigw_packages_enabled: "{{ lookup('env', 'apigw_data_packages_configure') | default('false',true) }}"
 vars_apigw_packages_ignore_errors: "{{ lookup('env', 'apigw_data_packages_configure_ignore_errors') | default(vars_apigw_default_ignore_errors,true) }}"
 
@@ -20,12 +19,12 @@ _apigw_packages_template:
 # these will be added dynamically to the object
 # input format is [ name1:version1;name2:version2;name3:version3 ]
 # output format is:
-      # - name: "name1"
-      #   version: "version1"
-      # - name: "name2"
-      #   version: "version2"
-      # - name: "name3"
-      #   version: "version3"
+# - name: "name1"
+#   version: "version1"
+# - name: "name2"
+#   version: "version2"
+# - name: "name3"
+#   version: "version3"
 
 ## map to field custom_apiIdsByFilter
 _apigw_packages_registered_apis: "{{ lookup('env', 'apigw_data_packages_%s_lookup_apis' | format(index_item)) | default('',true) }}"
@@ -41,14 +40,43 @@ _apigw_packages_activate_template:
   active: "{{ lookup('env', 'apigw_data_packages_%s_active' | format(index_item)) | default('',true) }}"
 
 # Packages to publish
-# each list item will publish a list of Packages to a list of communities using the same portalGatewayId
-vars_apigw_packages_publish_groups:
-  - lookup_portalGatewayId:
-      name: "{{ lookup('env', 'apigw_data_packages_publish_portal_config_name') | default('',true) }}"
-      version: "{{ lookup('env', 'apigw_data_packages_publish_portal_config_version') | default('',true) }}"
-      stageName: "{{ lookup('env', 'apigw_data_packages_publish_portal_config_stage') | default('',true) }}"
-    lookup_communityIds:
-      - name: "{{ lookup('env', 'apigw_data_packages_publish_portal_community_name') | default('',true) }}"
-    lookup_packageIds:
-      - name: "{{ lookup('env', 'apigw_data_packages_publish_package_name') | default('',true) }}"
-        version: "{{ lookup('env', 'apigw_data_packages_publish_package_version') | default('',true) }}"
+_apigw_packages_publish_indices_finder_prefix: "apigw_data_packages_"
+_apigw_packages_publish_indices_finder_suffix: "_portalgateway_name"
+_apigw_packages_publish_template:
+  lookup_portalGatewayId:
+    name: "{{ lookup('env', 'apigw_data_packages_%s_portalgateway_name' | format(index_item)) | default('',true) }}"
+    version: "{{ lookup('env', 'apigw_data_packages_%s_portalgateway_version' | format(index_item)) | default('',true) }}"
+    stageName: "{{ lookup('env', 'apigw_data_packages_%s_portalgateway_stageName' | format(index_item)) | default('',true) }}"
+
+# these will be added dynamically to the object
+
+## map to field lookup_communityIds
+# input format is [ community1;community2;community3 ]
+# output format is a list:
+# - name: "community1"
+# - name: "community2"
+# - name: "community3"
+_apigw_packages_publish_lookup_communities: "{{ lookup('env', 'apigw_data_packages_%s_lookup_communities' | format(index_item)) | default('',true) }}"
+
+## map to field lookup_apiIds
+# input format is [ name1:version1;name2:version2 ]
+# output format is list:
+# - name: "name1"
+#   version: "version1"
+# - name: "name2"
+#   version: "version2"
+_apigw_packages_publish_lookup_packages: "{{ lookup('env', 'apigw_data_packages_%s_lookup_packages' | format(index_item)) | default('',true) }}"
+
+# FYI sample payload expected by the publish role
+# _publish_packages_list:
+#   - lookup_portalGatewayId:
+#       name: API PortalGateway Config
+#       stageName: DEV
+#       version: "1.0"
+#     lookup_communityIds:
+#       - name: Public Community
+#     lookup_packageIds:
+#       - name: package1
+#         version: "1.0"
+#       - name: package2
+#         version: "1.0"
