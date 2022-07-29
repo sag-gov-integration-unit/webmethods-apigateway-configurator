@@ -32,7 +32,7 @@ services:
     networks:
       - stack
 
-  config_changepassword:
+  config_apigw_changepassword:
     image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
     environment: 
       apigw_connect_host: apigateway
