@@ -35,8 +35,8 @@
 
     - name: set initial list so it's not undefined
       set_fact:
-         _http_urls: "{{ _apigw_settings_lburls_http_url.split(';')|map('trim')|select()|list }}"
-         _https_urls: "{{ _apigw_settings_lburls_https_url.split(';')|map('trim')|select()|list }}"
+         _http_urls: "{{ _apigw_settings_lburls_http_urls.split(';')|map('trim')|select()|list }}"
+         _https_urls: "{{ _apigw_settings_lburls_https_urls.split(';')|map('trim')|select()|list }}"
          _websocket_urls: "{{ _apigw_settings_lburls_websocket_urls.split(';')|map('trim')|select()|list }}"
 
     - include_role:

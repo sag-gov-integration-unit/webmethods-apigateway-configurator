@@ -11,9 +11,9 @@ vars_apigw_loadbalancer_ignore_errors: "{{ lookup('env', 'apigw_settings_lburls_
       # - url1
       # - url2
       # - url3
-_apigw_settings_lburls_http_url: "{{ lookup('env', 'apigw_settings_lburls_http_urls') | default('',true) }}"
-_apigw_settings_lburls_https_url: "{{ lookup('env', 'apigw_settings_lburls_https_urls') | default('',true) }}"
-_apigw_settings_lburls_websocket_url: "{{ lookup('env', 'apigw_settings_lburls_websocket_urls') | default('',true) }}"
+_apigw_settings_lburls_http_urls: "{{ lookup('env', 'apigw_settings_lburls_http_urls') | default('',true) }}"
+_apigw_settings_lburls_https_urls: "{{ lookup('env', 'apigw_settings_lburls_https_urls') | default('',true) }}"
+_apigw_settings_lburls_websocket_urls: "{{ lookup('env', 'apigw_settings_lburls_websocket_urls') | default('',true) }}"
 
 # input format is simple string
 _apigw_settings_lburls_webapp_url: "{{ lookup('env', 'apigw_settings_lburls_webapp_url') | default('',true) }}"
