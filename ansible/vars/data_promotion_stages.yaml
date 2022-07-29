@@ -4,11 +4,13 @@ vars_apigw_promotions_stages_enabled: "{{ lookup('env', 'apigw_data_promotions_s
 vars_apigw_promotions_stages_ignore_errors: "{{ lookup('env', 'apigw_data_promotions_stages_configure_ignore_errors') | default(vars_apigw_default_ignore_errors,true) }}"
 
 ## api gateway promotion stages
-vars_apigw_promotions_stages: []
-  # - name: "{{ vars_apigw_environment_stage }}"
-  #   description: "{{ vars_apigw_environment_stage }} Stage"
-  #   url: "https://apigateway105-irsrepro.clouddemo.saggov.com"
-  #   username: "{{ webmethods_secrets_promotionsmgt_user }}"
-  #   password: "{{ webmethods_secrets_promotionsmgt_password }}"
-  #   keystoreAlias: "{{ webmethods_apigateway_keystore_name }}"
-  #   keyAlias: "{{ webmethods_apigateway_keystore_keyalias }}"
+_apigw_promotions_stages_indices_finder_prefix: "apigw_data_promotions_stages_"
+_apigw_promotions_stages_indices_finder_suffix: "_name"
+_apigw_promotions_stages_template:
+  name: "{{ lookup('env', 'apigw_data_promotions_stages_%s_name' | format(index_item)) | default('',true) }}"
+  description: "{{ lookup('env', 'apigw_data_promotions_stages_%s_description' | format(index_item)) | default('',true) }}"
+  url: "{{ lookup('env', 'apigw_data_promotions_stages_%s_url' | format(index_item)) | default('',true) }}"
+  username: "{{ lookup('env', 'apigw_data_promotions_stages_%s_username' | format(index_item)) | default('',true) }}"
+  password: "{{ lookup('env', 'apigw_data_promotions_stages_%s_password' | format(index_item)) | default('',true) }}"
+  keystoreAlias: "{{ lookup('env', 'apigw_data_promotions_stages_%s_keystoreAlias' | format(index_item)) | default('',true) }}"
+  keyAlias: "{{ lookup('env', 'apigw_data_promotions_stages_%s_keyAlias' | format(index_item)) | default('',true) }}"
