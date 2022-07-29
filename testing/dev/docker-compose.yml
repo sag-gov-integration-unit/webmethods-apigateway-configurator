@@ -47,6 +47,7 @@ services:
     networks:
       - stack
 
+
   config_loadbalancerurls:
     image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
     volumes:
@@ -529,5 +530,75 @@ services:
       apigw_data_packages_0_portalgateway_stageName: DEV
       apigw_data_packages_0_lookup_communities: "Public Community"
       apigw_data_packages_0_lookup_packages: "package1:1.0 ; package2:1.0"
+    networks:
+      - stack
+
+  config_allinone_system_settings:
+    image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
+    volumes:
+      - ../resources/ansible/sagdevops-ansible-common:/ansible/roles/sagdevops-ansible-common-1.0.0-3:ro
+      - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.0-4:ro
+      - ../resources/certs:/certs:ro
+    environment: 
+      apigw_connect_host: apigateway
+      apigw_connect_port: "5555"
+      apigw_connect_user: Administrator
+      apigw_connect_password: "somethingnew"
+      apigw_settings_portalgateway_configure: "true"
+      apigw_settings_portalgateway_configure_ignore_errors: "true"
+      apigw_settings_portalgateway_name: API PortalGateway Config
+      apigw_settings_portalgateway_description: API PortalGateway Configuration
+      apigw_settings_portalgateway_version: "1.0"
+      apigw_settings_portalgateway_stagename: "DEV"
+      apigw_settings_portalgateway_gateway_url: "http://apigateway:5555"
+      apigw_settings_portalgateway_gateway_username: "Administrator"
+      apigw_settings_portalgateway_gateway_password: "somethingnew"
+      apigw_settings_portalgateway_portaltype: devportal
+      apigw_settings_portalgateway_devportal_tenant: default
+      apigw_settings_portalgateway_devportal_url: "http://devportal:8083/portal"
+      apigw_settings_portalgateway_devportal_username: "Administrator"
+      apigw_settings_portalgateway_devportal_password: "manage"
+      apigw_settings_lburls_configure: "true"
+      apigw_settings_lburls_http_urls: "http://externallb1:80;http://externallb2;http://externallb3"
+      apigw_settings_lburls_https_urls: "https://externallb1:443;https://externallb2:443;https://externallb3:443"
+      apigw_settings_lburls_websocket_url: "ws://externallb1;ws://externallb2;ws://externallb3"
+      apigw_settings_lburls_webapp_url: "http://externallb"
+      apigw_settings_core_configure: "true"
+      apigw_settings_core_watts: watt.server.cachemanager.connectTimeout=300000 watt.net.timeout=600 watt.net.clientKeepaliveUsageLimit=10000000 watt.server.threadPoolMin=50 watt.server.threadPool=1000 watt.server.control.serverThreadThreshold=50 watt.security.ssl.cacheClientSessions=true watt.net.maxClientKeepaliveConns=500 watt.security.ssl.resumeClientSessions=true
+      apigw_settings_core_extended: "events.reportingQueue.size=5000 events.collectionPool.minThreads=2 events.collectionPool.maxThreads=32 events.reportingPool.minThreads=4 events.reportingPool.maxThreads=16 eventsRefreshInterval=60s events.collectionQueue.size=10000000"
+      apigw_settings_keystore_configure: "true"
+      apigw_settings_keystore_filepath: /certs/apigateway-p12.jks
+      apigw_settings_keystore_name: "Custom_SSL_Keystore"
+      apigw_settings_keystore_description: "My custom keystore for SSL"
+      apigw_settings_keystore_password: "manage"
+      apigw_settings_keystore_keyalias: "certificate"
+      apigw_settings_keystore_keyalias_password: "manage"
+      apigw_settings_truststore_configure: "true"
+      apigw_settings_truststore_filepath: /certs/apigateway-truststore.jks
+      apigw_settings_truststore_name: "Custom_SSL_Truststore"
+      apigw_settings_truststore_description: "My custom truststore"
+      apigw_settings_truststore_password: "manage"
+      apigw_settings_ssl_inbound_outbound_configure: "true"
+      apigw_settings_ssl_inbound_keystore_name: "Custom_SSL_Keystore"
+      apigw_settings_ssl_inbound_keystore_keyalias: "certificate"
+      apigw_settings_ssl_inbound_truststore_name: "Custom_SSL_Truststore"
+      apigw_settings_ssl_outbound_keystore_name: "Custom_SSL_Keystore"
+      apigw_settings_ssl_outbound_keystore_keyalias: "certificate"
+      apigw_settings_ssl_outbound_truststore_name: "Custom_SSL_Truststore"
+      apigw_data_promotions_stages_configure: "true"
+      apigw_data_promotions_stages_0_name: promotion1
+      apigw_data_promotions_stages_0_description: description1
+      apigw_data_promotions_stages_0_url: http://gateway1:5555
+      apigw_data_promotions_stages_0_username: testuser1
+      apigw_data_promotions_stages_0_password: password1
+      apigw_data_promotions_stages_0_keystoreAlias: ""
+      apigw_data_promotions_stages_0_keyAlias: ""
+      apigw_data_promotions_stages_1_name: promotion2
+      apigw_data_promotions_stages_1_description: description2
+      apigw_data_promotions_stages_1_url: http://gateway2:5555
+      apigw_data_promotions_stages_1_username: testuser2
+      apigw_data_promotions_stages_1_password: password2
+      apigw_data_promotions_stages_1_keystoreAlias: ""
+      apigw_data_promotions_stages_1_keyAlias: ""
     networks:
       - stack
