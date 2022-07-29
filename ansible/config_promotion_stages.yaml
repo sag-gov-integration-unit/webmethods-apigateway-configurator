@@ -34,6 +34,27 @@
 
   tasks:
 
+    - name: get the count of items from the env vars
+      set_fact:
+        _index_items: "{{ ansible_env.keys() | map('regex_search','^' + _apigw_promotions_stages_indices_finder_prefix + '(.+)' + _apigw_promotions_stages_indices_finder_suffix + '$', '\\1') | flatten | select('string') | unique | sort }}"
+    
+    - ansible.builtin.debug:
+        var: _index_items
+    
+    - name: set initial list so it's not undefined
+      set_fact:
+         _promotions_stages_list: []
+
+    - name: append each item template to list
+      set_fact:
+        _promotions_stages_list: "{{ _promotions_stages_list + [ _apigw_promotions_stages_template ] }}"
+      loop: "{{ _index_items }}"
+      loop_control:
+        loop_var: index_item
+
+    - ansible.builtin.debug:
+        var: _promotions_stages_list
+
     - include_role:
         name: apigateway-rest-configurator
         apply:
@@ -41,6 +62,4 @@
       vars:
         configs_action: set-promotion-stages
         configs_enabled: "{{ vars_apigw_promotions_stages_enabled }}"
-        webmethods_apigateway_promotions_stages: "{{ vars_apigw_promotions_stages }}"
-      tags:
-        - configs_promotion_stages
+        webmethods_apigateway_promotions_stages: "{{ _promotions_stages_list }}"

@@ -58,12 +58,9 @@ services:
       apigw_connect_user: Administrator
       apigw_connect_password: "somethingnew"
       apigw_settings_lburls_configure: "true"
-      apigw_settings_lburls_http_url: "http://externallb1:80"
-      apigw_settings_lburls_https_url: "https://externallb1:443"
-      apigw_settings_lburls_websocket_url: "ws://externallb1"
-      apigw_settings_lburls_http_url_alt1: "http://externallb2"
-      apigw_settings_lburls_https_url_alt1: "https://externallb2"
-      apigw_settings_lburls_websocket_url_alt1: "ws://externallb2"
+      apigw_settings_lburls_http_urls: "http://externallb1:80;http://externallb2;http://externallb3"
+      apigw_settings_lburls_https_urls: "https://externallb1:443;https://externallb2:443;https://externallb3:443"
+      apigw_settings_lburls_websocket_url: "ws://externallb1;ws://externallb2;ws://externallb3"
       apigw_settings_lburls_webapp_url: "http://externallb"
     networks:
       - stack
@@ -81,33 +78,6 @@ services:
       apigw_settings_core_configure: "true"
       apigw_settings_core_watts: watt.server.cachemanager.connectTimeout=300000 watt.net.timeout=600 watt.net.clientKeepaliveUsageLimit=10000000 watt.server.threadPoolMin=50 watt.server.threadPool=1000 watt.server.control.serverThreadThreshold=50 watt.security.ssl.cacheClientSessions=true watt.net.maxClientKeepaliveConns=500 watt.security.ssl.resumeClientSessions=true
       apigw_settings_core_extended: "events.reportingQueue.size=5000 events.collectionPool.minThreads=2 events.collectionPool.maxThreads=32 events.reportingPool.minThreads=4 events.reportingPool.maxThreads=16 eventsRefreshInterval=60s events.collectionQueue.size=10000000"
-    networks:
-      - stack
-
-  config_portalgateway:
-    image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
-    volumes:
-      - ../resources/ansible/sagdevops-ansible-common:/ansible/roles/sagdevops-ansible-common-1.0.0-3:ro
-      - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.0-4:ro 
-    environment: 
-      apigw_connect_host: apigateway
-      apigw_connect_port: "5555"
-      apigw_connect_user: Administrator
-      apigw_connect_password: "somethingnew"
-      apigw_settings_portalgateway_configure: "true"
-      apigw_settings_portalgateway_configure_ignore_errors: "true"
-      apigw_settings_portalgateway_name: API PortalGateway Config
-      apigw_settings_portalgateway_description: API PortalGateway Configuration
-      apigw_settings_portalgateway_version: "1.0"
-      apigw_settings_portalgateway_stagename: "DEV"
-      apigw_settings_portalgateway_gateway_url: "http://apigateway:5555"
-      apigw_settings_portalgateway_gateway_username: "Administrator"
-      apigw_settings_portalgateway_gateway_password: "somethingnew"
-      apigw_settings_portalgateway_portaltype: devportal
-      apigw_settings_portalgateway_devportal_tenant: default
-      apigw_settings_portalgateway_devportal_url: "http://devportal:8083/portal"
-      apigw_settings_portalgateway_devportal_username: "Administrator"
-      apigw_settings_portalgateway_devportal_password: "manage"
     networks:
       - stack
 
@@ -210,6 +180,62 @@ services:
   #     apigw_settings_ssl_runtimeport_truststore_name: "Custom_SSL_Truststore"
   #   networks:
   #     - stack
+
+  config_promotion_stages:
+    image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
+    volumes:
+      - ../resources/ansible/sagdevops-ansible-common:/ansible/roles/sagdevops-ansible-common-1.0.0-3:ro
+      - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.0-4:ro 
+      - ../resources/certs:/certs:ro
+    environment: 
+      apigw_connect_host: apigateway
+      apigw_connect_port: "5555"
+      apigw_connect_user: Administrator
+      apigw_connect_password: "somethingnew"
+      apigw_data_promotions_stages_configure: "true"
+      apigw_data_promotions_stages_0_name: promotion1
+      apigw_data_promotions_stages_0_description: description1
+      apigw_data_promotions_stages_0_url: http://gateway1:5555
+      apigw_data_promotions_stages_0_username: testuser1
+      apigw_data_promotions_stages_0_password: password1
+      apigw_data_promotions_stages_0_keystoreAlias: ""
+      apigw_data_promotions_stages_0_keyAlias: ""
+      apigw_data_promotions_stages_1_name: promotion2
+      apigw_data_promotions_stages_1_description: description2
+      apigw_data_promotions_stages_1_url: http://gateway2:5555
+      apigw_data_promotions_stages_1_username: testuser2
+      apigw_data_promotions_stages_1_password: password2
+      apigw_data_promotions_stages_1_keystoreAlias: ""
+      apigw_data_promotions_stages_1_keyAlias: ""
+    networks:
+      - stack
+
+  config_portalgateway:
+    image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
+    volumes:
+      - ../resources/ansible/sagdevops-ansible-common:/ansible/roles/sagdevops-ansible-common-1.0.0-3:ro
+      - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.0-4:ro 
+    environment: 
+      apigw_connect_host: apigateway
+      apigw_connect_port: "5555"
+      apigw_connect_user: Administrator
+      apigw_connect_password: "somethingnew"
+      apigw_settings_portalgateway_configure: "true"
+      apigw_settings_portalgateway_configure_ignore_errors: "true"
+      apigw_settings_portalgateway_name: API PortalGateway Config
+      apigw_settings_portalgateway_description: API PortalGateway Configuration
+      apigw_settings_portalgateway_version: "1.0"
+      apigw_settings_portalgateway_stagename: "DEV"
+      apigw_settings_portalgateway_gateway_url: "http://apigateway:5555"
+      apigw_settings_portalgateway_gateway_username: "Administrator"
+      apigw_settings_portalgateway_gateway_password: "somethingnew"
+      apigw_settings_portalgateway_portaltype: devportal
+      apigw_settings_portalgateway_devportal_tenant: default
+      apigw_settings_portalgateway_devportal_url: "http://devportal:8083/portal"
+      apigw_settings_portalgateway_devportal_username: "Administrator"
+      apigw_settings_portalgateway_devportal_password: "manage"
+    networks:
+      - stack
 
   config_saml:
     image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
@@ -360,5 +386,148 @@ services:
       apigw_connect_user: Administrator
       apigw_connect_password: "somethingnew"
       apigw_data_plans_configure: "true"
+    networks:
+      - stack
+
+  config_packages:
+    image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
+    volumes:
+      - ../resources/ansible/sagdevops-ansible-common:/ansible/roles/sagdevops-ansible-common-1.0.0-3:ro
+      - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.0-4:ro 
+    environment: 
+      apigw_connect_host: apigateway
+      apigw_connect_port: "5555"
+      apigw_connect_user: Administrator
+      apigw_connect_password: "somethingnew"
+      apigw_data_packages_configure: "true"
+      apigw_data_packages_0_name: "package1"
+      apigw_data_packages_0_version: "1.0"
+      apigw_data_packages_0_deprecated: "false"
+      apigw_data_packages_0_active: "true"
+      apigw_data_packages_0_lookup_apis: "bookstore:1.0 ; uszip:1.0"
+      apigw_data_packages_0_lookup_plans: "plan1:1.0 ; plan2:1.0"
+      apigw_data_packages_0_lookup_policies: ""
+      apigw_data_packages_1_name: "package2"
+      apigw_data_packages_1_version: "1.0"
+      apigw_data_packages_1_deprecated: "false"
+      apigw_data_packages_1_active: "true"
+      apigw_data_packages_1_lookup_apis: "bookstore:1.0"
+      apigw_data_packages_1_lookup_plans: "plan2:1.0 ; plan3:1.0"
+      apigw_data_packages_1_lookup_policies: ""
+    networks:
+      - stack
+
+  config_packages_deactivate:
+    image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
+    volumes:
+      - ../resources/ansible/sagdevops-ansible-common:/ansible/roles/sagdevops-ansible-common-1.0.0-3:ro
+      - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.0-4:ro 
+    environment: 
+      apigw_connect_host: apigateway
+      apigw_connect_port: "5555"
+      apigw_connect_user: Administrator
+      apigw_connect_password: "somethingnew"
+      apigw_data_packages_status_update: "true"
+      apigw_data_packages_0_name: "package1"
+      apigw_data_packages_0_version: "1.0"
+      apigw_data_packages_0_active: "false"
+      apigw_data_packages_1_name: "package2"
+      apigw_data_packages_1_version: "1.0"
+      apigw_data_packages_1_active: "false"
+    networks:
+      - stack
+
+## TODO: fix error when lookup apis is empty...
+  config_applications:
+    image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
+    volumes:
+      - ../resources/ansible/sagdevops-ansible-common:/ansible/roles/sagdevops-ansible-common-1.0.0-3:ro
+      - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.0-4:ro 
+    environment: 
+      apigw_connect_host: apigateway
+      apigw_connect_port: "5555"
+      apigw_connect_user: Administrator
+      apigw_connect_password: "somethingnew"
+      apigw_data_applications_configure: "true"
+      apigw_data_applications_0_name: app1
+      apigw_data_applications_0_version: "0.1"
+      apigw_data_applications_0_description: app1 description
+      apigw_data_applications_0_isSuspended: "false"
+      apigw_data_applications_0_restrictViewAsset: "false"
+      apigw_data_applications_0_lookup_apis: "bookstore:1.0 ; uszip:1.0"
+      apigw_data_applications_1_name: app2
+      apigw_data_applications_1_version: "0.2"
+      apigw_data_applications_1_description: app2 description
+      apigw_data_applications_1_isSuspended: "false"
+      apigw_data_applications_1_restrictViewAsset: "false"
+      apigw_data_applications_1_lookup_apis: "bookstore:1.0"
+      apigw_data_applications_2_name: app3
+      apigw_data_applications_2_version: "0.3"
+      apigw_data_applications_2_description: app3 description
+      apigw_data_applications_2_isSuspended: "false"
+      apigw_data_applications_2_restrictViewAsset: "false"
+      apigw_data_applications_2_lookup_apis: ""
+    networks:
+      - stack
+
+  config_applications_deactivate:
+    image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
+    volumes:
+      - ../resources/ansible/sagdevops-ansible-common:/ansible/roles/sagdevops-ansible-common-1.0.0-3:ro
+      - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.0-4:ro 
+    environment: 
+      apigw_connect_host: apigateway
+      apigw_connect_port: "5555"
+      apigw_connect_user: Administrator
+      apigw_connect_password: "somethingnew"
+      apigw_data_applications_status_update: "true"
+      apigw_data_applications_0_name: app1
+      apigw_data_applications_0_version: "0.1"
+      apigw_data_applications_0_isSuspended: "true"
+      apigw_data_applications_1_name: app2
+      apigw_data_applications_1_version: "0.2"
+      apigw_data_applications_1_isSuspended: "true"
+      apigw_data_applications_2_name: app3
+      apigw_data_applications_2_version: "0.3"
+      apigw_data_applications_2_description: app3 description
+      apigw_data_applications_2_isSuspended: "true"
+    networks:
+      - stack
+
+  publish_apis:
+    image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
+    volumes:
+      - ../resources/ansible/sagdevops-ansible-common:/ansible/roles/sagdevops-ansible-common-1.0.0-3:ro
+      - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.0-4:ro 
+    environment: 
+      apigw_connect_host: apigateway
+      apigw_connect_port: "5555"
+      apigw_connect_user: Administrator
+      apigw_connect_password: "somethingnew"
+      apigw_data_apis_publish: "true"
+      apigw_data_apis_0_portalgateway_name: API PortalGateway Config
+      apigw_data_apis_0_portalgateway_version: "1.0"
+      apigw_data_apis_0_portalgateway_stageName: DEV
+      apigw_data_apis_0_lookup_communities: "Public Community"
+      apigw_data_apis_0_lookup_apis: "bookstore:1.0 ; uszip:1.0"
+    networks:
+      - stack
+
+  publish_packages:
+    image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
+    volumes:
+      - ../resources/ansible/sagdevops-ansible-common:/ansible/roles/sagdevops-ansible-common-1.0.0-3:ro
+      - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.0-4:ro 
+    environment: 
+      apigw_connect_host: apigateway
+      apigw_connect_port: "5555"
+      apigw_connect_user: Administrator
+      apigw_connect_password: "somethingnew"
+      apigw_data_packages_publish: "true"
+      apigw_data_packages_0_portalgateway_name: API PortalGateway Config
+      apigw_data_packages_0_portalgateway_version: "1.0"
+      apigw_data_packages_0_portalgateway_stageName: DEV
+      apigw_data_packages_0_lookup_communities: "Public Community"
+      apigw_data_packages_0_lookup_packages: "package1:1.0 ; package2:1.0"
     networks:
       - stack

@@ -33,12 +33,33 @@
 
   tasks:
 
+    - name: get the count of items from the env vars
+      set_fact:
+        _index_items: "{{ ansible_env.keys() | map('regex_search','^' + _apigw_packages_indices_finder_prefix + '(.+)' + _apigw_packages_indices_finder_suffix + '$', '\\1') | flatten | select('string') | unique | sort }}"
+    
+    - ansible.builtin.debug:
+        var: _index_items
+    
+    - name: set initial list so it's not undefined
+      set_fact:
+         _packages_list: []
+
+    - name: append each item template to list
+      set_fact:
+        _packages_list: "{{ _packages_list + [ _apigw_packages_activate_template ] }}"
+      loop: "{{ _index_items }}"
+      loop_control:
+        loop_var: index_item
+
+    - ansible.builtin.debug:
+        var: _packages_list
+
     - name: activate/deactivate packages
       include_role:
         name: apigateway-rest-configurator
         apply:
-          ignore_errors: "{{ vars_apigw_packages_ignore_errors }}"
+          ignore_errors: "{{ vars_apigw_packages_status_update_ignore_errors }}"
       vars:
         configs_action: activate-packages
-        configs_enabled: "{{ vars_apigw_packages_enabled }}"
-        rvar_apigateway_packages: "{{ vars_apigw_packages_update_status }}"
+        configs_enabled: "{{ vars_apigw_packages_status_update_enabled }}"
+        rvar_apigateway_packages: "{{ _packages_list }}"

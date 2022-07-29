@@ -1,7 +1,63 @@
 # webmethods-apigateway-configurator
-A container to configure webmethods-apigateway over REST admin apis
+
+A container that can easily configure various functions of webmethods-apigateway from environment variable values passed in.
+
+Docs in progress...
+
+### Supported Configs / Actions
+
+The following configuration items / actions are currently supported (new functions added as needed)
+
+- update admin password
+- set/update  extended settings
+- set/update  external loadbalancer urls
+- set/update  cert stores (keystore, truststore)
+- set/update  ports (different types - http, https, internal, external)
+- set/update  developer portal destination
+- set/update  promotion stages
+- set/update  SAML configs
+- set/update  LDAP configs
+- create/update users
+- create/update groups (and assign the users)
+- create/update teams (and assign the groups)
+- import apigateway archive
+- set/update aliases (different types)
+- set/update api plans
+- set/update api packages (and link to plans)
+- set/update api applications (and link to apis)
+- publish apis to developer portal
+- publish api packages to developer portal
+- activate/deactivate apis
+- activate/deactivate applications
+- activate/deactivate packages
+- (more can be added based on needs)
+
+Head over to [How to use](./testing/README.md) for a simple tutorial on how to use this 
 
 ## Build the image manually
 
-docker build -t ghcr.io/softwareag-government-solutions/webmethods-apigateway-configurator:10.11-latest --build-arg BASE_IMAGE=redhat/ubi8 .
+docker build -t softwareag-government-solutions/webmethods-apigateway-configurator:10.11-latest --build-arg BASE_IMAGE=redhat/ubi8 .
 
+Authors
+--------------------------------------------
+
+Fabien Sanglier
+- Emails: [@Software AG](mailto:fabien.sanglier@softwareag.com) // [@Software AG Government Solutions](mailto:fabien.sanglier@softwareaggov.com)
+- Github: 
+  - [Fabien Sanglier](https://github.com/lanimall)
+  - [Fabien Sanglier @ SoftwareAG Government Solutions](https://github.com/fabien-sanglier-saggs)
+
+Licensing - Apache-2.0
+--------------------------------------------
+
+This project is Licensed under the Apache License, Version 2.0 (the "License");
+You may not use this project except in compliance with the License.
+You may obtain a copy of the License at
+
+[http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.

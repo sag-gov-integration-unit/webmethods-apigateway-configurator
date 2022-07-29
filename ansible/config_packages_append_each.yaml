@@ -1,0 +1,71 @@
+---
+
+- name: set intial item
+  set_fact:
+    _item: "{{ _apigw_packages_template }}"
+    _registered_apis: []
+    _registered_plans: []
+    _registered_policies: []
+
+############ registered_apis
+- name: transform registered_apis string into array
+  set_fact:
+    _registered_apis: "{{ _registered_apis + [ { 'name': item.0, 'version': item.1 } ] }}"
+  vars:
+    _arr: "{{ _apigw_packages_registered_apis.split(';')|map('trim')|select()|list }}"
+    _keys: "{{ _arr|map('split', ':')|map('first')|map('trim')|list }}"
+    _vals: "{{ _arr|map('split', ':')|map('last')|map('trim')|list }}"
+  loop: "{{ _keys|zip(_vals)|list }}"
+
+- name: create patch
+  set_fact:
+    _registered_apis_patch: 
+      custom_apiIdsByFilter: "{{ _registered_apis }}"
+
+- name: Assign the api patch
+  set_fact:
+    _item: "{{ _item | combine( _registered_apis_patch,recursive=True ) }}"
+
+############ registered_plans
+- name: transform registered_plans string into array
+  set_fact:
+    _registered_plans: "{{ _registered_plans + [ { 'name': item.0, 'version': item.1 } ] }}"
+  vars:
+    _arr: "{{ _apigw_packages_registered_plans.split(';')|map('trim')|select()|list }}"
+    _keys: "{{ _arr|map('split', ':')|map('first')|map('trim')|list }}"
+    _vals: "{{ _arr|map('split', ':')|map('last')|map('trim')|list }}"
+  loop: "{{ _keys|zip(_vals)|list }}"
+
+- name: create patch
+  set_fact:
+    _registered_plans_patch: 
+      custom_planIdsByFilter: "{{ _registered_plans }}"
+
+- name: Assign the api patch
+  set_fact:
+    _item: "{{ _item | combine( _registered_plans_patch,recursive=True ) }}"
+
+############ registered_policies
+- name: transform _registered_policies string into array
+  set_fact:
+    _registered_policies: "{{ _registered_policies + [ { 'name': item.0, 'version': item.1 } ] }}"
+  vars:
+    _arr: "{{ _apigw_packages_registered_policies.split(';')|map('trim')|select()|list }}"
+    _keys: "{{ _arr|map('split', ':')|map('first')|map('trim')|list }}"
+    _vals: "{{ _arr|map('split', ':')|map('last')|map('trim')|list }}"
+  loop: "{{ _keys|zip(_vals)|list }}"
+
+- name: create patch
+  set_fact:
+    _registered_policies_patch: 
+      custom_policyIdsByFilter: "{{ _registered_policies }}"
+
+- name: Assign the api patch
+  set_fact:
+    _item: "{{ _item | combine( _registered_policies_patch,recursive=True ) }}"
+
+############ final add to list
+- name: append item to list
+  set_fact:
+    _packages_list: "{{ _packages_list | default([]) + [ _item ] }}"
+  when: _item is defined

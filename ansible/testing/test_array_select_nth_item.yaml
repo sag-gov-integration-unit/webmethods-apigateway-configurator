@@ -1,0 +1,72 @@
+---
+
+- hosts: local
+  become: true
+  become_user: "{{ webmethods_user }}"
+  vars:
+    teststring: "API PortalGateway Config:1.0:DEV"
+    teststring_array: 
+      - "{{ teststring }}"
+      - "somethingelse2  :  1.0  :  DEV3"
+      - "somethingelse3:1.0  :DEV4"
+    _attr_regex: "^([^:]+):([^:]+):([^:]+)$"
+
+  tasks:
+
+    - name: set initial list so it's not undefined
+      set_fact:
+        test1: "{{ teststring | regex_search( _attr_regex, '\\1') }}"
+        test2: "{{ teststring | regex_search( _attr_regex, '\\2') }}"
+        test3: "{{ teststring | regex_search( _attr_regex, '\\3') }}"
+   
+    - ansible.builtin.debug:
+        var: test1
+    - ansible.builtin.debug:
+        var: test2
+    - ansible.builtin.debug:
+        var: test3
+
+    - set_fact:
+        _names: "{{ teststring_array|map('regex_search', _attr_regex, '\\1') | flatten | map('trim') }}"
+        _versions: "{{ teststring_array|map('regex_search', _attr_regex, '\\2') | flatten | map('trim') }}"
+        _stages: "{{ teststring_array|map('regex_search', _attr_regex, '\\3') | flatten | map('trim') }}"
+    
+    - set_fact:
+        _arr: "{{ _names|zip(_versions,_stages)|list }}"
+
+    - ansible.builtin.debug:
+        var: _arr
+
+    - ansible.builtin.debug:
+        var: _names
+    - ansible.builtin.debug:
+        var: _versions
+    - ansible.builtin.debug:
+        var: _stages
+
+- name: set initial items
+  set_fact:
+    _item: "{{ _apigw_apis_publish_template }}"
+    _lookup_communities: []
+    _lookup_apis: []
+
+# ############ _lookup_portalgateways
+# - name: transform lookup_apis string into array
+#   set_fact:
+#     _lookup_portalgateways: "{{ _lookup_portalgateways + [ { 'name': item.0, 'version': item.1, 'stageName': item.2 } ] }}"
+#   vars:
+#     _attr_regex: "^([^:]+):([^:]+):([^:]+)$"
+#     _arr: "{{ _apigw_apis_publish_lookup_portalgateways.split(';')|map('trim')|select()|list }}"
+#     _names: "{{ _arr|map('regex_search', _attr_regex, '\\1') | flatten | map('trim') }}"
+#     _versions: "{{ _arr|map('regex_search', _attr_regex, '\\2') | flatten | map('trim') }}"
+#     _stages: "{{ _arr|map('regex_search', _attr_regex, '\\3') | flatten | map('trim') }}"
+#   loop: "{{ _names|zip(_versions,_stages) }}"
+
+# - name: create patch
+#   set_fact:
+#     _lookup_portalgateways_patch: 
+#       lookup_portalGatewayId: "{{ _lookup_portalgateways }}"
+
+# - name: Assign the patch
+#   set_fact:
+#     _item: "{{ _item | combine( _lookup_portalgateways_patch,recursive=True ) }}"
