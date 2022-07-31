@@ -1,0 +1,8 @@
+install_artifacts/
+.DS_Store
+.swp
+build/
+nohup.out
+*.code-workspace
+
+vault_pass
