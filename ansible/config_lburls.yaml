@@ -41,8 +41,6 @@
 
     - include_role:
         name: apigateway-rest-configurator
-        apply:
-          ignore_errors: "{{ vars_apigw_loadbalancer_ignore_errors }}"
       vars:
         configs_action: set-loadbalancer-urls
         configs_enabled: "{{ vars_apigw_loadbalancer_enabled }}"

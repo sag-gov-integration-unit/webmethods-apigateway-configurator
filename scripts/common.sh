@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # logger levels to be used in code
 LOGGER_TRACE=0
 LOGGER_DEBUG=1
@@ -15,7 +17,7 @@ function logger() {
     local level=$1;
     local message=$2;
     if [[ $level -ge $SCRIPTS_LOGGER_LEVEL ]]; then
-        echo "[ $level ] - MSG: ${message}"
+        echo "[ $level ] - ${message}"
     fi
 }
 
@@ -27,26 +29,28 @@ logger_with_headers() {
 }
 
 exec_ansible_playbook() {
-    local playbook=$1
-    local args=""
+    playbook="$1"
+    args="$2"
     logger_with_headers $LOGGER_INFO "Running $playbook ..."
-    
-    if [ "${apigw_configurator_debug}" == "true" ]; then
-        args="${args} -vvv"
-    fi
     
     if [ "x${apigw_configurator_ansible_args}" != "x" ]; then
         args="${args} ${apigw_configurator_ansible_args}"
     fi
     
     ansible-playbook $args $playbook
+    exit_on_error "$?" "ansible-playbook $args $playbook"
+}
+
+exit_trap () {
+  local lc="$BASH_COMMAND" rc=$?
+  echo "Command [$lc] exited with code [$rc]"
 }
 
 exit_on_error() {
     exit_code=$1
     last_command=${@:2}
     if [ $exit_code -ne 0 ]; then
-        >&2 echo "\"${last_command}\" command failed with exit code ${exit_code}. Exiting program!!"
+        logger_with_headers $LOGGER_ERROR "\"${last_command}\" command failed with exit code ${exit_code}. Exiting program!!"
         exit $exit_code
     fi
 }

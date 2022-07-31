@@ -57,8 +57,6 @@
     - name: activate/deactivate applications
       include_role:
         name: apigateway-rest-configurator
-        apply:
-          ignore_errors: "{{ vars_apigw_applications_status_update_ignore_errors }}"
       vars:
         configs_action: set-applications
         configs_enabled: "{{ vars_apigw_applications_status_update_enabled }}"

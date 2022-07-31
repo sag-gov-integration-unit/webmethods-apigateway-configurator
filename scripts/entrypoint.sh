@@ -1,12 +1,6 @@
 #!/bin/bash
 
-exit_trap () {
-  local lc="$BASH_COMMAND" rc=$?
-  echo "Command [$lc] exited with code [$rc]"
-}
-
-trap exit_trap EXIT
-set -e
+# set -e
 
 ## common
 if [ -f ./common.sh ]; then
@@ -121,7 +115,6 @@ fi
 if [ "${apigw_data_apis_publish}" == "true" ]; then
     exec_ansible_playbook publish_apis.yaml
 fi
-
 
 logger_with_headers $LOGGER_INFO "APIGateway Configurator Done !!"
 exit 0

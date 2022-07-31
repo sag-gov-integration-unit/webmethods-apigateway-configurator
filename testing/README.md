@@ -13,46 +13,56 @@ docker-compose up -d apigateway devportal elasticsearch config_apigw_changepassw
 
 ## system configs
 
-### configure core settings (watt, extended)
+#### system configs all-in-one
+
+docker-compose up config_allinone_system_settings
+
+#### configure core settings (watt, extended)
 
 docker-compose up config_coresettings
 
-### configure load balancer urls
+#### configure load balancer urls
 
 docker-compose up config_loadbalancerurls
 
-### configure portal connectivity
+#### configure portal connectivity
 
 docker-compose up config_portalgateway
 
-### configure keystores / truststores
+#### configure keystores / truststores
 
 docker-compose up config_keystore config_truststore
 
-### configure in/out connections
+#### configure in/out connections
 
 docker-compose up config_ssl_inbound_outbound_connections
 
-### configure saml
+#### configure saml
 
 docker-compose up config_saml
 
 
 ## data items
 
-### import archives
+### data items - all-in-one
+
+docker-compose up config_allinone_data
+
+### data items - one by one
+
+#### import archives
 
 docker-compose up config_import_archives
 
-### configure aliases
+#### configure aliases
 
 docker-compose up config_aliases
 
-### configure plans
+#### configure plans
 
 docker-compose up config_plans
 
-### configure packages
+#### configure packages
 
 docker-compose up config_packages
 

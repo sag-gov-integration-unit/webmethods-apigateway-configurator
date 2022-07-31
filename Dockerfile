@@ -32,7 +32,7 @@ RUN groupadd -g ${SAG_GROUPID} ${SAG_GROUP} && \
 
 FROM base as base_ansible
 
-ARG ANSIBLE_RELEASE=v2.11.1
+ARG ANSIBLE_RELEASE=v2.12.7
 
 ## common vars
 ENV ANSIBLE_PATH="/ansible"

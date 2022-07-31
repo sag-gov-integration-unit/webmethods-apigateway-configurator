@@ -55,8 +55,6 @@
 
     - include_role:
         name: apigateway-rest-configurator
-        apply:
-          ignore_errors: "{{ vars_apigw_aliases_ignore_errors }}"
       vars:
         configs_action: set-aliases
         configs_enabled: "{{ vars_apigw_aliases_enabled }}"

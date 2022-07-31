@@ -54,8 +54,6 @@
 
     - include_role:
         name: apigateway-rest-configurator
-        apply:
-          ignore_errors: "{{ vars_apigw_extended_settings_ignore_errors }}"
       vars:
         configs_action: set-extended-settings
         configs_enabled: "{{ vars_apigw_extended_settings_enabled }}"

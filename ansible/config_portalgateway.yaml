@@ -41,7 +41,7 @@
     - include_role:
         name: apigateway-rest-configurator
         apply:
-          ignore_errors: "{{ vars_apigw_portalgateway_ignore_errors }}"
+          ignore_errors: Yes
       vars:
         configs_action: set-apiportal-connect
         configs_enabled: "{{ vars_apigw_portalgateway_enabled }}"
@@ -53,7 +53,7 @@
     - include_role:
         name: apigateway-rest-configurator
         apply:
-          ignore_errors: "{{ vars_apigw_portalgateway_ignore_errors }}"
+          ignore_errors: Yes
       vars:
         configs_action: set-apiportal-connect
         configs_enabled: "{{ vars_apigw_portalgateway_enabled }}"
