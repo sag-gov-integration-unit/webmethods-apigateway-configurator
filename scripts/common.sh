@@ -16,9 +16,33 @@ fi
 function logger() {
     local level=$1;
     local message=$2;
+    local level_readable=$(logger_level_readable $level)
     if [[ $level -ge $SCRIPTS_LOGGER_LEVEL ]]; then
-        echo "[ $level ] - ${message}"
+        echo "[ $level_readable ] - ${message}"
     fi
+}
+
+function logger_level_readable() {
+    case "$1" in
+        0)
+            echo "TRACE"
+            ;;
+        1)
+            echo "DEBUG"
+            ;;
+        2)
+            echo "INFO"
+            ;;
+        3)
+            echo "WARN"
+            ;;
+        4)
+            echo "ERROR"
+            ;;
+        *)
+            echo "UNKNOWN"
+            ;;
+        esac
 }
 
 logger_with_headers() {
