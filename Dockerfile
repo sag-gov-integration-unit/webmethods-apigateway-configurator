@@ -40,6 +40,7 @@ ENV ANSIBLE_PLAYBOOKS_BASEPATH="${ANSIBLE_PATH}/playbooks"
 ENV ANSIBLE_ROLES_BASEPATH="${ANSIBLE_PATH}/roles"
 ENV ANSIBLE_VENV="${ANSIBLE_PATH}/venv"
 ENV ANSIBLE_VERBOSITY="0"
+ENV ANSIBLE_DEBUG="false" 
 ENV ANSIBLE_ROLES_PATH="~/.ansible/roles:/usr/share/ansible/roles:/etc/ansible/roles"
 
 ## ansible-specific config env vars
