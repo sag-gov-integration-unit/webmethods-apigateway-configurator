@@ -13,7 +13,7 @@
       with_fileglob:
         - vars/common.yaml
         - vars/rest_connect.yaml
-        - vars/data_promotion_stages.yaml
+        - vars/settings_promotion_stages.yaml
 
 ################################################################
 ## set configs via REST APIs
