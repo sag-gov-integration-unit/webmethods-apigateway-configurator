@@ -33,9 +33,30 @@
 
   tasks:
 
+    - name: get the count of items from the env vars
+      set_fact:
+        _index_items: "{{ ansible_env.keys() | map('regex_search','^' + _apigw_truststores_indices_finder_prefix + '(.+)' + _apigw_truststores_indices_finder_suffix + '$', '\\1') | flatten | select('string') | unique | sort }}"
+    
+    - ansible.builtin.debug:
+        var: _index_items
+    
+    - name: set initial list so it's not undefined
+      set_fact:
+         _truststores_list: []
+
+    - name: append each item template to list
+      set_fact:
+        _truststores_list: "{{ _truststores_list + [ _apigw_truststores_template ] }}"
+      loop: "{{ _index_items }}"
+      loop_control:
+        loop_var: index_item
+
+    - ansible.builtin.debug:
+        var: _truststores_list
+
     - include_role:
         name:  apigateway-rest-configurator
       vars:
-        configs_action: upload-truststore
-        configs_enabled: "{{ vars_apigw_truststore_enabled }}"
-        rvar_apigateway_truststore: "{{ vars_apigw_rest_ssl_truststore }}"
+        configs_action: upload-truststores
+        configs_enabled: "{{ vars_apigw_truststores_enabled }}"
+        rvar_apigateway_truststore_list: "{{ _truststores_list }}"

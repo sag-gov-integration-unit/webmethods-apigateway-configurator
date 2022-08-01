@@ -82,7 +82,7 @@ services:
     networks:
       - stack
 
-  config_keystore:
+  config_keystores:
     image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
     volumes:
       - ../resources/ansible/sagdevops-ansible-common:/ansible/roles/sagdevops-ansible-common-1.0.0-3:ro
@@ -93,18 +93,27 @@ services:
       apigw_connect_port: "5555"
       apigw_connect_user: Administrator
       apigw_connect_password: "somethingnew"
-      apigw_settings_keystore_configure: "true"
-      apigw_settings_keystore_configure_ignore_errors: "false"
-      apigw_settings_keystore_filepath: /certs/apigateway-p12.jks
-      apigw_settings_keystore_name: "Custom_SSL_Keystore"
-      apigw_settings_keystore_description: "My custom keystore for SSL"
-      apigw_settings_keystore_password: "manage"
-      apigw_settings_keystore_keyalias: "certificate"
-      apigw_settings_keystore_keyalias_password: "manage"
+      apigw_settings_keystores_configure: "true"
+      apigw_settings_keystores_0_filepath: /certs/apigateway-p12.jks
+      apigw_settings_keystores_0_name: "Custom_SSL_Keystore"
+      apigw_settings_keystores_0_type: "JKS"
+      apigw_settings_keystores_0_provider: "SUN"
+      apigw_settings_keystores_0_description: "My custom keystore for SSL"
+      apigw_settings_keystores_0_password: "manage"
+      apigw_settings_keystores_0_aliases: "certificate"
+      apigw_settings_keystores_0_aliasesPasswords: "manage"
+      apigw_settings_keystores_1_filepath: /certs/saml-p12.jks
+      apigw_settings_keystores_1_name: "SAMLSelfSignedKeystore"
+      apigw_settings_keystores_1_type: "JKS"
+      apigw_settings_keystores_1_provider: "SUN"
+      apigw_settings_keystores_1_description: "My custom keystore for SAML"
+      apigw_settings_keystores_1_password: "manage"
+      apigw_settings_keystores_1_aliases: "certificate"
+      apigw_settings_keystores_1_aliasesPasswords: "manage"
     networks:
       - stack
-  
-  config_truststore:
+
+  config_truststores:
     image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
     volumes:
       - ../resources/ansible/sagdevops-ansible-common:/ansible/roles/sagdevops-ansible-common-1.0.0-3:ro
@@ -115,11 +124,13 @@ services:
       apigw_connect_port: "5555"
       apigw_connect_user: Administrator
       apigw_connect_password: "somethingnew"
-      apigw_settings_truststore_configure: "true"
-      apigw_settings_truststore_filepath: /certs/apigateway-truststore.jks
-      apigw_settings_truststore_name: "Custom_SSL_Truststore"
-      apigw_settings_truststore_description: "My custom truststore"
-      apigw_settings_truststore_password: "manage"
+      apigw_settings_truststores_configure: "true"
+      apigw_settings_truststores_0_filepath: /certs/apigateway-truststore.jks
+      apigw_settings_truststores_0_name: "Custom_SSL_Truststore"
+      apigw_settings_truststores_0_type: "JKS"
+      apigw_settings_truststores_0_provider: "SUN"
+      apigw_settings_truststores_0_description: "My custom truststore"
+      apigw_settings_truststores_0_password: "manage"
     networks:
       - stack
 

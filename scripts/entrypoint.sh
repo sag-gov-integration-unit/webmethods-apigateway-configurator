@@ -29,12 +29,13 @@ if [ "${apigw_settings_lburls_configure}" == "true" ]; then
     exec_ansible_playbook config_lburls.yaml
 fi
 
-## config_keystores / truststores
-if [ "${apigw_settings_keystore_configure}" == "true" ]; then
+## config_keystores
+if [ "${apigw_settings_keystores_configure}" == "true" ]; then
     exec_ansible_playbook config_keystores.yaml
 fi
 
-if [ "${apigw_settings_truststore_configure}" == "true" ]; then
+## config_truststores
+if [ "${apigw_settings_truststores_configure}" == "true" ]; then
     exec_ansible_playbook config_truststores.yaml
 fi
 
