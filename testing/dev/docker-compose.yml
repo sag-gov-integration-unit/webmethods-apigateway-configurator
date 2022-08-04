@@ -154,45 +154,31 @@ services:
     networks:
       - stack
 
-## TODO: do as part of the port configs
-
-  # config_default_ssl_port:
-  #   image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
-  #   volumes:
-  #     - ../resources/ansible/sagdevops-ansible-common:/ansible/roles/sagdevops-ansible-common-1.0.0-3:ro
-  #     - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.0-4:ro 
-  #   environment: 
-  #     apigw_configurator_debug: "true"
-  #     apigw_connect_host: apigateway
-  #     apigw_connect_port: "5555"
-  #     apigw_connect_user: Administrator
-  #     apigw_connect_password: "somethingnew"
-  #     apigw_settings_ssl_runtimeport_configure: "true"
-  #     apigw_settings_ssl_runtimeport_port: "5543"
-  #     apigw_settings_ssl_runtimeport_keystore_name: "Custom_SSL_Keystore"
-  #     apigw_settings_ssl_runtimeport_keystore_keyalias: "certificate"
-  #     apigw_settings_ssl_runtimeport_truststore_name: "Custom_SSL_Truststore"
-  #   networks:
-  #     - stack
-  
-  # config_new_ssl_port:
-  #   image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
-  #   volumes:
-  #     - ../resources/ansible/sagdevops-ansible-common:/ansible/roles/sagdevops-ansible-common-1.0.0-3:ro
-  #     - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.0-4:ro 
-  #   environment: 
-  #     apigw_configurator_debug: "true"
-  #     apigw_connect_host: apigateway
-  #     apigw_connect_port: "5555"
-  #     apigw_connect_user: Administrator
-  #     apigw_connect_password: "somethingnew"
-  #     apigw_settings_ssl_runtimeport_configure: "true"
-  #     apigw_settings_ssl_runtimeport_port: "6643"
-  #     apigw_settings_ssl_runtimeport_keystore_name: "Custom_SSL_Keystore"
-  #     apigw_settings_ssl_runtimeport_keystore_keyalias: "certificate"
-  #     apigw_settings_ssl_runtimeport_truststore_name: "Custom_SSL_Truststore"
-  #   networks:
-  #     - stack
+  config_ports:
+    image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
+    volumes:
+      - ../resources/ansible/sagdevops-ansible-common:/ansible/roles/sagdevops-ansible-common-1.0.0-3:ro
+      - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.0-4:ro 
+    environment: 
+      apigw_configurator_debug: "true"
+      apigw_connect_host: apigateway
+      apigw_connect_port: "5555"
+      apigw_connect_user: Administrator
+      apigw_connect_password: "somethingnew"
+      apigw_settings_ports_configure: "true"
+      apigw_settings_ports_0_name: "Some_name"
+      apigw_settings_ports_0_type: "regular_http"
+      apigw_settings_ports_0_port: "5566"
+      apigw_settings_ports_0_description: "Some port description"
+      apigw_settings_ports_0_enabled: "true"
+      apigw_settings_ports_0_threadPool: "true"
+      apigw_settings_ports_0_threadPool_minthread: "100"
+      apigw_settings_ports_0_threadPool_maxthread: "4000"
+      apigw_settings_ports_0_threadpool_threadpriority: "5"
+      apigw_settings_ports_0_maxqueue: "10000"
+      apigw_settings_ports_0_keepalivetimeout: "25000"
+    networks:
+      - stack
 
   config_promotion_stages:
     image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
