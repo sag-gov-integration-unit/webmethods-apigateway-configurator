@@ -7,25 +7,44 @@ _apigw_ports_indices_finder_prefix: "apigw_settings_ports_"
 _apigw_ports_indices_finder_suffix: "_name"
 _apigw_ports_item_type: "{{ lookup('env', 'apigw_settings_ports_%s_type' | format(index_item)) | default('') }}"
 
+
+## the combined items for use
+_apigw_ports_template_http_item:  "{{ _apigw_ports_template_common | combine( _apigw_ports_template_http,recursive=True ) }}"
+_apigw_ports_template_https_item:  "{{ _apigw_ports_template_http_item | combine( _apigw_ports_template_https,recursive=True )  }}"
+_apigw_ports_template_websocket_item: "{{ _apigw_ports_template_common | combine( _apigw_ports_template_websocket,recursive=True )  }}"
+
+
 ## port types values: regular_http, regular_https, external_http, external_https, internal_http, internal_https, websocket
 ## is this needed: "provider": "webMethods"?
-
-## apigateway HTTP port
-## client_auth values: none, digest, requestKrb, requireKrb
-_apigw_ports_template_http:
-  port_type: regular_http
+_apigw_ports_template_common:
   port_enabled: "{{ lookup('env', 'apigw_settings_ports_%s_enabled' | format(index_item)) | default('',true) }}"
   port_detail:
     port: "{{ lookup('env', 'apigw_settings_ports_%s_port' | format(index_item)) | default('',true) }}"
+    bindAddress: "{{ lookup('env', 'apigw_settings_ports_%s_bindAddress' | format(index_item)) | default('',true) }}"
     portAlias: "{{ lookup('env', 'apigw_settings_ports_%s_name' | format(index_item)) | default('',true) }}"
     portDescription: "{{ lookup('env', 'apigw_settings_ports_%s_description' | format(index_item)) | default('',true) }}"
+    maxQueue: "{{ lookup('env', 'apigw_settings_ports_%s_maxqueue' | format(index_item)) | default('',true) }}"
+  access_mode:
+    accessMode: "{{ lookup('env', 'apigw_settings_ports_%s_access_mode' | format(index_item)) | default('allow',true) }}"
+    pkg: "{{ lookup('env', 'apigw_settings_ports_%s_access_mode_package' | format(index_item)) | default('WmRoot',true) }}"
+    services: "{{ (lookup('env', 'apigw_settings_ports_%s_access_mode_services' | format(index_item)) | default('',true)).split(';')|map('trim')|select()|list }}"
+  ip_access_mode:
+    ipAccessType: "{{ lookup('env', 'apigw_settings_ports_%s_ip_access_mode' | format(index_item)) | default('global',true) }}"
+    pkg: "{{ lookup('env', 'apigw_settings_ports_%s_ip_access_mode_package' | format(index_item)) | default('WmRoot',true) }}"
+    hostsList: "{{ (lookup('env', 'apigw_settings_ports_%s_ip_access_mode_hosts' | format(index_item)) | default('',true)).split(';')|map('trim')|select()|list }}"
+
+## apigateway HTTP port
+## this is the extra attributes on top of the common template
+## client_auth values: none, digest, requestKrb, requireKrb
+_apigw_ports_template_http:
+  port_type: regular_http
+  port_detail:
     threadPool: "{{ lookup('env', 'apigw_settings_ports_%s_threadPool' | format(index_item)) | default('',true) }}"
     minThread: "{{ lookup('env', 'apigw_settings_ports_%s_threadPool_minthread' | format(index_item)) | default('',true) }}"
     maxThread: "{{ lookup('env', 'apigw_settings_ports_%s_threadPool_maxthread' | format(index_item)) | default('',true) }}"
     threadPriority: "{{ lookup('env', 'apigw_settings_ports_%s_threadpool_threadpriority' | format(index_item)) | default('',true) }}"
-    maxQueue: "{{ lookup('env', 'apigw_settings_ports_%s_maxqueue' | format(index_item)) | default('',true) }}"
+    clientAuth: "{{ lookup('env', 'apigw_settings_ports_%s_clientauth' | format(index_item)) | default('none',true) }}"
     keepAliveTimeout: "{{ lookup('env', 'apigw_settings_ports_%s_keepalivetimeout' | format(index_item)) | default('',true) }}"
-    clientAuth: "{{ lookup('env', 'apigw_settings_ports_%s_clientauth' | format(index_item)) | default('',true) }}"
 
 ## apigateway HTTPS port
 ## this is the extra attributes on top of the regular HTTP port
@@ -38,19 +57,9 @@ _apigw_ports_template_https:
     trustStore: "{{ lookup('env', 'apigw_settings_ports_%s_truststore_name' | format(index_item)) | default('',true) }}"
 
 ## apigateway WebSocket port
+## this is the extra attributes on top of the common template
 ## client_auth values: just "basic" ?
 _apigw_ports_template_websocket:
   port_type: websocket
   port_detail:
     idleTimeout: "{{ lookup('env', 'apigw_settings_ports_%s_idletimeout' | format(index_item)) | default('',true) }}"
-
-## this gets added to any port
-_apigw_ports_template_access_modes:
-    access_mode:
-      accessMode: "{{ lookup('env', 'apigw_settings_ports_%s_access_mode' | format(index_item)) | default('',true) }}"
-      pkg: "{{ lookup('env', 'apigw_settings_ports_%s_access_mode_package' | format(index_item)) | default('WmRoot',true) }}"
-      services: []
-    ip_access_mode:
-      ipAccessType: "{{ lookup('env', 'apigw_settings_ports_%s_ip_access_mode' | format(index_item)) | default('',true) }}"
-      pkg: "{{ lookup('env', 'apigw_settings_ports_%s_ip_access_mode_package' | format(index_item)) | default('WmRoot',true) }}"
-      hostsList: []
