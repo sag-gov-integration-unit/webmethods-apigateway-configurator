@@ -1,0 +1,78 @@
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  {{- with .Values.annotations }}
+  annotations:
+  {{- toYaml . | nindent 4 }}
+  {{- end }}
+  name: {{ template "webmethods-apigateway-configurator.fullname" . }}
+  labels:
+  {{- include "webmethods-apigateway-configurator.labels" . | nindent 4 }}
+spec:
+  backoffLimit: {{ .Values.backoffLimit }}
+  template:
+    metadata:
+      {{- with .Values.podAnnotations }}
+      annotations:
+        {{- . | nindent 8 }}
+      {{- end }}
+      labels:
+      {{- include "webmethods-apigateway-configurator.selectorLabels" . | nindent 8 }}
+      {{- with .Values.podLabels }}
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      restartPolicy: Never
+      serviceAccountName: {{ include "webmethods-apigateway-configurator.serviceAccountName" . }}
+      {{- with .Values.podSecurityContext }}
+      securityContext:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      containers:
+        - name: webmethods-apigateway-configurator
+          {{- if .image.registry }}
+          image: {{ printf "%s/%s:%s" .image.registry .image.repository (.image.tag | default $.Chart.AppVersion) }}
+          {{- else }}
+          image: {{ printf "%s:%s" .image.repository (.image.tag | default $.Chart.AppVersion) }}
+          {{- end }}
+          imagePullPolicy: {{ .image.pullPolicy }}
+          {{- with .Values.securityContext }}
+          securityContext:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          {{- with .Values.resources }}
+          resources:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          env:
+            {{- range $name, $value := .Values.env }}
+            - name: {{ $name | quote }}
+              value: {{ tpl $value $ | quote }}
+            {{- end }}
+            {{- range $name, $value := .Values.envSecrets }}
+            - name: {{ $name | quote }}
+              valueFrom:
+                secretKeyRef:
+                  name: "{{ template "webmethods-apigateway-configurator.fullname" $ }}"
+                  key: {{ $name | quote }}
+            {{- end }}
+            {{- range $name, $value := .Values.envExistingSecrets }}
+            - name: {{ $name | quote }}
+              valueFrom:
+                secretKeyRef:
+                  name: {{ $value.secretKeyRef | quote }}
+                  key: {{ $value.key | quote }}
+            {{- end }}
+          {{- with .Values.volumeMounts }}
+          volumeMounts:
+            {{- tpl . $ | nindent 12 }}
+          {{- end }}
+      {{- with .Values.volumes }}
+      volumes:
+        {{- tpl . $ | nindent 8 }}
+      {{- end }}
