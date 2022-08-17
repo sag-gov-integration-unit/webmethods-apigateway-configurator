@@ -1,0 +1,33 @@
+---
+
+- name: get the current port type
+  set_fact:
+    _item_type: "{{ _apigw_ports_item_type | lower }}"
+    _item: {}
+
+- name: fail if _item_type is not specified
+  fail: 
+    msg: "_item_type not defined, cannot do anything."
+  when: _item_type is not defined or _item_type == ""
+
+# regular_http, regular_https, external_http, external_https, internal_http, internal_https, websocket
+
+- name: select the right item template based on type
+  set_fact:
+    _item: "{{ _apigw_ports_template_http_item }}"
+  when: _item_type == 'regular_http'
+
+- name: select the right item template based on type
+  set_fact:
+    _item: "{{ _apigw_ports_template_https_item }}"
+  when: _item_type == 'regular_https'
+
+- name: select the right item template based on type
+  set_fact:
+    _item: "{{ _apigw_ports_template_websocket_item }}"
+  when: _item_type == 'websocket'
+
+- name: append each alias item to list
+  set_fact:
+    _ports_list: "{{ _ports_list | default([]) + [ _item ] }}"
+  when: _item is defined

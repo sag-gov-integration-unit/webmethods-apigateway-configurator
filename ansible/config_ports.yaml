@@ -33,9 +33,29 @@
 
   tasks:
 
+    - name: get the count of items from the env vars
+      set_fact:
+        _index_items: "{{ ansible_env.keys() | map('regex_search','^' + _apigw_ports_indices_finder_prefix + '([^_]+)' + _apigw_ports_indices_finder_suffix + '$', '\\1') | flatten | select('string') | unique | sort }}"
+    
+    - ansible.builtin.debug:
+        var: _index_items
+
+    - name: set initial list so it's not undefined
+      set_fact:
+         _ports_list: []
+
+    - name: append each item to list
+      include_tasks: "config_ports_append_each.yaml"
+      loop: "{{ _index_items }}"
+      loop_control:
+        loop_var: index_item
+
+    - ansible.builtin.debug:
+        var: _ports_list
+
     - include_role:
         name:  apigateway-rest-configurator
       vars:
         configs_action: set-ports
         configs_enabled: "{{ vars_apigw_ports_enabled }}"
-        rvar_apigateway_ports_list: "{{ vars_apigw_ports_list }}"
+        rvar_apigateway_ports_list: "{{ _ports_list }}"
