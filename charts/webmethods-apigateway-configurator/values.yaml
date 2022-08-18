@@ -18,6 +18,9 @@ image:
 imagePullSecrets: []
 # - myRegistryKeySecretName
 
+# possible list of init containers
+initContainers: []
+
 # Count of re(!)tries. A value of 2 means 3 tries in total.
 backoffLimit: 1
 
