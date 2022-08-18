@@ -65,8 +65,8 @@ spec:
             - name: {{ $name | quote }}
               valueFrom:
                 secretKeyRef:
-                  name: {{ $value.secretKeyRef | quote }}
-                  key: {{ $value.key | quote }}
+                  name: {{ $value.secretName | quote }}
+                  key: {{ $value.secretKey | quote }}
             {{- end }}
           {{- with .Values.volumeMounts }}
           volumeMounts:

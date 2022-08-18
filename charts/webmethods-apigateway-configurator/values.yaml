@@ -42,11 +42,11 @@ envSecrets: {}
 ## env variable which value comes from an existing secret
 envExistingSecrets: {}
   # myenv5:
-  #   secretKeyRef: secret5
-  #   key: secretkey
+  #   secretName: secret5
+  #   secretKey: secretkey
   # myenv6:
-  #   secretKeyRef: secret6
-  #   key: secretkey
+  #   secretName: secret6
+  #   secretKey: secretkey
 
 serviceAccount:
   # Specifies whether a service account should be created
