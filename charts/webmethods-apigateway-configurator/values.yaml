@@ -1,0 +1,97 @@
+---
+
+enabled: true
+
+fullnameOverride: ""
+nameOverride: ""
+
+image:
+  registry: ghcr.io/softwareag-government-solutions
+  repository: webmethods-apigateway
+  tag: 10.11-latest
+  pullPolicy: IfNotPresent
+
+## Optionally specify an array of imagePullSecrets.
+## Secrets must be manually created in the namespace.
+## ref: https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/
+##
+imagePullSecrets: []
+# - myRegistryKeySecretName
+
+# possible list of init containers
+initContainers: []
+
+# Count of re(!)tries. A value of 2 means 3 tries in total.
+backoffLimit: 1
+
+# annotations of the Job. Define helm post hook here
+annotations:
+  "helm.sh/hook": "post-install,post-upgrade,post-rollback"
+  "helm.sh/hook-delete-policy": "hook-succeeded,before-hook-creation"
+  "helm.sh/hook-weight": "5"
+
+labels: {}
+
+## env variable (non secret)
+env: {}
+  # myenv1: value1
+  # myenv2: value2
+
+## env variable (non secret)
+envSecrets: {}
+  # myenv3: myseretvalue3
+  # myenv4: myseretvalue4
+
+## env variable which value comes from an existing secret
+envExistingSecrets: {}
+  # myenv5:
+  #   secretName: secret5
+  #   secretKey: secretkey
+  # myenv6:
+  #   secretName: secret6
+  #   secretKey: secretkey
+
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: true
+  # Annotations to add to the service account
+  annotations: {}
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: ""
+
+podSecurityContext: {}
+  # fsGroup: 2000
+
+securityContext: {}
+  # capabilities:
+  #   drop:
+  #   - ALL
+  # readOnlyRootFilesystem: true
+  # runAsNonRoot: true
+  # runAsUser: 1000
+
+resources: {}
+  # We usually recommend not to specify default resources and to leave this as a conscious
+  # choice for the user. This also increases chances charts run on environments with little
+  # resources, such as Minikube. If you do want to specify resources, uncomment the following
+  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
+
+## Additional pod labels
+## ref: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/
+podLabels: {}
+
+## Extra Annotations to be added to pod
+podAnnotations: {}
+
+# Add volumes, e.g. for custom secrets
+volumes: ""
+
+# Add volumes mounts, e. g. for custom secrets
+volumeMounts: ""
