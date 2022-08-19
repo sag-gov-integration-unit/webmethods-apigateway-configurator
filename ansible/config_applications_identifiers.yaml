@@ -1,0 +1,31 @@
+---
+
+- name: regex pattern to identifier the identifier count
+  set_fact:
+    _application_identifiers_index_regex_pattern: "{{ '^%s([^_]+)%s$' | format( _apigw_applications_identifiers_indices_finder_prefix, _apigw_applications_identifiers_indices_finder_suffix) }}"
+
+- ansible.builtin.debug:
+    var: _application_identifiers_index_regex_pattern
+
+- name: get the count of identifier items from the env vars
+  set_fact:
+    _application_identifiers_index_items: "{{ ansible_env.keys() | map('regex_search',_regex_pattern, '\\1') | flatten | select('string') | unique | sort }}"
+  vars:
+    _regex_pattern: "{{ _application_identifiers_index_regex_pattern }}"
+
+- ansible.builtin.debug:
+    var: _application_identifiers_index_items
+
+- name: set initial list so it's not undefined and it's back to empty on each iteration
+  set_fact:
+    _application_identifiers_list: []
+
+- name: append each item template to list
+  set_fact:
+    _application_identifiers_list: "{{ _application_identifiers_list + [ _apigw_applications_identifiers_template ] }}"
+  loop: "{{ _application_identifiers_index_items }}"
+  loop_control:
+    loop_var: identifiers_index_item
+
+- ansible.builtin.debug:
+    var: _application_identifiers_list

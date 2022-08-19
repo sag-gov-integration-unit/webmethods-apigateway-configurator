@@ -546,7 +546,8 @@ services:
     volumes:
       - ../resources/ansible/sagdevops-ansible-common:/ansible/roles/sagdevops-ansible-common-1.0.0-4:ro
       - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.1-2:ro 
-    environment: 
+    environment:
+      apigw_configurator_ansible_args: "-vv"
       apigw_connect_host: apigateway
       apigw_connect_port: "5555"
       apigw_connect_user: Administrator
@@ -557,12 +558,24 @@ services:
       apigw_data_applications_0_description: app1 description
       apigw_data_applications_0_isSuspended: "false"
       apigw_data_applications_0_restrictViewAsset: "false"
+      apigw_data_applications_0_identifiers_0_key: "httpBasicAuth"
+      apigw_data_applications_0_identifiers_0_name: "Username"
+      apigw_data_applications_0_identifiers_0_values: "user1;user2;user3"
+      apigw_data_applications_0_identifiers_1_key: "token"
+      apigw_data_applications_0_identifiers_1_name: "Token"
+      apigw_data_applications_0_identifiers_1_values: "val1;val2;val3"
+      apigw_data_applications_0_identifiers_2_key: "accessProfile"
+      apigw_data_applications_0_identifiers_2_name: "Team"
+      apigw_data_applications_0_identifiers_2_values: "custom-admin-role;custom-apiproviders-role;custom-apiusers-role"
       apigw_data_applications_0_lookup_apis: "bookstore:1.0 ; uszip:1.0"
       apigw_data_applications_1_name: app2
       apigw_data_applications_1_version: "0.2"
       apigw_data_applications_1_description: app2 description
       apigw_data_applications_1_isSuspended: "false"
       apigw_data_applications_1_restrictViewAsset: "false"
+      apigw_data_applications_1_identifiers_0_key: "accessProfile"
+      apigw_data_applications_1_identifiers_0_name: "Team"
+      apigw_data_applications_1_identifiers_0_values: "custom-admin-role;custom-apiproviders-role;custom-apiusers-role"
       apigw_data_applications_1_lookup_apis: "bookstore:1.0"
       apigw_data_applications_2_name: app3
       apigw_data_applications_2_version: "0.3"
@@ -781,18 +794,27 @@ services:
       apigw_data_applications_0_description: app1 description
       apigw_data_applications_0_isSuspended: "false"
       apigw_data_applications_0_restrictViewAsset: "false"
+      apigw_data_applications_0_identifiers_0_key: "httpBasicAuth"
+      apigw_data_applications_0_identifiers_0_name: "Username"
+      apigw_data_applications_0_identifiers_0_values: "user1;user2;user3"
       apigw_data_applications_0_lookup_apis: "bookstore:1.0 ; uszip:1.0"
       apigw_data_applications_1_name: app2
       apigw_data_applications_1_version: "0.2"
       apigw_data_applications_1_description: app2 description
       apigw_data_applications_1_isSuspended: "false"
-      apigw_data_applications_1_restrictViewAsset: "false"
+      apigw_data_applications_1_restrictViewAsset: "false"      
+      apigw_data_applications_1_identifiers_0_key: "httpBasicAuth"
+      apigw_data_applications_1_identifiers_0_name: "Username"
+      apigw_data_applications_1_identifiers_0_values: "user1;user2;user3"
       apigw_data_applications_1_lookup_apis: "bookstore:1.0"
       apigw_data_applications_2_name: app3
       apigw_data_applications_2_version: "0.3"
       apigw_data_applications_2_description: app3 description
       apigw_data_applications_2_isSuspended: "false"
       apigw_data_applications_2_restrictViewAsset: "false"
+      apigw_data_applications_2_identifiers_0_key: "httpBasicAuth"
+      apigw_data_applications_2_identifiers_0_name: "Username"
+      apigw_data_applications_2_identifiers_0_values: "user1;user2;user3"
       apigw_data_applications_2_lookup_apis: ""
       apigw_data_apis_publish: "true"
       apigw_data_apis_0_portalgateway_name: API PortalGateway Config

@@ -8,6 +8,8 @@ vars_apigw_applications_status_update_ignore_errors: "{{ lookup('env', 'apigw_da
 
 _apigw_applications_indices_finder_prefix: "apigw_data_applications_"
 _apigw_applications_indices_finder_suffix: "_name"
+_apigw_applications_indices_finder_regex_pattern: "{{ '^%s([^_]+)%s$' | format( _apigw_applications_indices_finder_prefix, _apigw_applications_indices_finder_suffix) }}"
+
 _apigw_applications_template:
   name: "{{ lookup('env', 'apigw_data_applications_%s_name' | format(index_item)) | default('',true) }}"
   version: "{{ lookup('env', 'apigw_data_applications_%s_version' | format(index_item)) | default('',true) }}"
@@ -15,9 +17,11 @@ _apigw_applications_template:
   isSuspended: "{{ lookup('env', 'apigw_data_applications_%s_isSuspended' | format(index_item)) | default('',true) }}"
   restrictViewAsset: "{{ lookup('env', 'apigw_data_applications_%s_restrictViewAsset' | format(index_item)) | default('',true) }}"
 
-# lookups will be added dynamically to the object
-# lookups input format is [ name1:version1;name2:version2;name3:version3 ]
-# lookups output format is:
+## lookups will be added dynamically to the object
+
+# lookup apis
+# input format is [ name1:version1;name2:version2;name3:version3 ]
+# output format is:
       # - name: "name1"
       #   version: "version1"
       # - name: "name2"
@@ -28,39 +32,32 @@ _apigw_applications_template:
 ## map to field custom_registerAPIsByFilter
 _apigw_applications_registered_apis: "{{ lookup('env', 'apigw_data_applications_%s_lookup_apis' | format(index_item)) | default('',true) }}"
 
-## lots of other lookups should be added
-    # contactEmails: []
-    # siteURLs: []
-    # identifiers:
-    #   - value:
-    #       - "{{ vars_webmethods_apigateway_usermgt_users_loadrunner_username }}"
-    #     name: Username
-    #     key: httpBasicAuth
-    # consumingAPIs: []
-    # isSuspended: false
-    # jsOrigins: []
-    # authStrategyIds: []
-    # restrictViewAsset: false
-    # teams: []
-
-# think how to creatre the identifiers
-    # identifiers:
-    #   - value:
-    #       - "{{ vars_webmethods_apigateway_usermgt_users_sample1_username }}"
-    #     name: Username
-    #     key: httpBasicAuth
-    #   - value:
-    #       - "{{ vars_webmethods_apigateway_usermgt_users_sample2_username }}"
-    #     name: Username
-    #     key: httpBasicAuth
-    #   - value:
-    #       - "{{ vars_webmethods_apigateway_usermgt_users_sample3_username }}"
-    #     name: Username
-    #     key: httpBasicAuth
-
+## application identifiers
+_apigw_applications_identifiers_indices_finder_prefix: "{{ '%s%s_identifiers_' | format(_apigw_applications_indices_finder_prefix, index_item) }}"
+_apigw_applications_identifiers_indices_finder_suffix: "_key"
+_apigw_applications_identifiers_template:
+  value: "{{ (lookup('env', 'apigw_data_applications_%s_identifiers_%s_values' | format(index_item, identifiers_index_item)) | default('',true)).split(';')|map('trim')|select()|list }}"
+  name: "{{ lookup('env', 'apigw_data_applications_%s_identifiers_%s_name' | format(index_item, identifiers_index_item)) | default('',true) }}"
+  key: "{{ lookup('env', 'apigw_data_applications_%s_identifiers_%s_key' | format(index_item, identifiers_index_item)) | default('',true) }}"
 
 ## activate applications (or not)
 _apigw_applications_activate_template:
   name: "{{ lookup('env', 'apigw_data_applications_%s_name' | format(index_item)) | default('',true) }}"
   version: "{{ lookup('env', 'apigw_data_applications_%s_version' | format(index_item)) | default('',true) }}"
   isSuspended: "{{ lookup('env', 'apigw_data_applications_%s_isSuspended' | format(index_item)) | default('',true) }}"
+
+
+### TODO: lots of other lookups should be added
+#     contactEmails: []
+#     siteURLs: []
+#     identifiers:
+#       - value:
+#           - "{{ vars_webmethods_apigateway_usermgt_users_loadrunner_username }}"
+#         name: Username
+#         key: httpBasicAuth
+#     consumingAPIs: []
+#     isSuspended: false
+#     jsOrigins: []
+#     authStrategyIds: []
+#     restrictViewAsset: false
+#     teams: []

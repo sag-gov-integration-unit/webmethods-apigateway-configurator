@@ -1,6 +1,6 @@
 ---
 
-- name: set intial item
+- name: set intial items so they are back to empty / reset on each iteration
   set_fact:
     _item: "{{ _apigw_applications_template }}"
     _registered_apis: []
@@ -23,6 +23,19 @@
 - name: Assign the api patch
   set_fact:
     _item: "{{ _item | combine( _registered_apis_patch,recursive=True ) }}"
+
+############ identifiers
+- name: get application identifiers
+  include_tasks: "config_applications_identifiers.yaml"
+
+- name: create patch of identifiers
+  set_fact:
+    _application_identifiers_patch: 
+      identifiers: "{{ _application_identifiers_list }}"
+
+- name: Assign the api patch
+  set_fact:
+    _item: "{{ _item | combine( _application_identifiers_patch,recursive=True ) }}"
 
 ############ final add to list
 - name: append item to list
