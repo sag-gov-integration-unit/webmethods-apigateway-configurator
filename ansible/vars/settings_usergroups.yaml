@@ -9,3 +9,4 @@ _apigw_usergroups_template:
   name: "{{ lookup('env', 'apigw_settings_usergroups_%s_name' | format(index_item)) | default('',true) }}"
   description: "{{ lookup('env', 'apigw_settings_usergroups_%s_description' | format(index_item)) | default('',true) }}"
   user_loginids_add: "{{ (lookup('env', 'apigw_settings_usergroups_%s_userids' | format(index_item)) | default('',true)).split(';')|map('trim')|select()|list }}"
+  empty_user_ids: "{{ lookup('env', 'apigw_settings_usergroups_%s_userids_strict' | format(index_item)) | default('true',true) }}"
