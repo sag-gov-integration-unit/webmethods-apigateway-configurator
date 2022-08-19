@@ -3,9 +3,11 @@
 vars_apigw_aliases_enabled: "{{ lookup('env', 'apigw_data_aliases_configure') | default('false',true) }}"
 vars_apigw_aliases_ignore_errors: "{{ lookup('env', 'apigw_data_aliases_configure_ignore_errors') | default(vars_apigw_default_ignore_errors,true) }}"
 
-
+## finding the indices from the env vars
 _apigw_aliases_indices_finder_prefix: "apigw_data_aliases_"
 _apigw_aliases_indices_finder_suffix: "_type"
+_index_items_regex_pattern: "{{ common_index_items_regex_pattern | format( _apigw_aliases_indices_finder_prefix, _apigw_aliases_indices_finder_suffix) }}"
+
 _apigw_aliases_item_type: "{{ lookup('env', 'apigw_data_aliases_%s_type' | format(index_item)) | default('') }}"
 
 _apigw_aliases_template_simple_alias:

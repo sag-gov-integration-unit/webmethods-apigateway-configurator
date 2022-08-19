@@ -5,6 +5,8 @@ vars_apigw_userroles_ignore_errors: "{{ lookup('env', 'apigw_settings_userroles_
 
 _apigw_userroles_indices_finder_prefix: "apigw_settings_userroles_"
 _apigw_userroles_indices_finder_suffix: "_name"
+_index_items_regex_pattern: "{{ common_index_items_regex_pattern | format( _apigw_userroles_indices_finder_prefix, _apigw_userroles_indices_finder_suffix) }}"
+
 _apigw_userroles_template:
   name: "{{ lookup('env', 'apigw_settings_userroles_%s_name' | format(index_item)) | default('',true) }}"
   description: "{{ lookup('env', 'apigw_settings_userroles_%s_description' | format(index_item)) | default('',true) }}"

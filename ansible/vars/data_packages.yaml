@@ -10,6 +10,8 @@ vars_apigw_packages_publish_groups_ignore_errors: "{{ lookup('env', 'apigw_data_
 
 _apigw_packages_indices_finder_prefix: "apigw_data_packages_"
 _apigw_packages_indices_finder_suffix: "_name"
+_index_items_regex_pattern: "{{ common_index_items_regex_pattern | format( _apigw_packages_indices_finder_prefix, _apigw_packages_indices_finder_suffix) }}"
+
 _apigw_packages_template:
   name: "{{ lookup('env', 'apigw_data_packages_%s_name' | format(index_item)) | default('',true) }}"
   version: "{{ lookup('env', 'apigw_data_packages_%s_version' | format(index_item)) | default('',true) }}"

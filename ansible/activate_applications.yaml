@@ -34,17 +34,11 @@
   tasks:
 
     - ansible.builtin.debug:
-        var: _apigw_applications_indices_finder_regex_pattern
+        var: "{{ item }}"
+      loop:
+        - _index_items_regex_pattern
+        - _index_items
 
-    - name: get the count of items from the env vars
-      set_fact:
-        _index_items: "{{ ansible_env.keys() | map('regex_search',_regex_pattern, '\\1') | flatten | select('string') | unique | sort }}"
-      vars:
-        _regex_pattern: "{{ _apigw_applications_indices_finder_regex_pattern }}"
-
-    - ansible.builtin.debug:
-        var: _index_items
-    
     - name: set initial list so it's not undefined
       set_fact:
          _applications_list: []

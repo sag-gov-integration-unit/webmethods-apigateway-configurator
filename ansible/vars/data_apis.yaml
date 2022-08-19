@@ -8,6 +8,8 @@ vars_apigw_apis_publish_groups_ignore_errors: "{{ lookup('env', 'apigw_data_apis
 # APIs to publish
 _apigw_apis_publish_indices_finder_prefix: "apigw_data_apis_"
 _apigw_apis_publish_indices_finder_suffix: "_portalgateway_name"
+_index_items_regex_pattern: "{{ common_index_items_regex_pattern | format( _apigw_apis_publish_indices_finder_prefix, _apigw_apis_publish_indices_finder_suffix) }}"
+
 _apigw_apis_publish_template:
       lookup_portalGatewayId:
             name: "{{ lookup('env', 'apigw_data_apis_%s_portalgateway_name' | format(index_item)) | default('',true) }}"

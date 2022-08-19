@@ -6,9 +6,10 @@ vars_apigw_applications_ignore_errors: "{{ lookup('env', 'apigw_data_application
 vars_apigw_applications_status_update_enabled: "{{ lookup('env', 'apigw_data_applications_status_update') | default('false',true) }}"
 vars_apigw_applications_status_update_ignore_errors: "{{ lookup('env', 'apigw_data_applications_status_update_ignore_errors') | default(vars_apigw_default_ignore_errors,true) }}"
 
+## finding the indices from the env vars
 _apigw_applications_indices_finder_prefix: "apigw_data_applications_"
 _apigw_applications_indices_finder_suffix: "_name"
-_apigw_applications_indices_finder_regex_pattern: "{{ '^%s([^_]+)%s$' | format( _apigw_applications_indices_finder_prefix, _apigw_applications_indices_finder_suffix) }}"
+_index_items_regex_pattern: "{{ common_index_items_regex_pattern | format( _apigw_applications_indices_finder_prefix, _apigw_applications_indices_finder_suffix) }}"
 
 _apigw_applications_template:
   name: "{{ lookup('env', 'apigw_data_applications_%s_name' | format(index_item)) | default('',true) }}"
@@ -35,6 +36,9 @@ _apigw_applications_registered_apis: "{{ lookup('env', 'apigw_data_applications_
 ## application identifiers
 _apigw_applications_identifiers_indices_finder_prefix: "{{ '%s%s_identifiers_' | format(_apigw_applications_indices_finder_prefix, index_item) }}"
 _apigw_applications_identifiers_indices_finder_suffix: "_key"
+_apigw_applications_identifiers_index_items_regex_pattern: "{{ common_index_items_regex_pattern | format( _apigw_applications_identifiers_indices_finder_prefix, _apigw_applications_identifiers_indices_finder_suffix) }}"
+_apigw_applications_identifiers_index_items: "{{ ansible_env.keys() | map('regex_search', _apigw_applications_identifiers_index_items_regex_pattern , '\\1') | flatten | select('string') | unique | sort }}"
+
 _apigw_applications_identifiers_template:
   value: "{{ (lookup('env', 'apigw_data_applications_%s_identifiers_%s_values' | format(index_item, identifiers_index_item)) | default('',true)).split(';')|map('trim')|select()|list }}"
   name: "{{ lookup('env', 'apigw_data_applications_%s_identifiers_%s_name' | format(index_item, identifiers_index_item)) | default('',true) }}"

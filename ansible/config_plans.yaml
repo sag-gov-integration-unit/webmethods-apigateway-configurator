@@ -33,12 +33,11 @@
 
   tasks:
 
-    - name: get the count of items from the env vars
-      set_fact:
-        _index_items: "{{ ansible_env.keys() | map('regex_search','^' + _apigw_plans_indices_finder_prefix + '([^_]+)' + _apigw_plans_indices_finder_suffix + '$', '\\1') | flatten | select('string') | unique | sort }}"
-    
     - ansible.builtin.debug:
-        var: _index_items
+        var: "{{ item }}"
+      loop:
+        - _index_items_regex_pattern
+        - _index_items
     
     - name: set initial list so it's not undefined
       set_fact:

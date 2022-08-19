@@ -6,6 +6,8 @@ vars_apigw_promotions_stages_ignore_errors: "{{ lookup('env', 'apigw_settings_pr
 ## api gateway promotion stages
 _apigw_promotions_stages_indices_finder_prefix: "apigw_settings_promotions_stages_"
 _apigw_promotions_stages_indices_finder_suffix: "_name"
+_index_items_regex_pattern: "{{ common_index_items_regex_pattern | format( _apigw_promotions_stages_indices_finder_prefix, _apigw_promotions_stages_indices_finder_suffix) }}"
+
 _apigw_promotions_stages_template:
   name: "{{ lookup('env', 'apigw_settings_promotions_stages_%s_name' | format(index_item)) | default('',true) }}"
   description: "{{ lookup('env', 'apigw_settings_promotions_stages_%s_description' | format(index_item)) | default('',true) }}"

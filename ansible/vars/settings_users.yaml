@@ -5,6 +5,8 @@ vars_apigw_users_ignore_errors: "{{ lookup('env', 'apigw_settings_users_configur
 
 _apigw_users_indices_finder_prefix: "apigw_settings_users_"
 _apigw_users_indices_finder_suffix: "_loginid"
+_index_items_regex_pattern: "{{ common_index_items_regex_pattern | format( _apigw_users_indices_finder_prefix, _apigw_users_indices_finder_suffix) }}"
+
 _apigw_users_template:
   loginId: "{{ lookup('env', 'apigw_settings_users_%s_loginid' | format(index_item)) | default('',true) }}"
   firstName: "{{ lookup('env', 'apigw_settings_users_%s_firstname' | format(index_item)) | default('',true) }}"
