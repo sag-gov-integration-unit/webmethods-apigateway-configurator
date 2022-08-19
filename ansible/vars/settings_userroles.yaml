@@ -1,0 +1,15 @@
+---
+
+vars_apigw_userroles_enabled: "{{ lookup('env', 'apigw_settings_userroles_configure') | default('false',true) }}"
+vars_apigw_userroles_ignore_errors: "{{ lookup('env', 'apigw_settings_userroles_configure_ignore_errors') | default(vars_apigw_default_ignore_errors,true) }}"
+
+_apigw_userroles_indices_finder_prefix: "apigw_settings_userroles_"
+_apigw_userroles_indices_finder_suffix: "_name"
+_apigw_userroles_template:
+  name: "{{ lookup('env', 'apigw_settings_userroles_%s_name' | format(index_item)) | default('',true) }}"
+  description: "{{ lookup('env', 'apigw_settings_userroles_%s_description' | format(index_item)) | default('',true) }}"
+  privilege: "{{ lookup('env', 'apigw_settings_userroles_%s_privilegecode' | format(index_item)) | default('',true) }}"
+  groupnames: "{{ (lookup('env', 'apigw_settings_userroles_%s_groupnames' | format(index_item)) | default('',true)).split(';')|map('trim')|select()|list }}"
+  teamAdmin:
+    usernames: "{{ (lookup('env', 'apigw_settings_userroles_%s_teamadmin_usernames' | format(index_item)) | default('',true)).split(';')|map('trim')|select()|list }}"
+    groupnames: "{{ (lookup('env', 'apigw_settings_userroles_%s_teamadmin_groupnames' | format(index_item)) | default('',true)).split(';')|map('trim')|select()|list }}"

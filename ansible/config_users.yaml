@@ -1,0 +1,62 @@
+---
+
+################################################################
+## Load the needed vars
+################################################################
+
+- name: Load vars
+  hosts: local
+  tasks:
+    - name: Include all vars files
+      include_vars:
+        file: "{{ item }}"
+      with_fileglob:
+        - vars/common.yaml
+        - vars/rest_connect.yaml
+        - vars/settings_users.yaml
+
+################################################################
+## set configs via REST APIs
+################################################################
+
+- hosts: local
+  become: true
+  become_user: "{{ webmethods_user }}"
+  run_once: true
+  vars:
+    apigateway_rest_protocol: "{{ vars_apigw_rest_protocol }}"
+    apigateway_rest_host: "{{ vars_apigw_rest_host }}"
+    apigateway_rest_port: "{{ vars_apigw_rest_port }}"
+    apigateway_rest_no_check_certs: "{{ vars_apigw_rest_no_check_certs }}"
+    apigateway_rest_login_username: "{{ vars_apigw_rest_login_username }}"
+    apigateway_rest_login_password: "{{ vars_apigw_rest_login_password }}"
+
+  tasks:
+
+    - name: get the count of items from the env vars
+      set_fact:
+        _index_items: "{{ ansible_env.keys() | map('regex_search','^' + _apigw_users_indices_finder_prefix + '([^_]+)' + _apigw_users_indices_finder_suffix + '$', '\\1') | flatten | select('string') | unique | sort }}"
+    
+    - ansible.builtin.debug:
+        var: _index_items
+    
+    - name: set initial list so it's not undefined
+      set_fact:
+         _users_list: []
+
+    - name: append each item template to list
+      set_fact:
+        _users_list: "{{ _users_list + [ _apigw_users_template ] }}"
+      loop: "{{ _index_items }}"
+      loop_control:
+        loop_var: index_item
+
+    - ansible.builtin.debug:
+        var: _users_list
+
+    - include_role:
+        name: apigateway-rest-configurator
+      vars:
+        configs_action: set-users
+        configs_enabled: "{{ vars_apigw_users_enabled }}"
+        rvar_apigateway_usermgt_users: "{{ _users_list }}"

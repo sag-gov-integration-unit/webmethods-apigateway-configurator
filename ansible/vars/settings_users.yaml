@@ -1,0 +1,16 @@
+---
+
+vars_apigw_users_enabled: "{{ lookup('env', 'apigw_settings_users_configure') | default('false',true) }}"
+vars_apigw_users_ignore_errors: "{{ lookup('env', 'apigw_settings_users_configure_ignore_errors') | default(vars_apigw_default_ignore_errors,true) }}"
+
+_apigw_users_indices_finder_prefix: "apigw_settings_users_"
+_apigw_users_indices_finder_suffix: "_loginid"
+_apigw_users_template:
+  loginId: "{{ lookup('env', 'apigw_settings_users_%s_loginid' | format(index_item)) | default('',true) }}"
+  firstName: "{{ lookup('env', 'apigw_settings_users_%s_firstname' | format(index_item)) | default('',true) }}"
+  lastName: "{{ lookup('env', 'apigw_settings_users_%s_lastname' | format(index_item)) | default('',true) }}"
+  password: "{{ lookup('env', 'apigw_settings_users_%s_password' | format(index_item)) | default('',true) }}"
+  emailAddresses: "{{ (lookup('env', 'apigw_settings_users_%s_emails' | format(index_item)) | default('',true)).split(';')|map('trim')|select()|list }}"
+  allowDigestAuth: "{{ lookup('env', 'apigw_settings_users_%s_allowDigestAuth' | format(index_item)) | default('false',true) }}"
+  active: "{{ lookup('env', 'apigw_settings_users_%s_active' | format(index_item)) | default('true',true) }}"
+  language: "{{ lookup('env', 'apigw_settings_users_%s_language' | format(index_item)) | default('en',true) }}"

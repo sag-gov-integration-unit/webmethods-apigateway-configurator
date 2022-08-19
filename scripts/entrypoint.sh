@@ -64,6 +64,21 @@ if [ "${apigw_settings_saml_configure}" == "true" ]; then
     exec_ansible_playbook config_saml.yaml
 fi
 
+## config users
+if [ "${apigw_settings_users_configure}" == "true" ]; then
+    exec_ansible_playbook config_users.yaml
+fi
+
+## config user groups
+if [ "${apigw_settings_usergroups_configure}" == "true" ]; then
+    exec_ansible_playbook config_usergroups.yaml
+fi
+
+## config roles
+if [ "${apigw_settings_userroles_configure}" == "true" ]; then
+    exec_ansible_playbook config_userroles.yaml
+fi
+
 ## config ports
 if [ "${apigw_settings_ports_configure}" == "true" ]; then
     exec_ansible_playbook config_ports.yaml
