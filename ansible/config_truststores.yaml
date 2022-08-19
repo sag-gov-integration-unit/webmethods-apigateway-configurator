@@ -13,7 +13,7 @@
       with_fileglob:
         - vars/common.yaml
         - vars/rest_connect.yaml
-        - vars/settings_certstores.yaml
+        - vars/settings_truststores.yaml
 
 ################################################################
 ## set configs via REST APIs
