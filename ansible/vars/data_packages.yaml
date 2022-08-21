@@ -10,8 +10,7 @@ vars_packages_publish_groups_ignore_errors: "{{ lookup('env', 'data_packages_pub
 
 _packages_indices_finder_prefix: "data_packages_"
 _packages_indices_finder_suffix: "_name"
-_index_items_regex_pattern: "{{ common_index_items_regex_pattern | format( _packages_indices_finder_prefix, _packages_indices_finder_suffix) }}"
-
+_packages_indices_regex_pattern: "{{ common_index_items_regex_pattern | format( _packages_indices_finder_prefix, _packages_indices_finder_suffix) }}"
 _packages_template:
   name: "{{ lookup('env', 'data_packages_%s_name' | format(index_item)) | default('',true) }}"
   version: "{{ lookup('env', 'data_packages_%s_version' | format(index_item)) | default('',true) }}"
@@ -44,6 +43,7 @@ _packages_activate_template:
 # Packages to publish
 _packages_publish_indices_finder_prefix: "data_packages_"
 _packages_publish_indices_finder_suffix: "_portalgateway_name"
+_packages_publish_indices_regex_pattern: "{{ common_index_items_regex_pattern | format( _packages_publish_indices_finder_prefix, _packages_publish_indices_finder_suffix) }}"
 _packages_publish_template:
   lookup_portalGatewayId:
     name: "{{ lookup('env', 'data_packages_%s_portalgateway_name' | format(index_item)) | default('',true) }}"

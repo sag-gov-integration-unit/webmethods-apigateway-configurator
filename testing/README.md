@@ -7,9 +7,9 @@ I have prepared most actions into a simple docker-compose file to:
 
 The images used in this testing are the official SoftwareAG images for [Software AG API Gateway](https://hub.docker.com/r/softwareag/apigateway-trial) and [Developper Portal](https://hub.docker.com/r/softwareag/devportal) so this should be a breeze to try.
 
-## start base components and change password
+## all-in-one: apply all system configs
 
-docker-compose up -d apigateway devportal elasticsearch config_changepassword
+docker-compose up -d apigateway devportal elasticsearch config_allinone_system_settings config_allinone_data
 
 ## system configs
 

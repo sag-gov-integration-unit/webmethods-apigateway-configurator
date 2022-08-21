@@ -122,14 +122,14 @@ fi
 #     exec_ansible_playbook activate_apis.yaml
 # fi
 
+## publish apis (must happen before packages)
+if [ "${data_apis_publish}" == "true" ]; then
+    exec_ansible_playbook publish_apis.yaml
+fi
+
 ## publish packages
 if [ "${data_packages_publish}" == "true" ]; then
     exec_ansible_playbook publish_packages.yaml
-fi
-
-## publish apis
-if [ "${data_apis_publish}" == "true" ]; then
-    exec_ansible_playbook publish_apis.yaml
 fi
 
 logger_with_headers $LOGGER_INFO "APIGateway Configurator Done !!"

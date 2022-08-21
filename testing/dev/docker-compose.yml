@@ -659,6 +659,8 @@ services:
       connect_port: "5555"
       connect_user: Administrator
       connect_password: "somethingnew"
+      changepassword_enabled: "true"
+      changepassword_old: "manage"
       settings_portalgateway_configure: "true"
       settings_portalgateway_configure_ignore_errors: "true"
       settings_portalgateway_name: API PortalGateway Config
