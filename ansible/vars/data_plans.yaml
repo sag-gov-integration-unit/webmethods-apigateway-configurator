@@ -1,17 +1,17 @@
 ---
 
-vars_apigw_plans_enabled: "{{ lookup('env', 'apigw_data_plans_configure') | default('false',true) }}"
-vars_apigw_plans_ignore_errors: "{{ lookup('env', 'apigw_data_plans_configure_ignore_errors') | default(vars_apigw_default_ignore_errors,true) }}"
+vars_plans_enabled: "{{ lookup('env', 'data_plans_configure') | default('false',true) }}"
+vars_plans_ignore_errors: "{{ lookup('env', 'data_plans_configure_ignore_errors') | default(vars_default_ignore_errors,true) }}"
 
-_apigw_plans_indices_finder_prefix: "apigw_data_plans_"
-_apigw_plans_indices_finder_suffix: "_name"
-_index_items_regex_pattern: "{{ common_index_items_regex_pattern | format( _apigw_plans_indices_finder_prefix, _apigw_plans_indices_finder_suffix) }}"
+_plans_indices_finder_prefix: "data_plans_"
+_plans_indices_finder_suffix: "_name"
+_index_items_regex_pattern: "{{ common_index_items_regex_pattern | format( _plans_indices_finder_prefix, _plans_indices_finder_suffix) }}"
 
-_apigw_plans_template:
-  name: "{{ lookup('env', 'apigw_data_plans_%s_name' | format(index_item)) | default('',true) }}"
-  version: "{{ lookup('env', 'apigw_data_plans_%s_version' | format(index_item)) | default('',true) }}"
-  deprecated: "{{ lookup('env', 'apigw_data_plans_%s_deprecated' | format(index_item)) | default('',true) }}"
-  protected: "{{ lookup('env', 'apigw_data_plans_%s_protected' | format(index_item)) | default('',true) }}"
+_plans_template:
+  name: "{{ lookup('env', 'data_plans_%s_name' | format(index_item)) | default('',true) }}"
+  version: "{{ lookup('env', 'data_plans_%s_version' | format(index_item)) | default('',true) }}"
+  deprecated: "{{ lookup('env', 'data_plans_%s_deprecated' | format(index_item)) | default('',true) }}"
+  protected: "{{ lookup('env', 'data_plans_%s_protected' | format(index_item)) | default('',true) }}"
   policiesNames: []
   cost:
     currency:

@@ -131,7 +131,7 @@ LABEL org.opencontainers.image.authors="fabien.sanglier@softwareaggov.com" \
       org.opencontainers.image.vendor="Softwareag Government Solutions" \
       org.opencontainers.image.version="10.11"
 
-ENV apigw_wait_connect=true
+ENV wait_connect=true
 
 # add the ansible scripts
 COPY ./ansible/ ./

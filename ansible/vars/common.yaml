@@ -1,7 +1,7 @@
 ---
 
 ## Global vars
-vars_apigw_default_ignore_errors: "{{ lookup('env', 'apigw_default_ignore_errors') | default('false',true) }}"
+vars_default_ignore_errors: "{{ lookup('env', 'default_ignore_errors') | default('false',true) }}"
 
 ##################### webmethods specifics
 webmethods_user: "{{ lookup('env', 'SAG_USER') | default('saguser',true) }}"
@@ -21,11 +21,11 @@ common_async_timeout: 2400
 common_async_poll: 0
 
 # the host to use for the port validation
-vars_validation_host: "{{ vars_apigw_rest_host }}"
+vars_validation_host: "{{ vars_rest_host }}"
 
 # the ports to check before doing anything
 vars_validation_ports:
-  - "{{ vars_apigw_rest_port }}"
+  - "{{ vars_rest_port }}"
 
 # special longer timeout because it can take a while for gateway to come up
 # especially for a new tenant provisioning (just to make sure we don't fail too early)

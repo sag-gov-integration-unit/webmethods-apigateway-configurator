@@ -2,7 +2,7 @@
 
 - name: set initial items
   set_fact:
-    _item: "{{ _apigw_packages_publish_template }}"
+    _item: "{{ _packages_publish_template }}"
     _lookup_communities: []
     _lookup_packages: []
 
@@ -11,7 +11,7 @@
   set_fact:
     _lookup_communities: "{{ _lookup_communities + [ { 'name': item } ] }}"
   vars:
-    _arr: "{{ _apigw_packages_publish_lookup_communities.split(';')|map('trim')|select()|list }}"
+    _arr: "{{ _packages_publish_lookup_communities.split(';')|map('trim')|select()|list }}"
   loop: "{{ _arr }}"
 
 - name: create patch
@@ -28,7 +28,7 @@
   set_fact:
     _lookup_packages: "{{ _lookup_packages + [ { 'name': item.0, 'version': item.1 } ] }}"
   vars:
-    _arr: "{{ _apigw_packages_publish_lookup_packages.split(';')|map('trim')|select()|list }}"
+    _arr: "{{ _packages_publish_lookup_packages.split(';')|map('trim')|select()|list }}"
     _keys: "{{ _arr|map('split', ':')|map('first')|map('trim')|list }}"
     _vals: "{{ _arr|map('split', ':')|map('last')|map('trim')|list }}"
   loop: "{{ _keys|zip(_vals)|list }}"

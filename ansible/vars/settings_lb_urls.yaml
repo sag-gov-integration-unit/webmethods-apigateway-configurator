@@ -1,19 +1,19 @@
 ---
 
-vars_apigw_loadbalancer_enabled: "{{ lookup('env', 'apigw_settings_lburls_configure') | default('false',true) }}"
-vars_apigw_loadbalancer_ignore_errors: "{{ lookup('env', 'apigw_settings_lburls_configure_ignore_errors') | default(vars_apigw_default_ignore_errors,true) }}"
+vars_loadbalancer_enabled: "{{ lookup('env', 'settings_lburls_configure') | default('false',true) }}"
+vars_loadbalancer_ignore_errors: "{{ lookup('env', 'settings_lburls_configure_ignore_errors') | default(vars_default_ignore_errors,true) }}"
 
 ## load balancers
 
-# _apigw_settings_lburls_http // _apigw_settings_lburls_https // _apigw_settings_lburls_websocket
+# _settings_lburls_http // _settings_lburls_https // _settings_lburls_websocket
 # input format is "url1;url2;url3"
 # output format is a simple list of string:
       # - url1
       # - url2
       # - url3
-_apigw_settings_lburls_http_urls: "{{ lookup('env', 'apigw_settings_lburls_http_urls') | default('',true) }}"
-_apigw_settings_lburls_https_urls: "{{ lookup('env', 'apigw_settings_lburls_https_urls') | default('',true) }}"
-_apigw_settings_lburls_websocket_urls: "{{ lookup('env', 'apigw_settings_lburls_websocket_urls') | default('',true) }}"
+_settings_lburls_http_urls: "{{ lookup('env', 'settings_lburls_http_urls') | default('',true) }}"
+_settings_lburls_https_urls: "{{ lookup('env', 'settings_lburls_https_urls') | default('',true) }}"
+_settings_lburls_websocket_urls: "{{ lookup('env', 'settings_lburls_websocket_urls') | default('',true) }}"
 
 # input format is simple string
-_apigw_settings_lburls_webapp_url: "{{ lookup('env', 'apigw_settings_lburls_webapp_url') | default('',true) }}"
+_settings_lburls_webapp_url: "{{ lookup('env', 'settings_lburls_webapp_url') | default('',true) }}"

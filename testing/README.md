@@ -9,7 +9,7 @@ The images used in this testing are the official SoftwareAG images for [Software
 
 ## start base components and change password
 
-docker-compose up -d apigateway devportal elasticsearch config_apigw_changepassword
+docker-compose up -d apigateway devportal elasticsearch config_changepassword
 
 ## system configs
 

@@ -24,12 +24,12 @@
   become_user: "{{ webmethods_user }}"
   run_once: true
   vars:
-    apigateway_rest_protocol: "{{ vars_apigw_rest_protocol }}"
-    apigateway_rest_host: "{{ vars_apigw_rest_host }}"
-    apigateway_rest_port: "{{ vars_apigw_rest_port }}"
-    apigateway_rest_no_check_certs: "{{ vars_apigw_rest_no_check_certs }}"
-    apigateway_rest_login_username: "{{ vars_apigw_rest_login_username }}"
-    apigateway_rest_login_password: "{{ vars_apigw_rest_login_password }}"
+    apigateway_rest_protocol: "{{ vars_rest_protocol }}"
+    apigateway_rest_host: "{{ vars_rest_host }}"
+    apigateway_rest_port: "{{ vars_rest_port }}"
+    apigateway_rest_no_check_certs: "{{ vars_rest_no_check_certs }}"
+    apigateway_rest_login_username: "{{ vars_rest_login_username }}"
+    apigateway_rest_login_password: "{{ vars_rest_login_password }}"
 
   tasks:
 
@@ -56,5 +56,5 @@
         name: apigateway-rest-configurator
       vars:
         configs_action: publish-packages-groups
-        configs_enabled: "{{ vars_apigw_packages_publish_groups_enabled }}"
+        configs_enabled: "{{ vars_packages_publish_groups_enabled }}"
         rvar_apigateway_packages_publish_groups: "{{ _publish_packages_list }}"

@@ -57,8 +57,8 @@ exec_ansible_playbook() {
     args="$2"
     logger_with_headers $LOGGER_INFO "Running $playbook ..."
     
-    if [ "x${apigw_configurator_ansible_args}" != "x" ]; then
-        args="${args} ${apigw_configurator_ansible_args}"
+    if [ "x${configurator_ansible_args}" != "x" ]; then
+        args="${args} ${configurator_ansible_args}"
     fi
     
     ansible-playbook $args $playbook

@@ -24,12 +24,12 @@
   become_user: "{{ webmethods_user }}"
   run_once: true
   vars:
-    apigateway_rest_protocol: "{{ vars_apigw_rest_protocol }}"
-    apigateway_rest_host: "{{ vars_apigw_rest_host }}"
-    apigateway_rest_port: "{{ vars_apigw_rest_port }}"
-    apigateway_rest_no_check_certs: "{{ vars_apigw_rest_no_check_certs }}"
-    apigateway_rest_login_username: "{{ vars_apigw_rest_login_username }}"
-    apigateway_rest_login_password: "{{ vars_apigw_rest_login_password }}"
+    apigateway_rest_protocol: "{{ vars_rest_protocol }}"
+    apigateway_rest_host: "{{ vars_rest_host }}"
+    apigateway_rest_port: "{{ vars_rest_port }}"
+    apigateway_rest_no_check_certs: "{{ vars_rest_no_check_certs }}"
+    apigateway_rest_login_username: "{{ vars_rest_login_username }}"
+    apigateway_rest_login_password: "{{ vars_rest_login_password }}"
 
   tasks:
 
@@ -45,7 +45,7 @@
 
     - name: append each item template to list
       set_fact:
-        _archives_list: "{{ _archives_list + [ _apigw_archives_template ] }}"
+        _archives_list: "{{ _archives_list + [ _archives_template ] }}"
       loop: "{{ _index_items }}"
       loop_control:
         loop_var: index_item
@@ -80,7 +80,7 @@
           loop_control:
             loop_var: _import_single
       
-      when: vars_apigw_archive_imports_autozip_enabled | default() | bool and _archives_list | length > 0
+      when: vars_archive_imports_autozip_enabled | default() | bool and _archives_list | length > 0
     
     - debug: var=_archives_list_final
 
@@ -88,5 +88,5 @@
         name: apigateway-rest-configurator
       vars:
         configs_action: import-archives
-        configs_enabled: "{{ vars_apigw_archive_imports_enabled }}"
+        configs_enabled: "{{ vars_archive_imports_enabled }}"
         rvar_apigateway_archive_imports: "{{ _archives_list_final }}"

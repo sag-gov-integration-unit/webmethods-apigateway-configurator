@@ -25,37 +25,37 @@
   become_user: "{{ webmethods_user }}"
   run_once: true
   vars:
-    apigateway_rest_protocol: "{{ vars_apigw_rest_protocol }}"
-    apigateway_rest_host: "{{ vars_apigw_rest_host }}"
-    apigateway_rest_port: "{{ vars_apigw_rest_port }}"
-    apigateway_rest_no_check_certs: "{{ vars_apigw_rest_no_check_certs }}"
-    apigateway_rest_login_username: "{{ vars_apigw_rest_login_username }}"
-    apigateway_rest_login_password: "{{ vars_apigw_rest_login_password }}"
+    apigateway_rest_protocol: "{{ vars_rest_protocol }}"
+    apigateway_rest_host: "{{ vars_rest_host }}"
+    apigateway_rest_port: "{{ vars_rest_port }}"
+    apigateway_rest_no_check_certs: "{{ vars_rest_no_check_certs }}"
+    apigateway_rest_login_username: "{{ vars_rest_login_username }}"
+    apigateway_rest_login_password: "{{ vars_rest_login_password }}"
 
   tasks:
 
     - name: transform watt string of key-value pairs into a dict
       set_fact:
-        vars_apigw_settings_watts_dict: "{{ dict(_keys|zip(_vals)) }}"
+        vars_settings_watts_dict: "{{ dict(_keys|zip(_vals)) }}"
       vars:
-        _arr: "{{ vars_apigw_settings_watts.split()|map('trim')|select()|list }}"
+        _arr: "{{ vars_settings_watts.split()|map('trim')|select()|list }}"
         _keys: "{{ _arr|map('split', '=')|map('first')|map('trim')|list }}"
         _vals: "{{ _arr|map('split', '=')|map('last')|map('trim')|list }}"
-      when: (vars_apigw_extended_settings_enabled | default()) and vars_apigw_settings_watts is defined and (vars_apigw_settings_watts | trim) != ""
+      when: (vars_extended_settings_enabled | default()) and vars_settings_watts is defined and (vars_settings_watts | trim) != ""
 
     - name: transform extended_settings string of key-value pairs into a dict
       set_fact:
-        vars_apigw_settings_extended_dict: "{{ dict(_keys|zip(_vals)) }}"
+        vars_settings_extended_dict: "{{ dict(_keys|zip(_vals)) }}"
       vars:
-        _arr: "{{ vars_apigw_settings_extended.split()|map('trim')|select()|list }}"
+        _arr: "{{ vars_settings_extended.split()|map('trim')|select()|list }}"
         _keys: "{{ _arr|map('split', '=')|map('first')|map('trim')|list }}"
         _vals: "{{ _arr|map('split', '=')|map('last')|map('trim')|list }}"
-      when: (vars_apigw_extended_settings_enabled | default()) and vars_apigw_settings_extended is defined and (vars_apigw_settings_extended | trim) != ""
+      when: (vars_extended_settings_enabled | default()) and vars_settings_extended is defined and (vars_settings_extended | trim) != ""
 
     - include_role:
         name: apigateway-rest-configurator
       vars:
         configs_action: set-extended-settings
-        configs_enabled: "{{ vars_apigw_extended_settings_enabled }}"
-        rvar_apigateway_settings_watts_dict: "{{ vars_apigw_settings_watts_dict }}"
-        rvar_apigateway_settings_extended_dict: "{{ vars_apigw_settings_extended_dict }}"
+        configs_enabled: "{{ vars_extended_settings_enabled }}"
+        rvar_apigateway_settings_watts_dict: "{{ vars_settings_watts_dict }}"
+        rvar_apigateway_settings_extended_dict: "{{ vars_settings_extended_dict }}"

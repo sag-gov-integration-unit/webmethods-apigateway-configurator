@@ -2,7 +2,7 @@
 
 - name: set intial items so they are back to empty / reset on each iteration
   set_fact:
-    _item: "{{ _apigw_applications_template }}"
+    _item: "{{ _applications_template }}"
     _registered_apis: []
 
 ############ registered_apis
@@ -10,7 +10,7 @@
   set_fact:
     _registered_apis: "{{ _registered_apis + [ { 'name': item.0, 'version': item.1 } ] }}"
   vars:
-    _arr: "{{ _apigw_applications_registered_apis.split(';')|map('trim')|select()|list }}"
+    _arr: "{{ _applications_registered_apis.split(';')|map('trim')|select()|list }}"
     _keys: "{{ _arr|map('split', ':')|map('first')|map('trim')|list }}"
     _vals: "{{ _arr|map('split', ':')|map('last')|map('trim')|list }}"
   loop: "{{ _keys|zip(_vals)|list }}"

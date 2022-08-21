@@ -1,32 +1,32 @@
 ---
 
-vars_apigw_aliases_enabled: "{{ lookup('env', 'apigw_data_aliases_configure') | default('false',true) }}"
-vars_apigw_aliases_ignore_errors: "{{ lookup('env', 'apigw_data_aliases_configure_ignore_errors') | default(vars_apigw_default_ignore_errors,true) }}"
+vars_aliases_enabled: "{{ lookup('env', 'data_aliases_configure') | default('false',true) }}"
+vars_aliases_ignore_errors: "{{ lookup('env', 'data_aliases_configure_ignore_errors') | default(vars_default_ignore_errors,true) }}"
 
 ## finding the indices from the env vars
-_apigw_aliases_indices_finder_prefix: "apigw_data_aliases_"
-_apigw_aliases_indices_finder_suffix: "_type"
-_index_items_regex_pattern: "{{ common_index_items_regex_pattern | format( _apigw_aliases_indices_finder_prefix, _apigw_aliases_indices_finder_suffix) }}"
+_aliases_indices_finder_prefix: "data_aliases_"
+_aliases_indices_finder_suffix: "_type"
+_index_items_regex_pattern: "{{ common_index_items_regex_pattern | format( _aliases_indices_finder_prefix, _aliases_indices_finder_suffix) }}"
 
-_apigw_aliases_item_type: "{{ lookup('env', 'apigw_data_aliases_%s_type' | format(index_item)) | default('') }}"
+_aliases_item_type: "{{ lookup('env', 'data_aliases_%s_type' | format(index_item)) | default('') }}"
 
-_apigw_aliases_template_simple_alias:
-  name: "{{ lookup('env', 'apigw_data_aliases_%s_name' | format(index_item)) | default('',true) }}"
-  description: "{{ lookup('env', 'apigw_data_aliases_%s_description' | format(index_item)) | default('',true) }}"
+_aliases_template_simple_alias:
+  name: "{{ lookup('env', 'data_aliases_%s_name' | format(index_item)) | default('',true) }}"
+  description: "{{ lookup('env', 'data_aliases_%s_description' | format(index_item)) | default('',true) }}"
   type: "simple"
-  owner: "{{ lookup('env', 'apigw_data_aliases_%s_owner' | format(index_item)) | default('',true) }}"
-  value: "{{ lookup('env', 'apigw_data_aliases_%s_value' | format(index_item)) | default('',true) }}"
-  stage: "{{ lookup('env', 'apigw_data_aliases_%s_stage' | format(index_item)) | default('',true) }}"
+  owner: "{{ lookup('env', 'data_aliases_%s_owner' | format(index_item)) | default('',true) }}"
+  value: "{{ lookup('env', 'data_aliases_%s_value' | format(index_item)) | default('',true) }}"
+  stage: "{{ lookup('env', 'data_aliases_%s_stage' | format(index_item)) | default('',true) }}"
 
-_apigw_aliases_template_endpoint_alias:
-  name: "{{ lookup('env', 'apigw_data_aliases_%s_name' | format(index_item)) | default('',true) }}"
-  description: "{{ lookup('env', 'apigw_data_aliases_%s_description' | format(index_item)) | default('',true) }}"
+_aliases_template_endpoint_alias:
+  name: "{{ lookup('env', 'data_aliases_%s_name' | format(index_item)) | default('',true) }}"
+  description: "{{ lookup('env', 'data_aliases_%s_description' | format(index_item)) | default('',true) }}"
   type: endpoint
-  stage: "{{ lookup('env', 'apigw_data_aliases_%s_stage' | format(index_item)) | default('',true) }}"
-  endPointURI: "{{ lookup('env', 'apigw_data_aliases_%s_endPointURI' | format(index_item)) | default('',true) }}"
-  connectionTimeout: "{{ lookup('env', 'apigw_data_aliases_%s_connectionTimeout' | format(index_item)) | default('',true) }}"
-  optimizationTechnique: "{{ lookup('env', 'apigw_data_aliases_%s_optimizationTechnique' | format(index_item)) | default('None',true) }}"
-  readTimeout: "{{ lookup('env', 'apigw_data_aliases_%s_readTimeout' | format(index_item)) | default('',true) }}"
-  passSecurityHeaders: "{{ lookup('env', 'apigw_data_aliases_%s_passSecurityHeaders' | format(index_item)) | default('false',true) }}"
-  keystoreAlias: "{{ lookup('env', 'apigw_data_aliases_%s_keystoreAlias' | format(index_item)) | default('',true) }}"
-  keyAlias: "{{ lookup('env', 'apigw_data_aliases_%s_keyAlias' | format(index_item)) | default('',true) }}"
+  stage: "{{ lookup('env', 'data_aliases_%s_stage' | format(index_item)) | default('',true) }}"
+  endPointURI: "{{ lookup('env', 'data_aliases_%s_endPointURI' | format(index_item)) | default('',true) }}"
+  connectionTimeout: "{{ lookup('env', 'data_aliases_%s_connectionTimeout' | format(index_item)) | default('',true) }}"
+  optimizationTechnique: "{{ lookup('env', 'data_aliases_%s_optimizationTechnique' | format(index_item)) | default('None',true) }}"
+  readTimeout: "{{ lookup('env', 'data_aliases_%s_readTimeout' | format(index_item)) | default('',true) }}"
+  passSecurityHeaders: "{{ lookup('env', 'data_aliases_%s_passSecurityHeaders' | format(index_item)) | default('false',true) }}"
+  keystoreAlias: "{{ lookup('env', 'data_aliases_%s_keystoreAlias' | format(index_item)) | default('',true) }}"
+  keyAlias: "{{ lookup('env', 'data_aliases_%s_keyAlias' | format(index_item)) | default('',true) }}"

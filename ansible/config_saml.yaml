@@ -25,12 +25,12 @@
   become_user: "{{ webmethods_user }}"
   run_once: true
   vars:
-    apigateway_rest_protocol: "{{ vars_apigw_rest_protocol }}"
-    apigateway_rest_host: "{{ vars_apigw_rest_host }}"
-    apigateway_rest_port: "{{ vars_apigw_rest_port }}"
-    apigateway_rest_no_check_certs: "{{ vars_apigw_rest_no_check_certs }}"
-    apigateway_rest_login_username: "{{ vars_apigw_rest_login_username }}"
-    apigateway_rest_login_password: "{{ vars_apigw_rest_login_password }}"
+    apigateway_rest_protocol: "{{ vars_rest_protocol }}"
+    apigateway_rest_host: "{{ vars_rest_host }}"
+    apigateway_rest_port: "{{ vars_rest_port }}"
+    apigateway_rest_no_check_certs: "{{ vars_rest_no_check_certs }}"
+    apigateway_rest_login_username: "{{ vars_rest_login_username }}"
+    apigateway_rest_login_password: "{{ vars_rest_login_password }}"
 
   tasks:
     
@@ -38,21 +38,21 @@
 
         - name: Get the content of the idp file if filepath set
           set_fact:
-            vars_apigw_rest_saml_settings_patch1: 
+            vars_rest_saml_settings_patch1: 
               idpMetadataContent: "{{ lookup('file',vars_saml_idpmetadata_localfilepath) | b64encode }}"
           
         - name: Assign the content of the idp file into the rest payload
           set_fact:
-            vars_apigw_rest_saml_settings: "{{ vars_apigw_rest_saml_settings | combine( vars_apigw_rest_saml_settings_patch1,recursive=True ) }}"
-          when: vars_apigw_rest_saml_settings_patch1.idpMetadataContent != ""
+            vars_rest_saml_settings: "{{ vars_rest_saml_settings | combine( vars_rest_saml_settings_patch1,recursive=True ) }}"
+          when: vars_rest_saml_settings_patch1.idpMetadataContent != ""
       
-      when: (vars_apigw_samlconfigs_enabled | default()) and vars_saml_idpmetadata_localfilepath is defined and vars_saml_idpmetadata_localfilepath != ""
+      when: (vars_samlconfigs_enabled | default()) and vars_saml_idpmetadata_localfilepath is defined and vars_saml_idpmetadata_localfilepath != ""
 
     - block:
 
         - name: transform saml_group_attributes string into a list
           set_fact:
-            vars_apigw_rest_saml_settings_patch2: 
+            vars_rest_saml_settings_patch2: 
               groupMapping: 
                 groupAttributes: "{{ _arr }}"
           vars:
@@ -60,16 +60,16 @@
       
         - name: Assign the content of new list variable into the rest payload
           set_fact:
-            vars_apigw_rest_saml_settings: "{{ vars_apigw_rest_saml_settings | combine( vars_apigw_rest_saml_settings_patch2,recursive=True ) }}"
-          when: vars_apigw_rest_saml_settings_patch2.groupMapping.groupAttributes | length > 0
+            vars_rest_saml_settings: "{{ vars_rest_saml_settings | combine( vars_rest_saml_settings_patch2,recursive=True ) }}"
+          when: vars_rest_saml_settings_patch2.groupMapping.groupAttributes | length > 0
 
-      when: (vars_apigw_samlconfigs_enabled | default()) and vars_saml_group_attributes is defined and (vars_saml_group_attributes | trim) != ""
+      when: (vars_samlconfigs_enabled | default()) and vars_saml_group_attributes is defined and (vars_saml_group_attributes | trim) != ""
 
     - block:
 
         - name: transform the saml_group_attributes_to_apigateway_groups string of key-value pairs into a dict
           set_fact:
-            vars_apigw_rest_saml_settings_patch3: 
+            vars_rest_saml_settings_patch3: 
               groupMapping:
                 attributeToGroupMap: "{{ dict(_keys|zip(_vals)) }}"
           vars:
@@ -79,14 +79,14 @@
 
         - name: Assign the content of new dict variable into the rest payload
           set_fact:
-            vars_apigw_rest_saml_settings: "{{ vars_apigw_rest_saml_settings | combine( vars_apigw_rest_saml_settings_patch3,recursive=True ) }}"
-          when: vars_apigw_rest_saml_settings_patch3.groupMapping.attributeToGroupMap.keys() | length > 0
+            vars_rest_saml_settings: "{{ vars_rest_saml_settings | combine( vars_rest_saml_settings_patch3,recursive=True ) }}"
+          when: vars_rest_saml_settings_patch3.groupMapping.attributeToGroupMap.keys() | length > 0
 
-      when: (vars_apigw_samlconfigs_enabled | default()) and vars_saml_groups_to_apigateway_groups is defined and (vars_saml_groups_to_apigateway_groups | trim) != ""
+      when: (vars_samlconfigs_enabled | default()) and vars_saml_groups_to_apigateway_groups is defined and (vars_saml_groups_to_apigateway_groups | trim) != ""
 
     - include_role:
         name:  apigateway-rest-configurator
       vars:
         configs_action: set-saml-settings
-        configs_enabled: "{{ vars_apigw_samlconfigs_enabled }}"
-        rvar_apigateway_saml_settings: "{{ vars_apigw_rest_saml_settings }}"
+        configs_enabled: "{{ vars_samlconfigs_enabled }}"
+        rvar_apigateway_saml_settings: "{{ vars_rest_saml_settings }}"

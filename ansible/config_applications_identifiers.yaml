@@ -3,8 +3,8 @@
 - ansible.builtin.debug:
     var: "{{ item }}"
   loop:
-    - _apigw_applications_identifiers_index_items_regex_pattern
-    - _apigw_applications_identifiers_index_items
+    - _applications_identifiers_index_items_regex_pattern
+    - _applications_identifiers_index_items
 
 - name: set initial list so it's not undefined and it's back to empty on each iteration
   set_fact:
@@ -12,8 +12,8 @@
 
 - name: append each item template to list
   set_fact:
-    _application_identifiers_list: "{{ _application_identifiers_list + [ _apigw_applications_identifiers_template ] }}"
-  loop: "{{ _apigw_applications_identifiers_index_items }}"
+    _application_identifiers_list: "{{ _application_identifiers_list + [ _applications_identifiers_template ] }}"
+  loop: "{{ _applications_identifiers_index_items }}"
   loop_control:
     loop_var: identifiers_index_item
 

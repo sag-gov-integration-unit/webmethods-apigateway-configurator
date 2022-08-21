@@ -32,43 +32,43 @@ services:
     networks:
       - stack
 
-  config_apigw_changepassword:
+  config_changepassword:
     image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
     environment: 
-      apigw_connect_host: apigateway
-      apigw_connect_port: "5555"
-      apigw_connect_user: Administrator
-      apigw_connect_password: "somethingnew"
-      apigw_changepassword_enabled: "true"
-      apigw_changepassword_old: "manage"
+      connect_host: apigateway
+      connect_port: "5555"
+      connect_user: Administrator
+      connect_password: "somethingnew"
+      changepassword_enabled: "true"
+      changepassword_old: "manage"
     networks:
       - stack
 
   config_loadbalancerurls:
     image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
     environment: 
-      apigw_connect_host: apigateway
-      apigw_connect_port: "5555"
-      apigw_connect_user: Administrator
-      apigw_connect_password: "somethingnew"
-      apigw_settings_lburls_configure: "true"
-      apigw_settings_lburls_http_urls: "http://externallb1:80;http://externallb2;http://externallb3"
-      apigw_settings_lburls_https_urls: "https://externallb1:443;https://externallb2:443;https://externallb3:443"
-      apigw_settings_lburls_websocket_url: "ws://externallb1;ws://externallb2;ws://externallb3"
-      apigw_settings_lburls_webapp_url: "http://externallb"
+      connect_host: apigateway
+      connect_port: "5555"
+      connect_user: Administrator
+      connect_password: "somethingnew"
+      settings_lburls_configure: "true"
+      settings_lburls_http_urls: "http://externallb1:80;http://externallb2;http://externallb3"
+      settings_lburls_https_urls: "https://externallb1:443;https://externallb2:443;https://externallb3:443"
+      settings_lburls_websocket_url: "ws://externallb1;ws://externallb2;ws://externallb3"
+      settings_lburls_webapp_url: "http://externallb"
     networks:
       - stack
 
   config_coresettings:
     image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
     environment: 
-      apigw_connect_host: apigateway
-      apigw_connect_port: "5555"
-      apigw_connect_user: Administrator
-      apigw_connect_password: "somethingnew"
-      apigw_settings_core_configure: "true"
-      apigw_settings_core_watts: watt.server.cachemanager.connectTimeout=300000 watt.net.timeout=600 watt.net.clientKeepaliveUsageLimit=10000000 watt.server.threadPoolMin=50 watt.server.threadPool=1000 watt.server.control.serverThreadThreshold=50 watt.security.ssl.cacheClientSessions=true watt.net.maxClientKeepaliveConns=500 watt.security.ssl.resumeClientSessions=true
-      apigw_settings_core_extended: "events.reportingQueue.size=5000 events.collectionPool.minThreads=2 events.collectionPool.maxThreads=32 events.reportingPool.minThreads=4 events.reportingPool.maxThreads=16 eventsRefreshInterval=60s events.collectionQueue.size=10000000"
+      connect_host: apigateway
+      connect_port: "5555"
+      connect_user: Administrator
+      connect_password: "somethingnew"
+      settings_core_configure: "true"
+      settings_core_watts: watt.server.cachemanager.connectTimeout=300000 watt.net.timeout=600 watt.net.clientKeepaliveUsageLimit=10000000 watt.server.threadPoolMin=50 watt.server.threadPool=1000 watt.server.control.serverThreadThreshold=50 watt.security.ssl.cacheClientSessions=true watt.net.maxClientKeepaliveConns=500 watt.security.ssl.resumeClientSessions=true
+      settings_core_extended: "events.reportingQueue.size=5000 events.collectionPool.minThreads=2 events.collectionPool.maxThreads=32 events.reportingPool.minThreads=4 events.reportingPool.maxThreads=16 eventsRefreshInterval=60s events.collectionQueue.size=10000000"
     networks:
       - stack
 
@@ -77,17 +77,17 @@ services:
     volumes:
       - ../resources/certs:/certs:ro
     environment: 
-      apigw_connect_host: apigateway
-      apigw_connect_port: "5555"
-      apigw_connect_user: Administrator
-      apigw_connect_password: "somethingnew"
-      apigw_settings_keystore_configure: "true"
-      apigw_settings_keystore_filepath: /certs/apigateway-p12.jks
-      apigw_settings_keystore_name: "Custom_SSL_Keystore"
-      apigw_settings_keystore_description: "My custom keystore for SSL"
-      apigw_settings_keystore_password: "manage"
-      apigw_settings_keystore_keyalias: "certificate"
-      apigw_settings_keystore_keyalias_password: "manage"
+      connect_host: apigateway
+      connect_port: "5555"
+      connect_user: Administrator
+      connect_password: "somethingnew"
+      settings_keystore_configure: "true"
+      settings_keystore_filepath: /certs/apigateway-p12.jks
+      settings_keystore_name: "Custom_SSL_Keystore"
+      settings_keystore_description: "My custom keystore for SSL"
+      settings_keystore_password: "manage"
+      settings_keystore_keyalias: "certificate"
+      settings_keystore_keyalias_password: "manage"
     networks:
       - stack
   
@@ -96,32 +96,32 @@ services:
     volumes:
       - ../resources/certs:/certs:ro
     environment: 
-      apigw_connect_host: apigateway
-      apigw_connect_port: "5555"
-      apigw_connect_user: Administrator
-      apigw_connect_password: "somethingnew"
-      apigw_settings_truststore_configure: "true"
-      apigw_settings_truststore_filepath: /certs/apigateway-truststore.jks
-      apigw_settings_truststore_name: "Custom_SSL_Truststore"
-      apigw_settings_truststore_description: "My custom truststore"
-      apigw_settings_truststore_password: "manage"
+      connect_host: apigateway
+      connect_port: "5555"
+      connect_user: Administrator
+      connect_password: "somethingnew"
+      settings_truststore_configure: "true"
+      settings_truststore_filepath: /certs/apigateway-truststore.jks
+      settings_truststore_name: "Custom_SSL_Truststore"
+      settings_truststore_description: "My custom truststore"
+      settings_truststore_password: "manage"
     networks:
       - stack
 
   config_ssl_inbound_outbound_connections:
     image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
     environment: 
-      apigw_connect_host: apigateway
-      apigw_connect_port: "5555"
-      apigw_connect_user: Administrator
-      apigw_connect_password: "somethingnew"
-      apigw_settings_ssl_inbound_outbound_configure: "true"
-      apigw_settings_ssl_inbound_keystore_name: "Custom_SSL_Keystore"
-      apigw_settings_ssl_inbound_keystore_keyalias: "certificate"
-      apigw_settings_ssl_inbound_truststore_name: "Custom_SSL_Truststore"
-      apigw_settings_ssl_outbound_keystore_name: "Custom_SSL_Keystore"
-      apigw_settings_ssl_outbound_keystore_keyalias: "certificate"
-      apigw_settings_ssl_outbound_truststore_name: "Custom_SSL_Truststore"
+      connect_host: apigateway
+      connect_port: "5555"
+      connect_user: Administrator
+      connect_password: "somethingnew"
+      settings_ssl_inbound_outbound_configure: "true"
+      settings_ssl_inbound_keystore_name: "Custom_SSL_Keystore"
+      settings_ssl_inbound_keystore_keyalias: "certificate"
+      settings_ssl_inbound_truststore_name: "Custom_SSL_Truststore"
+      settings_ssl_outbound_keystore_name: "Custom_SSL_Keystore"
+      settings_ssl_outbound_keystore_keyalias: "certificate"
+      settings_ssl_outbound_truststore_name: "Custom_SSL_Truststore"
     networks:
       - stack
 
@@ -130,32 +130,32 @@ services:
   # config_default_ssl_port:
   #   image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
   #   environment: 
-  #     apigw_configurator_debug: "true"
-  #     apigw_connect_host: apigateway
-  #     apigw_connect_port: "5555"
-  #     apigw_connect_user: Administrator
-  #     apigw_connect_password: "somethingnew"
-  #     apigw_settings_ssl_runtimeport_configure: "true"
-  #     apigw_settings_ssl_runtimeport_port: "5543"
-  #     apigw_settings_ssl_runtimeport_keystore_name: "Custom_SSL_Keystore"
-  #     apigw_settings_ssl_runtimeport_keystore_keyalias: "certificate"
-  #     apigw_settings_ssl_runtimeport_truststore_name: "Custom_SSL_Truststore"
+  #     configurator_debug: "true"
+  #     connect_host: apigateway
+  #     connect_port: "5555"
+  #     connect_user: Administrator
+  #     connect_password: "somethingnew"
+  #     settings_ssl_runtimeport_configure: "true"
+  #     settings_ssl_runtimeport_port: "5543"
+  #     settings_ssl_runtimeport_keystore_name: "Custom_SSL_Keystore"
+  #     settings_ssl_runtimeport_keystore_keyalias: "certificate"
+  #     settings_ssl_runtimeport_truststore_name: "Custom_SSL_Truststore"
   #   networks:
   #     - stack
   
   # config_new_ssl_port:
   #   image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
   #   environment: 
-  #     apigw_configurator_debug: "true"
-  #     apigw_connect_host: apigateway
-  #     apigw_connect_port: "5555"
-  #     apigw_connect_user: Administrator
-  #     apigw_connect_password: "somethingnew"
-  #     apigw_settings_ssl_runtimeport_configure: "true"
-  #     apigw_settings_ssl_runtimeport_port: "6643"
-  #     apigw_settings_ssl_runtimeport_keystore_name: "Custom_SSL_Keystore"
-  #     apigw_settings_ssl_runtimeport_keystore_keyalias: "certificate"
-  #     apigw_settings_ssl_runtimeport_truststore_name: "Custom_SSL_Truststore"
+  #     configurator_debug: "true"
+  #     connect_host: apigateway
+  #     connect_port: "5555"
+  #     connect_user: Administrator
+  #     connect_password: "somethingnew"
+  #     settings_ssl_runtimeport_configure: "true"
+  #     settings_ssl_runtimeport_port: "6643"
+  #     settings_ssl_runtimeport_keystore_name: "Custom_SSL_Keystore"
+  #     settings_ssl_runtimeport_keystore_keyalias: "certificate"
+  #     settings_ssl_runtimeport_truststore_name: "Custom_SSL_Truststore"
   #   networks:
   #     - stack
 
@@ -164,49 +164,49 @@ services:
     volumes:
       - ../resources/certs:/certs:ro
     environment: 
-      apigw_connect_host: apigateway
-      apigw_connect_port: "5555"
-      apigw_connect_user: Administrator
-      apigw_connect_password: "somethingnew"
-      apigw_data_promotions_stages_configure: "true"
-      apigw_data_promotions_stages_0_name: promotion1
-      apigw_data_promotions_stages_0_description: description1
-      apigw_data_promotions_stages_0_url: http://gateway1:5555
-      apigw_data_promotions_stages_0_username: testuser1
-      apigw_data_promotions_stages_0_password: password1
-      apigw_data_promotions_stages_0_keystoreAlias: ""
-      apigw_data_promotions_stages_0_keyAlias: ""
-      apigw_data_promotions_stages_1_name: promotion2
-      apigw_data_promotions_stages_1_description: description2
-      apigw_data_promotions_stages_1_url: http://gateway2:5555
-      apigw_data_promotions_stages_1_username: testuser2
-      apigw_data_promotions_stages_1_password: password2
-      apigw_data_promotions_stages_1_keystoreAlias: ""
-      apigw_data_promotions_stages_1_keyAlias: ""
+      connect_host: apigateway
+      connect_port: "5555"
+      connect_user: Administrator
+      connect_password: "somethingnew"
+      data_promotions_stages_configure: "true"
+      data_promotions_stages_0_name: promotion1
+      data_promotions_stages_0_description: description1
+      data_promotions_stages_0_url: http://gateway1:5555
+      data_promotions_stages_0_username: testuser1
+      data_promotions_stages_0_password: password1
+      data_promotions_stages_0_keystoreAlias: ""
+      data_promotions_stages_0_keyAlias: ""
+      data_promotions_stages_1_name: promotion2
+      data_promotions_stages_1_description: description2
+      data_promotions_stages_1_url: http://gateway2:5555
+      data_promotions_stages_1_username: testuser2
+      data_promotions_stages_1_password: password2
+      data_promotions_stages_1_keystoreAlias: ""
+      data_promotions_stages_1_keyAlias: ""
     networks:
       - stack
 
   config_portalgateway:
     image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
     environment: 
-      apigw_connect_host: apigateway
-      apigw_connect_port: "5555"
-      apigw_connect_user: Administrator
-      apigw_connect_password: "somethingnew"
-      apigw_settings_portalgateway_configure: "true"
-      apigw_settings_portalgateway_configure_ignore_errors: "true"
-      apigw_settings_portalgateway_name: API PortalGateway Config
-      apigw_settings_portalgateway_description: API PortalGateway Configuration
-      apigw_settings_portalgateway_version: "1.0"
-      apigw_settings_portalgateway_stagename: "DEV"
-      apigw_settings_portalgateway_gateway_url: "http://apigateway:5555"
-      apigw_settings_portalgateway_gateway_username: "Administrator"
-      apigw_settings_portalgateway_gateway_password: "somethingnew"
-      apigw_settings_portalgateway_portaltype: devportal
-      apigw_settings_portalgateway_devportal_tenant: default
-      apigw_settings_portalgateway_devportal_url: "http://devportal:8083/portal"
-      apigw_settings_portalgateway_devportal_username: "Administrator"
-      apigw_settings_portalgateway_devportal_password: "manage"
+      connect_host: apigateway
+      connect_port: "5555"
+      connect_user: Administrator
+      connect_password: "somethingnew"
+      settings_portalgateway_configure: "true"
+      settings_portalgateway_configure_ignore_errors: "true"
+      settings_portalgateway_name: API PortalGateway Config
+      settings_portalgateway_description: API PortalGateway Configuration
+      settings_portalgateway_version: "1.0"
+      settings_portalgateway_stagename: "DEV"
+      settings_portalgateway_gateway_url: "http://apigateway:5555"
+      settings_portalgateway_gateway_username: "Administrator"
+      settings_portalgateway_gateway_password: "somethingnew"
+      settings_portalgateway_portaltype: devportal
+      settings_portalgateway_devportal_tenant: default
+      settings_portalgateway_devportal_url: "http://devportal:8083/portal"
+      settings_portalgateway_devportal_username: "Administrator"
+      settings_portalgateway_devportal_password: "manage"
     networks:
       - stack
 
@@ -216,32 +216,32 @@ services:
       - ../resources/certs:/certs:ro
       - ../resources/saml/idpmetadata.xml:/configs/idpmetadata.xml:ro
     environment: 
-      apigw_connect_host: apigateway
-      apigw_connect_port: "5555"
-      apigw_connect_user: Administrator
-      apigw_connect_password: "somethingnew"
-      apigw_settings_keystore_configure: "true"
-      apigw_settings_keystore_filepath: /certs/saml-p12.jks
-      apigw_settings_keystore_name: "SAMLSelfSignedKeystore"
-      apigw_settings_keystore_description: "My custom keystore for SAML"
-      apigw_settings_keystore_password: "manage"
-      apigw_settings_keystore_keyalias: "certificate"
-      apigw_settings_keystore_keyalias_password: "manage"
-      apigw_settings_saml_configure: "true"
-      apigw_settings_saml_sp_id: "webmethods-apigateway-saml-client"
-      apigw_settings_saml_keystore_alias: "SAMLSelfSignedKeystore"
-      apigw_settings_saml_keystore_default_key_alias: certificate
-      apigw_settings_saml_redirect_host: "http://mygateway:9072"
-      apigw_settings_saml_usebydefault: "false"
-      apigw_settings_saml_idpmetadata_localfilepath: "/configs/idpmetadata.xml"
-      apigw_settings_saml_idpmetadata_content_b64encoded: ""
+      connect_host: apigateway
+      connect_port: "5555"
+      connect_user: Administrator
+      connect_password: "somethingnew"
+      settings_keystore_configure: "true"
+      settings_keystore_filepath: /certs/saml-p12.jks
+      settings_keystore_name: "SAMLSelfSignedKeystore"
+      settings_keystore_description: "My custom keystore for SAML"
+      settings_keystore_password: "manage"
+      settings_keystore_keyalias: "certificate"
+      settings_keystore_keyalias_password: "manage"
+      settings_saml_configure: "true"
+      settings_saml_sp_id: "webmethods-apigateway-saml-client"
+      settings_saml_keystore_alias: "SAMLSelfSignedKeystore"
+      settings_saml_keystore_default_key_alias: certificate
+      settings_saml_redirect_host: "http://mygateway:9072"
+      settings_saml_usebydefault: "false"
+      settings_saml_idpmetadata_localfilepath: "/configs/idpmetadata.xml"
+      settings_saml_idpmetadata_content_b64encoded: ""
       # Fetching the IDP metadata rom url is preferred but we don't have an IDP here...refer to another full SAML test!
-      # apigw_settings_saml_idpmetadata_url: http://myidp/saml/descriptor
-      apigw_settings_saml_userprofilemapping_firstname: firstName
-      apigw_settings_saml_userprofilemapping_lastname: lastName
-      apigw_settings_saml_userprofilemapping_email: email
-      apigw_settings_saml_group_attributes: roles;Role
-      apigw_settings_saml_groups_to_apigateway_groups: apigateway-admin=API-Gateway-Administrators;apigateway-apiprovider=API-Gateway-Providers;apigateway-user=Everybody
+      # settings_saml_idpmetadata_url: http://myidp/saml/descriptor
+      settings_saml_userprofilemapping_firstname: firstName
+      settings_saml_userprofilemapping_lastname: lastName
+      settings_saml_userprofilemapping_email: email
+      settings_saml_group_attributes: roles;Role
+      settings_saml_groups_to_apigateway_groups: apigateway-admin=API-Gateway-Administrators;apigateway-apiprovider=API-Gateway-Providers;apigateway-user=Everybody
     networks:
       - stack
 
@@ -250,19 +250,19 @@ services:
     volumes:
       - ../resources/sampleapis_archives:/imports:ro
     environment: 
-      apigw_connect_host: apigateway
-      apigw_connect_port: "5555"
-      apigw_connect_user: Administrator
-      apigw_connect_password: "somethingnew"
-      apigw_data_archives_import: "true"
-      apigw_data_archives_1_path: "/imports/apigw-archive-api-bookstore-1.0.zip"
-      apigw_data_archives_1_overwrite: "apis,policies,policyactions"
-      apigw_data_archives_1_fixingMissingVersions: "true"
-      apigw_data_archives_1_preserveAssetState: "true"
-      apigw_data_archives_2_path: "/imports/apigw-archive-api-uszip-1.0.zip"
-      apigw_data_archives_2_overwrite: "apis,policies,policyactions"
-      apigw_data_archives_2_fixingMissingVersions: "true"
-      apigw_data_archives_2_preserveAssetState: "true"
+      connect_host: apigateway
+      connect_port: "5555"
+      connect_user: Administrator
+      connect_password: "somethingnew"
+      data_archives_import: "true"
+      data_archives_1_path: "/imports/apigw-archive-api-bookstore-1.0.zip"
+      data_archives_1_overwrite: "apis,policies,policyactions"
+      data_archives_1_fixingMissingVersions: "true"
+      data_archives_1_preserveAssetState: "true"
+      data_archives_2_path: "/imports/apigw-archive-api-uszip-1.0.zip"
+      data_archives_2_overwrite: "apis,policies,policyactions"
+      data_archives_2_fixingMissingVersions: "true"
+      data_archives_2_preserveAssetState: "true"
     networks:
       - stack
 
@@ -271,118 +271,118 @@ services:
     volumes:
       - ../resources/sampleapis_archives:/imports:ro
     environment: 
-      apigw_connect_host: apigateway
-      apigw_connect_port: "5555"
-      apigw_connect_user: Administrator
-      apigw_connect_password: "somethingnew"
-      apigw_data_archives_import: "true"
+      connect_host: apigateway
+      connect_port: "5555"
+      connect_user: Administrator
+      connect_password: "somethingnew"
+      data_archives_import: "true"
     networks:
       - stack
 
   config_aliases:
     image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
     environment: 
-      apigw_connect_host: apigateway
-      apigw_connect_port: "5555"
-      apigw_connect_user: Administrator
-      apigw_connect_password: "somethingnew"
-      apigw_data_aliases_configure: "true"
-      apigw_data_aliases_0_name: name1
-      apigw_data_aliases_0_description: desc1
-      apigw_data_aliases_0_type: simple
-      apigw_data_aliases_0_value: val1
-      apigw_data_aliases_0_stage: stag1
-      apigw_data_aliases_1_name: name2
-      apigw_data_aliases_1_description: desc2
-      apigw_data_aliases_1_type: simple
-      apigw_data_aliases_1_value: val2
-      apigw_data_aliases_1_stage: stag2
-      apigw_data_aliases_2_name: endpointname3
-      apigw_data_aliases_2_description: endpoint alias
-      apigw_data_aliases_2_type: endpoint
-      apigw_data_aliases_2_stage: stag2
-      apigw_data_aliases_2_endPointURI: http://test.local
+      connect_host: apigateway
+      connect_port: "5555"
+      connect_user: Administrator
+      connect_password: "somethingnew"
+      data_aliases_configure: "true"
+      data_aliases_0_name: name1
+      data_aliases_0_description: desc1
+      data_aliases_0_type: simple
+      data_aliases_0_value: val1
+      data_aliases_0_stage: stag1
+      data_aliases_1_name: name2
+      data_aliases_1_description: desc2
+      data_aliases_1_type: simple
+      data_aliases_1_value: val2
+      data_aliases_1_stage: stag2
+      data_aliases_2_name: endpointname3
+      data_aliases_2_description: endpoint alias
+      data_aliases_2_type: endpoint
+      data_aliases_2_stage: stag2
+      data_aliases_2_endPointURI: http://test.local
     networks:
       - stack
 
   config_aliases_nothing:
     image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
     environment: 
-      apigw_connect_host: apigateway
-      apigw_connect_port: "5555"
-      apigw_connect_user: Administrator
-      apigw_connect_password: "somethingnew"
-      apigw_data_aliases_configure: "true"
+      connect_host: apigateway
+      connect_port: "5555"
+      connect_user: Administrator
+      connect_password: "somethingnew"
+      data_aliases_configure: "true"
     networks:
       - stack
 
   config_plans:
     image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
     environment: 
-      apigw_connect_host: apigateway
-      apigw_connect_port: "5555"
-      apigw_connect_user: Administrator
-      apigw_connect_password: "somethingnew"
-      apigw_data_plans_configure: "true"
-      apigw_data_plans_0_name: "plan1"
-      apigw_data_plans_0_version: "1.0"
-      apigw_data_plans_1_name: "plan2"
-      apigw_data_plans_1_version: "1.0"
-      apigw_data_plans_2_name: "plan3"
-      apigw_data_plans_2_version: "1.0"
+      connect_host: apigateway
+      connect_port: "5555"
+      connect_user: Administrator
+      connect_password: "somethingnew"
+      data_plans_configure: "true"
+      data_plans_0_name: "plan1"
+      data_plans_0_version: "1.0"
+      data_plans_1_name: "plan2"
+      data_plans_1_version: "1.0"
+      data_plans_2_name: "plan3"
+      data_plans_2_version: "1.0"
     networks:
       - stack
 
   config_plans_nothing:
     image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
     environment: 
-      apigw_connect_host: apigateway
-      apigw_connect_port: "5555"
-      apigw_connect_user: Administrator
-      apigw_connect_password: "somethingnew"
-      apigw_data_plans_configure: "true"
+      connect_host: apigateway
+      connect_port: "5555"
+      connect_user: Administrator
+      connect_password: "somethingnew"
+      data_plans_configure: "true"
     networks:
       - stack
 
   config_packages:
     image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
     environment: 
-      apigw_connect_host: apigateway
-      apigw_connect_port: "5555"
-      apigw_connect_user: Administrator
-      apigw_connect_password: "somethingnew"
-      apigw_data_packages_configure: "true"
-      apigw_data_packages_0_name: "package1"
-      apigw_data_packages_0_version: "1.0"
-      apigw_data_packages_0_deprecated: "false"
-      apigw_data_packages_0_active: "true"
-      apigw_data_packages_0_lookup_apis: "bookstore:1.0 ; uszip:1.0"
-      apigw_data_packages_0_lookup_plans: "plan1:1.0 ; plan2:1.0"
-      apigw_data_packages_0_lookup_policies: ""
-      apigw_data_packages_1_name: "package2"
-      apigw_data_packages_1_version: "1.0"
-      apigw_data_packages_1_deprecated: "false"
-      apigw_data_packages_1_active: "true"
-      apigw_data_packages_1_lookup_apis: "bookstore:1.0"
-      apigw_data_packages_1_lookup_plans: "plan2:1.0 ; plan3:1.0"
-      apigw_data_packages_1_lookup_policies: ""
+      connect_host: apigateway
+      connect_port: "5555"
+      connect_user: Administrator
+      connect_password: "somethingnew"
+      data_packages_configure: "true"
+      data_packages_0_name: "package1"
+      data_packages_0_version: "1.0"
+      data_packages_0_deprecated: "false"
+      data_packages_0_active: "true"
+      data_packages_0_lookup_apis: "bookstore:1.0 ; uszip:1.0"
+      data_packages_0_lookup_plans: "plan1:1.0 ; plan2:1.0"
+      data_packages_0_lookup_policies: ""
+      data_packages_1_name: "package2"
+      data_packages_1_version: "1.0"
+      data_packages_1_deprecated: "false"
+      data_packages_1_active: "true"
+      data_packages_1_lookup_apis: "bookstore:1.0"
+      data_packages_1_lookup_plans: "plan2:1.0 ; plan3:1.0"
+      data_packages_1_lookup_policies: ""
     networks:
       - stack
 
   config_packages_deactivate:
     image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
     environment: 
-      apigw_connect_host: apigateway
-      apigw_connect_port: "5555"
-      apigw_connect_user: Administrator
-      apigw_connect_password: "somethingnew"
-      apigw_data_packages_status_update: "true"
-      apigw_data_packages_0_name: "package1"
-      apigw_data_packages_0_version: "1.0"
-      apigw_data_packages_0_active: "false"
-      apigw_data_packages_1_name: "package2"
-      apigw_data_packages_1_version: "1.0"
-      apigw_data_packages_1_active: "false"
+      connect_host: apigateway
+      connect_port: "5555"
+      connect_user: Administrator
+      connect_password: "somethingnew"
+      data_packages_status_update: "true"
+      data_packages_0_name: "package1"
+      data_packages_0_version: "1.0"
+      data_packages_0_active: "false"
+      data_packages_1_name: "package2"
+      data_packages_1_version: "1.0"
+      data_packages_1_active: "false"
     networks:
       - stack
 
@@ -390,81 +390,81 @@ services:
   config_applications:
     image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
     environment: 
-      apigw_connect_host: apigateway
-      apigw_connect_port: "5555"
-      apigw_connect_user: Administrator
-      apigw_connect_password: "somethingnew"
-      apigw_data_applications_configure: "true"
-      apigw_data_applications_0_name: app1
-      apigw_data_applications_0_version: "0.1"
-      apigw_data_applications_0_description: app1 description
-      apigw_data_applications_0_isSuspended: "false"
-      apigw_data_applications_0_restrictViewAsset: "false"
-      apigw_data_applications_0_lookup_apis: "bookstore:1.0 ; uszip:1.0"
-      apigw_data_applications_1_name: app2
-      apigw_data_applications_1_version: "0.2"
-      apigw_data_applications_1_description: app2 description
-      apigw_data_applications_1_isSuspended: "false"
-      apigw_data_applications_1_restrictViewAsset: "false"
-      apigw_data_applications_1_lookup_apis: "bookstore:1.0"
-      apigw_data_applications_2_name: app3
-      apigw_data_applications_2_version: "0.3"
-      apigw_data_applications_2_description: app3 description
-      apigw_data_applications_2_isSuspended: "false"
-      apigw_data_applications_2_restrictViewAsset: "false"
-      apigw_data_applications_2_lookup_apis: ""
+      connect_host: apigateway
+      connect_port: "5555"
+      connect_user: Administrator
+      connect_password: "somethingnew"
+      data_applications_configure: "true"
+      data_applications_0_name: app1
+      data_applications_0_version: "0.1"
+      data_applications_0_description: app1 description
+      data_applications_0_isSuspended: "false"
+      data_applications_0_restrictViewAsset: "false"
+      data_applications_0_lookup_apis: "bookstore:1.0 ; uszip:1.0"
+      data_applications_1_name: app2
+      data_applications_1_version: "0.2"
+      data_applications_1_description: app2 description
+      data_applications_1_isSuspended: "false"
+      data_applications_1_restrictViewAsset: "false"
+      data_applications_1_lookup_apis: "bookstore:1.0"
+      data_applications_2_name: app3
+      data_applications_2_version: "0.3"
+      data_applications_2_description: app3 description
+      data_applications_2_isSuspended: "false"
+      data_applications_2_restrictViewAsset: "false"
+      data_applications_2_lookup_apis: ""
     networks:
       - stack
 
   config_applications_deactivate:
     image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
     environment: 
-      apigw_connect_host: apigateway
-      apigw_connect_port: "5555"
-      apigw_connect_user: Administrator
-      apigw_connect_password: "somethingnew"
-      apigw_data_applications_status_update: "true"
-      apigw_data_applications_0_name: app1
-      apigw_data_applications_0_version: "0.1"
-      apigw_data_applications_0_isSuspended: "true"
-      apigw_data_applications_1_name: app2
-      apigw_data_applications_1_version: "0.2"
-      apigw_data_applications_1_isSuspended: "true"
-      apigw_data_applications_2_name: app3
-      apigw_data_applications_2_version: "0.3"
-      apigw_data_applications_2_description: app3 description
-      apigw_data_applications_2_isSuspended: "true"
+      connect_host: apigateway
+      connect_port: "5555"
+      connect_user: Administrator
+      connect_password: "somethingnew"
+      data_applications_status_update: "true"
+      data_applications_0_name: app1
+      data_applications_0_version: "0.1"
+      data_applications_0_isSuspended: "true"
+      data_applications_1_name: app2
+      data_applications_1_version: "0.2"
+      data_applications_1_isSuspended: "true"
+      data_applications_2_name: app3
+      data_applications_2_version: "0.3"
+      data_applications_2_description: app3 description
+      data_applications_2_isSuspended: "true"
     networks:
       - stack
 
   publish_apis:
     image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
     environment: 
-      apigw_connect_host: apigateway
-      apigw_connect_port: "5555"
-      apigw_connect_user: Administrator
-      apigw_connect_password: "somethingnew"
-      apigw_data_apis_publish: "true"
-      apigw_data_apis_0_portalgateway_name: API PortalGateway Config
-      apigw_data_apis_0_portalgateway_version: "1.0"
-      apigw_data_apis_0_portalgateway_stageName: DEV
-      apigw_data_apis_0_lookup_communities: "Public Community"
-      apigw_data_apis_0_lookup_apis: "bookstore:1.0 ; uszip:1.0"
+      connect_host: apigateway
+      connect_port: "5555"
+      connect_user: Administrator
+      connect_password: "somethingnew"
+      data_apis_publish: "true"
+      data_apis_0_portalgateway_name: API PortalGateway Config
+      data_apis_0_portalgateway_version: "1.0"
+      data_apis_0_portalgateway_stageName: DEV
+      data_apis_0_lookup_communities: "Public Community"
+      data_apis_0_lookup_apis: "bookstore:1.0 ; uszip:1.0"
     networks:
       - stack
 
   publish_packages:
     image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
     environment: 
-      apigw_connect_host: apigateway
-      apigw_connect_port: "5555"
-      apigw_connect_user: Administrator
-      apigw_connect_password: "somethingnew"
-      apigw_data_packages_publish: "true"
-      apigw_data_packages_0_portalgateway_name: API PortalGateway Config
-      apigw_data_packages_0_portalgateway_version: "1.0"
-      apigw_data_packages_0_portalgateway_stageName: DEV
-      apigw_data_packages_0_lookup_communities: "Public Community"
-      apigw_data_packages_0_lookup_packages: "package1:1.0 ; package2:1.0"
+      connect_host: apigateway
+      connect_port: "5555"
+      connect_user: Administrator
+      connect_password: "somethingnew"
+      data_packages_publish: "true"
+      data_packages_0_portalgateway_name: API PortalGateway Config
+      data_packages_0_portalgateway_version: "1.0"
+      data_packages_0_portalgateway_stageName: DEV
+      data_packages_0_lookup_communities: "Public Community"
+      data_packages_0_lookup_packages: "package1:1.0 ; package2:1.0"
     networks:
       - stack

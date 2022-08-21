@@ -1,20 +1,20 @@
 ---
-vars_apigw_apis_enabled: "{{ lookup('env', 'apigw_data_apis_configure') | default('false',true) }}"
-vars_apigw_apis_ignore_errors: "{{ lookup('env', 'apigw_data_apis_configure_ignore_errors') | default(vars_apigw_default_ignore_errors,true) }}"
+vars_apis_enabled: "{{ lookup('env', 'data_apis_configure') | default('false',true) }}"
+vars_apis_ignore_errors: "{{ lookup('env', 'data_apis_configure_ignore_errors') | default(vars_default_ignore_errors,true) }}"
 
-vars_apigw_apis_publish_groups_enabled: "{{ lookup('env', 'apigw_data_apis_publish') | default('false',true) }}"
-vars_apigw_apis_publish_groups_ignore_errors: "{{ lookup('env', 'apigw_data_apis_publish_ignore_errors') | default(vars_apigw_default_ignore_errors,true) }}"
+vars_apis_publish_groups_enabled: "{{ lookup('env', 'data_apis_publish') | default('false',true) }}"
+vars_apis_publish_groups_ignore_errors: "{{ lookup('env', 'data_apis_publish_ignore_errors') | default(vars_default_ignore_errors,true) }}"
 
 # APIs to publish
-_apigw_apis_publish_indices_finder_prefix: "apigw_data_apis_"
-_apigw_apis_publish_indices_finder_suffix: "_portalgateway_name"
-_index_items_regex_pattern: "{{ common_index_items_regex_pattern | format( _apigw_apis_publish_indices_finder_prefix, _apigw_apis_publish_indices_finder_suffix) }}"
+_apis_publish_indices_finder_prefix: "data_apis_"
+_apis_publish_indices_finder_suffix: "_portalgateway_name"
+_index_items_regex_pattern: "{{ common_index_items_regex_pattern | format( _apis_publish_indices_finder_prefix, _apis_publish_indices_finder_suffix) }}"
 
-_apigw_apis_publish_template:
+_apis_publish_template:
       lookup_portalGatewayId:
-            name: "{{ lookup('env', 'apigw_data_apis_%s_portalgateway_name' | format(index_item)) | default('',true) }}"
-            version: "{{ lookup('env', 'apigw_data_apis_%s_portalgateway_version' | format(index_item)) | default('',true) }}"
-            stageName: "{{ lookup('env', 'apigw_data_apis_%s_portalgateway_stageName' | format(index_item)) | default('',true) }}"
+            name: "{{ lookup('env', 'data_apis_%s_portalgateway_name' | format(index_item)) | default('',true) }}"
+            version: "{{ lookup('env', 'data_apis_%s_portalgateway_version' | format(index_item)) | default('',true) }}"
+            stageName: "{{ lookup('env', 'data_apis_%s_portalgateway_stageName' | format(index_item)) | default('',true) }}"
 
 # these will be added dynamically to the object
 
@@ -24,7 +24,7 @@ _apigw_apis_publish_template:
 # - name: "community1"
 # - name: "community2"
 # - name: "community3"
-_apigw_apis_publish_lookup_communities: "{{ lookup('env', 'apigw_data_apis_%s_lookup_communities' | format(index_item)) | default('',true) }}"
+_apis_publish_lookup_communities: "{{ lookup('env', 'data_apis_%s_lookup_communities' | format(index_item)) | default('',true) }}"
 
 ## map to field lookup_apiIds
 # input format is [ name1:version1;name2:version2 ]
@@ -33,7 +33,7 @@ _apigw_apis_publish_lookup_communities: "{{ lookup('env', 'apigw_data_apis_%s_lo
 #   version: "version1"
 # - name: "name2"
 #   version: "version2"
-_apigw_apis_publish_lookup_apis: "{{ lookup('env', 'apigw_data_apis_%s_lookup_apis' | format(index_item)) | default('',true) }}"
+_apis_publish_lookup_apis: "{{ lookup('env', 'data_apis_%s_lookup_apis' | format(index_item)) | default('',true) }}"
 
 # FYI sample payload expected by the publish role
 # _publish_apis_list:
@@ -50,7 +50,7 @@ _apigw_apis_publish_lookup_apis: "{{ lookup('env', 'apigw_data_apis_%s_lookup_ap
 #         version: "1.0"
 
 ## activate apis (or not)
-_apigw_apis_activate_template:
-      name: "{{ lookup('env', 'apigw_data_apis_%s_name' | format(index_item)) | default('',true) }}"
-      version: "{{ lookup('env', 'apigw_data_apis_%s_version' | format(index_item)) | default('',true) }}"
-      active: "{{ lookup('env', 'apigw_data_apis_%s_active' | format(index_item)) | default('',true) }}"
+_apis_activate_template:
+      name: "{{ lookup('env', 'data_apis_%s_name' | format(index_item)) | default('',true) }}"
+      version: "{{ lookup('env', 'data_apis_%s_version' | format(index_item)) | default('',true) }}"
+      active: "{{ lookup('env', 'data_apis_%s_active' | format(index_item)) | default('',true) }}"

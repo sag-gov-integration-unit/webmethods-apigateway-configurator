@@ -1,8 +1,8 @@
 ---
 
-vars_apigw_extended_settings_enabled: "{{ lookup('env', 'apigw_settings_core_configure') | default('false',true) }}"
-vars_apigw_extended_settings_ignore_errors: "{{ lookup('env', 'apigw_settings_core_configure_ignore_errors') | default(vars_apigw_default_ignore_errors,true) }}"
+vars_extended_settings_enabled: "{{ lookup('env', 'settings_core_configure') | default('false',true) }}"
+vars_extended_settings_ignore_errors: "{{ lookup('env', 'settings_core_configure_ignore_errors') | default(vars_default_ignore_errors,true) }}"
 
 ## extended settings - apigateway settings (note: this are replicated in the cluster)
-vars_apigw_settings_extended: "{{ lookup('env', 'apigw_settings_core_extended') | default('',true) }}"
-vars_apigw_settings_watts: "{{ lookup('env', 'apigw_settings_core_watts') | default('',true) }}"
+vars_settings_extended: "{{ lookup('env', 'settings_core_extended') | default('',true) }}"
+vars_settings_watts: "{{ lookup('env', 'settings_core_watts') | default('',true) }}"

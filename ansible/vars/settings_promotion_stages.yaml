@@ -1,18 +1,18 @@
 ---
 
-vars_apigw_promotions_stages_enabled: "{{ lookup('env', 'apigw_settings_promotions_stages_configure') | default('false',true) }}"
-vars_apigw_promotions_stages_ignore_errors: "{{ lookup('env', 'apigw_settings_promotions_stages_configure_ignore_errors') | default(vars_apigw_default_ignore_errors,true) }}"
+vars_promotions_stages_enabled: "{{ lookup('env', 'settings_promotions_stages_configure') | default('false',true) }}"
+vars_promotions_stages_ignore_errors: "{{ lookup('env', 'settings_promotions_stages_configure_ignore_errors') | default(vars_default_ignore_errors,true) }}"
 
 ## api gateway promotion stages
-_apigw_promotions_stages_indices_finder_prefix: "apigw_settings_promotions_stages_"
-_apigw_promotions_stages_indices_finder_suffix: "_name"
-_index_items_regex_pattern: "{{ common_index_items_regex_pattern | format( _apigw_promotions_stages_indices_finder_prefix, _apigw_promotions_stages_indices_finder_suffix) }}"
+_promotions_stages_indices_finder_prefix: "settings_promotions_stages_"
+_promotions_stages_indices_finder_suffix: "_name"
+_index_items_regex_pattern: "{{ common_index_items_regex_pattern | format( _promotions_stages_indices_finder_prefix, _promotions_stages_indices_finder_suffix) }}"
 
-_apigw_promotions_stages_template:
-  name: "{{ lookup('env', 'apigw_settings_promotions_stages_%s_name' | format(index_item)) | default('',true) }}"
-  description: "{{ lookup('env', 'apigw_settings_promotions_stages_%s_description' | format(index_item)) | default('',true) }}"
-  url: "{{ lookup('env', 'apigw_settings_promotions_stages_%s_url' | format(index_item)) | default('',true) }}"
-  username: "{{ lookup('env', 'apigw_settings_promotions_stages_%s_username' | format(index_item)) | default('',true) }}"
-  password: "{{ lookup('env', 'apigw_settings_promotions_stages_%s_password' | format(index_item)) | default('',true) }}"
-  keystoreAlias: "{{ lookup('env', 'apigw_settings_promotions_stages_%s_keystoreAlias' | format(index_item)) | default('',true) }}"
-  keyAlias: "{{ lookup('env', 'apigw_settings_promotions_stages_%s_keyAlias' | format(index_item)) | default('',true) }}"
+_promotions_stages_template:
+  name: "{{ lookup('env', 'settings_promotions_stages_%s_name' | format(index_item)) | default('',true) }}"
+  description: "{{ lookup('env', 'settings_promotions_stages_%s_description' | format(index_item)) | default('',true) }}"
+  url: "{{ lookup('env', 'settings_promotions_stages_%s_url' | format(index_item)) | default('',true) }}"
+  username: "{{ lookup('env', 'settings_promotions_stages_%s_username' | format(index_item)) | default('',true) }}"
+  password: "{{ lookup('env', 'settings_promotions_stages_%s_password' | format(index_item)) | default('',true) }}"
+  keystoreAlias: "{{ lookup('env', 'settings_promotions_stages_%s_keystoreAlias' | format(index_item)) | default('',true) }}"
+  keyAlias: "{{ lookup('env', 'settings_promotions_stages_%s_keyAlias' | format(index_item)) | default('',true) }}"
