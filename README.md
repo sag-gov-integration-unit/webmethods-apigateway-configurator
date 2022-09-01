@@ -37,7 +37,13 @@ Head over to [How to use](./testing/README.md) for a simple tutorial on how to u
 
 ## Build the container image
 
+Go at the root of the project (here in this case), and run:
+
+```bash
 docker build -t softwareag-government-solutions/webmethods-apigateway-configurator:10.11-latest --build-arg BASE_IMAGE=redhat/ubi8 .
+```
+
+This should build and create a local image labelled: softwareag-government-solutions/webmethods-apigateway-configurator:10.11-latest
 
 ## How it's made
 

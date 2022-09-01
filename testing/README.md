@@ -7,64 +7,174 @@ I have prepared most actions into a simple docker-compose file to:
 
 The images used in this testing are the official SoftwareAG images for [Software AG API Gateway](https://hub.docker.com/r/softwareag/apigateway-trial) and [Developper Portal](https://hub.docker.com/r/softwareag/devportal) so this should be a breeze to try.
 
-## all-in-one: apply all system configs
+## Build the container image
 
-docker-compose up -d apigateway devportal elasticsearch config_allinone_system_settings config_allinone_data
+Go at the root of the project, and run:
 
-## system configs
+```bash
+docker build -t softwareag-government-solutions/webmethods-apigateway-configurator:10.11-latest --build-arg BASE_IMAGE=redhat/ubi8 .
+```
 
-#### system configs all-in-one
+This should build a local image labelled: softwareag-government-solutions/webmethods-apigateway-configurator:10.11-latest
 
-docker-compose up config_allinone_system_settings
+## Start default SoftwareAG API management stack
 
-#### configure core settings (watt, extended)
+Here, we're pulling the default container images by SoftwareAG from DockerHub, ie.
+IMAGE_APIGATEWAY=softwareag/apigateway-trial
+IMAGE_DEVPORTAL=softwareag/devportal
 
-docker-compose up config_coresettings
+Check the [.env](./.env) for more details on that.
+
+```bash
+docker-compose up -d apigateway devportal elasticsearch
+```
+
+Wait for the stack to come up...once loaded, the UIs shoudl be available:
+- APIGateway: http://localhost:9072/
+- Developer Portal: http://localhost:8083/portal/
+
+You can login to each of these with default passwords etc... and nothing is configured at this point.
+
+## all-in-one: Apply all system configs and all sample data in 1 batch
+
+Here we're applying it all in 1 single configurator batch...which could be the possible way to do it in an automated environment.
+
+```bash
+docker-compose up -d config_allinone_system_settings config_allinone_data
+```
+
+## Manual apply: execute each system configs one at a time
+
+#### update admin password
+
+```bash
+docker-compose up config_changepassword
+```
 
 #### configure load balancer urls
 
+```bash
 docker-compose up config_loadbalancerurls
+```
 
-#### configure portal connectivity
+#### configure core settings (watt, extended)
 
-docker-compose up config_portalgateway
+```bash
+docker-compose up config_coresettings
+```
 
 #### configure keystores / truststores
 
-docker-compose up config_keystore config_truststore
+```bash
+docker-compose up config_keystores config_truststores
+```
 
-#### configure in/out connections
+#### configure in/out ssl connections
 
+```bash
 docker-compose up config_ssl_inbound_outbound_connections
+```
+
+#### configure additional ports (including matching with custom certs for SSL ports)
+
+```bash
+docker-compose up config_ports
+```
+
+#### configure promotion stages
+
+==> FIX
+
+```bash
+docker-compose up config_promotion_stages
+```
+
+#### configure developer portal connectivity
+
+```bash
+docker-compose up config_portalgateway
+```
+
+#### configure users
+
+```bash
+docker-compose up config_users
+```
+
+#### configure user groups
+
+```bash
+docker-compose up config_usergroups
+```
+
+#### configure teams (user roles)
+
+```bash
+docker-compose up config_userroles
+```
 
 #### configure saml
 
+```bash
 docker-compose up config_saml
+```
 
-
-## data items
-
-### data items - all-in-one
-
-docker-compose up config_allinone_data
-
-### data items - one by one
+## Manual apply: execute each data items configs one at a time
 
 #### import archives
 
+```bash
 docker-compose up config_import_archives
+```
 
 #### configure aliases
 
+```bash
 docker-compose up config_aliases
+```
 
 #### configure plans
 
+```bash
 docker-compose up config_plans
+```
 
 #### configure packages
 
+```bash
 docker-compose up config_packages
+```
+
+#### activate/deactivate packages
+
+==> FIX!!
+```bash
+docker-compose up config_packages_deactivate
+```
+
+#### configure applications
+
+```bash
+docker-compose up config_applications
+```
+
+#### activate/deactivate applications
+
+```bash
+docker-compose up config_applications_deactivate
+```
+
+#### publish apis to dev portal
+
+```bash
+docker-compose up publish_apis
+```
+
+#### publish packages to dev portal
+
+```bash
+docker-compose up publish_packages
+```
 
 Authors
 --------------------------------------------

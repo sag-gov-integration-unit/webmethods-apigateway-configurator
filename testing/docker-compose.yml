@@ -44,7 +44,6 @@ services:
     networks:
       - stack
 
-
   config_loadbalancerurls:
     image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
     environment: 
@@ -487,7 +486,6 @@ services:
   config_applications:
     image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
     environment:
-      configurator_ansible_args: "-vv"
       connect_host: apigateway
       connect_port: "5555"
       connect_user: Administrator

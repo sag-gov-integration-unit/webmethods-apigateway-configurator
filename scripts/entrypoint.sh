@@ -45,7 +45,7 @@ if [ "${settings_ssl_inbound_outbound_configure}" == "true" ]; then
 fi
 
 ## promotion_stages
-if [ "${data_promotions_stages_configure}" == "true" ]; then
+if [ "${settings_promotions_stages_configure}" == "true" ]; then
     exec_ansible_playbook config_promotion_stages.yaml
 fi
 
