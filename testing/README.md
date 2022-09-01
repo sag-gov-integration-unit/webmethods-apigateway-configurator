@@ -35,7 +35,7 @@ Wait for the stack to come up...once loaded, the UIs shoudl be available:
 
 You can login to each of these with default passwords etc... and nothing is configured at this point.
 
-## all-in-one: Apply all system configs and all sample data in 1 batch
+## All-in-one: Apply all system configs and all sample data in 1 batch
 
 Here we're applying it all in 1 single configurator batch...which could be the possible way to do it in an automated environment.
 
