@@ -31,9 +31,9 @@ The following configuration items / actions are currently supported (new functio
 - activate/deactivate apis
 - activate/deactivate applications
 - activate/deactivate packages
-- (more can be added based on needs)
+- (more can and will be added based on automation needs)
 
-Head over to [How to use](./testing/README.md) for a simple tutorial on how to use this 
+Head over to [Using/Testing the webmethods-apigateway-configurator](./testing/README.md) for a detail tutorial on how to use the configurator to apply all the supported config items.
 
 ## Build the container image
 
@@ -44,6 +44,10 @@ docker build -t softwareag-government-solutions/webmethods-apigateway-configurat
 ```
 
 This should build and create a local image labelled: softwareag-government-solutions/webmethods-apigateway-configurator:10.11-latest
+
+## Trying the configurator
+
+Head over to [Using/Testing the webmethods-apigateway-configurator](./testing/README.md) for a detail tutorial on how to use the configurator to apply all the supported config items.
 
 ## How it's made
 
