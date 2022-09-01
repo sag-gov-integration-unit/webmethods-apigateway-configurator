@@ -83,8 +83,6 @@ docker-compose up config_ports
 
 #### configure promotion stages
 
-==> FIX
-
 ```bash
 docker-compose up config_promotion_stages
 ```
