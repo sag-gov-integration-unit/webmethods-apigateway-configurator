@@ -481,6 +481,23 @@ services:
       data_packages_1_active: "false"
     networks:
       - stack
+  
+  config_packages_activate:
+    image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
+    environment: 
+      connect_host: apigateway
+      connect_port: "5555"
+      connect_user: Administrator
+      connect_password: "somethingnew"
+      data_packages_status_update: "true"
+      data_packages_0_name: "package1"
+      data_packages_0_version: "1.0"
+      data_packages_0_active: "true"
+      data_packages_1_name: "package2"
+      data_packages_1_version: "1.0"
+      data_packages_1_active: "true"
+    networks:
+      - stack
 
 ## TODO: fix error when lookup apis is empty...
   config_applications:

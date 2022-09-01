@@ -145,9 +145,16 @@ docker-compose up config_packages
 
 #### activate/deactivate packages
 
-==> FIX!!
+De-activate:
+
 ```bash
 docker-compose up config_packages_deactivate
+```
+
+Activate:
+
+```bash
+docker-compose up config_packages_activate
 ```
 
 #### configure applications
