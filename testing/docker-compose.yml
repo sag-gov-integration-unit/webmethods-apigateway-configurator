@@ -557,8 +557,27 @@ services:
       data_applications_1_isSuspended: "true"
       data_applications_2_name: app3
       data_applications_2_version: "0.3"
-      data_applications_2_description: app3 description
       data_applications_2_isSuspended: "true"
+    networks:
+      - stack
+
+  config_applications_activate:
+    image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
+    environment: 
+      connect_host: apigateway
+      connect_port: "5555"
+      connect_user: Administrator
+      connect_password: "somethingnew"
+      data_applications_status_update: "true"
+      data_applications_0_name: app1
+      data_applications_0_version: "0.1"
+      data_applications_0_isSuspended: "false"
+      data_applications_1_name: app2
+      data_applications_1_version: "0.2"
+      data_applications_1_isSuspended: "false"
+      data_applications_2_name: app3
+      data_applications_2_version: "0.3"
+      data_applications_2_isSuspended: "false"
     networks:
       - stack
 

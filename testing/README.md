@@ -165,8 +165,16 @@ docker-compose up config_applications
 
 #### activate/deactivate applications
 
+De-activate:
+
 ```bash
 docker-compose up config_applications_deactivate
+```
+
+Activate:
+
+```bash
+docker-compose up config_applications_activate
 ```
 
 #### publish apis to dev portal
