@@ -743,6 +743,8 @@ services:
       connect_port: "5555"
       connect_user: Administrator
       connect_password: "somethingnew"
+      changepassword_enabled: "true"
+      changepassword_old: "manage"
       data_archives_import: "true"
       data_archives_1_path: "/imports/apigw-archive-api-bookstore-1.0.zip"
       data_archives_1_overwrite: "apis,policies,policyactions"
