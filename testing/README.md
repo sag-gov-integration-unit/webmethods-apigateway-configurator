@@ -189,6 +189,12 @@ docker-compose up publish_apis
 docker-compose up publish_packages
 ```
 
+## Clean up
+
+```bash
+docker-compose down -v
+```
+
 Authors
 --------------------------------------------
 
