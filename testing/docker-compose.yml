@@ -703,13 +703,6 @@ services:
       settings_ports_1_keystore_name: "Custom_SSL_Keystore"
       settings_ports_1_keystore_keyalias: "certificate"
       settings_ports_1_truststore_name: "Custom_SSL_Truststore"
-      settings_ports_2_name: "Some_WS_port"
-      settings_ports_2_type: "websocket"
-      settings_ports_2_port: "5588"
-      settings_ports_2_description: "Some websocket port description"
-      settings_ports_2_enabled: "true"
-      settings_ports_2_maxqueue: "10000"
-      settings_ports_2_idletimeout: "90000"
       settings_promotions_stages_configure: "true"
       settings_promotions_stages_0_name: promotion1
       settings_promotions_stages_0_description: description1
