@@ -40,7 +40,7 @@ You can login to each of these with default passwords etc... and nothing is conf
 Here we're applying it all in 1 single configurator batch...which could be the possible way to do it in an automated environment.
 
 ```bash
-docker-compose up -d config_allinone_system_settings config_allinone_data
+docker-compose up config_allinone_system_settings config_allinone_data
 ```
 
 ## Manual apply: execute each system configs one at a time

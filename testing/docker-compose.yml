@@ -817,7 +817,7 @@ services:
       data_aliases_1_type: simple
       data_aliases_1_value: val2
       data_aliases_1_stage: stag2
-      data_aliases_2_name: endpointname3
+      data_aliases_2_name: name3
       data_aliases_2_description: endpoint alias
       data_aliases_2_type: endpoint
       data_aliases_2_stage: stag2
