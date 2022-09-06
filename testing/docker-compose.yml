@@ -776,6 +776,19 @@ services:
       settings_userroles_2_description: "api users role"
       settings_userroles_2_privilegecode: "10010010010100000001010001"
       settings_userroles_2_groupnames: "usergroup1;usergroup2;usergroup3"
+      settings_saml_configure: "true"
+      settings_saml_sp_id: "webmethods-apigateway-saml-client"
+      settings_saml_keystore_alias: "SAMLSelfSignedKeystore"
+      settings_saml_keystore_default_key_alias: certificate
+      settings_saml_redirect_host: "http://mygateway:9072"
+      settings_saml_usebydefault: "false"
+      settings_saml_idpmetadata_localfilepath: "/configs/idpmetadata.xml"
+      settings_saml_userprofilemapping_firstname: firstName
+      settings_saml_userprofilemapping_lastname: lastName
+      settings_saml_userprofilemapping_email: email
+      settings_saml_group_attributes: roles;Role
+      settings_saml_groups_to_apigateway_groups: apigateway-admin=API-Gateway-Administrators;apigateway-apiprovider=API-Gateway-Providers;apigateway-user=Everybody
+    
     networks:
       - stack
 
