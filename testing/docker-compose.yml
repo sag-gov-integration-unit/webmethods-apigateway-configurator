@@ -617,6 +617,7 @@ services:
     image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
     volumes:
       - ./resources/certs:/certs:ro
+      - ./resources/saml/idpmetadata.xml:/configs/idpmetadata.xml:ro
     environment: 
       connect_host: apigateway
       connect_port: "5555"
