@@ -32,6 +32,60 @@ services:
     networks:
       - stack
 
+  test_dict2item:
+    image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
+    entrypoint: "./entrypoint.sh ./testing/test_dict2item.yaml"
+    volumes:
+      - ../resources/ansible/sagdevops-ansible-common:/ansible/roles/sagdevops-ansible-common-1.0.0-4:ro
+      - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.1-2:ro 
+    environment:
+      configurator_ansible_args: "-v"
+      wait_connect: "false"
+    networks:
+      - stack
+
+  test_search_apis_single:
+    image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
+    entrypoint: "./entrypoint.sh -vv ./testing/test_search_apis_single.yaml"
+    volumes:
+      - ../resources/ansible/sagdevops-ansible-common:/ansible/roles/sagdevops-ansible-common-1.0.0-4:ro
+      - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.1-2:ro 
+    environment:
+      connect_host: apigateway
+      connect_port: "5555"
+      connect_user: Administrator
+      connect_password: "somethingnew"
+    networks:
+      - stack
+  
+  test_search_apis_multiple:
+    image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
+    entrypoint: "./entrypoint.sh -vv ./testing/test_search_apis_multiple.yaml"
+    volumes:
+      - ../resources/ansible/sagdevops-ansible-common:/ansible/roles/sagdevops-ansible-common-1.0.0-4:ro
+      - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.1-2:ro 
+    environment:
+      connect_host: apigateway
+      connect_port: "5555"
+      connect_user: Administrator
+      connect_password: "somethingnew"
+    networks:
+      - stack
+
+  test_searches_2:
+    image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
+    entrypoint: "./entrypoint.sh -vv ./testing/test_search_2.yaml"
+    volumes:
+      - ../resources/ansible/sagdevops-ansible-common:/ansible/roles/sagdevops-ansible-common-1.0.0-4:ro
+      - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.1-2:ro 
+    environment:
+      connect_host: apigateway
+      connect_port: "5555"
+      connect_user: Administrator
+      connect_password: "somethingnew"
+    networks:
+      - stack
+
   config_changepassword:
     image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
     volumes:
@@ -46,7 +100,6 @@ services:
       changepassword_old: "manage"
     networks:
       - stack
-
 
   config_loadbalancerurls:
     image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
@@ -540,6 +593,27 @@ services:
     networks:
       - stack
 
+  config_packages_activate:
+    image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
+    volumes:
+      - ../resources/ansible/sagdevops-ansible-common:/ansible/roles/sagdevops-ansible-common-1.0.0-4:ro
+      - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.1-2:ro 
+    environment: 
+      connect_host: apigateway
+      connect_port: "5555"
+      connect_user: Administrator
+      connect_password: "somethingnew"
+      data_packages_status_update: "true"
+      data_packages_0_name: "package1"
+      data_packages_0_version: "1.0"
+      data_packages_0_active: "true"
+      data_packages_1_name: "package2"
+      data_packages_1_version: "1.0"
+      data_packages_1_active: "true"
+    networks:
+      - stack
+
+
 ## TODO: fix error when lookup apis is empty...
   config_applications:
     image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
@@ -547,7 +621,6 @@ services:
       - ../resources/ansible/sagdevops-ansible-common:/ansible/roles/sagdevops-ansible-common-1.0.0-4:ro
       - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.1-2:ro 
     environment:
-      configurator_ansible_args: "-vv"
       connect_host: apigateway
       connect_port: "5555"
       connect_user: Administrator
@@ -605,8 +678,30 @@ services:
       data_applications_1_isSuspended: "true"
       data_applications_2_name: app3
       data_applications_2_version: "0.3"
-      data_applications_2_description: app3 description
       data_applications_2_isSuspended: "true"
+    networks:
+      - stack
+
+  config_applications_activate:
+    image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
+    volumes:
+      - ../resources/ansible/sagdevops-ansible-common:/ansible/roles/sagdevops-ansible-common-1.0.0-4:ro
+      - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.1-2:ro 
+    environment: 
+      connect_host: apigateway
+      connect_port: "5555"
+      connect_user: Administrator
+      connect_password: "somethingnew"
+      data_applications_status_update: "true"
+      data_applications_0_name: app1
+      data_applications_0_version: "0.1"
+      data_applications_0_isSuspended: "false"
+      data_applications_1_name: app2
+      data_applications_1_version: "0.2"
+      data_applications_1_isSuspended: "false"
+      data_applications_2_name: app3
+      data_applications_2_version: "0.3"
+      data_applications_2_isSuspended: "false"
     networks:
       - stack
 
@@ -654,6 +749,7 @@ services:
       - ../resources/ansible/sagdevops-ansible-common:/ansible/roles/sagdevops-ansible-common-1.0.0-4:ro
       - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.1-2:ro
       - ../resources/certs:/certs:ro
+      - ../resources/saml/idpmetadata.xml:/configs/idpmetadata.xml:ro
     environment: 
       connect_host: apigateway
       connect_port: "5555"
@@ -714,6 +810,32 @@ services:
       settings_ssl_outbound_keystore_name: "Custom_SSL_Keystore"
       settings_ssl_outbound_keystore_keyalias: "certificate"
       settings_ssl_outbound_truststore_name: "Custom_SSL_Truststore"
+      settings_ports_configure: "true"
+      settings_ports_0_name: "Some_name"
+      settings_ports_0_type: "regular_http"
+      settings_ports_0_port: "5566"
+      settings_ports_0_description: "Some port description"
+      settings_ports_0_enabled: "true"
+      settings_ports_0_threadPool: "true"
+      settings_ports_0_threadPool_minthread: "100"
+      settings_ports_0_threadPool_maxthread: "4000"
+      settings_ports_0_threadpool_threadpriority: "5"
+      settings_ports_0_maxqueue: "10000"
+      settings_ports_0_keepalivetimeout: "25000"
+      settings_ports_1_name: "Some_name_2"
+      settings_ports_1_type: "regular_https"
+      settings_ports_1_port: "5577"
+      settings_ports_1_description: "Some port description 2"
+      settings_ports_1_enabled: "true"
+      settings_ports_1_threadPool: "true"
+      settings_ports_1_threadPool_minthread: "100"
+      settings_ports_1_threadPool_maxthread: "4000"
+      settings_ports_1_threadpool_threadpriority: "5"
+      settings_ports_1_maxqueue: "10000"
+      settings_ports_1_keepalivetimeout: "25000"
+      settings_ports_1_keystore_name: "Custom_SSL_Keystore"
+      settings_ports_1_keystore_keyalias: "certificate"
+      settings_ports_1_truststore_name: "Custom_SSL_Truststore"
       settings_promotions_stages_configure: "true"
       settings_promotions_stages_0_name: promotion1
       settings_promotions_stages_0_description: description1
@@ -729,6 +851,70 @@ services:
       settings_promotions_stages_1_password: password2
       settings_promotions_stages_1_keystoreAlias: "Custom_SSL_Keystore"
       settings_promotions_stages_1_keyAlias: "certificate"
+      settings_users_configure: "true"
+      settings_users_0_loginid: "user1"
+      settings_users_0_active: "true"
+      settings_users_0_firstname: "firstname1"
+      settings_users_0_lastname: "lastname1"
+      settings_users_0_password: "password1"
+      settings_users_0_emails: "user1@email1.com;user1@email2.com;user1@email3.com"
+      settings_users_0_allowDigestAuth: "false"
+      settings_users_0_language: "en"
+      settings_users_1_loginid: "user2"
+      settings_users_1_active: "true"
+      settings_users_1_firstname: "firstname2"
+      settings_users_1_lastname: "lastname2"
+      settings_users_1_password: "password2"
+      settings_users_1_emails: "user2@email1.com"
+      settings_users_1_allowDigestAuth: "false"
+      settings_users_1_language: "en"
+      settings_users_2_loginid: "user3"
+      settings_users_2_active: "true"
+      settings_users_2_firstname: "firstname3"
+      settings_users_2_lastname: "lastname3"
+      settings_users_2_password: "password3"
+      settings_users_2_emails: ""
+      settings_users_2_allowDigestAuth: "false"
+      settings_users_2_language: "en"
+      settings_usergroups_configure: "true"
+      settings_usergroups_0_name: "usergroup1"
+      settings_usergroups_0_description: "description for usergroup1"
+      settings_usergroups_0_userids: "user1;user2;user3"
+      settings_usergroups_0_userids_strict: "true"
+      settings_usergroups_1_name: "usergroup2"
+      settings_usergroups_1_description: "description for usergroup2"
+      settings_usergroups_1_userids: "user1"
+      settings_usergroups_1_userids_strict: "true"
+      settings_usergroups_2_name: "usergroup3"
+      settings_usergroups_2_description: "description for usergroup3"
+      settings_usergroups_2_userids: ""
+      settings_usergroups_2_userids_strict: "true"
+      settings_userroles_configure: "true"
+      settings_userroles_0_name: "custom-admin-role"
+      settings_userroles_0_description: "admin role"
+      settings_userroles_0_privilegecode: "111111111111111111111111111"
+      settings_userroles_0_groupnames: "usergroup1"
+      settings_userroles_1_name: "custom-apiproviders-role"
+      settings_userroles_1_description: "api providers role"
+      settings_userroles_1_privilegecode: "111111111111111111111111100"
+      settings_userroles_1_groupnames: "usergroup1;usergroup2"
+      settings_userroles_2_name: "custom-apiusers-role"
+      settings_userroles_2_description: "api users role"
+      settings_userroles_2_privilegecode: "10010010010100000001010001"
+      settings_userroles_2_groupnames: "usergroup1;usergroup2;usergroup3"
+      settings_saml_configure: "true"
+      settings_saml_sp_id: "webmethods-apigateway-saml-client"
+      settings_saml_keystore_alias: "SAMLSelfSignedKeystore"
+      settings_saml_keystore_default_key_alias: certificate
+      settings_saml_redirect_host: "http://mygateway:9072"
+      settings_saml_usebydefault: "false"
+      settings_saml_idpmetadata_localfilepath: "/configs/idpmetadata.xml"
+      settings_saml_userprofilemapping_firstname: firstName
+      settings_saml_userprofilemapping_lastname: lastName
+      settings_saml_userprofilemapping_email: email
+      settings_saml_group_attributes: roles;Role
+      settings_saml_groups_to_apigateway_groups: apigateway-admin=API-Gateway-Administrators;apigateway-apiprovider=API-Gateway-Providers;apigateway-user=Everybody
+    
     networks:
       - stack
 
@@ -765,7 +951,7 @@ services:
       data_aliases_1_type: simple
       data_aliases_1_value: val2
       data_aliases_1_stage: stag2
-      data_aliases_2_name: endpointname3
+      data_aliases_2_name: name3
       data_aliases_2_description: endpoint alias
       data_aliases_2_type: endpoint
       data_aliases_2_stage: stag2

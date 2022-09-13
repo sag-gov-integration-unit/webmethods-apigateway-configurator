@@ -1,0 +1,52 @@
+---
+
+- hosts: local
+  vars:
+    _find_object_filters:
+      - name: "some_name1"
+        version: "some_version1"
+      - name: "some_name2"
+        version: "some_version2"
+      - name: "some_name3"
+      - name: "some_name4"
+        version: "some_version4"
+
+  tasks:
+    
+    - name: initial object
+      debug:
+        var: _find_object_filters
+
+    - name: intermediate1
+      debug:
+        var: >-
+          _find_object_filters
+          | selectattr('name', 'defined')
+          | map(attribute='name')
+          | list
+          | unique
+          | join('|')
+
+    - name: intermediate2
+      debug:
+        var: >-
+          _find_object_filters
+          | selectattr('version', 'defined')
+          | map(attribute='version')
+          | list
+          | unique
+          | join('|')
+
+    - name: intermediate2
+      debug:
+        var: >-
+          _find_object_filters
+          | map('dict2items')
+
+    - name: transformed output3
+      debug:
+        var: >-
+          _find_object_filters
+          | map('dict2items') | first
+          | flatten
+          | map(attribute='value')
