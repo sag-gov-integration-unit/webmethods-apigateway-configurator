@@ -4,6 +4,8 @@ A container that can easily configure various functions of webmethods-apigateway
 
 As a high level description of how it works, this container essentially uses REST calls to the SoftwareAG APIGateway Admin APIs to perform all its functions.
 
+An explanation / walk-through video (10 min) was created to highlight usage: https://youtu.be/M306IGQ-qQ4
+
 ## Supported Configs / Actions
 
 The following configuration items / actions are currently supported (new functions added as needed)
