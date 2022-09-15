@@ -6,9 +6,6 @@ ARG BASE_IMAGE=redhat/ubi8-minimal
 
 FROM $BASE_IMAGE as base
 
-# Install tools
-RUN microdnf -y install tar
-
 # 2. start by creating an ansible base image
 ######################################################################################################
 
@@ -86,6 +83,9 @@ ARG SAG_ANSIBLE_ROLES_APIGATEWAY_FILENAME="${SAG_ANSIBLE_ROLES_APIGATEWAY}-${SAG
 # ":" separated paths in which Ansible will search for Roles.
 ENV ANSIBLE_ROLES_PATH="${ANSIBLE_ROLES_PATH}:${ANSIBLE_ROLES_BASEPATH}/${SAG_ANSIBLE_ROLES_COMMON_UTILS_FILENAME}/roles:${ANSIBLE_ROLES_BASEPATH}/${SAG_ANSIBLE_ROLES_APIGATEWAY_FILENAME}/roles"
 
+# Install tools needed to extract
+RUN microdnf -y install tar gzip
+
 # add the roles
 ## Role 1: SAG_ANSIBLE_ROLES_COMMON_UTILS
 RUN set -x \
@@ -98,10 +98,6 @@ RUN set -x \
     && echo "==> Download a specific TAG release of ${SAG_ANSIBLE_ROLES_APIGATEWAY}" \
     && curl -L "${SAG_ANSIBLE_ROLES_URL}/${SAG_ANSIBLE_ROLES_APIGATEWAY}/archive/refs/tags/${SAG_ANSIBLE_ROLES_APIGATEWAY_RELEASE}.tar.gz" -o "/tmp/${SAG_ANSIBLE_ROLES_APIGATEWAY_FILENAME}.tar.gz"  \
     && tar xvf /tmp/${SAG_ANSIBLE_ROLES_APIGATEWAY_FILENAME}.tar.gz -C ${ANSIBLE_ROLES_BASEPATH}
-
-# install ansible community playbooks
-RUN ansible-galaxy collection install community.general
-
 
 # 3. Finalize the image
 # this creates an image of approx 2.20GiB (un-compressed)
