@@ -129,7 +129,10 @@ FROM base_ansible_with_roles as final
 
 LABEL org.opencontainers.image.authors="fabien.sanglier@softwareaggov.com" \
       org.opencontainers.image.vendor="Softwareag Government Solutions" \
-      org.opencontainers.image.version="10.11"
+      org.opencontainers.image.title="webMethods API Gateway Configurator" \
+      org.opencontainers.image.description="A container that can easily configure various functions of SoftwareAG webmethods-apigateway from environment variable values passed in" \
+      org.opencontainers.image.version="10.11" \
+      org.opencontainers.image.source="https://github.com/softwareag-government-solutions/webmethods-apigateway-configurator"
 
 ENV wait_connect=true
 

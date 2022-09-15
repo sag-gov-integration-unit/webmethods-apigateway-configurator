@@ -28,9 +28,7 @@ jobs:
             saggs/webmethods-apigateway-configurator
           tags: |
             type=ref,event=branch
-            type=ref,event=pr
             type=semver,pattern={{version}}
-            type=semver,pattern={{major}}.{{minor}}
   
       - name: Build and push Docker image
         uses: docker/build-push-action@v3
