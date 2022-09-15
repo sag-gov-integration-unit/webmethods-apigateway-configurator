@@ -21,6 +21,7 @@ ENV ANSIBLE_VENV="${ANSIBLE_PATH}/venv"
 ENV ANSIBLE_VERBOSITY="0"
 ENV ANSIBLE_DEBUG="false" 
 ENV ANSIBLE_ROLES_PATH="~/.ansible/roles:/usr/share/ansible/roles:/etc/ansible/roles"
+ENV ANSIBLE_PYTHON_INTERPRETER="${ANSIBLE_VENV}/bin/python3.9"
 
 ## ansible-specific config env vars
 
