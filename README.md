@@ -37,16 +37,6 @@ The following configuration items / actions are currently supported (new functio
 
 Head over to [Using/Testing the webmethods-apigateway-configurator](./testing/README.md) for a detail tutorial on how to use the configurator to apply all the supported config items.
 
-## Build the container image
-
-Go at the root of the project (here in this case), and run:
-
-```bash
-docker build -t softwareag-government-solutions/webmethods-apigateway-configurator:10.11-latest --build-arg BASE_IMAGE=redhat/ubi8 .
-```
-
-This should build and create a local image labelled: softwareag-government-solutions/webmethods-apigateway-configurator:10.11-latest
-
 ## Trying the configurator
 
 Head over to [Using/Testing the webmethods-apigateway-configurator](./testing/README.md) for a detail tutorial on how to use the configurator to apply all the supported config items.
@@ -57,6 +47,16 @@ To build on the ansible roles already created for APIGateway, this container als
 
 For the various REST calls, this project makes use of the existing Ansible roles [sagdevops-ansible-apigateway](https://github.com/SoftwareAG/sagdevops-ansible-apigateway.git) to perform all the needed REST calls to APIGateway.
 
+
+## Building the container image
+
+The image is published on DockerHub at: https://hub.docker.com/r/saggs/webmethods-apigateway-configurator
+
+But if you want to try anbd build it yourself, a simple command is:
+
+```bash
+docker build -t saggs/webmethods-apigateway-configurator:10.11 --build-arg BASE_IMAGE=redhat/ubi8 .
+```
 
 Authors
 --------------------------------------------
