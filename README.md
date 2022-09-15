@@ -2,7 +2,7 @@
 
 A container that can easily configure various functions of SoftwareAG webmethods-apigateway from environment variable values passed in.
 
-As a high level description of how it works, this container essentially uses REST calls to the SoftwareAG APIGateway Admin APIs to perform all its functions.
+As a high level description of how it works, this container strcitly uses REST calls to the SoftwareAG APIGateway System APIs to perform all its functions.
 
 An explanation / walk-through video (10 min) was created to highlight usage: https://youtu.be/M306IGQ-qQ4
 
