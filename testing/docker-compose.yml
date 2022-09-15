@@ -52,10 +52,10 @@ services:
       connect_user: Administrator
       connect_password: "somethingnew"
       settings_lburls_configure: "true"
-      settings_lburls_http_urls: "http://externallb1:80;http://externallb2;http://externallb3"
-      settings_lburls_https_urls: "https://externallb1:443;https://externallb2:443;https://externallb3:443"
-      settings_lburls_websocket_url: "ws://externallb1;ws://externallb2;ws://externallb3"
-      settings_lburls_webapp_url: "http://externallb"
+      settings_lburls_http_urls: "http://apigateway-configurator-demo:5555;http://anotherexternallb1:80"
+      settings_lburls_https_urls: "https://apigateway-configurator-demo:5543;https://anotherexternallb1:443"
+      settings_lburls_websocket_url: "ws://anotherexternallb1;ws://anotherexternallb2"
+      settings_lburls_webapp_url: "http://apigateway-configurator-demo:9072"
     networks:
       - stack
 
