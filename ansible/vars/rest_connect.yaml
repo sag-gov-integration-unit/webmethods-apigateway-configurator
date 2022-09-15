@@ -14,3 +14,7 @@ vars_rest_login_password: "{{ lookup('env', 'connect_password') }}"
 vars_changepassword_enabled: "{{ lookup('env', 'changepassword_enabled') | default('false',true) }}"
 vars_changepassword_ignore_errors: "{{ lookup('env', 'changepassword_ignore_errors') | default(vars_default_ignore_errors,true) }}"
 vars_rest_login_password_old: "{{ lookup('env', 'changepassword_old') }}"
+
+## common playbook vars
+apigateway_rest_login_username: "{{ vars_rest_login_username }}"
+apigateway_rest_login_password: "{{ vars_rest_login_password }}"

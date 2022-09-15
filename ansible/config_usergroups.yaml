@@ -20,9 +20,6 @@
 ################################################################
 
 - hosts: local
-  become: true
-  become_user: "{{ webmethods_user }}"
-  run_once: true
   vars:
     apigateway_rest_protocol: "{{ vars_rest_protocol }}"
     apigateway_rest_host: "{{ vars_rest_host }}"

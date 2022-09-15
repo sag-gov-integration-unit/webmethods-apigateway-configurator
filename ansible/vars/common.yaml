@@ -1,10 +1,13 @@
 ---
 
-# ansible - force python3
-ansible_python_interpreter: /ansible/venv/bin/python3.9
-
 ## Global vars
 vars_default_ignore_errors: "{{ lookup('env', 'default_ignore_errors') | default('false',true) }}"
+
+## common playbook vars
+apigateway_rest_protocol: "{{ vars_rest_protocol }}"
+apigateway_rest_host: "{{ vars_rest_host }}"
+apigateway_rest_port: "{{ vars_rest_port }}"
+apigateway_rest_no_check_certs: "{{ vars_rest_no_check_certs }}"
 
 ##################### webmethods specifics
 webmethods_user: "{{ lookup('env', 'SAG_USER') | default('saguser',true) }}"
