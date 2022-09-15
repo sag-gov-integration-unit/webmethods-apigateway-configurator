@@ -21,14 +21,6 @@
 
 - name: System config settings tasks
   hosts: local
-  vars:
-    apigateway_rest_protocol: "{{ vars_rest_protocol }}"
-    apigateway_rest_host: "{{ vars_rest_host }}"
-    apigateway_rest_port: "{{ vars_rest_port }}"
-    apigateway_rest_no_check_certs: "{{ vars_rest_no_check_certs }}"
-    apigateway_rest_login_username: "{{ vars_rest_login_username }}"
-    apigateway_rest_login_password: "{{ vars_rest_login_password }}"
-
   tasks:
 
     - name: transform watt string of key-value pairs into a dict
