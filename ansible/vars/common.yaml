@@ -1,5 +1,8 @@
 ---
 
+# ansible - force python3
+ansible_python_interpreter: /ansible/venv/bin/python3.9
+
 ## Global vars
 vars_default_ignore_errors: "{{ lookup('env', 'default_ignore_errors') | default('false',true) }}"
 
