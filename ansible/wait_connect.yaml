@@ -20,8 +20,6 @@
 
 - name: Check the target ports to ensure valid state
   hosts: local
-  become: true
-  become_user: "{{ webmethods_user }}"
   tasks:
     - include_role:
         name: check-remote-ports

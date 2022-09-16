@@ -2,30 +2,9 @@
 # 1. start by creating a base image
 ######################################################################################################
 
-ARG BASE_IMAGE
+ARG BASE_IMAGE=redhat/ubi8-minimal
 
 FROM $BASE_IMAGE as base
-
-## USER and HOME
-ARG SAG_HOME=/opt/softwareag
-ARG SAG_USER=saguser
-ARG SAG_USERID=1724
-ARG SAG_USER_DESC="Software AG User"
-ARG SAG_GROUP=saguser
-ARG SAG_GROUPID=1724
-
-ENV SAG_HOME ${SAG_HOME}
-ENV SAG_USER ${SAG_USER}
-ENV SAG_USERID ${SAG_USERID}
-ENV SAG_USER_DESC ${SAG_USER_DESC}
-ENV SAG_GROUP ${SAG_GROUP}
-ENV SAG_GROUPID ${SAG_GROUPID}
-
-# Create saguser a process owner and group
-RUN groupadd -g ${SAG_GROUPID} ${SAG_GROUP} && \
-    useradd -s /bin/bash -u ${SAG_USERID} -m -g ${SAG_GROUPID} -d ${SAG_HOME} -c "${SAG_USER_DESC}" ${SAG_USER} && \
-    mkdir -p ${SAG_HOME}/.ansible/tmp && \
-    chown -R ${SAG_USER}:${SAG_GROUP} ${SAG_HOME}/.ansible
 
 # 2. start by creating an ansible base image
 ######################################################################################################
@@ -42,6 +21,7 @@ ENV ANSIBLE_VENV="${ANSIBLE_PATH}/venv"
 ENV ANSIBLE_VERBOSITY="0"
 ENV ANSIBLE_DEBUG="false" 
 ENV ANSIBLE_ROLES_PATH="~/.ansible/roles:/usr/share/ansible/roles:/etc/ansible/roles"
+ENV ANSIBLE_PYTHON_INTERPRETER="${ANSIBLE_VENV}/bin/python3.9"
 
 ## ansible-specific config env vars
 
@@ -57,7 +37,7 @@ ENV ANSIBLE_HOST_KEY_CHECKING="False"
 
 # Install Ansible
 RUN set -x \
-    && dnf -y install python39 \
+    && microdnf -y install python39 \
     && python3 --version \
     && python3 -m venv ${ANSIBLE_VENV} \
     && source ${ANSIBLE_VENV}/bin/activate \
@@ -104,6 +84,9 @@ ARG SAG_ANSIBLE_ROLES_APIGATEWAY_FILENAME="${SAG_ANSIBLE_ROLES_APIGATEWAY}-${SAG
 # ":" separated paths in which Ansible will search for Roles.
 ENV ANSIBLE_ROLES_PATH="${ANSIBLE_ROLES_PATH}:${ANSIBLE_ROLES_BASEPATH}/${SAG_ANSIBLE_ROLES_COMMON_UTILS_FILENAME}/roles:${ANSIBLE_ROLES_BASEPATH}/${SAG_ANSIBLE_ROLES_APIGATEWAY_FILENAME}/roles"
 
+# Install tools needed to extract
+RUN microdnf -y install tar gzip
+
 # add the roles
 ## Role 1: SAG_ANSIBLE_ROLES_COMMON_UTILS
 RUN set -x \
@@ -116,10 +99,6 @@ RUN set -x \
     && echo "==> Download a specific TAG release of ${SAG_ANSIBLE_ROLES_APIGATEWAY}" \
     && curl -L "${SAG_ANSIBLE_ROLES_URL}/${SAG_ANSIBLE_ROLES_APIGATEWAY}/archive/refs/tags/${SAG_ANSIBLE_ROLES_APIGATEWAY_RELEASE}.tar.gz" -o "/tmp/${SAG_ANSIBLE_ROLES_APIGATEWAY_FILENAME}.tar.gz"  \
     && tar xvf /tmp/${SAG_ANSIBLE_ROLES_APIGATEWAY_FILENAME}.tar.gz -C ${ANSIBLE_ROLES_BASEPATH}
-
-# install ansible community playbooks
-RUN ansible-galaxy collection install community.general
-
 
 # 3. Finalize the image
 # this creates an image of approx 2.20GiB (un-compressed)
