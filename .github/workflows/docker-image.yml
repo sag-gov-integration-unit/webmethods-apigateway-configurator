@@ -33,7 +33,7 @@ jobs:
           images: |
             saggs/webmethods-apigateway-configurator
           tags: |
-            type=ref,event=tag
+            type=sha
             type=match,pattern=v(.*),group=1
             type=match,pattern=v[^-]*-(.*),group=1
   
