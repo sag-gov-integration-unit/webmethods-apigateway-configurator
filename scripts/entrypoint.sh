@@ -49,6 +49,11 @@ else
         exec_ansible_playbook config_ssl_inout_connections.yaml
     fi
 
+    ## local auth settings
+    if [ "${settings_localauth_configure,,}" == "true" ]; then
+        exec_ansible_playbook config_localauth.yaml
+    fi
+
     ## promotion_stages
     if [ "${settings_promotions_stages_configure,,}" == "true" ]; then
         exec_ansible_playbook config_promotion_stages.yaml
