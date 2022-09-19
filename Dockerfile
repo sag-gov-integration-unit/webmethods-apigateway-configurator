@@ -77,7 +77,7 @@ ARG SAG_ANSIBLE_ROLES_COMMON_UTILS_FILENAME="${SAG_ANSIBLE_ROLES_COMMON_UTILS}-$
 
 # sag apigateway roles
 ARG SAG_ANSIBLE_ROLES_APIGATEWAY=sagdevops-ansible-apigateway
-ARG SAG_ANSIBLE_ROLES_APIGATEWAY_RELEASE=1.0.1-2
+ARG SAG_ANSIBLE_ROLES_APIGATEWAY_RELEASE=1.0.2-1
 ARG SAG_ANSIBLE_ROLES_APIGATEWAY_FILENAME="${SAG_ANSIBLE_ROLES_APIGATEWAY}-${SAG_ANSIBLE_ROLES_APIGATEWAY_RELEASE}"
 
 # ansible-specific config env vars
@@ -99,6 +99,10 @@ RUN set -x \
     && echo "==> Download a specific TAG release of ${SAG_ANSIBLE_ROLES_APIGATEWAY}" \
     && curl -L "${SAG_ANSIBLE_ROLES_URL}/${SAG_ANSIBLE_ROLES_APIGATEWAY}/archive/refs/tags/${SAG_ANSIBLE_ROLES_APIGATEWAY_RELEASE}.tar.gz" -o "/tmp/${SAG_ANSIBLE_ROLES_APIGATEWAY_FILENAME}.tar.gz"  \
     && tar xvf /tmp/${SAG_ANSIBLE_ROLES_APIGATEWAY_FILENAME}.tar.gz -C ${ANSIBLE_ROLES_BASEPATH}
+
+# install ansible community playbooks
+# note: used by import archive - community.general.archive
+RUN ansible-galaxy collection install community.general
 
 # 3. Finalize the image
 # this creates an image of approx 2.20GiB (un-compressed)

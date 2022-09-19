@@ -1,0 +1,69 @@
+---
+vars_localauth_enabled: "{{ lookup('env', 'settings_localauth_configure') | default('false',true) }}"
+vars_localauth_ignore_errors: "{{ lookup('env', 'settings_localauth_configure_ignore_errors') | default(vars_default_ignore_errors,true) }}"
+
+######################################################################
+## the localauth settings
+######################################################################
+
+_localauth_prefix: "settings_localauth"
+
+# semi-column separated key/value pairs (name, description) to create list content into scopes field
+# ie.
+  #   - name: test
+  #     description: test1
+vars_rest_localauth_scopes: "{{ lookup('env', '%s_scopes' | format(_localauth_prefix)) | default('NULL',true) }}"
+
+# semi-column separated values to create a list
+# ie.
+    # - authorization_code
+    # - password
+    # - client_credentials
+    # - refresh_token
+    # - implicit
+vars_rest_localauth_supportedGrantTypes: "{{ lookup('env', '%s_supported_grant_types' | format(_localauth_prefix)) | default('NULL',true) }}"
+
+# raw payload with possible NULL values      
+vars_rest_localauth_settings_template:
+  description: "{{ lookup('env', '%s_description' | format(_localauth_prefix)) | default('NULL',true) }}"
+  tokenGeneratorConfig: "{{ vars_rest_localauth_settings_tokenGeneratorConfig | default('NULL',true) }}"
+  sslConfig: "{{ vars_rest_localauth_settings_sslConfig | default('NULL',true) }}"
+  localIntrospectionConfig: "{{ vars_rest_localauth_settings_localIntrospectionConfig | default('NULL',true) }}"
+
+vars_rest_localauth_settings_sslConfig_template:
+  keyStoreAlias: "{{ lookup('env', '%s_sslconfigs_keyStoreAlias' | format(_localauth_prefix)) | default('NULL',true) }}"
+  keyAlias: "{{ lookup('env', '%s_sslconfigs_keyAlias' | format(_localauth_prefix)) | default('NULL',true) }}"
+  trustStoreAlias: "{{ lookup('env', '%s_sslconfigs_trustStoreAlias' | format(_localauth_prefix)) | default('NULL',true) }}"
+
+vars_rest_localauth_settings_tokenGeneratorConfig_template:
+  audience: "{{ lookup('env', '%s_tokengenerator_jwt_audience' | format(_localauth_prefix)) | default('NULL',true) }}"
+  expiry: "{{ lookup('env', '%s_tokengenerator_jwt_expiry_minutes' | format(_localauth_prefix)) | default('NULL',true) }}"
+  algorithm: "{{ lookup('env', '%s_tokengenerator_jwt_algorithm' | format(_localauth_prefix)) | default('NULL',true) }}"
+  accessTokenExpInterval: "{{ lookup('env', '%s_tokengenerator_oauth_accessTokenExpInterval' | format(_localauth_prefix)) | default('NULL',true) }}"
+  authCodeExpInterval: "{{ lookup('env', '%s_tokengenerator_oauth_authCodeExpInterval' | format(_localauth_prefix)) | default('NULL',true) }}"
+  enforcePKCE: "{{ lookup('env', '%s_tokengenerator_oauth_enforcePKCE' | format(_localauth_prefix)) | default('NULL',true) }}"
+
+vars_rest_localauth_settings_localIntrospectionConfig_template:
+  jwksuri: "{{ lookup('env', '%s_tokengenerator_jwt_jwksuri' | format(_localauth_prefix)) | default('NULL',true) }}"
+  issuer: "{{ lookup('env', '%s_tokengenerator_jwt_issuer' | format(_localauth_prefix)) | default('NULL',true) }}"
+
+# rest call payload (ALL NULL values removed)
+vars_rest_localauth_settings: '{{ vars_rest_localauth_settings_template |
+             dict2items|
+             rejectattr("value", "equalto", "NULL")|
+             items2dict }}'
+
+vars_rest_localauth_settings_sslConfig: '{{ vars_rest_localauth_settings_sslConfig_template |
+             dict2items|
+             rejectattr("value", "equalto", "NULL")|
+             items2dict }}'
+
+vars_rest_localauth_settings_tokenGeneratorConfig: '{{ vars_rest_localauth_settings_tokenGeneratorConfig_template |
+             dict2items|
+             rejectattr("value", "equalto", "NULL")|
+             items2dict }}'
+
+vars_rest_localauth_settings_localIntrospectionConfig: '{{ vars_rest_localauth_settings_localIntrospectionConfig_template |
+             dict2items|
+             rejectattr("value", "equalto", "NULL")|
+             items2dict }}'

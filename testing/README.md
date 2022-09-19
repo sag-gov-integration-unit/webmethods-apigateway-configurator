@@ -83,6 +83,12 @@ docker-compose up config_promotion_stages
 docker-compose up config_portalgateway
 ```
 
+#### configure local auth server settings
+
+```bash
+docker-compose up config_localauth
+```
+
 #### configure users
 
 ```bash
