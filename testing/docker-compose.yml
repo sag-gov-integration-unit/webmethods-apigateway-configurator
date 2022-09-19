@@ -232,6 +232,29 @@ services:
     networks:
       - stack
 
+  config_localauth:
+    image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
+    environment: 
+      connect_host: apigateway
+      connect_port: "5555"
+      connect_user: Administrator
+      connect_password: "somethingnew"
+      settings_localauth_configure: "true"
+      settings_localauth_description: "an updated desc"
+      settings_localauth_tokengenerator_oauth_authCodeExpInterval: "4000"
+      settings_localauth_tokengenerator_oauth_accessTokenExpInterval: "800"
+      settings_localauth_tokengenerator_oauth_enforcePKCE: "true"
+      settings_localauth_scopes: "scope1 - this is a scope1 description ; scope2 - this is some scope2 description"
+      settings_localauth_tokengenerator_jwt_issuer: "apigw_local_issuer"
+      settings_localauth_tokengenerator_jwt_audience: "localapigw"
+      settings_localauth_tokengenerator_jwt_expiry_minutes: "5"
+      settings_localauth_tokengenerator_jwt_algorithm: "RS256"
+      settings_localauth_sslconfigs_keyStoreAlias: "Custom_SSL_Keystore"
+      settings_localauth_sslconfigs_keyAlias: "certificate"
+      settings_localauth_sslconfigs_trustStoreAlias: "Custom_SSL_Truststore"
+    networks:
+      - stack
+
   config_saml:
     image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
     volumes:
@@ -398,6 +421,16 @@ services:
       data_aliases_2_type: endpoint
       data_aliases_2_stage: stag2
       data_aliases_2_endPointURI: http://test.local
+      data_aliases_3_name: endpointname4
+      data_aliases_3_description: endpoint alias
+      data_aliases_3_type: endpoint
+      data_aliases_3_stage: stag3
+      data_aliases_3_endPointURI: http://test3.local
+      data_aliases_4_name: simplename4
+      data_aliases_4_description: simple alias 4
+      data_aliases_4_type: simple
+      data_aliases_4_stage: stag4
+      data_aliases_4_value: http://test4.local
     networks:
       - stack
 
@@ -719,6 +752,19 @@ services:
       settings_promotions_stages_1_password: password2
       settings_promotions_stages_1_keystoreAlias: "Custom_SSL_Keystore"
       settings_promotions_stages_1_keyAlias: "certificate"
+      settings_localauth_configure: "true"
+      settings_localauth_description: "an updated desc"
+      settings_localauth_tokengenerator_oauth_authCodeExpInterval: "4000"
+      settings_localauth_tokengenerator_oauth_accessTokenExpInterval: "800"
+      settings_localauth_tokengenerator_oauth_enforcePKCE: "true"
+      settings_localauth_scopes: "scope1 - this is a scope1 description ; scope2 - this is some scope2 description"
+      settings_localauth_tokengenerator_jwt_issuer: "apigw_local_issuer"
+      settings_localauth_tokengenerator_jwt_audience: "localapigw"
+      settings_localauth_tokengenerator_jwt_expiry_minutes: "5"
+      settings_localauth_tokengenerator_jwt_algorithm: "RS256"
+      settings_localauth_sslconfigs_keyStoreAlias: "Custom_SSL_Keystore"
+      settings_localauth_sslconfigs_keyAlias: "certificate"
+      settings_localauth_sslconfigs_trustStoreAlias: "Custom_SSL_Truststore"
       settings_users_configure: "true"
       settings_users_0_loginid: "user1"
       settings_users_0_active: "true"
@@ -782,7 +828,6 @@ services:
       settings_saml_userprofilemapping_email: email
       settings_saml_group_attributes: roles;Role
       settings_saml_groups_to_apigateway_groups: apigateway-admin=API-Gateway-Administrators;apigateway-apiprovider=API-Gateway-Providers;apigateway-user=Everybody
-    
     networks:
       - stack
 
