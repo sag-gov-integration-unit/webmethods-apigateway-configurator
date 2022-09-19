@@ -1,8 +1,10 @@
 # webmethods-apigateway-configurator
 
-A container that can easily configure various functions of webmethods-apigateway from environment variable values passed in.
+A container that can easily configure various functions of SoftwareAG webmethods-apigateway from environment variable values passed in.
 
-As a high level description of how it works, this container essentially uses REST calls to the SoftwareAG APIGateway Admin APIs to perform all its functions.
+As a high level description of how it works, this container strcitly uses REST calls to the SoftwareAG APIGateway System APIs to perform all its functions.
+
+An explanation / walk-through video (10 min) was created to highlight usage: https://youtu.be/M306IGQ-qQ4
 
 ## Supported Configs / Actions
 
@@ -35,16 +37,6 @@ The following configuration items / actions are currently supported (new functio
 
 Head over to [Using/Testing the webmethods-apigateway-configurator](./testing/README.md) for a detail tutorial on how to use the configurator to apply all the supported config items.
 
-## Build the container image
-
-Go at the root of the project (here in this case), and run:
-
-```bash
-docker build -t softwareag-government-solutions/webmethods-apigateway-configurator:10.11-latest --build-arg BASE_IMAGE=redhat/ubi8 .
-```
-
-This should build and create a local image labelled: softwareag-government-solutions/webmethods-apigateway-configurator:10.11-latest
-
 ## Trying the configurator
 
 Head over to [Using/Testing the webmethods-apigateway-configurator](./testing/README.md) for a detail tutorial on how to use the configurator to apply all the supported config items.
@@ -55,6 +47,16 @@ To build on the ansible roles already created for APIGateway, this container als
 
 For the various REST calls, this project makes use of the existing Ansible roles [sagdevops-ansible-apigateway](https://github.com/SoftwareAG/sagdevops-ansible-apigateway.git) to perform all the needed REST calls to APIGateway.
 
+
+## Building the container image
+
+The image is published on DockerHub at: https://hub.docker.com/r/saggs/webmethods-apigateway-configurator
+
+But if you want to try anbd build it yourself, a simple command is:
+
+```bash
+docker build -t saggs/webmethods-apigateway-configurator:10.11 .
+```
 
 Authors
 --------------------------------------------

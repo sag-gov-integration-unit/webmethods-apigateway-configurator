@@ -5,17 +5,7 @@ I have prepared most actions into a simple docker-compose file to:
  - Verify behavior
  - Act as a rudimental (but accurate) documentation
 
-The images used in this testing are the official SoftwareAG images for [Software AG API Gateway](https://hub.docker.com/r/softwareag/apigateway-trial) and [Developper Portal](https://hub.docker.com/r/softwareag/devportal) so this should be a breeze to try.
-
-## Build the container image
-
-Go at the root of the project, and run:
-
-```bash
-docker build -t softwareag-government-solutions/webmethods-apigateway-configurator:10.11-latest --build-arg BASE_IMAGE=redhat/ubi8 .
-```
-
-This should build a local image labelled: softwareag-government-solutions/webmethods-apigateway-configurator:10.11-latest
+The product images used in this testing are the official SoftwareAG images for [Software AG API Gateway](https://hub.docker.com/r/softwareag/apigateway-trial) and [Developper Portal](https://hub.docker.com/r/softwareag/devportal) so this should be a breeze to try.
 
 ## Start default SoftwareAG API management stack
 
