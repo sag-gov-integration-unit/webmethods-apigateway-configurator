@@ -5,10 +5,11 @@ enabled: true
 fullnameOverride: ""
 nameOverride: ""
 
+# default docker hub image at https://hub.docker.com/r/saggs/webmethods-apigateway-configurator
 image:
-  registry: ghcr.io/softwareag-government-solutions
-  repository: webmethods-apigateway
-  tag: 10.11-latest
+  registry: ""
+  repository: saggs/webmethods-apigateway-configurator
+  tag: "10.11"
   pullPolicy: IfNotPresent
 
 ## Optionally specify an array of imagePullSecrets.
