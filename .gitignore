@@ -4,5 +4,4 @@ install_artifacts/
 build/
 nohup.out
 *.code-workspace
-
-vault_pass
+build.sh
