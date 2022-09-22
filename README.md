@@ -12,14 +12,15 @@ The following configuration items / actions are currently supported (new functio
 
 - apigateway availability checker (wait for apigateway to be available on target port -- NOTE: this checker is enable on all actions by default)
 - update admin password
-- set/update  extended settings
-- set/update  external loadbalancer urls
-- set/update  cert stores (keystore, truststore)
-- set/update  ports (different types - http, https, internal, external)
-- set/update  developer portal destination
-- set/update  promotion stages
-- set/update  SAML configs
-- set/update  LDAP configs
+- set/update extended settings
+- set/update external loadbalancer urls
+- set/update cert stores (keystore, truststore)
+- set/update ports (different types - http, https, internal, external)
+- set/update developer portal destination
+- set/update promotion stages
+- set/update SAML configs
+- set/update LDAP configs
+- set/update API Gateway Local auth Server (oAuth, JWT)
 - create/update users
 - create/update groups (and assign the users)
 - create/update teams (and assign the groups)

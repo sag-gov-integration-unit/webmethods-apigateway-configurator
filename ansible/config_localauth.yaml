@@ -1,0 +1,77 @@
+---
+
+################################################################
+## Load the needed vars
+################################################################
+
+- name: Load vars
+  hosts: local
+  tasks:
+    - name: Include all vars files
+      include_vars:
+        file: "{{ item }}"
+      with_fileglob:
+        - vars/common.yaml
+        - vars/rest_connect.yaml
+        - vars/settings_localauth.yaml
+
+################################################################
+## set configs via REST APIs
+################################################################
+
+- name: Local auth config tasks
+  hosts: local
+  tasks:
+    
+    - block:
+
+        - name: transform saml_group_attributes string into a list
+          set_fact:
+            vars_rest_localauth_settings_patch1: 
+              supportedGrantTypes: "{{ _arr }}"
+          vars:
+            _arr: "{{ vars_rest_localauth_supportedGrantTypes.split(';')|map('trim')|select()|list }}"
+      
+        - name: Assign the content of new list variable into the rest payload
+          set_fact:
+            vars_rest_localauth_settings: "{{ vars_rest_localauth_settings | combine( vars_rest_localauth_settings_patch1,recursive=True ) }}"
+          when: vars_rest_localauth_settings_patch1.supportedGrantTypes | length > 0
+
+      when: (vars_localauth_enabled | default()) and vars_rest_localauth_supportedGrantTypes is defined and (vars_rest_localauth_supportedGrantTypes | trim) != "NULL"
+
+    - block:
+        
+        - name: set intial items so they are back to empty / reset on each iteration
+          set_fact:
+            _scopes: []
+
+        - name: transform the string of key-value pairs into the required array of objects
+          set_fact:
+            _scopes: "{{ _scopes + [ { 'name': item.0, 'description': item.1 } ] }}"
+          vars:
+            _arr: "{{ vars_rest_localauth_scopes.split(';')|map('trim')|select()|list }}"
+            _keys: "{{ _arr|map('split', '-')|map('first')|map('trim')|list }}"
+            _vals: "{{ _arr|map('split', '-')|map('last')|map('trim')|list }}"
+          loop: "{{ _keys|zip(_vals)|list }}"
+
+        - name: create patch
+          set_fact:
+            vars_rest_localauth_settings_patch2: 
+              scopes: "{{ _scopes }}"
+
+        - name: Assign the content of path into the REST payload
+          set_fact:
+            vars_rest_localauth_settings: "{{ vars_rest_localauth_settings | combine( vars_rest_localauth_settings_patch2,recursive=True ) }}"
+          when: vars_rest_localauth_settings_patch2.scopes | length > 0
+
+      when: (vars_localauth_enabled | default()) and vars_rest_localauth_scopes is defined and (vars_rest_localauth_scopes | trim) != "NULL"
+
+    - ansible.builtin.debug:
+        var: vars_rest_localauth_settings
+
+    - include_role:
+        name:  apigateway-rest-configurator
+      vars:
+        configs_action: set-localauthserver
+        configs_enabled: "{{ vars_localauth_enabled }}"
+        rvar_apigateway_localauthserver: "{{ vars_rest_localauth_settings }}"
