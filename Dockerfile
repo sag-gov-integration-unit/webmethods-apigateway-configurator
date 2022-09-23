@@ -105,7 +105,6 @@ RUN set -x \
 RUN ansible-galaxy collection install community.general
 
 # 3. Finalize the image
-# this creates an image of approx 2.20GiB (un-compressed)
 ######################################################################################################
 
 FROM base_ansible_with_roles as final
