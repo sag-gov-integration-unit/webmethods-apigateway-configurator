@@ -37,7 +37,7 @@ services:
     entrypoint: "./entrypoint.sh ./testing/test_dict2item.yaml"
     volumes:
       - ../resources/ansible/sagdevops-ansible-common:/ansible/roles/sagdevops-ansible-common-1.0.0-4:ro
-      - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.1-2:ro 
+      - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.2-1:ro 
     environment:
       configurator_ansible_args: "-v"
       wait_connect: "false"
@@ -49,9 +49,10 @@ services:
     entrypoint: "./entrypoint.sh -vv ./testing/test_search_apis_single.yaml"
     volumes:
       - ../resources/ansible/sagdevops-ansible-common:/ansible/roles/sagdevops-ansible-common-1.0.0-4:ro
-      - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.1-2:ro 
+      - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.2-1:ro 
     environment:
       connect_host: apigateway
+      configurator_ansible_args: -v
       connect_port: "5555"
       connect_user: Administrator
       connect_password: "somethingnew"
@@ -63,9 +64,10 @@ services:
     entrypoint: "./entrypoint.sh -vv ./testing/test_search_apis_multiple.yaml"
     volumes:
       - ../resources/ansible/sagdevops-ansible-common:/ansible/roles/sagdevops-ansible-common-1.0.0-4:ro
-      - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.1-2:ro 
+      - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.2-1:ro 
     environment:
       connect_host: apigateway
+      configurator_ansible_args: -v
       connect_port: "5555"
       connect_user: Administrator
       connect_password: "somethingnew"
@@ -77,9 +79,10 @@ services:
     entrypoint: "./entrypoint.sh -vv ./testing/test_search_2.yaml"
     volumes:
       - ../resources/ansible/sagdevops-ansible-common:/ansible/roles/sagdevops-ansible-common-1.0.0-4:ro
-      - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.1-2:ro 
+      - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.2-1:ro 
     environment:
       connect_host: apigateway
+      configurator_ansible_args: -v
       connect_port: "5555"
       connect_user: Administrator
       connect_password: "somethingnew"
@@ -90,9 +93,10 @@ services:
     image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
     volumes:
       - ../resources/ansible/sagdevops-ansible-common:/ansible/roles/sagdevops-ansible-common-1.0.0-4:ro
-      - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.1-2:ro 
+      - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.2-1:ro 
     environment: 
       connect_host: apigateway
+      configurator_ansible_args: -v
       connect_port: "5555"
       connect_user: Administrator
       connect_password: "somethingnew"
@@ -105,9 +109,10 @@ services:
     image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
     volumes:
       - ../resources/ansible/sagdevops-ansible-common:/ansible/roles/sagdevops-ansible-common-1.0.0-4:ro
-      - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.1-2:ro 
+      - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.2-1:ro 
     environment: 
       connect_host: apigateway
+      configurator_ansible_args: -v
       connect_port: "5555"
       connect_user: Administrator
       connect_password: "somethingnew"
@@ -123,9 +128,10 @@ services:
     image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
     volumes:
       - ../resources/ansible/sagdevops-ansible-common:/ansible/roles/sagdevops-ansible-common-1.0.0-4:ro
-      - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.1-2:ro 
+      - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.2-1:ro 
     environment: 
       connect_host: apigateway
+      configurator_ansible_args: -v
       connect_port: "5555"
       connect_user: Administrator
       connect_password: "somethingnew"
@@ -139,10 +145,11 @@ services:
     image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
     volumes:
       - ../resources/ansible/sagdevops-ansible-common:/ansible/roles/sagdevops-ansible-common-1.0.0-4:ro
-      - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.1-2:ro 
+      - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.2-1:ro 
       - ../resources/certs:/certs:ro
     environment: 
       connect_host: apigateway
+      configurator_ansible_args: -v
       connect_port: "5555"
       connect_user: Administrator
       connect_password: "somethingnew"
@@ -170,10 +177,11 @@ services:
     image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
     volumes:
       - ../resources/ansible/sagdevops-ansible-common:/ansible/roles/sagdevops-ansible-common-1.0.0-4:ro
-      - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.1-2:ro 
+      - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.2-1:ro 
       - ../resources/certs:/certs:ro
     environment: 
       connect_host: apigateway
+      configurator_ansible_args: -v
       connect_port: "5555"
       connect_user: Administrator
       connect_password: "somethingnew"
@@ -191,9 +199,10 @@ services:
     image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
     volumes:
       - ../resources/ansible/sagdevops-ansible-common:/ansible/roles/sagdevops-ansible-common-1.0.0-4:ro
-      - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.1-2:ro 
+      - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.2-1:ro 
     environment: 
       connect_host: apigateway
+      configurator_ansible_args: -v
       connect_port: "5555"
       connect_user: Administrator
       connect_password: "somethingnew"
@@ -211,10 +220,11 @@ services:
     image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
     volumes:
       - ../resources/ansible/sagdevops-ansible-common:/ansible/roles/sagdevops-ansible-common-1.0.0-4:ro
-      - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.1-2:ro 
+      - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.2-1:ro 
     environment: 
       configurator_debug: "true"
       connect_host: apigateway
+      configurator_ansible_args: -v
       connect_port: "5555"
       connect_user: Administrator
       connect_password: "somethingnew"
@@ -258,10 +268,11 @@ services:
     image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
     volumes:
       - ../resources/ansible/sagdevops-ansible-common:/ansible/roles/sagdevops-ansible-common-1.0.0-4:ro
-      - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.1-2:ro 
+      - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.2-1:ro 
       - ../resources/certs:/certs:ro
     environment: 
       connect_host: apigateway
+      configurator_ansible_args: -v
       connect_port: "5555"
       connect_user: Administrator
       connect_password: "somethingnew"
@@ -287,9 +298,10 @@ services:
     image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
     volumes:
       - ../resources/ansible/sagdevops-ansible-common:/ansible/roles/sagdevops-ansible-common-1.0.0-4:ro
-      - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.1-2:ro 
+      - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.2-1:ro 
     environment: 
       connect_host: apigateway
+      configurator_ansible_args: -v
       connect_port: "5555"
       connect_user: Administrator
       connect_password: "somethingnew"
@@ -314,9 +326,10 @@ services:
     image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
     volumes:
       - ../resources/ansible/sagdevops-ansible-common:/ansible/roles/sagdevops-ansible-common-1.0.0-4:ro
-      - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.1-2:ro
+      - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.2-1:ro
     environment: 
       connect_host: apigateway
+      configurator_ansible_args: -v
       connect_port: "5555"
       connect_user: Administrator
       connect_password: "somethingnew"
@@ -340,11 +353,12 @@ services:
     image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
     volumes:
       - ../resources/ansible/sagdevops-ansible-common:/ansible/roles/sagdevops-ansible-common-1.0.0-4:ro
-      - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.1-2:ro 
+      - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.2-1:ro 
       - ../resources/certs:/certs:ro
       - ../resources/saml/idpmetadata.xml:/configs/idpmetadata.xml:ro
     environment: 
       connect_host: apigateway
+      configurator_ansible_args: -v
       connect_port: "5555"
       connect_user: Administrator
       connect_password: "somethingnew"
@@ -370,9 +384,10 @@ services:
     image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
     volumes:
       - ../resources/ansible/sagdevops-ansible-common:/ansible/roles/sagdevops-ansible-common-1.0.0-4:ro
-      - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.1-2:ro 
+      - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.2-1:ro 
     environment: 
       connect_host: apigateway
+      configurator_ansible_args: -v
       connect_port: "5555"
       connect_user: Administrator
       connect_password: "somethingnew"
@@ -408,9 +423,10 @@ services:
     image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
     volumes:
       - ../resources/ansible/sagdevops-ansible-common:/ansible/roles/sagdevops-ansible-common-1.0.0-4:ro
-      - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.1-2:ro 
+      - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.2-1:ro 
     environment: 
       connect_host: apigateway
+      configurator_ansible_args: -v
       connect_port: "5555"
       connect_user: Administrator
       connect_password: "somethingnew"
@@ -434,9 +450,10 @@ services:
     image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
     volumes:
       - ../resources/ansible/sagdevops-ansible-common:/ansible/roles/sagdevops-ansible-common-1.0.0-4:ro
-      - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.1-2:ro 
+      - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.2-1:ro 
     environment: 
       connect_host: apigateway
+      configurator_ansible_args: -v
       connect_port: "5555"
       connect_user: Administrator
       connect_password: "somethingnew"
@@ -460,10 +477,11 @@ services:
     image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
     volumes:
       - ../resources/ansible/sagdevops-ansible-common:/ansible/roles/sagdevops-ansible-common-1.0.0-4:ro
-      - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.1-2:ro 
+      - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.2-1:ro 
       - ../resources/sampleapis_archives:/imports:ro
     environment: 
       connect_host: apigateway
+      configurator_ansible_args: -v
       connect_port: "5555"
       connect_user: Administrator
       connect_password: "somethingnew"
@@ -483,10 +501,11 @@ services:
     image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
     volumes:
       - ../resources/ansible/sagdevops-ansible-common:/ansible/roles/sagdevops-ansible-common-1.0.0-4:ro
-      - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.1-2:ro 
+      - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.2-1:ro 
       - ../resources/sampleapis_archives:/imports:ro
     environment: 
       connect_host: apigateway
+      configurator_ansible_args: -v
       connect_port: "5555"
       connect_user: Administrator
       connect_password: "somethingnew"
@@ -498,9 +517,10 @@ services:
     image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
     volumes:
       - ../resources/ansible/sagdevops-ansible-common:/ansible/roles/sagdevops-ansible-common-1.0.0-4:ro
-      - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.1-2:ro 
+      - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.2-1:ro 
     environment: 
       connect_host: apigateway
+      configurator_ansible_args: -v
       connect_port: "5555"
       connect_user: Administrator
       connect_password: "somethingnew"
@@ -537,9 +557,10 @@ services:
     image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
     volumes:
       - ../resources/ansible/sagdevops-ansible-common:/ansible/roles/sagdevops-ansible-common-1.0.0-4:ro
-      - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.1-2:ro 
+      - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.2-1:ro 
     environment: 
       connect_host: apigateway
+      configurator_ansible_args: -v
       connect_port: "5555"
       connect_user: Administrator
       connect_password: "somethingnew"
@@ -547,13 +568,39 @@ services:
     networks:
       - stack
 
+  config_apis:
+    image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
+    volumes:
+      - ../resources/ansible/sagdevops-ansible-common:/ansible/roles/sagdevops-ansible-common-1.0.0-4:ro
+      - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.2-1:ro 
+    environment: 
+      connect_host: apigateway
+      configurator_ansible_args: -v
+      connect_port: "5555"
+      connect_user: Administrator
+      connect_password: "somethingnew"
+      data_apis_configure: "true"
+      data_apis_0_name: bookstore
+      data_apis_0_version: "1.0"
+      data_apis_0_description: "some new desc1"
+      data_apis_0_maturityState: "production"
+      data_apis_0_apiGroups: "Search"
+      data_apis_1_name: uszip
+      data_apis_1_version: "1.0"
+      data_apis_1_description: "some new desc2"
+      data_apis_1_maturityState: "Test"
+      data_apis_1_apiGroups: "Sales and Ordering;Search"
+    networks:
+      - stack
+
   config_plans:
     image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
     volumes:
       - ../resources/ansible/sagdevops-ansible-common:/ansible/roles/sagdevops-ansible-common-1.0.0-4:ro
-      - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.1-2:ro 
+      - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.2-1:ro 
     environment: 
       connect_host: apigateway
+      configurator_ansible_args: -v
       connect_port: "5555"
       connect_user: Administrator
       connect_password: "somethingnew"
@@ -571,9 +618,10 @@ services:
     image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
     volumes:
       - ../resources/ansible/sagdevops-ansible-common:/ansible/roles/sagdevops-ansible-common-1.0.0-4:ro
-      - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.1-2:ro 
+      - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.2-1:ro 
     environment: 
       connect_host: apigateway
+      configurator_ansible_args: -v
       connect_port: "5555"
       connect_user: Administrator
       connect_password: "somethingnew"
@@ -585,9 +633,10 @@ services:
     image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
     volumes:
       - ../resources/ansible/sagdevops-ansible-common:/ansible/roles/sagdevops-ansible-common-1.0.0-4:ro
-      - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.1-2:ro 
+      - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.2-1:ro 
     environment: 
       connect_host: apigateway
+      configurator_ansible_args: -v
       connect_port: "5555"
       connect_user: Administrator
       connect_password: "somethingnew"
@@ -613,9 +662,10 @@ services:
     image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
     volumes:
       - ../resources/ansible/sagdevops-ansible-common:/ansible/roles/sagdevops-ansible-common-1.0.0-4:ro
-      - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.1-2:ro 
+      - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.2-1:ro 
     environment: 
       connect_host: apigateway
+      configurator_ansible_args: -v
       connect_port: "5555"
       connect_user: Administrator
       connect_password: "somethingnew"
@@ -633,9 +683,10 @@ services:
     image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
     volumes:
       - ../resources/ansible/sagdevops-ansible-common:/ansible/roles/sagdevops-ansible-common-1.0.0-4:ro
-      - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.1-2:ro 
+      - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.2-1:ro 
     environment: 
       connect_host: apigateway
+      configurator_ansible_args: -v
       connect_port: "5555"
       connect_user: Administrator
       connect_password: "somethingnew"
@@ -655,9 +706,10 @@ services:
     image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
     volumes:
       - ../resources/ansible/sagdevops-ansible-common:/ansible/roles/sagdevops-ansible-common-1.0.0-4:ro
-      - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.1-2:ro 
+      - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.2-1:ro 
     environment:
       connect_host: apigateway
+      configurator_ansible_args: -v
       connect_port: "5555"
       connect_user: Administrator
       connect_password: "somethingnew"
@@ -699,9 +751,10 @@ services:
     image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
     volumes:
       - ../resources/ansible/sagdevops-ansible-common:/ansible/roles/sagdevops-ansible-common-1.0.0-4:ro
-      - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.1-2:ro 
+      - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.2-1:ro 
     environment: 
       connect_host: apigateway
+      configurator_ansible_args: -v
       connect_port: "5555"
       connect_user: Administrator
       connect_password: "somethingnew"
@@ -722,9 +775,10 @@ services:
     image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
     volumes:
       - ../resources/ansible/sagdevops-ansible-common:/ansible/roles/sagdevops-ansible-common-1.0.0-4:ro
-      - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.1-2:ro 
+      - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.2-1:ro 
     environment: 
       connect_host: apigateway
+      configurator_ansible_args: -v
       connect_port: "5555"
       connect_user: Administrator
       connect_password: "somethingnew"
@@ -745,9 +799,10 @@ services:
     image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
     volumes:
       - ../resources/ansible/sagdevops-ansible-common:/ansible/roles/sagdevops-ansible-common-1.0.0-4:ro
-      - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.1-2:ro 
+      - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.2-1:ro 
     environment: 
       connect_host: apigateway
+      configurator_ansible_args: -v
       connect_port: "5555"
       connect_user: Administrator
       connect_password: "somethingnew"
@@ -764,9 +819,10 @@ services:
     image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
     volumes:
       - ../resources/ansible/sagdevops-ansible-common:/ansible/roles/sagdevops-ansible-common-1.0.0-4:ro
-      - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.1-2:ro 
+      - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.2-1:ro 
     environment: 
       connect_host: apigateway
+      configurator_ansible_args: -v
       connect_port: "5555"
       connect_user: Administrator
       connect_password: "somethingnew"
@@ -783,11 +839,12 @@ services:
     image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
     volumes:
       - ../resources/ansible/sagdevops-ansible-common:/ansible/roles/sagdevops-ansible-common-1.0.0-4:ro
-      - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.1-2:ro
+      - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.2-1:ro
       - ../resources/certs:/certs:ro
       - ../resources/saml/idpmetadata.xml:/configs/idpmetadata.xml:ro
     environment: 
       connect_host: apigateway
+      configurator_ansible_args: -v
       connect_port: "5555"
       connect_user: Administrator
       connect_password: "somethingnew"
@@ -970,10 +1027,11 @@ services:
     image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
     volumes:
       - ../resources/ansible/sagdevops-ansible-common:/ansible/roles/sagdevops-ansible-common-1.0.0-4:ro
-      - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.1-2:ro 
+      - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.2-1:ro 
       - ../resources/sampleapis_archives:/imports:ro
     environment: 
       connect_host: apigateway
+      configurator_ansible_args: -v
       connect_port: "5555"
       connect_user: Administrator
       connect_password: "somethingnew"

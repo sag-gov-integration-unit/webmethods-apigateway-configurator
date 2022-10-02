@@ -1,0 +1,11 @@
+---
+
+- name: set intial items so they are back to empty / reset on each iteration
+  set_fact:
+    _item: "{{ _apis_template }}"
+
+############ final add to list
+- name: append item to list
+  set_fact:
+    _apis_list: "{{ _apis_list | default([]) + [ _item ] }}"
+  when: _item is defined

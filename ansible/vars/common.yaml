@@ -20,6 +20,8 @@ webmethods_install_dir: "{{ lookup('env', 'SAG_HOME') | default('/opt/softwareag
 common_index_items_regex_pattern: "^%s([^_]+)%s$"
 _index_items: "{{ ansible_env.keys() | map('regex_search', _index_items_regex_pattern , '\\1') | flatten | select('string') | unique | sort }}"
 
+_string_list_separator: ";"
+
 ##################### async jobs defaults
 common_async_retries: 240
 common_async_delay: 10

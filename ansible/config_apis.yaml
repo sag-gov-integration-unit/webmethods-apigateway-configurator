@@ -1,0 +1,49 @@
+---
+
+################################################################
+## Load the needed vars
+################################################################
+
+- name: Load vars
+  hosts: local
+  tasks:
+    - name: Include all vars files
+      include_vars:
+        file: "{{ item }}"
+      with_fileglob:
+        - vars/common.yaml
+        - vars/rest_connect.yaml
+        - vars/data_apis.yaml
+
+################################################################
+## set configs via REST APIs
+################################################################
+
+- hosts: local
+  tasks:
+    
+    - ansible.builtin.debug:
+        var: "{{ item }}"
+      loop:
+        - _index_items_regex_pattern
+        - _index_items
+
+    - name: set initial list so it's not undefined
+      set_fact:
+         _apis_list: []
+
+    - name: append each item to list
+      include_tasks: "config_apis_append_each.yaml"
+      loop: "{{ _index_items }}"
+      loop_control:
+        loop_var: index_item
+
+    - ansible.builtin.debug:
+        var: _apis_list
+
+    - include_role:
+        name: apigateway-rest-configurator
+      vars:
+        configs_action: set-apis
+        configs_enabled: "{{ vars_apis_enabled }}"
+        rvar_apigateway_apis: "{{ _apis_list }}"

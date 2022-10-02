@@ -5,6 +5,18 @@ vars_apis_ignore_errors: "{{ lookup('env', 'data_apis_configure_ignore_errors') 
 vars_apis_publish_groups_enabled: "{{ lookup('env', 'data_apis_publish') | default('false',true) }}"
 vars_apis_publish_groups_ignore_errors: "{{ lookup('env', 'data_apis_publish_ignore_errors') | default(vars_default_ignore_errors,true) }}"
 
+## finding the indices from the env vars
+_apis_indices_finder_prefix: "data_apis_"
+_apis_indices_finder_suffix: "_name"
+_index_items_regex_pattern: "{{ common_index_items_regex_pattern | format( _apis_indices_finder_prefix, _apis_indices_finder_suffix) }}"
+
+_apis_template:
+      name: "{{ lookup('env', 'data_apis_%s_name' | format(index_item)) | default('',true) }}"
+      version: "{{ lookup('env', 'data_apis_%s_version' | format(index_item)) | default('',true) }}"
+      apiDescription: "{{ lookup('env', 'data_apis_%s_description' | format(index_item)) | default('',true) }}"
+      maturityState: "{{ lookup('env', 'data_apis_%s_maturityState' | format(index_item)) | default('',true) }}"
+      apiGroups: "{{ (lookup('env', 'data_apis_%s_apiGroups' | format(index_item)) | default('',true)).split(_string_list_separator)|map('trim')|select()|list }}"
+      
 # APIs to publish
 _apis_publish_indices_finder_prefix: "data_apis_"
 _apis_publish_indices_finder_suffix: "_portalgateway_name"
@@ -37,16 +49,16 @@ _apis_publish_lookup_apis: "{{ lookup('env', 'data_apis_%s_lookup_apis' | format
 # FYI sample payload expected by the publish role
 # _publish_apis_list:
 #   - lookup_portalGatewayId:
-#       name: API PortalGateway Config
-#       stageName: DEV
-#       version: "1.0"
+#   name: API PortalGateway Config
+#   stageName: DEV
+#   version: "1.0"
 #     lookup_communityIds:
-#       - name: Public Community
+#   - name: Public Community
 #     lookup_apiIds:
-#       - name: bookstore
-#         version: "1.0"
-#       - name: uszip
-#         version: "1.0"
+#   - name: bookstore
+#     version: "1.0"
+#   - name: uszip
+#     version: "1.0"
 
 ## activate apis (or not)
 _apis_activate_template:
