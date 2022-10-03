@@ -583,13 +583,15 @@ services:
       data_apis_0_name: bookstore
       data_apis_0_version: "1.0"
       data_apis_0_description: "some new desc1"
-      data_apis_0_maturityState: "production"
-      data_apis_0_apiGroups: "Search"
+      data_apis_0_maturity_state: "production"
+      data_apis_0_api_groups: "Search"
+      data_apis_0_api_tags: "tag11;tag22;tag33"
       data_apis_1_name: uszip
       data_apis_1_version: "1.0"
       data_apis_1_description: "some new desc2"
-      data_apis_1_maturityState: "Test"
-      data_apis_1_apiGroups: "Sales and Ordering;Search"
+      data_apis_1_maturity_state: "Test"
+      data_apis_1_api_groups: "Sales and Ordering;Search"
+      data_apis_1_api_tags: "tag211;tag222;tag233"
     networks:
       - stack
 

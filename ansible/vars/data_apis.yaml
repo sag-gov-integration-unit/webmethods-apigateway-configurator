@@ -10,13 +10,16 @@ _apis_indices_finder_prefix: "data_apis_"
 _apis_indices_finder_suffix: "_name"
 _index_items_regex_pattern: "{{ common_index_items_regex_pattern | format( _apis_indices_finder_prefix, _apis_indices_finder_suffix) }}"
 
+_apis_template_tags: "{{ (lookup('env', 'data_apis_%s_api_tags' | format(index_item)) | default('',true)).split(_string_list_separator)|map('trim')|select()|list }}"
 _apis_template:
       name: "{{ lookup('env', 'data_apis_%s_name' | format(index_item)) | default('',true) }}"
       version: "{{ lookup('env', 'data_apis_%s_version' | format(index_item)) | default('',true) }}"
       apiDescription: "{{ lookup('env', 'data_apis_%s_description' | format(index_item)) | default('',true) }}"
-      maturityState: "{{ lookup('env', 'data_apis_%s_maturityState' | format(index_item)) | default('',true) }}"
-      apiGroups: "{{ (lookup('env', 'data_apis_%s_apiGroups' | format(index_item)) | default('',true)).split(_string_list_separator)|map('trim')|select()|list }}"
-      
+      maturityState: "{{ lookup('env', 'data_apis_%s_maturity_state' | format(index_item)) | default('',true) }}"
+      apiGroups: "{{ (lookup('env', 'data_apis_%s_api_groups' | format(index_item)) | default('',true)).split(_string_list_separator)|map('trim')|select()|list }}"
+      apiDefinition:
+            apiTags: "{{ _apis_template_tags }}"
+
 # APIs to publish
 _apis_publish_indices_finder_prefix: "data_apis_"
 _apis_publish_indices_finder_suffix: "_portalgateway_name"
