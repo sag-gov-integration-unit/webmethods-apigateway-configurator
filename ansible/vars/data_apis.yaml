@@ -2,13 +2,16 @@
 vars_apis_enabled: "{{ lookup('env', 'data_apis_configure') | default('false',true) }}"
 vars_apis_ignore_errors: "{{ lookup('env', 'data_apis_configure_ignore_errors') | default(vars_default_ignore_errors,true) }}"
 
+vars_apis_status_update_enabled: "{{ lookup('env', 'data_apis_status_update') | default('false',true) }}"
+vars_apis_status_update_ignore_errors: "{{ lookup('env', 'data_apis_status_update_ignore_errors') | default(vars_default_ignore_errors,true) }}"
+
 vars_apis_publish_groups_enabled: "{{ lookup('env', 'data_apis_publish') | default('false',true) }}"
 vars_apis_publish_groups_ignore_errors: "{{ lookup('env', 'data_apis_publish_ignore_errors') | default(vars_default_ignore_errors,true) }}"
 
 ## finding the indices from the env vars
 _apis_indices_finder_prefix: "data_apis_"
 _apis_indices_finder_suffix: "_name"
-_index_items_regex_pattern: "{{ common_index_items_regex_pattern | format( _apis_indices_finder_prefix, _apis_indices_finder_suffix) }}"
+_apis_indices_regex_pattern: "{{ common_index_items_regex_pattern | format( _apis_indices_finder_prefix, _apis_indices_finder_suffix) }}"
 
 _apis_template_tags: "{{ (lookup('env', 'data_apis_%s_api_tags' | format(index_item)) | default('',true)).split(_string_list_separator)|map('trim')|select()|list }}"
 _apis_template:

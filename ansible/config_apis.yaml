@@ -21,16 +21,17 @@
 
 - hosts: local
   tasks:
-    
+
+    - name: set initial list so it's not undefined
+      set_fact:
+        _index_items_regex_pattern: "{{ _apis_indices_regex_pattern }}"
+        _apis_list: []
+
     - ansible.builtin.debug:
         var: "{{ item }}"
       loop:
         - _index_items_regex_pattern
         - _index_items
-
-    - name: set initial list so it's not undefined
-      set_fact:
-         _apis_list: []
 
     - name: append each item to list
       include_tasks: "config_apis_append_each.yaml"

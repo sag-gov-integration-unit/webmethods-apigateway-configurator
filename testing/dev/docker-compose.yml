@@ -595,6 +595,48 @@ services:
     networks:
       - stack
 
+  config_apis_deactivate:
+    image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
+    volumes:
+      - ../resources/ansible/sagdevops-ansible-common:/ansible/roles/sagdevops-ansible-common-1.0.0-4:ro
+      - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.2-1:ro 
+    environment: 
+      connect_host: apigateway
+      configurator_ansible_args: -v
+      connect_port: "5555"
+      connect_user: Administrator
+      connect_password: "somethingnew"
+      data_apis_status_update: "true"
+      data_apis_0_name: bookstore
+      data_apis_0_version: "1.0"
+      data_apis_0_active: "false"
+      data_apis_1_name: uszip
+      data_apis_1_version: "1.0"
+      data_apis_1_active: "false"
+    networks:
+      - stack
+
+  config_apis_activate:
+    image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
+    volumes:
+      - ../resources/ansible/sagdevops-ansible-common:/ansible/roles/sagdevops-ansible-common-1.0.0-4:ro
+      - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.2-1:ro 
+    environment: 
+      connect_host: apigateway
+      configurator_ansible_args: -v
+      connect_port: "5555"
+      connect_user: Administrator
+      connect_password: "somethingnew"
+      data_apis_status_update: "true"
+      data_apis_0_name: bookstore
+      data_apis_0_version: "1.0"
+      data_apis_0_active: "true"
+      data_apis_1_name: uszip
+      data_apis_1_version: "1.0"
+      data_apis_1_active: "true"
+    networks:
+      - stack
+
   config_plans:
     image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
     volumes:

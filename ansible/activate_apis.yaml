@@ -22,10 +22,31 @@
 - hosts: local
   tasks:
 
+    - name: set initial list so it's not undefined
+      set_fact:
+        _index_items_regex_pattern: "{{ _apis_indices_regex_pattern }}"
+        _apis_list: []
+
+    - ansible.builtin.debug:
+        var: "{{ item }}"
+      loop:
+        - _index_items_regex_pattern
+        - _index_items
+
+    - name: append each item template to list
+      set_fact:
+        _apis_list: "{{ _apis_list + [ _apis_activate_template ] }}"
+      loop: "{{ _index_items }}"
+      loop_control:
+        loop_var: index_item
+
+    - ansible.builtin.debug:
+        var: _apis_list
+
     - name: activate/deactivate apis
       include_role:
         name: apigateway-rest-configurator
       vars:
         configs_action: activate-apis
-        configs_enabled: "{{ vars_apis_enabled }}"
-        rvar_apigateway_packages: "{{ vars_apis_update_status }}"
+        configs_enabled: "{{ vars_apis_status_update_enabled }}"
+        rvar_apigateway_apis: "{{ _apis_list }}"
