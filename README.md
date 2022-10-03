@@ -26,6 +26,7 @@ The following configuration items / actions are currently supported (new functio
 - create/update teams (and assign the groups)
 - import apigateway archive
 - set/update aliases (different types)
+- set/update api metadata (descriptions, grouping, maturity, tags)
 - set/update api plans
 - set/update api packages (and link to plans)
 - set/update api applications (and link to apis)
