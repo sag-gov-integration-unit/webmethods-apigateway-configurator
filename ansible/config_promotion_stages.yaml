@@ -48,4 +48,4 @@
       vars:
         configs_action: set-promotion-stages
         configs_enabled: "{{ vars_promotions_stages_enabled }}"
-        webmethods_apigateway_promotions_stages: "{{ _promotions_stages_list }}"
+        rvar_apigateway_promotions_stages: "{{ _promotions_stages_list }}"
