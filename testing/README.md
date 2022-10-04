@@ -30,7 +30,7 @@ You can login to each of these with default passwords etc... and nothing is conf
 Here we're applying it all in 1 single configurator batch...which could be the possible way to do it in an automated environment.
 
 ```bash
-docker-compose up config_allinone_system_settings config_allinone_data
+docker-compose up config_settings_allinone config_data_allinone
 ```
 
 ## Running Tests: all configs one by one
@@ -58,79 +58,79 @@ sh run_tests.sh docker-compose.yml allinone=rm
 #### update admin password
 
 ```bash
-docker-compose up config_changepassword
+docker-compose run config_settings_changepassword
 ```
 
 #### configure load balancer urls
 
 ```bash
-docker-compose up config_loadbalancerurls
+docker-compose run config_settings_loadbalancerurls
 ```
 
 #### configure core settings (watt, extended)
 
 ```bash
-docker-compose up config_coresettings
+docker-compose run config_settings_coresettings
 ```
 
 #### configure keystores / truststores
 
 ```bash
-docker-compose up config_keystores config_truststores
+docker-compose run config_settings_keystores config_settings_truststores
 ```
 
 #### configure in/out ssl connections
 
 ```bash
-docker-compose up config_ssl_inbound_outbound_connections
+docker-compose run config_settings_ssl_inbound_outbound_connections
 ```
 
 #### configure additional ports (including matching with custom certs for SSL ports)
 
 ```bash
-docker-compose up config_ports
+docker-compose run config_settings_ports
 ```
 
 #### configure promotion stages
 
 ```bash
-docker-compose up config_promotion_stages
+docker-compose run config_settings_promotion_stages
 ```
 
 #### configure developer portal connectivity
 
 ```bash
-docker-compose up config_portalgateway
+docker-compose run config_settings_portalgateway
 ```
 
 #### configure local auth server settings
 
 ```bash
-docker-compose up config_localauth
+docker-compose run config_settings_localauth
 ```
 
 #### configure users
 
 ```bash
-docker-compose up config_users
+docker-compose run config_settings_users
 ```
 
 #### configure user groups
 
 ```bash
-docker-compose up config_usergroups
+docker-compose run config_settings_usergroups
 ```
 
 #### configure teams (user roles)
 
 ```bash
-docker-compose up config_userroles
+docker-compose run config_settings_userroles
 ```
 
 #### configure saml
 
 ```bash
-docker-compose up config_saml
+docker-compose run config_settings_saml
 ```
 
 ## Manual apply: execute each data items configs one at a time
@@ -138,25 +138,45 @@ docker-compose up config_saml
 #### import archives
 
 ```bash
-docker-compose up config_import_archives
+docker-compose run config_data_import_archives
 ```
 
 #### configure aliases
 
 ```bash
-docker-compose up config_aliases
+docker-compose run config_data_aliases
+```
+
+#### configure apis
+
+```bash
+docker-compose run config_data_apis
+```
+
+#### activate/deactivate apis
+
+De-activate:
+
+```bash
+docker-compose run config_data_apis_deactivate
+```
+
+Activate:
+
+```bash
+docker-compose run config_data_apis_activate
 ```
 
 #### configure plans
 
 ```bash
-docker-compose up config_plans
+docker-compose run config_data_plans
 ```
 
 #### configure packages
 
 ```bash
-docker-compose up config_packages
+docker-compose run config_data_packages
 ```
 
 #### activate/deactivate packages
@@ -164,19 +184,19 @@ docker-compose up config_packages
 De-activate:
 
 ```bash
-docker-compose up config_packages_deactivate
+docker-compose run config_data_packages_deactivate
 ```
 
 Activate:
 
 ```bash
-docker-compose up config_packages_activate
+docker-compose run config_data_packages_activate
 ```
 
 #### configure applications
 
 ```bash
-docker-compose up config_applications
+docker-compose run config_data_applications
 ```
 
 #### activate/deactivate applications
@@ -184,25 +204,25 @@ docker-compose up config_applications
 De-activate:
 
 ```bash
-docker-compose up config_applications_deactivate
+docker-compose run config_data_applications_deactivate
 ```
 
 Activate:
 
 ```bash
-docker-compose up config_applications_activate
+docker-compose run config_data_applications_activate
 ```
 
 #### publish apis to dev portal
 
 ```bash
-docker-compose up publish_apis
+docker-compose run config_data_publish_apis
 ```
 
 #### publish packages to dev portal
 
 ```bash
-docker-compose up publish_packages
+docker-compose run config_data_publish_packages
 ```
 
 ## Clean up
