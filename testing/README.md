@@ -33,6 +33,26 @@ Here we're applying it all in 1 single configurator batch...which could be the p
 docker-compose up config_allinone_system_settings config_allinone_data
 ```
 
+## Running Tests: all configs one by one
+
+The tests will automatically run all the docker-compose services which names start with "config_" (essentially all the relevant test services)
+
+```bash
+sh run_tests.sh docker-compose.yml
+```
+
+IF you want to run ONLY the "allinone" services, add param: allinone=only
+
+```bash
+sh run_tests.sh docker-compose.yml allinone=only
+```
+
+IF you want to run all the services WITHOUT the "allinone" services, add param: allinone=rm
+
+```bash
+sh run_tests.sh docker-compose.yml allinone=rm
+```
+
 ## Manual apply: execute each system configs one at a time
 
 #### update admin password
