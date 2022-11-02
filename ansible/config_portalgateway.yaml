@@ -34,7 +34,7 @@
       vars:
         configs_action: set-apiportal-connect
         configs_enabled: "{{ vars_portalgateway_enabled }}"
-        webmethods_apigateway_portalgateway: "{{ vars_portalgateway_apiportal }}"
+        rvar_apigateway_portalgateway: "{{ vars_portalgateway_apiportal }}"
       when: (vars_portalgateway_portaltype | lower) == "apiportal"
       tags:
         - configs_apiportal_connect
@@ -46,7 +46,7 @@
       vars:
         configs_action: set-apiportal-connect
         configs_enabled: "{{ vars_portalgateway_enabled }}"
-        webmethods_apigateway_portalgateway: "{{ vars_portalgateway_devportal }}"
+        rvar_apigateway_portalgateway: "{{ vars_portalgateway_devportal }}"
       when: (vars_portalgateway_portaltype | lower) == "devportal"
       tags:
         - configs_apiportal_connect

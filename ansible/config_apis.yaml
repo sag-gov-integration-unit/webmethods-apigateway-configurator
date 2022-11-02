@@ -33,9 +33,8 @@
         - _index_items_regex_pattern
         - _index_items
 
-    - name: append each item template to list
-      set_fact:
-        _apis_list: "{{ _apis_list + [ _apis_activate_template ] }}"
+    - name: append each item to list
+      include_tasks: "config_apis_append_each.yaml"
       loop: "{{ _index_items }}"
       loop_control:
         loop_var: index_item
@@ -43,10 +42,9 @@
     - ansible.builtin.debug:
         var: _apis_list
 
-    - name: activate/deactivate apis
-      include_role:
+    - include_role:
         name: apigateway-rest-configurator
       vars:
-        configs_action: activate-apis
-        configs_enabled: "{{ vars_apis_status_update_enabled }}"
+        configs_action: set-apis
+        configs_enabled: "{{ vars_apis_enabled }}"
         rvar_apigateway_apis: "{{ _apis_list }}"

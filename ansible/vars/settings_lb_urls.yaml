@@ -11,9 +11,9 @@ vars_loadbalancer_ignore_errors: "{{ lookup('env', 'settings_lburls_configure_ig
       # - url1
       # - url2
       # - url3
-_settings_lburls_http_urls: "{{ lookup('env', 'settings_lburls_http_urls') | default('',true) }}"
-_settings_lburls_https_urls: "{{ lookup('env', 'settings_lburls_https_urls') | default('',true) }}"
-_settings_lburls_websocket_urls: "{{ lookup('env', 'settings_lburls_websocket_urls') | default('',true) }}"
+_settings_lburls_http_urls: "{{ (lookup('env', 'settings_lburls_http_urls') | default('',true)).split(_string_list_separator)|map('trim')|select()|list }}"
+_settings_lburls_https_urls: "{{ (lookup('env', 'settings_lburls_https_urls') | default('',true)).split(_string_list_separator)|map('trim')|select()|list }}"
+_settings_lburls_websocket_urls: "{{ (lookup('env', 'settings_lburls_websocket_urls') | default('',true)).split(_string_list_separator)|map('trim')|select()|list }}"
 
 # input format is simple string
 _settings_lburls_webapp_url: "{{ lookup('env', 'settings_lburls_webapp_url') | default('',true) }}"

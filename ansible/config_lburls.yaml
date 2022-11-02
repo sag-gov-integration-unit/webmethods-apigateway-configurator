@@ -22,18 +22,12 @@
 - hosts: local
   tasks:
 
-    - name: set initial list so it's not undefined
-      set_fact:
-         _http_urls: "{{ _settings_lburls_http_urls.split(';')|map('trim')|select()|list }}"
-         _https_urls: "{{ _settings_lburls_https_urls.split(';')|map('trim')|select()|list }}"
-         _websocket_urls: "{{ _settings_lburls_websocket_urls.split(';')|map('trim')|select()|list }}"
-
     - include_role:
         name: apigateway-rest-configurator
       vars:
         configs_action: set-loadbalancer-urls
         configs_enabled: "{{ vars_loadbalancer_enabled }}"
-        webmethods_apigateway_loadbalancers_http_urls: "{{ _http_urls }}"
-        webmethods_apigateway_loadbalancers_https_urls: "{{ _https_urls }}"
-        webmethods_apigateway_loadbalancers_websocket_urls: "{{ _websocket_urls }}"
-        webmethods_apigateway_loadbalancers_webapp_url: "{{ _settings_lburls_webapp_url }}"
+        rvar_apigateway_loadbalancers_http_urls: "{{ _settings_lburls_http_urls }}"
+        rvar_apigateway_loadbalancers_https_urls: "{{ _settings_lburls_https_urls }}"
+        rvar_apigateway_loadbalancers_websocket_urls: "{{ _settings_lburls_websocket_urls }}"
+        rvar_apigateway_loadbalancers_webapp_url: "{{ _settings_lburls_webapp_url }}"

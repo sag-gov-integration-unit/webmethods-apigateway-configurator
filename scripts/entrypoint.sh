@@ -104,6 +104,15 @@ else
         exec_ansible_playbook config_aliases.yaml
     fi
 
+    ## apis
+    if [ "${data_apis_configure,,}" == "true" ]; then
+        exec_ansible_playbook config_apis.yaml
+    fi
+
+    if [ "${data_apis_status_update,,}" == "true" ]; then
+        exec_ansible_playbook activate_apis.yaml
+    fi
+
     ## plans
     if [ "${data_plans_configure,,}" == "true" ]; then
         exec_ansible_playbook config_plans.yaml
