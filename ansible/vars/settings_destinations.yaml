@@ -1,4 +1,6 @@
 ---
+_settings_destination_common_prefix: "settings_destination"
+_settings_destination_common_enabled: "{{ lookup('env', 'settings_destination_configure') | default('false',true) }}"
 
 ## common configs found in many destination payloads
 ## note: _destination_prefix_item is a dynamic value set by the playbook when merging the dict
@@ -22,17 +24,21 @@ _settings_destination_common_configs:
       metricsPublishInterval: "{{ lookup('env', '%s_metricsPublishInterval' | format(_destination_prefix_item)) | default('NULL',true) }}"
 
 ## destination elastic search
-_settings_destination_elastic_prefix: "settings_destination_elastic"
-_settings_destination_elastic_enabled: "{{ lookup('env', 'settings_destination_elastic_configure') | default('false',true) }}"
-_settings_destination_elastic_ignore_errors: "{{ lookup('env', 'settings_destination_elastic_configure_ignore_errors') | default(vars_default_ignore_errors,true) }}"
+_settings_destination_elastic_prefix: "{{ '%s_elastic' | format(_settings_destination_common_prefix) }}"
+_settings_destination_elastic_prefix_item_count: "{{ ansible_env.keys() | map('regex_search', ('^%s.*$' | format( _settings_destination_elastic_prefix)) , '\\1') | flatten | select('string') | length }}"
+_settings_destination_elastic_enabled: "{{ _settings_destination_elastic_prefix_item_count > 0 }}"
 _settings_destination_elastic_specific:
       protocol: "{{ lookup('env', '%s_protocol' | format(_settings_destination_elastic_prefix)) | default('NULL',true) }}"
-      hostname: "{{ lookup('env', '%s_hostname' | format(_settings_destination_elastic_prefix)) | default('NULL',true) }}"
+      hostName: "{{ lookup('env', '%s_hostname' | format(_settings_destination_elastic_prefix)) | default('NULL',true) }}"
       port: "{{ lookup('env', '%s_port' | format(_settings_destination_elastic_prefix)) | default('NULL',true) }}"
-      username: "{{ lookup('env', '%s_username' | format(_settings_destination_elastic_prefix)) | default('NULL',true) }}"
+      userName: "{{ lookup('env', '%s_username' | format(_settings_destination_elastic_prefix)) | default('NULL',true) }}"
       password: "{{ lookup('env', '%s_password' | format(_settings_destination_elastic_prefix)) | default('NULL',true) }}"
       indexName: "{{ lookup('env', '%s_indexName' | format(_settings_destination_elastic_prefix)) | default('NULL',true) }}"
 _settings_destination_elastic_final: "{{ _settings_destination_common_configs | combine(_settings_destination_elastic_specific) }}"
 
 ## destination api portal
-_settings_destination_apiportal_configs: {}
+_settings_destination_apiportal_prefix: "{{ '%s_apiportal' | format(_settings_destination_common_prefix) }}"
+_settings_destination_apiportal_prefix_item_count: "{{ ansible_env.keys() | map('regex_search', ('^%s.*$' | format( _settings_destination_apiportal_prefix)) , '\\1') | flatten | select('string') | length }}"
+_settings_destination_apiportal_enabled: "{{ _settings_destination_apiportal_prefix_item_count > 0 }}"
+_settings_destination_apiportal_specific: {}
+_settings_destination_apiportal_final: "{{ _settings_destination_common_configs | combine(_settings_destination_apiportal_specific) }}"

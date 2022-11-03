@@ -30,8 +30,8 @@ else
     fi
 
     ## config_destinations_settings
-    if [ "${settings_destination_elastic_configure,,}" == "true" ]; then
-        exec_ansible_playbook config_destination_elastic.yaml
+    if [ "${settings_destination_configure,,}" == "true" ]; then
+        exec_ansible_playbook config_destinations.yaml
     fi
 
     ## config_lb urls

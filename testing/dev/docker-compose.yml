@@ -142,6 +142,7 @@ services:
       settings_destination_elastic_username: user1
       settings_destination_elastic_password: password1
       settings_destination_elastic_indexName: index1
+      settings_destination_elastic_sendErrorEvent: "true"
     networks:
       - stack
 

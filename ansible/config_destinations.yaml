@@ -35,7 +35,7 @@
     - include_role:
         name: apigateway-rest-configurator
       vars:
-        configs_action: set-destination-elastic.yml
+        configs_action: set-destination-elastic
         configs_enabled: "{{ _settings_destination_elastic_enabled }}"
         rvar_apigateway_destination_elastic: '{{ _settings_destination_elastic_final |
              dict2items |
