@@ -10,6 +10,8 @@ services:
     ports:
       - "5555:5555"
       - "9072:9072"
+    volumes:
+      - ../resources/licensing/apigateway-licenseKey.xml:/opt/softwareag/IntegrationServer/instances/default/config/licenseKey.xml:rw
     networks:
       - stack
   
@@ -17,7 +19,10 @@ services:
     image: ${REG_DEVPORTAL}${IMAGE_DEVPORTAL}:${TAG_DEVPORTAL}
     ports:
       - "8083:8083"
+    volumes:
+      - ../resources/licensing/devportal-licenseKey.xml:/opt/softwareag/licenseKey.xml:ro
     environment: 
+      PORTAL_SERVER_CONFIG_LICENSE: "/opt/softwareag/licenseKey.xml"
       SPRING_ELASTICSEARCH_REST_URIS: "http://elasticsearch:9200"
     networks:
       - stack
@@ -124,7 +129,7 @@ services:
     networks:
       - stack
   
-  config_settings_event_destinations_elastic:
+  config_settings_event_destinations:
     image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
     volumes:
       - ../resources/ansible/sagdevops-ansible-common:/ansible/roles/sagdevops-ansible-common-1.0.0-6:ro
@@ -143,6 +148,7 @@ services:
       settings_event_destination_elastic_password: password1
       settings_event_destination_elastic_indexName: index1
       settings_event_destination_elastic_sendErrorEvent: "true"
+      settings_event_destination_apiportal_sendErrorEvent: "true"
     networks:
       - stack
 

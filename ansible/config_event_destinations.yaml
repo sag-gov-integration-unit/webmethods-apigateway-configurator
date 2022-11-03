@@ -36,9 +36,22 @@
         name: apigateway-rest-configurator
       vars:
         configs_action: set-event-destination
-        configs_enabled: "{{ _settings_event_destination_elastic_enabled }}"
-        rvar_apigateway_destination_type: elastic
+        configs_enabled: "{{ _settings_event_destination_elastic_enabled | default('false',true) }}"
+        rvar_apigateway_destination_type: "{{ _settings_event_destination_elastic_type | default('NULL',true) }}"
         rvar_apigateway_destination_config_dict: '{{ _settings_event_destination_elastic_final |
-             dict2items |
-             rejectattr("value", "equalto", "NULL") |
-             items2dict }}'
+            default({},true) |
+            dict2items |
+            rejectattr("value", "equalto", "NULL") |
+            items2dict }}'
+
+    - include_role:
+        name: apigateway-rest-configurator
+      vars:
+        configs_action: set-event-destination
+        configs_enabled: "{{ _settings_event_destination_apiportal_enabled | default('false',true) }}"
+        rvar_apigateway_destination_type: "{{ _settings_event_destination_apiportal_type | default('NULL',true) }}"
+        rvar_apigateway_destination_config_dict: '{{ _settings_event_destination_apiportal_final |
+            default({},true) |
+            dict2items |
+            rejectattr("value", "equalto", "NULL") |
+            items2dict }}'
