@@ -7,6 +7,12 @@ I have prepared most actions into a simple docker-compose file to:
 
 The product images used in this testing are the official SoftwareAG images for [Software AG API Gateway](https://hub.docker.com/r/softwareag/apigateway-trial) and [Developper Portal](https://hub.docker.com/r/softwareag/devportal) so this should be a breeze to try.
 
+## Create a default docker network
+
+```
+docker network create -d bridge apimgt
+```
+
 ## Start default SoftwareAG API management stack
 
 Here, we're pulling the default container images by SoftwareAG from DockerHub, ie.

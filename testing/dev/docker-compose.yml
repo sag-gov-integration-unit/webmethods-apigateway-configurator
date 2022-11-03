@@ -5,39 +5,6 @@ networks:
 
 services:
 
-  apigateway:
-    image: ${REG_APIGATEWAY}${IMAGE_APIGATEWAY}:${TAG_APIGATEWAY}
-    ports:
-      - "5555:5555"
-      - "9072:9072"
-    volumes:
-      - ../resources/licensing/apigateway-licenseKey.xml:/opt/softwareag/IntegrationServer/instances/default/config/licenseKey.xml:rw
-    networks:
-      - stack
-  
-  devportal:
-    image: ${REG_DEVPORTAL}${IMAGE_DEVPORTAL}:${TAG_DEVPORTAL}
-    ports:
-      - "8083:8083"
-    volumes:
-      - ../resources/licensing/devportal-licenseKey.xml:/opt/softwareag/licenseKey.xml:ro
-    environment: 
-      PORTAL_SERVER_CONFIG_LICENSE: "/opt/softwareag/licenseKey.xml"
-      SPRING_ELASTICSEARCH_REST_URIS: "http://elasticsearch:9200"
-    networks:
-      - stack
-
-  elasticsearch:
-    image: docker.elastic.co/elasticsearch/elasticsearch:${TAG_ELASTIC_VERSION}
-    environment:
-      - bootstrap.memory_lock=true
-      - discovery.type=single-node
-      - http.port=9200
-      - transport.port=9300
-      - xpack.security.enabled=false
-    networks:
-      - stack
-
   test_dict2item:
     image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
     entrypoint: "./entrypoint.sh ./testing/test_dict2item.yaml"
@@ -48,7 +15,7 @@ services:
       configurator_ansible_args: "-v"
       wait_connect: "false"
     networks:
-      - stack
+      - apimgt
 
   test_search_apis_single:
     image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
@@ -63,7 +30,7 @@ services:
       connect_user: Administrator
       connect_password: "somethingnew"
     networks:
-      - stack
+      - apimgt
   
   test_search_apis_multiple:
     image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
@@ -78,7 +45,7 @@ services:
       connect_user: Administrator
       connect_password: "somethingnew"
     networks:
-      - stack
+      - apimgt
 
   test_searches_2:
     image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
@@ -93,7 +60,7 @@ services:
       connect_user: Administrator
       connect_password: "somethingnew"
     networks:
-      - stack
+      - apimgt
 
   config_settings_changepassword:
     image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
@@ -109,7 +76,7 @@ services:
       changepassword_enabled: "true"
       changepassword_old: "manage"
     networks:
-      - stack
+      - apimgt
 
   config_settings_loadbalancerurls:
     image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
@@ -128,7 +95,7 @@ services:
       settings_lburls_websocket_url: "ws://externallb1;ws://externallb2;ws://externallb3"
       settings_lburls_webapp_url: "http://externallb"
     networks:
-      - stack
+      - apimgt
   
   config_settings_event_destinations:
     image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
@@ -165,7 +132,7 @@ services:
       settings_event_destination_auditlogs_destination: "file"
       settings_event_destination_auditlogs_maximumQueueSize: "1000"
     networks:
-      - stack
+      - apimgt
 
   config_settings_coresettings:
     image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
@@ -182,7 +149,7 @@ services:
       settings_core_watts: watt.server.cachemanager.connectTimeout=300000 watt.net.timeout=600 watt.net.clientKeepaliveUsageLimit=10000000 watt.server.threadPoolMin=50 watt.server.threadPool=1000 watt.server.control.serverThreadThreshold=50 watt.security.ssl.cacheClientSessions=true watt.net.maxClientKeepaliveConns=500 watt.security.ssl.resumeClientSessions=true
       settings_core_extended: "events.reportingQueue.size=5000 events.collectionPool.minThreads=2 events.collectionPool.maxThreads=32 events.reportingPool.minThreads=4 events.reportingPool.maxThreads=16 eventsRefreshInterval=60s events.collectionQueue.size=10000000"
     networks:
-      - stack
+      - apimgt
 
   config_settings_keystores:
     image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
@@ -214,7 +181,7 @@ services:
       settings_keystores_1_aliases: "certificate"
       settings_keystores_1_aliasesPasswords: "manage"
     networks:
-      - stack
+      - apimgt
 
   config_settings_truststores:
     image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
@@ -236,7 +203,7 @@ services:
       settings_truststores_0_description: "My custom truststore"
       settings_truststores_0_password: "manage"
     networks:
-      - stack
+      - apimgt
 
   config_settings_ssl_inbound_outbound_connections:
     image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
@@ -257,7 +224,7 @@ services:
       settings_ssl_outbound_keystore_keyalias: "certificate"
       settings_ssl_outbound_truststore_name: "Custom_SSL_Truststore"
     networks:
-      - stack
+      - apimgt
 
   config_settings_ports:
     image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
@@ -306,7 +273,7 @@ services:
       # settings_ports_2_maxqueue: "10000"
       # settings_ports_2_idletimeout: "90000"
     networks:
-      - stack
+      - apimgt
 
   config_settings_promotion_stages:
     image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
@@ -336,7 +303,7 @@ services:
       settings_promotions_stages_1_keystoreAlias: "Custom_SSL_Keystore"
       settings_promotions_stages_1_keyAlias: "certificate"
     networks:
-      - stack
+      - apimgt
 
   config_settings_portalgateway:
     image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
@@ -364,7 +331,7 @@ services:
       settings_portalgateway_devportal_username: "Administrator"
       settings_portalgateway_devportal_password: "manage"
     networks:
-      - stack
+      - apimgt
 
   config_settings_localauth:
     image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
@@ -391,7 +358,7 @@ services:
       settings_localauth_sslconfigs_keyAlias: "certificate"
       settings_localauth_sslconfigs_trustStoreAlias: "Custom_SSL_Truststore"
     networks:
-      - stack
+      - apimgt
 
   config_settings_saml:
     image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
@@ -422,7 +389,7 @@ services:
       settings_saml_group_attributes: roles;Role
       settings_saml_groups_to_apigateway_groups: apigateway-admin=API-Gateway-Administrators;apigateway-apiprovider=API-Gateway-Providers;apigateway-user=Everybody
     networks:
-      - stack
+      - apimgt
   
   config_settings_users:
     image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
@@ -461,7 +428,7 @@ services:
       settings_users_2_allowDigestAuth: "false"
       settings_users_2_language: "en"
     networks:
-      - stack
+      - apimgt
   
   config_settings_usergroups:
     image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
@@ -488,7 +455,7 @@ services:
       settings_usergroups_2_userids: ""
       settings_usergroups_2_userids_strict: "true"
     networks:
-      - stack
+      - apimgt
 
   config_settings_userroles:
     image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
@@ -515,7 +482,7 @@ services:
       settings_userroles_2_privilegecode: "10010010010100000001010001"
       settings_userroles_2_groupnames: "usergroup1;usergroup2;usergroup3"
     networks:
-      - stack
+      - apimgt
 
   config_data_import_archives:
     image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
@@ -539,7 +506,7 @@ services:
       data_archives_2_fixingMissingVersions: "true"
       data_archives_2_preserveAssetState: "true"
     networks:
-      - stack
+      - apimgt
 
   config_data_import_archives_nothing:
     image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
@@ -555,7 +522,7 @@ services:
       connect_password: "somethingnew"
       data_archives_import: "true"
     networks:
-      - stack
+      - apimgt
 
   config_data_aliases:
     image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
@@ -595,7 +562,7 @@ services:
       data_aliases_4_stage: stag4
       data_aliases_4_value: http://test4.local
     networks:
-      - stack
+      - apimgt
 
   config_data_aliases_nothing:
     image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
@@ -610,7 +577,7 @@ services:
       connect_password: "somethingnew"
       data_aliases_configure: "true"
     networks:
-      - stack
+      - apimgt
 
   config_data_aliases_existing:
     image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
@@ -632,7 +599,7 @@ services:
       data_aliases_1_type: simple
       data_aliases_1_value: http://bookstore:7071
     networks:
-      - stack
+      - apimgt
 
   config_data_apis:
     image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
@@ -659,7 +626,7 @@ services:
       data_apis_1_api_groups: "Sales and Ordering;Search"
       data_apis_1_api_tags: "tag211;tag222;tag233"
     networks:
-      - stack
+      - apimgt
 
   config_data_apis_deactivate:
     image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
@@ -680,7 +647,7 @@ services:
       data_apis_1_version: "1.0"
       data_apis_1_active: "false"
     networks:
-      - stack
+      - apimgt
 
   config_data_apis_activate:
     image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
@@ -701,7 +668,7 @@ services:
       data_apis_1_version: "1.0"
       data_apis_1_active: "true"
     networks:
-      - stack
+      - apimgt
 
   config_data_plans:
     image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
@@ -722,7 +689,7 @@ services:
       data_plans_2_name: "plan3"
       data_plans_2_version: "1.0"
     networks:
-      - stack
+      - apimgt
 
   config_data_plans_nothing:
     image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
@@ -737,7 +704,7 @@ services:
       connect_password: "somethingnew"
       data_plans_configure: "true"
     networks:
-      - stack
+      - apimgt
 
   config_data_packages:
     image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
@@ -766,7 +733,7 @@ services:
       data_packages_1_lookup_plans: "plan2:1.0 ; plan3:1.0"
       data_packages_1_lookup_policies: ""
     networks:
-      - stack
+      - apimgt
 
   config_data_packages_deactivate:
     image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
@@ -787,7 +754,7 @@ services:
       data_packages_1_version: "1.0"
       data_packages_1_active: "false"
     networks:
-      - stack
+      - apimgt
 
   config_data_packages_activate:
     image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
@@ -808,7 +775,7 @@ services:
       data_packages_1_version: "1.0"
       data_packages_1_active: "true"
     networks:
-      - stack
+      - apimgt
 
 
 ## TODO: fix error when lookup apis is empty...
@@ -855,7 +822,7 @@ services:
       data_applications_2_restrictViewAsset: "false"
       data_applications_2_lookup_apis: ""
     networks:
-      - stack
+      - apimgt
 
   config_data_applications_deactivate:
     image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
@@ -879,7 +846,7 @@ services:
       data_applications_2_version: "0.3"
       data_applications_2_isSuspended: "true"
     networks:
-      - stack
+      - apimgt
 
   config_data_applications_activate:
     image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
@@ -903,7 +870,7 @@ services:
       data_applications_2_version: "0.3"
       data_applications_2_isSuspended: "false"
     networks:
-      - stack
+      - apimgt
 
   config_data_publish_apis:
     image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
@@ -923,7 +890,7 @@ services:
       data_apis_0_lookup_communities: "Public Community"
       data_apis_0_lookup_apis: "bookstore:1.0 ; uszip:1.0"
     networks:
-      - stack
+      - apimgt
 
   config_data_publish_packages:
     image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
@@ -943,7 +910,7 @@ services:
       data_packages_0_lookup_communities: "Public Community"
       data_packages_0_lookup_packages: "package1:1.0 ; package2:1.0"
     networks:
-      - stack
+      - apimgt
 
   config_settings_allinone:
     image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
@@ -1131,7 +1098,7 @@ services:
       settings_saml_group_attributes: roles;Role
       settings_saml_groups_to_apigateway_groups: apigateway-admin=API-Gateway-Administrators;apigateway-apiprovider=API-Gateway-Providers;apigateway-user=Everybody
     networks:
-      - stack
+      - apimgt
 
   config_data_allinone:
     image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
@@ -1235,4 +1202,4 @@ services:
       data_packages_0_lookup_communities: "Public Community"
       data_packages_0_lookup_packages: "package1:1.0 ; package2:1.0"
     networks:
-      - stack
+      - apimgt

@@ -1,0 +1,44 @@
+version: "3.2"
+
+networks:
+  default:
+    name: apimgt
+    external: true
+
+services:
+
+  apigateway:
+    image: ${REG_APIGATEWAY}${IMAGE_APIGATEWAY}:${TAG_APIGATEWAY}
+    environment: 
+      apigw_elasticsearch_hosts: elasticsearch:9200
+      apigw_elasticsearch_autostart: "false"
+    ports:
+      - "5555:5555"
+      - "9072:9072"
+    volumes:
+      - ./resources/licensing/apigateway-licenseKey.xml:/opt/softwareag/IntegrationServer/instances/default/config/licenseKey.xml:rw
+    networks:
+      - apimgt
+  
+  devportal:
+    image: ${REG_DEVPORTAL}${IMAGE_DEVPORTAL}:${TAG_DEVPORTAL}
+    ports:
+      - "8083:8083"
+    volumes:
+      - ./resources/licensing/devportal-licenseKey.xml:/opt/softwareag/licenseKey.xml:ro
+    environment: 
+      PORTAL_SERVER_CONFIG_LICENSE: "/opt/softwareag/licenseKey.xml"
+      SPRING_ELASTICSEARCH_REST_URIS: "http://elasticsearch:9200"
+    networks:
+      - apimgt
+
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:${TAG_ELASTIC_VERSION}
+    environment:
+      - bootstrap.memory_lock=true
+      - discovery.type=single-node
+      - http.port=9200
+      - transport.port=9300
+      - xpack.security.enabled=false
+    networks:
+      - apimgt
