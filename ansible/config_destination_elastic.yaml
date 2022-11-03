@@ -1,0 +1,43 @@
+---
+
+################################################################
+## Load the needed vars
+################################################################
+
+- name: Load vars
+  hosts: local
+  tasks:
+    - name: Include all vars files
+      include_vars:
+        file: "{{ item }}"
+      with_fileglob:
+        - vars/common.yaml
+        - vars/rest_connect.yaml
+        - vars/settings_destinations.yaml
+
+################################################################
+## set configs via REST APIs
+################################################################
+
+- hosts: local
+  tasks:
+
+    - name: set prefix item to ensure common attributes are using the right prefix
+      set_fact:
+         _destination_prefix_item: "{{ _settings_destination_elastic_prefix }}"
+    
+    - ansible.builtin.debug:
+        var: "{{ item }}"
+      loop:
+        - _destination_prefix_item
+        - _settings_destination_elastic_final
+
+    - include_role:
+        name: apigateway-rest-configurator
+      vars:
+        configs_action: set-destination-elastic.yml
+        configs_enabled: "{{ _settings_destination_elastic_enabled }}"
+        rvar_apigateway_destination_elastic: '{{ _settings_destination_elastic_final |
+             dict2items |
+             rejectattr("value", "equalto", "NULL") |
+             items2dict }}'

@@ -29,6 +29,11 @@ else
         exec_ansible_playbook config_settings.yaml
     fi
 
+    ## config_destinations_settings
+    if [ "${settings_destination_elastic_configure,,}" == "true" ]; then
+        exec_ansible_playbook config_destination_elastic.yaml
+    fi
+
     ## config_lb urls
     if [ "${settings_lburls_configure,,}" == "true" ]; then
         exec_ansible_playbook config_lburls.yaml

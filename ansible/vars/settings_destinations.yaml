@@ -1,0 +1,38 @@
+---
+
+## common configs found in many destination payloads
+## note: _destination_prefix_item is a dynamic value set by the playbook when merging the dict
+_settings_destination_common_configs:
+      sendAuditlogAPIManagementEvent: "{{ lookup('env', '%s_sendAuditlogAPIManagementEvent' | format(_destination_prefix_item)) | default('NULL',true) }}"
+      sendAuditlogAccessProfileManagementEvent: "{{ lookup('env', '%s_sendAuditlogAccessProfileManagementEvent' | format(_destination_prefix_item)) | default('NULL',true) }}"
+      sendAuditlogAliasManagementEvent: "{{ lookup('env', '%s_sendAuditlogAliasManagementEvent' | format(_destination_prefix_item)) | default('NULL',true) }}"
+      sendAuditlogApplicationManagementEvent: "{{ lookup('env', '%s_sendAuditlogApplicationManagementEvent' | format(_destination_prefix_item)) | default('NULL',true) }}"
+      sendAuditlogApprovalManagementEvent: "{{ lookup('env', '%s_sendAuditlogApprovalManagementEvent' | format(_destination_prefix_item)) | default('NULL',true) }}"
+      sendAuditlogGroupManagementEvent: "{{ lookup('env', '%s_sendAuditlogGroupManagementEvent' | format(_destination_prefix_item)) | default('NULL',true) }}"
+      sendAuditlogPackageManagementEvent: "{{ lookup('env', '%s_sendAuditlogPackageManagementEvent' | format(_destination_prefix_item)) | default('NULL',true) }}"
+      sendAuditlogPlanManagementEvent: "{{ lookup('env', '%s_sendAuditlogPlanManagementEvent' | format(_destination_prefix_item)) | default('NULL',true) }}"
+      sendAuditlogPolicyManagementEvent: "{{ lookup('env', '%s_sendAuditlogPolicyManagementEvent' | format(_destination_prefix_item)) | default('NULL',true) }}"
+      sendAuditlogPromotionManagementEvent: "{{ lookup('env', '%s_sendAuditlogPromotionManagementEvent' | format(_destination_prefix_item)) | default('NULL',true) }}"
+      sendAuditlogRuntimeDataManagementEvent: "{{ lookup('env', '%s_sendAuditlogRuntimeDataManagementEvent' | format(_destination_prefix_item)) | default('NULL',true) }}"
+      sendAuditlogUserManagementEvent: "{{ lookup('env', '%s_sendAuditlogUserManagementEvent' | format(_destination_prefix_item)) | default('NULL',true) }}"
+      sendErrorEvent: "{{ lookup('env', '%s_sendErrorEvent' | format(_destination_prefix_item)) | default('NULL',true) }}"
+      sendLifecycleEvent: "{{ lookup('env', '%s_sendLifecycleEvent' | format(_destination_prefix_item)) | default('NULL',true) }}"
+      sendPerformanceMetrics: "{{ lookup('env', '%s_sendPerformanceMetrics' | format(_destination_prefix_item)) | default('NULL',true) }}"
+      sendPolicyViolationEvent: "{{ lookup('env', '%s_sendPolicyViolationEvent' | format(_destination_prefix_item)) | default('NULL',true) }}"
+      metricsPublishInterval: "{{ lookup('env', '%s_metricsPublishInterval' | format(_destination_prefix_item)) | default('NULL',true) }}"
+
+## destination elastic search
+_settings_destination_elastic_prefix: "settings_destination_elastic"
+_settings_destination_elastic_enabled: "{{ lookup('env', 'settings_destination_elastic_configure') | default('false',true) }}"
+_settings_destination_elastic_ignore_errors: "{{ lookup('env', 'settings_destination_elastic_configure_ignore_errors') | default(vars_default_ignore_errors,true) }}"
+_settings_destination_elastic_specific:
+      protocol: "{{ lookup('env', '%s_protocol' | format(_settings_destination_elastic_prefix)) | default('NULL',true) }}"
+      hostname: "{{ lookup('env', '%s_hostname' | format(_settings_destination_elastic_prefix)) | default('NULL',true) }}"
+      port: "{{ lookup('env', '%s_port' | format(_settings_destination_elastic_prefix)) | default('NULL',true) }}"
+      username: "{{ lookup('env', '%s_username' | format(_settings_destination_elastic_prefix)) | default('NULL',true) }}"
+      password: "{{ lookup('env', '%s_password' | format(_settings_destination_elastic_prefix)) | default('NULL',true) }}"
+      indexName: "{{ lookup('env', '%s_indexName' | format(_settings_destination_elastic_prefix)) | default('NULL',true) }}"
+_settings_destination_elastic_final: "{{ _settings_destination_common_configs | combine(_settings_destination_elastic_specific) }}"
+
+## destination api portal
+_settings_destination_apiportal_configs: {}
