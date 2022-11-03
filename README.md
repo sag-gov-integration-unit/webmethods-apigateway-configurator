@@ -21,6 +21,7 @@ The following configuration items / actions are currently supported (new functio
 - set/update SAML configs
 - set/update LDAP configs
 - set/update API Gateway Local auth Server (oAuth, JWT)
+- set event destinations (elastic,apiportal,apigateway,auditlogs,email,jdbc,snmp,des,centrasite,centrasite_snmp)
 - create/update users
 - create/update groups (and assign the users)
 - create/update teams (and assign the groups)
@@ -35,7 +36,6 @@ The following configuration items / actions are currently supported (new functio
 - activate/deactivate apis
 - activate/deactivate applications
 - activate/deactivate packages
-- (more can and will be added based on automation needs)
 
 Head over to [Using/Testing the webmethods-apigateway-configurator](./testing/README.md) for a detail tutorial on how to use the configurator to apply all the supported config items.
 
