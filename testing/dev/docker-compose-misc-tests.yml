@@ -14,7 +14,7 @@ services:
       - ../resources/ansible/sagdevops-ansible-common:/ansible/roles/sagdevops-ansible-common-1.0.0-6:ro
       - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.3-10.15:ro 
     environment:
-      configurator_ansible_args: "-v"
+      #configurator_ansible_args: -v
       wait_connect: "false"
 
   test_search_apis_single:
@@ -25,7 +25,7 @@ services:
       - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.3-10.15:ro 
     environment:
       connect_host: apigateway
-      configurator_ansible_args: -v
+      #configurator_ansible_args: -v
       connect_port: "5555"
       connect_user: Administrator
       connect_password: "somethingnew"
@@ -38,7 +38,7 @@ services:
       - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.3-10.15:ro 
     environment:
       connect_host: apigateway
-      configurator_ansible_args: -v
+      #configurator_ansible_args: -v
       connect_port: "5555"
       connect_user: Administrator
       connect_password: "somethingnew"
@@ -51,7 +51,7 @@ services:
       - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.3-10.15:ro 
     environment:
       connect_host: apigateway
-      configurator_ansible_args: -v
+      #configurator_ansible_args: -v
       connect_port: "5555"
       connect_user: Administrator
       connect_password: "somethingnew"

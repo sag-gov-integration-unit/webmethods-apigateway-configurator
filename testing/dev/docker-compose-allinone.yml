@@ -16,7 +16,7 @@ services:
       - ../resources/saml/idpmetadata.xml:/configs/idpmetadata.xml:ro
     environment: 
       connect_host: apigateway
-      configurator_ansible_args: -v
+      #configurator_ansible_args: -v
       connect_port: "5555"
       connect_user: Administrator
       connect_password: "somethingnew"
@@ -201,7 +201,7 @@ services:
       - ../resources/sampleapis_archives:/imports:ro
     environment: 
       connect_host: apigateway
-      configurator_ansible_args: -v
+      #configurator_ansible_args: -v
       connect_port: "5555"
       connect_user: Administrator
       connect_password: "somethingnew"
