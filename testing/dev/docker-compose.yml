@@ -10,6 +10,8 @@ services:
     ports:
       - "5555:5555"
       - "9072:9072"
+    volumes:
+      - ../resources/licensing/apigateway-licenseKey.xml:/opt/softwareag/IntegrationServer/instances/default/config/licenseKey.xml:rw
     networks:
       - stack
   
@@ -17,7 +19,10 @@ services:
     image: ${REG_DEVPORTAL}${IMAGE_DEVPORTAL}:${TAG_DEVPORTAL}
     ports:
       - "8083:8083"
+    volumes:
+      - ../resources/licensing/devportal-licenseKey.xml:/opt/softwareag/licenseKey.xml:ro
     environment: 
+      PORTAL_SERVER_CONFIG_LICENSE: "/opt/softwareag/licenseKey.xml"
       SPRING_ELASTICSEARCH_REST_URIS: "http://elasticsearch:9200"
     networks:
       - stack
@@ -121,6 +126,43 @@ services:
       settings_lburls_https_urls: "https://externallb1:443;https://externallb2:443;https://externallb3:443"
       settings_lburls_websocket_url: "ws://externallb1;ws://externallb2;ws://externallb3"
       settings_lburls_webapp_url: "http://externallb"
+    networks:
+      - stack
+  
+  config_settings_event_destinations:
+    image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
+    volumes:
+      - ../resources/ansible/sagdevops-ansible-common:/ansible/roles/sagdevops-ansible-common-1.0.0-6:ro
+      - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.3-1:ro 
+    environment: 
+      connect_host: apigateway
+      configurator_ansible_args: -v
+      connect_port: "5555"
+      connect_user: Administrator
+      connect_password: "somethingnew"
+      settings_event_destination_configure: "true"
+      settings_event_destination_elastic_protocol: http
+      settings_event_destination_elastic_hostName: server1
+      settings_event_destination_elastic_port: 9200
+      settings_event_destination_elastic_userName: user1
+      settings_event_destination_elastic_password: password1
+      settings_event_destination_elastic_indexName: index1
+      settings_event_destination_elastic_sendErrorEvent: "true"
+      settings_event_destination_apiportal_sendErrorEvent: "true"
+      settings_event_destination_apigateway_sendErrorEvent: "true"
+      settings_event_destination_email_smtpServer: "smtp1"
+      settings_event_destination_email_port: "1234"
+      settings_event_destination_email_userName: "testuser"
+      settings_event_destination_jdbc_sendErrorEvent: "true"
+      settings_event_destination_snmp_sendErrorEvent: "true"
+      settings_event_destination_des_sendErrorEvent: "true"
+      # TODO: investgate how to set these values for centrasite? 
+      # (maybe centrasite configs must be added for this setting to take...)
+      # settings_event_destination_centrasite_sendErrorEvent: "true"
+      # settings_event_destination_centrasite_snmp_sendErrorEvent: "true"
+      settings_event_destination_auditlogs_enabled: "true"
+      settings_event_destination_auditlogs_destination: "file"
+      settings_event_destination_auditlogs_maximumQueueSize: "1000"
     networks:
       - stack
 

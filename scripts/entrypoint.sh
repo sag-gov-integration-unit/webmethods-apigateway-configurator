@@ -29,6 +29,11 @@ else
         exec_ansible_playbook config_settings.yaml
     fi
 
+    ## config_destinations_settings
+    if [ "${settings_event_destination_configure,,}" == "true" ]; then
+        exec_ansible_playbook config_event_destinations.yaml
+    fi
+
     ## config_lb urls
     if [ "${settings_lburls_configure,,}" == "true" ]; then
         exec_ansible_playbook config_lburls.yaml

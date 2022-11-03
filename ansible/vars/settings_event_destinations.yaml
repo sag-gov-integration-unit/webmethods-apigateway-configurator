@@ -1,0 +1,158 @@
+---
+_settings_event_destination_common_prefix: "settings_event_destination"
+_settings_event_destination_common_enabled: "{{ lookup('env', '%s_configure' | format(_settings_event_destination_common_prefix)) | default('false',true) }}"
+
+## common configs found in many destination payloads
+## note: pvar_destination_prefix_item is a dynamic value set by the playbook when merging the dict
+_settings_event_destination_common_configs:
+      sendAuditlogAPIManagementEvent: "{{ lookup('env', '%s_sendAuditlogAPIManagementEvent' | format(pvar_destination_prefix_item)) | default('NULL',true) }}"
+      sendAuditlogAccessProfileManagementEvent: "{{ lookup('env', '%s_sendAuditlogAccessProfileManagementEvent' | format(pvar_destination_prefix_item)) | default('NULL',true) }}"
+      sendAuditlogAliasManagementEvent: "{{ lookup('env', '%s_sendAuditlogAliasManagementEvent' | format(pvar_destination_prefix_item)) | default('NULL',true) }}"
+      sendAuditlogApplicationManagementEvent: "{{ lookup('env', '%s_sendAuditlogApplicationManagementEvent' | format(pvar_destination_prefix_item)) | default('NULL',true) }}"
+      sendAuditlogApprovalManagementEvent: "{{ lookup('env', '%s_sendAuditlogApprovalManagementEvent' | format(pvar_destination_prefix_item)) | default('NULL',true) }}"
+      sendAuditlogGroupManagementEvent: "{{ lookup('env', '%s_sendAuditlogGroupManagementEvent' | format(pvar_destination_prefix_item)) | default('NULL',true) }}"
+      sendAuditlogPackageManagementEvent: "{{ lookup('env', '%s_sendAuditlogPackageManagementEvent' | format(pvar_destination_prefix_item)) | default('NULL',true) }}"
+      sendAuditlogPlanManagementEvent: "{{ lookup('env', '%s_sendAuditlogPlanManagementEvent' | format(pvar_destination_prefix_item)) | default('NULL',true) }}"
+      sendAuditlogPolicyManagementEvent: "{{ lookup('env', '%s_sendAuditlogPolicyManagementEvent' | format(pvar_destination_prefix_item)) | default('NULL',true) }}"
+      sendAuditlogPromotionManagementEvent: "{{ lookup('env', '%s_sendAuditlogPromotionManagementEvent' | format(pvar_destination_prefix_item)) | default('NULL',true) }}"
+      sendAuditlogRuntimeDataManagementEvent: "{{ lookup('env', '%s_sendAuditlogRuntimeDataManagementEvent' | format(pvar_destination_prefix_item)) | default('NULL',true) }}"
+      sendAuditlogUserManagementEvent: "{{ lookup('env', '%s_sendAuditlogUserManagementEvent' | format(pvar_destination_prefix_item)) | default('NULL',true) }}"
+      sendErrorEvent: "{{ lookup('env', '%s_sendErrorEvent' | format(pvar_destination_prefix_item)) | default('NULL',true) }}"
+      sendLifecycleEvent: "{{ lookup('env', '%s_sendLifecycleEvent' | format(pvar_destination_prefix_item)) | default('NULL',true) }}"
+      sendPerformanceMetrics: "{{ lookup('env', '%s_sendPerformanceMetrics' | format(pvar_destination_prefix_item)) | default('NULL',true) }}"
+      sendPolicyViolationEvent: "{{ lookup('env', '%s_sendPolicyViolationEvent' | format(pvar_destination_prefix_item)) | default('NULL',true) }}"
+      metricsPublishInterval: "{{ lookup('env', '%s_metricsPublishInterval' | format(pvar_destination_prefix_item)) | default('NULL',true) }}"
+
+## destination elastic search
+_settings_event_destination_elastic_type: "elastic"
+_settings_event_destination_elastic_prefix: "{{ '%s_%s' | format(_settings_event_destination_common_prefix, _settings_event_destination_elastic_type) }}"
+_settings_event_destination_elastic_prefix_item_count: "{{ ansible_env.keys() | map('regex_search', ('^%s.*$' | format( _settings_event_destination_elastic_prefix)) , '\\0') | flatten | select('string') | length }}"
+_settings_event_destination_elastic_enabled: "{{ (_settings_event_destination_elastic_prefix_item_count | default('0',true) | int) > 0 }}"
+_settings_event_destination_elastic_specific:
+      protocol: "{{ lookup('env', '%s_protocol' | format(_settings_event_destination_elastic_prefix)) | default('NULL',true) }}"
+      hostName: "{{ lookup('env', '%s_hostName' | format(_settings_event_destination_elastic_prefix)) | default('NULL',true) }}"
+      port: "{{ lookup('env', '%s_port' | format(_settings_event_destination_elastic_prefix)) | default('NULL',true) }}"
+      userName: "{{ lookup('env', '%s_userName' | format(_settings_event_destination_elastic_prefix)) | default('NULL',true) }}"
+      password: "{{ lookup('env', '%s_password' | format(_settings_event_destination_elastic_prefix)) | default('NULL',true) }}"
+      indexName: "{{ lookup('env', '%s_indexName' | format(_settings_event_destination_elastic_prefix)) | default('NULL',true) }}"
+_settings_event_destination_elastic_final: "{{ _settings_event_destination_common_configs | combine(_settings_event_destination_elastic_specific) }}"
+
+## destination api portal
+_settings_event_destination_apiportal_type: "apiportal"
+_settings_event_destination_apiportal_prefix: "{{ '%s_%s' | format(_settings_event_destination_common_prefix, _settings_event_destination_apiportal_type) }}"
+_settings_event_destination_apiportal_prefix_item_count: "{{ ansible_env.keys() | map('regex_search', ('^%s.*$' | format( _settings_event_destination_apiportal_prefix)) , '\\0') | flatten | select('string') | length }}"
+_settings_event_destination_apiportal_enabled: "{{ (_settings_event_destination_apiportal_prefix_item_count | default('0',true) | int) > 0 }}"
+_settings_event_destination_apiportal_specific: {}
+_settings_event_destination_apiportal_final: "{{ _settings_event_destination_common_configs | combine(_settings_event_destination_apiportal_specific) }}"
+
+## destination api gateway
+_settings_event_destination_apigateway_type: "apigateway"
+_settings_event_destination_apigateway_prefix: "{{ '%s_%s' | format(_settings_event_destination_common_prefix, _settings_event_destination_apigateway_type) }}"
+_settings_event_destination_apigateway_prefix_item_count: "{{ ansible_env.keys() | map('regex_search', ('^%s.*$' | format( _settings_event_destination_apigateway_prefix)) , '\\0') | flatten | select('string') | length }}"
+_settings_event_destination_apigateway_enabled: "{{ (_settings_event_destination_apigateway_prefix_item_count | default('0',true) | int) > 0 }}"
+_settings_event_destination_apigateway_specific: {}
+_settings_event_destination_apigateway_final: "{{ _settings_event_destination_common_configs | combine(_settings_event_destination_apigateway_specific) }}"
+
+## destination email
+_settings_event_destination_email_type: "email"
+_settings_event_destination_email_prefix: "{{ '%s_%s' | format(_settings_event_destination_common_prefix, _settings_event_destination_email_type) }}"
+_settings_event_destination_email_prefix_item_count: "{{ ansible_env.keys() | map('regex_search', ('^%s.*$' | format( _settings_event_destination_email_prefix)) , '\\0') | flatten | select('string') | length }}"
+_settings_event_destination_email_enabled: "{{ (_settings_event_destination_email_prefix_item_count | default('0',true) | int) > 0 }}"
+_settings_event_destination_email_specific:
+      defaultEmailCharset: "{{ lookup('env', '%s_defaultEmailCharset' | format(_settings_event_destination_email_prefix)) | default('NULL',true) }}"
+      fromEmail: "{{ lookup('env', '%s_fromEmail' | format(_settings_event_destination_email_prefix)) | default('NULL',true) }}"
+      logInvocationContent: "{{ lookup('env', '%s_logInvocationContent' | format(_settings_event_destination_email_prefix)) | default('NULL',true) }}"
+      logInvocationSubject: "{{ lookup('env', '%s_logInvocationSubject' | format(_settings_event_destination_email_prefix)) | default('NULL',true) }}"
+      monitorSLAContent: "{{ lookup('env', '%s_monitorSLAContent' | format(_settings_event_destination_email_prefix)) | default('NULL',true) }}"
+      monitorSLASubject: "{{ lookup('env', '%s_monitorSLASubject' | format(_settings_event_destination_email_prefix)) | default('NULL',true) }}"
+      monitorSPContent: "{{ lookup('env', '%s_monitorSPContent' | format(_settings_event_destination_email_prefix)) | default('NULL',true) }}"
+      monitorSPSubject: "{{ lookup('env', '%s_monitorSPSubject' | format(_settings_event_destination_email_prefix)) | default('NULL',true) }}"
+      password: "{{ lookup('env', '%s_password' | format(_settings_event_destination_email_prefix)) | default('NULL',true) }}"
+      port: "{{ lookup('env', '%s_port' | format(_settings_event_destination_email_prefix)) | default('NULL',true) }}"
+      smtpServer: "{{ lookup('env', '%s_smtpServer' | format(_settings_event_destination_email_prefix)) | default('NULL',true) }}"
+      testRecipient: "{{ lookup('env', '%s_testRecipient' | format(_settings_event_destination_email_prefix)) | default('NULL',true) }}"
+      throttlingContent: "{{ lookup('env', '%s_throttlingContent' | format(_settings_event_destination_email_prefix)) | default('NULL',true) }}"
+      throttlingSubject: "{{ lookup('env', '%s_throttlingSubject' | format(_settings_event_destination_email_prefix)) | default('NULL',true) }}"
+      transportLayerSecurity: "{{ lookup('env', '%s_transportLayerSecurity' | format(_settings_event_destination_email_prefix)) | default('NULL',true) }}"
+      trustStoreAlias: "{{ lookup('env', '%s_trustStoreAlias' | format(_settings_event_destination_email_prefix)) | default('NULL',true) }}"
+      userName: "{{ lookup('env', '%s_userName' | format(_settings_event_destination_email_prefix)) | default('NULL',true) }}"
+_settings_event_destination_email_final: "{{ _settings_event_destination_email_specific }}"
+
+## destination jdbc
+_settings_event_destination_jdbc_type: "jdbc"
+_settings_event_destination_jdbc_prefix: "{{ '%s_%s' | format(_settings_event_destination_common_prefix, _settings_event_destination_jdbc_type) }}"
+_settings_event_destination_jdbc_prefix_item_count: "{{ ansible_env.keys() | map('regex_search', ('^%s.*$' | format( _settings_event_destination_jdbc_prefix)) , '\\0') | flatten | select('string') | length }}"
+_settings_event_destination_jdbc_enabled: "{{ (_settings_event_destination_jdbc_prefix_item_count | default('0',true) | int) > 0 }}"
+_settings_event_destination_jdbc_specific: {}
+_settings_event_destination_jdbc_final: "{{ _settings_event_destination_common_configs | combine(_settings_event_destination_jdbc_specific) }}"
+
+## destination snmp
+_settings_event_destination_snmp_type: "snmp"
+_settings_event_destination_snmp_prefix: "{{ '%s_%s' | format(_settings_event_destination_common_prefix, _settings_event_destination_snmp_type) }}"
+_settings_event_destination_snmp_prefix_item_count: "{{ ansible_env.keys() | map('regex_search', ('^%s.*$' | format( _settings_event_destination_snmp_prefix)) , '\\0') | flatten | select('string') | length }}"
+_settings_event_destination_snmp_enabled: "{{ (_settings_event_destination_snmp_prefix_item_count | default('0',true) | int) > 0 }}"
+_settings_event_destination_snmp_specific:
+      hostName: "{{ lookup('env', '%s_hostName' | format(_settings_event_destination_snmp_prefix)) | default('NULL',true) }}"
+      port: "{{ lookup('env', '%s_port' | format(_settings_event_destination_snmp_prefix)) | default('NULL',true) }}"
+      snmpTargetType: "{{ lookup('env', '%s_snmpTargetType' | format(_settings_event_destination_snmp_prefix)) | default('NULL',true) }}"
+      transport: "{{ lookup('env', '%s_transport' | format(_settings_event_destination_snmp_prefix)) | default('NULL',true) }}"
+      useAuthorization: "{{ lookup('env', '%s_useAuthorization' | format(_settings_event_destination_snmp_prefix)) | default('NULL',true) }}"
+      usePrivacy: "{{ lookup('env', '%s_usePrivacy' | format(_settings_event_destination_snmp_prefix)) | default('NULL',true) }}"
+      userName: "{{ lookup('env', '%s_usePrivacy' | format(_settings_event_destination_snmp_prefix)) | default('NULL',true) }}"
+_settings_event_destination_snmp_final: "{{ _settings_event_destination_common_configs | combine(_settings_event_destination_snmp_specific) }}"
+
+## destination des
+_settings_event_destination_des_type: "des"
+_settings_event_destination_des_prefix: "{{ '%s_%s' | format(_settings_event_destination_common_prefix, _settings_event_destination_des_type) }}"
+_settings_event_destination_des_prefix_item_count: "{{ ansible_env.keys() | map('regex_search', ('^%s.*$' | format( _settings_event_destination_des_prefix)) , '\\0') | flatten | select('string') | length }}"
+_settings_event_destination_des_enabled: "{{ (_settings_event_destination_des_prefix_item_count | default('0',true) | int) > 0 }}"
+_settings_event_destination_des_specific: {}
+_settings_event_destination_des_final: "{{ _settings_event_destination_common_configs | combine(_settings_event_destination_des_specific) }}"
+
+## destination centrasite
+_settings_event_destination_centrasite_type: "centrasite"
+_settings_event_destination_centrasite_prefix: "{{ '%s_%s' | format(_settings_event_destination_common_prefix, _settings_event_destination_centrasite_type) }}"
+_settings_event_destination_centrasite_prefix_item_count: "{{ ansible_env.keys() | map('regex_search', ('^%s.*$' | format( _settings_event_destination_centrasite_prefix)) , '\\0') | flatten | select('string') | length }}"
+_settings_event_destination_centrasite_enabled: "{{ (_settings_event_destination_centrasite_prefix_item_count | default('0',true) | int) > 0 }}"
+_settings_event_destination_centrasite_specific:
+      gatewayAssetId: "{{ lookup('env', '%s_gatewayAssetId' | format(_settings_event_destination_centrasite_prefix)) | default('NULL',true) }}"
+      hostName: "{{ lookup('env', '%s_hostName' | format(_settings_event_destination_centrasite_prefix)) | default('NULL',true) }}"
+      password: "{{ lookup('env', '%s_password' | format(_settings_event_destination_centrasite_prefix)) | default('NULL',true) }}"
+      protocol: "{{ lookup('env', '%s_protocol' | format(_settings_event_destination_centrasite_prefix)) | default('NULL',true) }}"
+      targetName: "{{ lookup('env', '%s_targetName' | format(_settings_event_destination_centrasite_prefix)) | default('NULL',true) }}"
+      UDDIPort: "{{ lookup('env', '%s_UDDIPort' | format(_settings_event_destination_centrasite_prefix)) | default('NULL',true) }}"
+      UDDIPort: "{{ lookup('env', '%s_UDDIPort' | format(_settings_event_destination_centrasite_prefix)) | default('NULL',true) }}"
+_settings_event_destination_centrasite_final: "{{ _settings_event_destination_common_configs | combine(_settings_event_destination_centrasite_specific) }}"
+
+## destination centrasite_snmp
+_settings_event_destination_centrasite_snmp_type: "centrasite_snmp"
+_settings_event_destination_centrasite_snmp_prefix: "{{ '%s_%s' | format(_settings_event_destination_common_prefix, _settings_event_destination_centrasite_snmp_type) }}"
+_settings_event_destination_centrasite_snmp_prefix_item_count: "{{ ansible_env.keys() | map('regex_search', ('^%s.*$' | format( _settings_event_destination_centrasite_snmp_prefix)) , '\\0') | flatten | select('string') | length }}"
+_settings_event_destination_centrasite_snmp_enabled: "{{ (_settings_event_destination_centrasite_snmp_prefix_item_count | default('0',true) | int) > 0 }}"
+_settings_event_destination_centrasite_snmp_specific:
+      authorizationPassword: "{{ lookup('env', '%s_authorizationPassword' | format(_settings_event_destination_centrasite_snmp_prefix)) | default('NULL',true) }}"
+      authorizationProtocol: "{{ lookup('env', '%s_authorizationProtocol' | format(_settings_event_destination_centrasite_snmp_prefix)) | default('NULL',true) }}"
+      hostName: "{{ lookup('env', '%s_hostName' | format(_settings_event_destination_centrasite_snmp_prefix)) | default('NULL',true) }}"
+      port: "{{ lookup('env', '%s_port' | format(_settings_event_destination_centrasite_snmp_prefix)) | default('NULL',true) }}"
+      privacyPassword: "{{ lookup('env', '%s_privacyPassword' | format(_settings_event_destination_centrasite_snmp_prefix)) | default('NULL',true) }}"
+      privacyProtocol: "{{ lookup('env', '%s_privacyProtocol' | format(_settings_event_destination_centrasite_snmp_prefix)) | default('NULL',true) }}"
+      sendTRAPsToCentrasite: "{{ lookup('env', '%s_sendTRAPsToCentrasite' | format(_settings_event_destination_centrasite_snmp_prefix)) | default('NULL',true) }}"
+      transport: "{{ lookup('env', '%s_transport' | format(_settings_event_destination_centrasite_snmp_prefix)) | default('NULL',true) }}"
+      userName: "{{ lookup('env', '%s_userName' | format(_settings_event_destination_centrasite_snmp_prefix)) | default('NULL',true) }}"
+_settings_event_destination_centrasite_snmp_final: "{{ _settings_event_destination_common_configs | combine(_settings_event_destination_centrasite_snmp_specific) }}"
+
+## destination auditlogs
+_settings_event_destination_auditlogs_type: "auditlogs"
+_settings_event_destination_auditlogs_prefix: "{{ '%s_%s' | format(_settings_event_destination_common_prefix, _settings_event_destination_auditlogs_type) }}"
+_settings_event_destination_auditlogs_prefix_item_count: "{{ ansible_env.keys() | map('regex_search', ('^%s.*$' | format( _settings_event_destination_auditlogs_prefix)) , '\\0') | flatten | select('string') | length }}"
+_settings_event_destination_auditlogs_enabled: "{{ (_settings_event_destination_auditlogs_prefix_item_count | default('0',true) | int) > 0 }}"
+_settings_event_destination_auditlogs_specific:
+      destination: "{{ lookup('env', '%s_destination' | format(_settings_event_destination_auditlogs_prefix)) | default('NULL',true) }}"
+      enabled: "{{ lookup('env', '%s_enabled' | format(_settings_event_destination_auditlogs_prefix)) | default('NULL',true) }}"
+      guaranteed: "{{ lookup('env', '%s_guaranteed' | format(_settings_event_destination_auditlogs_prefix)) | default('NULL',true) }}"
+      maximumQueueSize: "{{ lookup('env', '%s_maximumQueueSize' | format(_settings_event_destination_auditlogs_prefix)) | default('NULL',true) }}"
+      maximumRetries: "{{ lookup('env', '%s_maximumRetries' | format(_settings_event_destination_auditlogs_prefix)) | default('NULL',true) }}"
+      mode: "{{ lookup('env', '%s_mode' | format(_settings_event_destination_auditlogs_prefix)) | default('NULL',true) }}"
+      name: "{{ lookup('env', '%s_name' | format(_settings_event_destination_auditlogs_prefix)) | default('NULL',true) }}"
+      waitBetweenRetries: "{{ lookup('env', '%s_waitBetweenRetries' | format(_settings_event_destination_auditlogs_prefix)) | default('NULL',true) }}"
+_settings_event_destination_auditlogs_final: "{{ _settings_event_destination_auditlogs_specific }}"
