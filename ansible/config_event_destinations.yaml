@@ -13,7 +13,7 @@
       with_fileglob:
         - vars/common.yaml
         - vars/rest_connect.yaml
-        - vars/settings_destinations.yaml
+        - vars/settings_event_destinations.yaml
 
 ################################################################
 ## set configs via REST APIs
@@ -24,20 +24,21 @@
 
     - name: set prefix item to ensure common attributes are using the right prefix
       set_fact:
-         _destination_prefix_item: "{{ _settings_destination_elastic_prefix }}"
+         _destination_prefix_item: "{{ _settings_event_destination_elastic_prefix }}"
     
     - ansible.builtin.debug:
         var: "{{ item }}"
       loop:
         - _destination_prefix_item
-        - _settings_destination_elastic_final
+        - _settings_event_destination_elastic_final
 
     - include_role:
         name: apigateway-rest-configurator
       vars:
-        configs_action: set-destination-elastic
-        configs_enabled: "{{ _settings_destination_elastic_enabled }}"
-        rvar_apigateway_destination_elastic: '{{ _settings_destination_elastic_final |
+        configs_action: set-event-destination
+        configs_enabled: "{{ _settings_event_destination_elastic_enabled }}"
+        rvar_apigateway_destination_type: elastic
+        rvar_apigateway_destination_config_dict: '{{ _settings_event_destination_elastic_final |
              dict2items |
              rejectattr("value", "equalto", "NULL") |
              items2dict }}'

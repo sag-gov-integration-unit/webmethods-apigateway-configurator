@@ -124,7 +124,7 @@ services:
     networks:
       - stack
   
-  config_settings_destinations_elastic:
+  config_settings_event_destinations_elastic:
     image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
     volumes:
       - ../resources/ansible/sagdevops-ansible-common:/ansible/roles/sagdevops-ansible-common-1.0.0-6:ro
@@ -135,14 +135,14 @@ services:
       connect_port: "5555"
       connect_user: Administrator
       connect_password: "somethingnew"
-      settings_destination_elastic_configure: "true"
-      settings_destination_elastic_protocol: http
-      settings_destination_elastic_hostname: server1
-      settings_destination_elastic_port: 9200
-      settings_destination_elastic_username: user1
-      settings_destination_elastic_password: password1
-      settings_destination_elastic_indexName: index1
-      settings_destination_elastic_sendErrorEvent: "true"
+      settings_event_destination_configure: "true"
+      settings_event_destination_elastic_protocol: http
+      settings_event_destination_elastic_hostname: server1
+      settings_event_destination_elastic_port: 9200
+      settings_event_destination_elastic_username: user1
+      settings_event_destination_elastic_password: password1
+      settings_event_destination_elastic_indexName: index1
+      settings_event_destination_elastic_sendErrorEvent: "true"
     networks:
       - stack
 
