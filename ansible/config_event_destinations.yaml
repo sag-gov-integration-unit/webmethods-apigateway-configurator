@@ -22,21 +22,13 @@
 - hosts: local
   tasks:
 
-    - name: set prefix item to ensure common attributes are using the right prefix
-      set_fact:
-         _destination_prefix_item: "{{ _settings_event_destination_elastic_prefix }}"
-    
-    - ansible.builtin.debug:
-        var: "{{ item }}"
-      loop:
-        - _destination_prefix_item
-        - _settings_event_destination_elastic_final
-
+    ## destination elasticsearch
     - include_role:
         name: apigateway-rest-configurator
       vars:
         configs_action: set-event-destination
         configs_enabled: "{{ _settings_event_destination_elastic_enabled | default('false',true) }}"
+        pvar_destination_prefix_item: "{{ _settings_event_destination_elastic_prefix }}"
         rvar_apigateway_destination_type: "{{ _settings_event_destination_elastic_type | default('NULL',true) }}"
         rvar_apigateway_destination_config_dict: '{{ _settings_event_destination_elastic_final |
             default({},true) |
@@ -44,13 +36,127 @@
             rejectattr("value", "equalto", "NULL") |
             items2dict }}'
 
+    ## destination apiportal
     - include_role:
         name: apigateway-rest-configurator
       vars:
         configs_action: set-event-destination
         configs_enabled: "{{ _settings_event_destination_apiportal_enabled | default('false',true) }}"
+        pvar_destination_prefix_item: "{{ _settings_event_destination_apiportal_prefix }}"
         rvar_apigateway_destination_type: "{{ _settings_event_destination_apiportal_type | default('NULL',true) }}"
         rvar_apigateway_destination_config_dict: '{{ _settings_event_destination_apiportal_final |
+            default({},true) |
+            dict2items |
+            rejectattr("value", "equalto", "NULL") |
+            items2dict }}'
+
+    ## destination apigateway
+    - include_role:
+        name: apigateway-rest-configurator
+      vars:
+        configs_action: set-event-destination
+        configs_enabled: "{{ _settings_event_destination_apigateway_enabled | default('false',true) }}"
+        pvar_destination_prefix_item: "{{ _settings_event_destination_apigateway_prefix }}"
+        rvar_apigateway_destination_type: "{{ _settings_event_destination_apigateway_type | default('NULL',true) }}"
+        rvar_apigateway_destination_config_dict: '{{ _settings_event_destination_apigateway_final |
+            default({},true) |
+            dict2items |
+            rejectattr("value", "equalto", "NULL") |
+            items2dict }}'
+
+    ## destination email
+    - include_role:
+        name: apigateway-rest-configurator
+      vars:
+        configs_action: set-event-destination
+        configs_enabled: "{{ _settings_event_destination_email_enabled | default('false',true) }}"
+        pvar_destination_prefix_item: "{{ _settings_event_destination_email_prefix }}"
+        rvar_apigateway_destination_type: "{{ _settings_event_destination_email_type | default('NULL',true) }}"
+        rvar_apigateway_destination_config_dict: '{{ _settings_event_destination_email_final |
+            default({},true) |
+            dict2items |
+            rejectattr("value", "equalto", "NULL") |
+            items2dict }}'
+
+    ## destination jdbc
+    - include_role:
+        name: apigateway-rest-configurator
+      vars:
+        configs_action: set-event-destination
+        configs_enabled: "{{ _settings_event_destination_jdbc_enabled | default('false',true) }}"
+        pvar_destination_prefix_item: "{{ _settings_event_destination_jdbc_prefix }}"
+        rvar_apigateway_destination_type: "{{ _settings_event_destination_jdbc_type | default('NULL',true) }}"
+        rvar_apigateway_destination_config_dict: '{{ _settings_event_destination_jdbc_final |
+            default({},true) |
+            dict2items |
+            rejectattr("value", "equalto", "NULL") |
+            items2dict }}'
+
+    ## destination snmp
+    - include_role:
+        name: apigateway-rest-configurator
+      vars:
+        configs_action: set-event-destination
+        configs_enabled: "{{ _settings_event_destination_snmp_enabled | default('false',true) }}"
+        pvar_destination_prefix_item: "{{ _settings_event_destination_snmp_prefix }}"
+        rvar_apigateway_destination_type: "{{ _settings_event_destination_snmp_type | default('NULL',true) }}"
+        rvar_apigateway_destination_config_dict: '{{ _settings_event_destination_snmp_final |
+            default({},true) |
+            dict2items |
+            rejectattr("value", "equalto", "NULL") |
+            items2dict }}'
+
+    ## destination des
+    - include_role:
+        name: apigateway-rest-configurator
+      vars:
+        configs_action: set-event-destination
+        configs_enabled: "{{ _settings_event_destination_des_enabled | default('false',true) }}"
+        pvar_destination_prefix_item: "{{ _settings_event_destination_des_prefix }}"
+        rvar_apigateway_destination_type: "{{ _settings_event_destination_des_type | default('NULL',true) }}"
+        rvar_apigateway_destination_config_dict: '{{ _settings_event_destination_des_final |
+            default({},true) |
+            dict2items |
+            rejectattr("value", "equalto", "NULL") |
+            items2dict }}'
+
+    ## destination centrasite
+    - include_role:
+        name: apigateway-rest-configurator
+      vars:
+        configs_action: set-event-destination
+        configs_enabled: "{{ _settings_event_destination_centrasite_enabled | default('false',true) }}"
+        pvar_destination_prefix_item: "{{ _settings_event_destination_centrasite_prefix }}"
+        rvar_apigateway_destination_type: "{{ _settings_event_destination_centrasite_type | default('NULL',true) }}"
+        rvar_apigateway_destination_config_dict: '{{ _settings_event_destination_centrasite_final |
+            default({},true) |
+            dict2items |
+            rejectattr("value", "equalto", "NULL") |
+            items2dict }}'
+
+    ## destination centrasite_snmp
+    - include_role:
+        name: apigateway-rest-configurator
+      vars:
+        configs_action: set-event-destination
+        configs_enabled: "{{ _settings_event_destination_centrasite_snmp_enabled | default('false',true) }}"
+        pvar_destination_prefix_item: "{{ _settings_event_destination_centrasite_snmp_prefix }}"
+        rvar_apigateway_destination_type: "{{ _settings_event_destination_centrasite_snmp_type | default('NULL',true) }}"
+        rvar_apigateway_destination_config_dict: '{{ _settings_event_destination_centrasite_snmp_final |
+            default({},true) |
+            dict2items |
+            rejectattr("value", "equalto", "NULL") |
+            items2dict }}'
+    
+    ## destination auditlogs
+    - include_role:
+        name: apigateway-rest-configurator
+      vars:
+        configs_action: set-event-destination
+        configs_enabled: "{{ _settings_event_destination_auditlogs_enabled | default('false',true) }}"
+        pvar_destination_prefix_item: "{{ _settings_event_destination_auditlogs_prefix }}"
+        rvar_apigateway_destination_type: "{{ _settings_event_destination_auditlogs_type | default('NULL',true) }}"
+        rvar_apigateway_destination_config_dict: '{{ _settings_event_destination_auditlogs_final |
             default({},true) |
             dict2items |
             rejectattr("value", "equalto", "NULL") |

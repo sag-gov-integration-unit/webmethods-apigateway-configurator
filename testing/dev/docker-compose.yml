@@ -136,7 +136,7 @@ services:
       - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.3-1:ro 
     environment: 
       connect_host: apigateway
-      configurator_ansible_args: -v
+      configurator_ansible_args: -vv
       connect_port: "5555"
       connect_user: Administrator
       connect_password: "somethingnew"
