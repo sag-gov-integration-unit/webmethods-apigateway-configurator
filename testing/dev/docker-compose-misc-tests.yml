@@ -1,0 +1,57 @@
+version: "3.2"
+
+networks:
+  default:
+    name: apimgt
+    external: true
+
+services:
+
+  test_dict2item:
+    image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
+    entrypoint: "./entrypoint.sh ./testing/test_dict2item.yaml"
+    volumes:
+      - ../resources/ansible/sagdevops-ansible-common:/ansible/roles/sagdevops-ansible-common-1.0.0-6:ro
+      - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.3-1:ro 
+    environment:
+      configurator_ansible_args: "-v"
+      wait_connect: "false"
+
+  test_search_apis_single:
+    image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
+    entrypoint: "./entrypoint.sh -vv ./testing/test_search_apis_single.yaml"
+    volumes:
+      - ../resources/ansible/sagdevops-ansible-common:/ansible/roles/sagdevops-ansible-common-1.0.0-6:ro
+      - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.3-1:ro 
+    environment:
+      connect_host: apigateway
+      configurator_ansible_args: -v
+      connect_port: "5555"
+      connect_user: Administrator
+      connect_password: "somethingnew"
+  
+  test_search_apis_multiple:
+    image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
+    entrypoint: "./entrypoint.sh -vv ./testing/test_search_apis_multiple.yaml"
+    volumes:
+      - ../resources/ansible/sagdevops-ansible-common:/ansible/roles/sagdevops-ansible-common-1.0.0-6:ro
+      - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.3-1:ro 
+    environment:
+      connect_host: apigateway
+      configurator_ansible_args: -v
+      connect_port: "5555"
+      connect_user: Administrator
+      connect_password: "somethingnew"
+
+  test_searches_2:
+    image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
+    entrypoint: "./entrypoint.sh -vv ./testing/test_search_2.yaml"
+    volumes:
+      - ../resources/ansible/sagdevops-ansible-common:/ansible/roles/sagdevops-ansible-common-1.0.0-6:ro
+      - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.3-1:ro 
+    environment:
+      connect_host: apigateway
+      configurator_ansible_args: -v
+      connect_port: "5555"
+      connect_user: Administrator
+      connect_password: "somethingnew"

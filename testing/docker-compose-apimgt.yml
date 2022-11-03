@@ -17,8 +17,6 @@ services:
       - "9072:9072"
     volumes:
       - ./resources/licensing/apigateway-licenseKey.xml:/opt/softwareag/IntegrationServer/instances/default/config/licenseKey.xml:rw
-    networks:
-      - apimgt
   
   devportal:
     image: ${REG_DEVPORTAL}${IMAGE_DEVPORTAL}:${TAG_DEVPORTAL}
@@ -29,8 +27,6 @@ services:
     environment: 
       PORTAL_SERVER_CONFIG_LICENSE: "/opt/softwareag/licenseKey.xml"
       SPRING_ELASTICSEARCH_REST_URIS: "http://elasticsearch:9200"
-    networks:
-      - apimgt
 
   elasticsearch:
     image: docker.elastic.co/elasticsearch/elasticsearch:${TAG_ELASTIC_VERSION}
@@ -40,5 +36,3 @@ services:
       - http.port=9200
       - transport.port=9300
       - xpack.security.enabled=false
-    networks:
-      - apimgt

@@ -57,7 +57,7 @@ The image is published on DockerHub at: https://hub.docker.com/r/saggs/webmethod
 But if you want to try anbd build it yourself, a simple command is:
 
 ```bash
-docker build -t saggs/webmethods-apigateway-configurator:10.11 .
+docker build -t saggs/webmethods-apigateway-configurator:10.15 .
 ```
 
 Authors

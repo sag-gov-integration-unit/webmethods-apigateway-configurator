@@ -9,20 +9,16 @@ The product images used in this testing are the official SoftwareAG images for [
 
 ## Create a default docker network
 
+In order to run different compose files without having to recreate the base product stack, let's create an external network that we'll use in different compose:
+
 ```
 docker network create -d bridge apimgt
 ```
 
 ## Start default SoftwareAG API management stack
 
-Here, we're pulling the default container images by SoftwareAG from DockerHub, ie.
-IMAGE_APIGATEWAY=softwareag/apigateway-trial
-IMAGE_DEVPORTAL=softwareag/devportal
-
-Check the [.env](./.env) for more details on that.
-
 ```bash
-docker-compose up -d apigateway devportal elasticsearch
+docker-compose --env-file .env -f docker-compose-apimgt.yml up -d
 ```
 
 Wait for the stack to come up...once loaded, the UIs shoudl be available:
@@ -36,7 +32,7 @@ You can login to each of these with default passwords etc... and nothing is conf
 Here we're applying it all in 1 single configurator batch...which could be the possible way to do it in an automated environment.
 
 ```bash
-docker-compose up config_settings_allinone config_data_allinone
+docker-compose --env-file .env -f docker-compose-allinone.yml up -d
 ```
 
 ## Running Tests: all configs one by one

@@ -8,12 +8,16 @@ ln -s <LOCAL_PATH>/sagdevops-ansible-developer-portal sagdevops-ansible-develope
 
 ## Starting the DEV stack
 
-docker-compose  --env-file .env -f dev/docker-compose.yml up -d apigateway devportal elasticsearch
+if not already done, start the product stack with:
+
+```
+docker-compose --env-file .env -f docker-compose-apimgt.yml up -d
+```
 
 ## All-in-one: Apply all system configs and all sample data in 1 batch
 
 ```bash
-docker-compose  --env-file .env -f dev/docker-compose.yml up -d config_settings_allinone config_data_allinone
+docker-compose --env-file .env -f dev/docker-compose-allinone.yml up -d
 ```
 
 ## Running Tests: all configs one by one
