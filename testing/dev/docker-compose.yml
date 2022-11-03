@@ -14,7 +14,7 @@ services:
       - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.3-10.15:ro 
     environment: 
       connect_host: apigateway
-      configurator_ansible_args: -v
+      #configurator_ansible_args: -v
       connect_port: "5555"
       connect_user: Administrator
       connect_password: "somethingnew"
@@ -28,7 +28,7 @@ services:
       - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.3-10.15:ro 
     environment: 
       connect_host: apigateway
-      configurator_ansible_args: -v
+      #configurator_ansible_args: -v
       connect_port: "5555"
       connect_user: Administrator
       connect_password: "somethingnew"
@@ -45,7 +45,7 @@ services:
       - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.3-10.15:ro 
     environment: 
       connect_host: apigateway
-      configurator_ansible_args: -v
+      #configurator_ansible_args: -v
       connect_port: "5555"
       connect_user: Administrator
       connect_password: "somethingnew"
@@ -80,7 +80,7 @@ services:
       - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.3-10.15:ro 
     environment: 
       connect_host: apigateway
-      configurator_ansible_args: -v
+      #configurator_ansible_args: -v
       connect_port: "5555"
       connect_user: Administrator
       connect_password: "somethingnew"
@@ -96,7 +96,7 @@ services:
       - ../resources/certs:/certs:ro
     environment: 
       connect_host: apigateway
-      configurator_ansible_args: -v
+      #configurator_ansible_args: -v
       connect_port: "5555"
       connect_user: Administrator
       connect_password: "somethingnew"
@@ -126,7 +126,7 @@ services:
       - ../resources/certs:/certs:ro
     environment: 
       connect_host: apigateway
-      configurator_ansible_args: -v
+      #configurator_ansible_args: -v
       connect_port: "5555"
       connect_user: Administrator
       connect_password: "somethingnew"
@@ -145,7 +145,7 @@ services:
       - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.3-10.15:ro 
     environment: 
       connect_host: apigateway
-      configurator_ansible_args: -v
+      #configurator_ansible_args: -v
       connect_port: "5555"
       connect_user: Administrator
       connect_password: "somethingnew"
@@ -165,7 +165,7 @@ services:
     environment: 
       configurator_debug: "true"
       connect_host: apigateway
-      configurator_ansible_args: -v
+      #configurator_ansible_args: -v
       connect_port: "5555"
       connect_user: Administrator
       connect_password: "somethingnew"
@@ -212,7 +212,7 @@ services:
       - ../resources/certs:/certs:ro
     environment: 
       connect_host: apigateway
-      configurator_ansible_args: -v
+      #configurator_ansible_args: -v
       connect_port: "5555"
       connect_user: Administrator
       connect_password: "somethingnew"
@@ -239,7 +239,7 @@ services:
       - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.3-10.15:ro 
     environment: 
       connect_host: apigateway
-      configurator_ansible_args: -v
+      #configurator_ansible_args: -v
       connect_port: "5555"
       connect_user: Administrator
       connect_password: "somethingnew"
@@ -265,7 +265,7 @@ services:
       - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.3-10.15:ro
     environment: 
       connect_host: apigateway
-      configurator_ansible_args: -v
+      #configurator_ansible_args: -v
       connect_port: "5555"
       connect_user: Administrator
       connect_password: "somethingnew"
@@ -292,7 +292,7 @@ services:
       - ../resources/saml/idpmetadata.xml:/configs/idpmetadata.xml:ro
     environment: 
       connect_host: apigateway
-      configurator_ansible_args: -v
+      #configurator_ansible_args: -v
       connect_port: "5555"
       connect_user: Administrator
       connect_password: "somethingnew"
@@ -319,7 +319,7 @@ services:
       - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.3-10.15:ro 
     environment: 
       connect_host: apigateway
-      configurator_ansible_args: -v
+      #configurator_ansible_args: -v
       connect_port: "5555"
       connect_user: Administrator
       connect_password: "somethingnew"
@@ -356,7 +356,7 @@ services:
       - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.3-10.15:ro 
     environment: 
       connect_host: apigateway
-      configurator_ansible_args: -v
+      #configurator_ansible_args: -v
       connect_port: "5555"
       connect_user: Administrator
       connect_password: "somethingnew"
@@ -381,7 +381,7 @@ services:
       - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.3-10.15:ro 
     environment: 
       connect_host: apigateway
-      configurator_ansible_args: -v
+      #configurator_ansible_args: -v
       connect_port: "5555"
       connect_user: Administrator
       connect_password: "somethingnew"
@@ -407,7 +407,7 @@ services:
       - ../resources/sampleapis_archives:/imports:ro
     environment: 
       connect_host: apigateway
-      configurator_ansible_args: -v
+      #configurator_ansible_args: -v
       connect_port: "5555"
       connect_user: Administrator
       connect_password: "somethingnew"
@@ -429,7 +429,7 @@ services:
       - ../resources/sampleapis_archives:/imports:ro
     environment: 
       connect_host: apigateway
-      configurator_ansible_args: -v
+      #configurator_ansible_args: -v
       connect_port: "5555"
       connect_user: Administrator
       connect_password: "somethingnew"
@@ -442,7 +442,7 @@ services:
       - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.3-10.15:ro 
     environment: 
       connect_host: apigateway
-      configurator_ansible_args: -v
+      #configurator_ansible_args: -v
       connect_port: "5555"
       connect_user: Administrator
       connect_password: "somethingnew"
@@ -480,7 +480,7 @@ services:
       - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.3-10.15:ro 
     environment: 
       connect_host: apigateway
-      configurator_ansible_args: -v
+      #configurator_ansible_args: -v
       connect_port: "5555"
       connect_user: Administrator
       connect_password: "somethingnew"
@@ -513,7 +513,7 @@ services:
       - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.3-10.15:ro 
     environment: 
       connect_host: apigateway
-      configurator_ansible_args: -v
+      #configurator_ansible_args: -v
       connect_port: "5555"
       connect_user: Administrator
       connect_password: "somethingnew"
@@ -538,7 +538,7 @@ services:
       - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.3-10.15:ro 
     environment: 
       connect_host: apigateway
-      configurator_ansible_args: -v
+      #configurator_ansible_args: -v
       connect_port: "5555"
       connect_user: Administrator
       connect_password: "somethingnew"
@@ -557,7 +557,7 @@ services:
       - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.3-10.15:ro 
     environment: 
       connect_host: apigateway
-      configurator_ansible_args: -v
+      #configurator_ansible_args: -v
       connect_port: "5555"
       connect_user: Administrator
       connect_password: "somethingnew"
@@ -576,7 +576,7 @@ services:
       - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.3-10.15:ro 
     environment: 
       connect_host: apigateway
-      configurator_ansible_args: -v
+      #configurator_ansible_args: -v
       connect_port: "5555"
       connect_user: Administrator
       connect_password: "somethingnew"
@@ -595,7 +595,7 @@ services:
       - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.3-10.15:ro 
     environment: 
       connect_host: apigateway
-      configurator_ansible_args: -v
+      #configurator_ansible_args: -v
       connect_port: "5555"
       connect_user: Administrator
       connect_password: "somethingnew"
@@ -608,7 +608,7 @@ services:
       - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.3-10.15:ro 
     environment: 
       connect_host: apigateway
-      configurator_ansible_args: -v
+      #configurator_ansible_args: -v
       connect_port: "5555"
       connect_user: Administrator
       connect_password: "somethingnew"
@@ -635,7 +635,7 @@ services:
       - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.3-10.15:ro 
     environment: 
       connect_host: apigateway
-      configurator_ansible_args: -v
+      #configurator_ansible_args: -v
       connect_port: "5555"
       connect_user: Administrator
       connect_password: "somethingnew"
@@ -654,7 +654,7 @@ services:
       - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.3-10.15:ro 
     environment: 
       connect_host: apigateway
-      configurator_ansible_args: -v
+      #configurator_ansible_args: -v
       connect_port: "5555"
       connect_user: Administrator
       connect_password: "somethingnew"
@@ -675,7 +675,7 @@ services:
       - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.3-10.15:ro 
     environment:
       connect_host: apigateway
-      configurator_ansible_args: -v
+      #configurator_ansible_args: -v
       connect_port: "5555"
       connect_user: Administrator
       connect_password: "somethingnew"
@@ -718,7 +718,7 @@ services:
       - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.3-10.15:ro 
     environment: 
       connect_host: apigateway
-      configurator_ansible_args: -v
+      #configurator_ansible_args: -v
       connect_port: "5555"
       connect_user: Administrator
       connect_password: "somethingnew"
@@ -740,7 +740,7 @@ services:
       - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.3-10.15:ro 
     environment: 
       connect_host: apigateway
-      configurator_ansible_args: -v
+      #configurator_ansible_args: -v
       connect_port: "5555"
       connect_user: Administrator
       connect_password: "somethingnew"
@@ -762,7 +762,7 @@ services:
       - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.3-10.15:ro 
     environment: 
       connect_host: apigateway
-      configurator_ansible_args: -v
+      #configurator_ansible_args: -v
       connect_port: "5555"
       connect_user: Administrator
       connect_password: "somethingnew"
@@ -780,7 +780,7 @@ services:
       - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.3-10.15:ro 
     environment: 
       connect_host: apigateway
-      configurator_ansible_args: -v
+      #configurator_ansible_args: -v
       connect_port: "5555"
       connect_user: Administrator
       connect_password: "somethingnew"
