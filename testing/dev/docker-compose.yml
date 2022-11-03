@@ -136,19 +136,29 @@ services:
       - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.3-1:ro 
     environment: 
       connect_host: apigateway
-      configurator_ansible_args: -vv
+      configurator_ansible_args: -v
       connect_port: "5555"
       connect_user: Administrator
       connect_password: "somethingnew"
       settings_event_destination_configure: "true"
       settings_event_destination_elastic_protocol: http
-      settings_event_destination_elastic_hostname: server1
+      settings_event_destination_elastic_hostName: server1
       settings_event_destination_elastic_port: 9200
-      settings_event_destination_elastic_username: user1
+      settings_event_destination_elastic_userName: user1
       settings_event_destination_elastic_password: password1
       settings_event_destination_elastic_indexName: index1
       settings_event_destination_elastic_sendErrorEvent: "true"
       settings_event_destination_apiportal_sendErrorEvent: "true"
+      settings_event_destination_apigateway_sendErrorEvent: "true"
+      settings_event_destination_email_smtpServer: "smtp1"
+      settings_event_destination_email_port: "1234"
+      settings_event_destination_email_userName: "testuser"
+      settings_event_destination_jdbc_sendErrorEvent: "true"
+      settings_event_destination_snmp_sendErrorEvent: "true"
+      settings_event_destination_des_sendErrorEvent: "true"
+      settings_event_destination_centrasite_sendErrorEvent: "true"
+      settings_event_destination_centrasite_snmp_sendErrorEvent: "true"
+      settings_event_destination_auditlogs_sendErrorEvent: "true"
     networks:
       - stack
 
