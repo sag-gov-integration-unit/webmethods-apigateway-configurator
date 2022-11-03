@@ -12,7 +12,7 @@ services:
     entrypoint: "./entrypoint.sh ./testing/test_dict2item.yaml"
     volumes:
       - ../resources/ansible/sagdevops-ansible-common:/ansible/roles/sagdevops-ansible-common-1.0.0-6:ro
-      - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.3-1:ro 
+      - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.3-10.15:ro 
     environment:
       configurator_ansible_args: "-v"
       wait_connect: "false"
@@ -22,7 +22,7 @@ services:
     entrypoint: "./entrypoint.sh -vv ./testing/test_search_apis_single.yaml"
     volumes:
       - ../resources/ansible/sagdevops-ansible-common:/ansible/roles/sagdevops-ansible-common-1.0.0-6:ro
-      - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.3-1:ro 
+      - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.3-10.15:ro 
     environment:
       connect_host: apigateway
       configurator_ansible_args: -v
@@ -35,7 +35,7 @@ services:
     entrypoint: "./entrypoint.sh -vv ./testing/test_search_apis_multiple.yaml"
     volumes:
       - ../resources/ansible/sagdevops-ansible-common:/ansible/roles/sagdevops-ansible-common-1.0.0-6:ro
-      - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.3-1:ro 
+      - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.3-10.15:ro 
     environment:
       connect_host: apigateway
       configurator_ansible_args: -v
@@ -48,7 +48,7 @@ services:
     entrypoint: "./entrypoint.sh -vv ./testing/test_search_2.yaml"
     volumes:
       - ../resources/ansible/sagdevops-ansible-common:/ansible/roles/sagdevops-ansible-common-1.0.0-6:ro
-      - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.3-1:ro 
+      - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.3-10.15:ro 
     environment:
       connect_host: apigateway
       configurator_ansible_args: -v

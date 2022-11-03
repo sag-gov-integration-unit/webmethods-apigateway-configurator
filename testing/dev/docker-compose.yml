@@ -11,7 +11,7 @@ services:
     image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
     volumes:
       - ../resources/ansible/sagdevops-ansible-common:/ansible/roles/sagdevops-ansible-common-1.0.0-6:ro
-      - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.3-1:ro 
+      - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.3-10.15:ro 
     environment: 
       connect_host: apigateway
       configurator_ansible_args: -v
@@ -25,7 +25,7 @@ services:
     image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
     volumes:
       - ../resources/ansible/sagdevops-ansible-common:/ansible/roles/sagdevops-ansible-common-1.0.0-6:ro
-      - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.3-1:ro 
+      - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.3-10.15:ro 
     environment: 
       connect_host: apigateway
       configurator_ansible_args: -v
@@ -42,7 +42,7 @@ services:
     image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
     volumes:
       - ../resources/ansible/sagdevops-ansible-common:/ansible/roles/sagdevops-ansible-common-1.0.0-6:ro
-      - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.3-1:ro 
+      - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.3-10.15:ro 
     environment: 
       connect_host: apigateway
       configurator_ansible_args: -v
@@ -77,7 +77,7 @@ services:
     image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
     volumes:
       - ../resources/ansible/sagdevops-ansible-common:/ansible/roles/sagdevops-ansible-common-1.0.0-6:ro
-      - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.3-1:ro 
+      - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.3-10.15:ro 
     environment: 
       connect_host: apigateway
       configurator_ansible_args: -v
@@ -92,7 +92,7 @@ services:
     image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
     volumes:
       - ../resources/ansible/sagdevops-ansible-common:/ansible/roles/sagdevops-ansible-common-1.0.0-6:ro
-      - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.3-1:ro 
+      - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.3-10.15:ro 
       - ../resources/certs:/certs:ro
     environment: 
       connect_host: apigateway
@@ -122,7 +122,7 @@ services:
     image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
     volumes:
       - ../resources/ansible/sagdevops-ansible-common:/ansible/roles/sagdevops-ansible-common-1.0.0-6:ro
-      - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.3-1:ro 
+      - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.3-10.15:ro 
       - ../resources/certs:/certs:ro
     environment: 
       connect_host: apigateway
@@ -142,7 +142,7 @@ services:
     image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
     volumes:
       - ../resources/ansible/sagdevops-ansible-common:/ansible/roles/sagdevops-ansible-common-1.0.0-6:ro
-      - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.3-1:ro 
+      - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.3-10.15:ro 
     environment: 
       connect_host: apigateway
       configurator_ansible_args: -v
@@ -161,7 +161,7 @@ services:
     image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
     volumes:
       - ../resources/ansible/sagdevops-ansible-common:/ansible/roles/sagdevops-ansible-common-1.0.0-6:ro
-      - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.3-1:ro 
+      - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.3-10.15:ro 
     environment: 
       configurator_debug: "true"
       connect_host: apigateway
@@ -208,7 +208,7 @@ services:
     image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
     volumes:
       - ../resources/ansible/sagdevops-ansible-common:/ansible/roles/sagdevops-ansible-common-1.0.0-6:ro
-      - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.3-1:ro 
+      - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.3-10.15:ro 
       - ../resources/certs:/certs:ro
     environment: 
       connect_host: apigateway
@@ -236,7 +236,7 @@ services:
     image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
     volumes:
       - ../resources/ansible/sagdevops-ansible-common:/ansible/roles/sagdevops-ansible-common-1.0.0-6:ro
-      - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.3-1:ro 
+      - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.3-10.15:ro 
     environment: 
       connect_host: apigateway
       configurator_ansible_args: -v
@@ -262,7 +262,7 @@ services:
     image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
     volumes:
       - ../resources/ansible/sagdevops-ansible-common:/ansible/roles/sagdevops-ansible-common-1.0.0-6:ro
-      - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.3-1:ro
+      - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.3-10.15:ro
     environment: 
       connect_host: apigateway
       configurator_ansible_args: -v
@@ -287,7 +287,7 @@ services:
     image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
     volumes:
       - ../resources/ansible/sagdevops-ansible-common:/ansible/roles/sagdevops-ansible-common-1.0.0-6:ro
-      - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.3-1:ro 
+      - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.3-10.15:ro 
       - ../resources/certs:/certs:ro
       - ../resources/saml/idpmetadata.xml:/configs/idpmetadata.xml:ro
     environment: 
@@ -316,7 +316,7 @@ services:
     image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
     volumes:
       - ../resources/ansible/sagdevops-ansible-common:/ansible/roles/sagdevops-ansible-common-1.0.0-6:ro
-      - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.3-1:ro 
+      - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.3-10.15:ro 
     environment: 
       connect_host: apigateway
       configurator_ansible_args: -v
@@ -353,7 +353,7 @@ services:
     image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
     volumes:
       - ../resources/ansible/sagdevops-ansible-common:/ansible/roles/sagdevops-ansible-common-1.0.0-6:ro
-      - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.3-1:ro 
+      - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.3-10.15:ro 
     environment: 
       connect_host: apigateway
       configurator_ansible_args: -v
@@ -378,7 +378,7 @@ services:
     image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
     volumes:
       - ../resources/ansible/sagdevops-ansible-common:/ansible/roles/sagdevops-ansible-common-1.0.0-6:ro
-      - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.3-1:ro 
+      - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.3-10.15:ro 
     environment: 
       connect_host: apigateway
       configurator_ansible_args: -v
@@ -403,7 +403,7 @@ services:
     image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
     volumes:
       - ../resources/ansible/sagdevops-ansible-common:/ansible/roles/sagdevops-ansible-common-1.0.0-6:ro
-      - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.3-1:ro 
+      - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.3-10.15:ro 
       - ../resources/sampleapis_archives:/imports:ro
     environment: 
       connect_host: apigateway
@@ -425,7 +425,7 @@ services:
     image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
     volumes:
       - ../resources/ansible/sagdevops-ansible-common:/ansible/roles/sagdevops-ansible-common-1.0.0-6:ro
-      - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.3-1:ro 
+      - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.3-10.15:ro 
       - ../resources/sampleapis_archives:/imports:ro
     environment: 
       connect_host: apigateway
@@ -439,7 +439,7 @@ services:
     image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
     volumes:
       - ../resources/ansible/sagdevops-ansible-common:/ansible/roles/sagdevops-ansible-common-1.0.0-6:ro
-      - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.3-1:ro 
+      - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.3-10.15:ro 
     environment: 
       connect_host: apigateway
       configurator_ansible_args: -v
@@ -477,7 +477,7 @@ services:
     image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
     volumes:
       - ../resources/ansible/sagdevops-ansible-common:/ansible/roles/sagdevops-ansible-common-1.0.0-6:ro
-      - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.3-1:ro 
+      - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.3-10.15:ro 
     environment: 
       connect_host: apigateway
       configurator_ansible_args: -v
@@ -490,7 +490,7 @@ services:
     image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
     volumes:
       - ../resources/ansible/sagdevops-ansible-common:/ansible/roles/sagdevops-ansible-common-1.0.0-6:ro
-      - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.3-1:ro 
+      - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.3-10.15:ro 
     environment: 
       connect_host: apigateway
       connect_port: "5555"
@@ -510,7 +510,7 @@ services:
     image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
     volumes:
       - ../resources/ansible/sagdevops-ansible-common:/ansible/roles/sagdevops-ansible-common-1.0.0-6:ro
-      - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.3-1:ro 
+      - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.3-10.15:ro 
     environment: 
       connect_host: apigateway
       configurator_ansible_args: -v
@@ -535,7 +535,7 @@ services:
     image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
     volumes:
       - ../resources/ansible/sagdevops-ansible-common:/ansible/roles/sagdevops-ansible-common-1.0.0-6:ro
-      - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.3-1:ro 
+      - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.3-10.15:ro 
     environment: 
       connect_host: apigateway
       configurator_ansible_args: -v
@@ -554,7 +554,7 @@ services:
     image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
     volumes:
       - ../resources/ansible/sagdevops-ansible-common:/ansible/roles/sagdevops-ansible-common-1.0.0-6:ro
-      - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.3-1:ro 
+      - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.3-10.15:ro 
     environment: 
       connect_host: apigateway
       configurator_ansible_args: -v
@@ -573,7 +573,7 @@ services:
     image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
     volumes:
       - ../resources/ansible/sagdevops-ansible-common:/ansible/roles/sagdevops-ansible-common-1.0.0-6:ro
-      - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.3-1:ro 
+      - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.3-10.15:ro 
     environment: 
       connect_host: apigateway
       configurator_ansible_args: -v
@@ -592,7 +592,7 @@ services:
     image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
     volumes:
       - ../resources/ansible/sagdevops-ansible-common:/ansible/roles/sagdevops-ansible-common-1.0.0-6:ro
-      - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.3-1:ro 
+      - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.3-10.15:ro 
     environment: 
       connect_host: apigateway
       configurator_ansible_args: -v
@@ -605,7 +605,7 @@ services:
     image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
     volumes:
       - ../resources/ansible/sagdevops-ansible-common:/ansible/roles/sagdevops-ansible-common-1.0.0-6:ro
-      - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.3-1:ro 
+      - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.3-10.15:ro 
     environment: 
       connect_host: apigateway
       configurator_ansible_args: -v
@@ -632,7 +632,7 @@ services:
     image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
     volumes:
       - ../resources/ansible/sagdevops-ansible-common:/ansible/roles/sagdevops-ansible-common-1.0.0-6:ro
-      - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.3-1:ro 
+      - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.3-10.15:ro 
     environment: 
       connect_host: apigateway
       configurator_ansible_args: -v
@@ -651,7 +651,7 @@ services:
     image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
     volumes:
       - ../resources/ansible/sagdevops-ansible-common:/ansible/roles/sagdevops-ansible-common-1.0.0-6:ro
-      - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.3-1:ro 
+      - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.3-10.15:ro 
     environment: 
       connect_host: apigateway
       configurator_ansible_args: -v
@@ -672,7 +672,7 @@ services:
     image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
     volumes:
       - ../resources/ansible/sagdevops-ansible-common:/ansible/roles/sagdevops-ansible-common-1.0.0-6:ro
-      - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.3-1:ro 
+      - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.3-10.15:ro 
     environment:
       connect_host: apigateway
       configurator_ansible_args: -v
@@ -715,7 +715,7 @@ services:
     image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
     volumes:
       - ../resources/ansible/sagdevops-ansible-common:/ansible/roles/sagdevops-ansible-common-1.0.0-6:ro
-      - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.3-1:ro 
+      - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.3-10.15:ro 
     environment: 
       connect_host: apigateway
       configurator_ansible_args: -v
@@ -737,7 +737,7 @@ services:
     image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
     volumes:
       - ../resources/ansible/sagdevops-ansible-common:/ansible/roles/sagdevops-ansible-common-1.0.0-6:ro
-      - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.3-1:ro 
+      - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.3-10.15:ro 
     environment: 
       connect_host: apigateway
       configurator_ansible_args: -v
@@ -759,7 +759,7 @@ services:
     image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
     volumes:
       - ../resources/ansible/sagdevops-ansible-common:/ansible/roles/sagdevops-ansible-common-1.0.0-6:ro
-      - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.3-1:ro 
+      - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.3-10.15:ro 
     environment: 
       connect_host: apigateway
       configurator_ansible_args: -v
@@ -777,7 +777,7 @@ services:
     image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
     volumes:
       - ../resources/ansible/sagdevops-ansible-common:/ansible/roles/sagdevops-ansible-common-1.0.0-6:ro
-      - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.3-1:ro 
+      - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.3-10.15:ro 
     environment: 
       connect_host: apigateway
       configurator_ansible_args: -v
