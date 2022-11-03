@@ -569,6 +569,28 @@ services:
     networks:
       - stack
 
+  config_data_aliases_existing:
+    image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
+    volumes:
+      - ../resources/ansible/sagdevops-ansible-common:/ansible/roles/sagdevops-ansible-common-1.0.0-6:ro
+      - ../resources/ansible/sagdevops-ansible-apigateway:/ansible/roles/sagdevops-ansible-apigateway-1.0.3-1:ro 
+    environment: 
+      connect_host: apigateway
+      connect_port: "5555"
+      connect_user: Administrator
+      connect_password: "somethingnew"
+      data_aliases_configure: "true"
+      data_aliases_0_name: uszip_endpoint
+      data_aliases_0_description: uszip endpoint alias UPDATED
+      data_aliases_0_type: simple
+      data_aliases_0_value: http://uszip:7071
+      data_aliases_1_name: bookstore_endpoint
+      data_aliases_1_description: bookstore endpoint alias UPDATED
+      data_aliases_1_type: simple
+      data_aliases_1_value: http://bookstore:7071
+    networks:
+      - stack
+
   config_data_apis:
     image: ${REG_APIGATEWAY_CONFIGURATOR}webmethods-apigateway-configurator:${TAG_APIGATEWAY_CONFIGURATOR}
     volumes:

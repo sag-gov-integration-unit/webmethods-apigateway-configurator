@@ -147,6 +147,12 @@ docker-compose run config_data_import_archives
 docker-compose run config_data_aliases
 ```
 
+#### configure existing aliases
+
+```bash
+docker-compose run config_data_aliases_existing
+```
+
 #### configure apis
 
 ```bash
