@@ -156,9 +156,13 @@ services:
       settings_event_destination_jdbc_sendErrorEvent: "true"
       settings_event_destination_snmp_sendErrorEvent: "true"
       settings_event_destination_des_sendErrorEvent: "true"
-      settings_event_destination_centrasite_sendErrorEvent: "true"
-      settings_event_destination_centrasite_snmp_sendErrorEvent: "true"
-      settings_event_destination_auditlogs_sendErrorEvent: "true"
+      # TODO: investgate how to set these values for centrasite? 
+      # (maybe centrasite configs must be added for this setting to take...)
+      # settings_event_destination_centrasite_sendErrorEvent: "true"
+      # settings_event_destination_centrasite_snmp_sendErrorEvent: "true"
+      settings_event_destination_auditlogs_enabled: "true"
+      settings_event_destination_auditlogs_destination: "file"
+      settings_event_destination_auditlogs_maximumQueueSize: "1000"
     networks:
       - stack
 

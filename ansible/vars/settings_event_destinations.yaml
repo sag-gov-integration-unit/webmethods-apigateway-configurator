@@ -120,8 +120,8 @@ _settings_event_destination_centrasite_specific:
       password: "{{ lookup('env', '%s_password' | format(_settings_event_destination_centrasite_prefix)) | default('NULL',true) }}"
       protocol: "{{ lookup('env', '%s_protocol' | format(_settings_event_destination_centrasite_prefix)) | default('NULL',true) }}"
       targetName: "{{ lookup('env', '%s_targetName' | format(_settings_event_destination_centrasite_prefix)) | default('NULL',true) }}"
-      uddiPort: "{{ lookup('env', '%s_uddiPort' | format(_settings_event_destination_centrasite_prefix)) | default('NULL',true) }}"
-      uddiPort: "{{ lookup('env', '%s_uddiPort' | format(_settings_event_destination_centrasite_prefix)) | default('NULL',true) }}"
+      UDDIPort: "{{ lookup('env', '%s_UDDIPort' | format(_settings_event_destination_centrasite_prefix)) | default('NULL',true) }}"
+      UDDIPort: "{{ lookup('env', '%s_UDDIPort' | format(_settings_event_destination_centrasite_prefix)) | default('NULL',true) }}"
 _settings_event_destination_centrasite_final: "{{ _settings_event_destination_common_configs | combine(_settings_event_destination_centrasite_specific) }}"
 
 ## destination centrasite_snmp
@@ -148,11 +148,11 @@ _settings_event_destination_auditlogs_prefix_item_count: "{{ ansible_env.keys() 
 _settings_event_destination_auditlogs_enabled: "{{ (_settings_event_destination_auditlogs_prefix_item_count | default('0',true) | int) > 0 }}"
 _settings_event_destination_auditlogs_specific:
       destination: "{{ lookup('env', '%s_destination' | format(_settings_event_destination_auditlogs_prefix)) | default('NULL',true) }}"
-      enable: "{{ lookup('env', '%s_enable' | format(_settings_event_destination_auditlogs_prefix)) | default('NULL',true) }}"
+      enabled: "{{ lookup('env', '%s_enabled' | format(_settings_event_destination_auditlogs_prefix)) | default('NULL',true) }}"
       guaranteed: "{{ lookup('env', '%s_guaranteed' | format(_settings_event_destination_auditlogs_prefix)) | default('NULL',true) }}"
       maximumQueueSize: "{{ lookup('env', '%s_maximumQueueSize' | format(_settings_event_destination_auditlogs_prefix)) | default('NULL',true) }}"
       maximumRetries: "{{ lookup('env', '%s_maximumRetries' | format(_settings_event_destination_auditlogs_prefix)) | default('NULL',true) }}"
       mode: "{{ lookup('env', '%s_mode' | format(_settings_event_destination_auditlogs_prefix)) | default('NULL',true) }}"
       name: "{{ lookup('env', '%s_name' | format(_settings_event_destination_auditlogs_prefix)) | default('NULL',true) }}"
       waitBetweenRetries: "{{ lookup('env', '%s_waitBetweenRetries' | format(_settings_event_destination_auditlogs_prefix)) | default('NULL',true) }}"
-_settings_event_destination_auditlogs_final: "{{ _settings_event_destination_common_configs | combine(_settings_event_destination_auditlogs_specific) }}"
+_settings_event_destination_auditlogs_final: "{{ _settings_event_destination_auditlogs_specific }}"
