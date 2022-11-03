@@ -43,16 +43,10 @@ The tests will automatically run all the docker-compose services which names sta
 sh run_tests.sh docker-compose.yml
 ```
 
-IF you want to run ONLY the "allinone" services, add param: allinone=only
+IF you want to run ONLY the "allinone" services:
 
 ```bash
-sh run_tests.sh docker-compose.yml allinone=only
-```
-
-IF you want to run all the services WITHOUT the "allinone" services, add param: allinone=rm
-
-```bash
-sh run_tests.sh docker-compose.yml allinone=rm
+sh run_tests.sh docker-compose-allinone.yml
 ```
 
 ## Manual apply: execute each system configs one at a time
