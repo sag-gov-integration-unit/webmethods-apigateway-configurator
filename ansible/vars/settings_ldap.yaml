@@ -4,4 +4,4 @@ vars_ldap_enabled: "{{ lookup('env', 'settings_ldap_configure') | default('false
 vars_ldap_ignore_errors: "{{ lookup('env', 'settings_ldap_configure_ignore_errors') | default(vars_default_ignore_errors,true) }}"
 
 ## api gateway connectivity to ldap
-vars_ldap_settings: {}
+vars_ldap_settings: "{{ lookup('pipe', 'scripts/config_ldap_api_payload.py') }}"
