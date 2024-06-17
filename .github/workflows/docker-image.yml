@@ -38,7 +38,7 @@ jobs:
             type=match,pattern=v[^-]*-(.*),group=1
   
       - name: Build and push Docker image
-        uses: docker/build-push-action@v3
+        uses: docker/build-push-action@v6
         with:
           context: .
           build-args: |
