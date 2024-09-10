@@ -2,7 +2,7 @@ apiVersion: v2
 name: webmethods-apigateway-configurator
 description: Configure webmethods apigateway using simple environment variables - Configuration as Code for webmethods-apigateway-configurator.
 home: https://github.com/sag-gov-integration-unit/webmethods-apigateway-configurator
-version: "1.0.0"
+version: "1.0.1"
 appVersion: "1.0.0"
 maintainers:
   - name: fabien sanglier
